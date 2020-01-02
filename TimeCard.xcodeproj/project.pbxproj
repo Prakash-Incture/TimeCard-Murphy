@@ -1,0 +1,1031 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D5FE1BB53F63DF8C1D2B75E /* Pods_TimeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */; };
+		474047F4188363329B2E3D73 /* Pods_TimeCard_TimeCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */; };
+		5E15811223BB1EAB00754F69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811123BB1EAB00754F69 /* AppDelegate.swift */; };
+		5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811323BB1EAB00754F69 /* SceneDelegate.swift */; };
+		5E15811623BB1EAB00754F69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811523BB1EAB00754F69 /* ViewController.swift */; };
+		5E15811923BB1EAB00754F69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E15811723BB1EAB00754F69 /* Main.storyboard */; };
+		5E15811C23BB1EAB00754F69 /* TimeCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */; };
+		5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E15811D23BB1EAE00754F69 /* Assets.xcassets */; };
+		5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E15811F23BB1EAE00754F69 /* LaunchScreen.storyboard */; };
+		5E15812C23BB1EAE00754F69 /* TimeCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15812B23BB1EAE00754F69 /* TimeCardTests.swift */; };
+		5E15813723BB1EAE00754F69 /* TimeCardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15813623BB1EAE00754F69 /* TimeCardUITests.swift */; };
+		5E15815723BB2CC500754F69 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15815623BB2CC500754F69 /* Constants.swift */; };
+		5E15815923BB2D7100754F69 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15815823BB2D7100754F69 /* BaseViewController.swift */; };
+		5E15815B23BB2E2000754F69 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15815A23BB2E2000754F69 /* UIViewController+Extension.swift */; };
+		5E15815D23BB3A4B00754F69 /* NewRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15815C23BB3A4B00754F69 /* NewRecordViewController.swift */; };
+		5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15815E23BB3CE800754F69 /* NewRecordViewModel.swift */; };
+		5E15816223BB3D4700754F69 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15816023BB3D4700754F69 /* HomeTableViewCell.swift */; };
+		5E15816323BB3D4700754F69 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816123BB3D4700754F69 /* HomeTableViewCell.xib */; };
+		5E15816623BB439500754F69 /* AbsencesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15816423BB439500754F69 /* AbsencesTableViewCell.swift */; };
+		5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */; };
+		5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */; };
+		5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */; };
+		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
+		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
+		A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5E15812823BB1EAE00754F69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5E15810623BB1EAB00754F69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E15810D23BB1EAB00754F69;
+			remoteInfo = TimeCard;
+		};
+		5E15813323BB1EAE00754F69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5E15810623BB1EAB00754F69 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E15810D23BB1EAB00754F69;
+			remoteInfo = TimeCard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		161CD36ACD4C2338035A5DE9 /* Pods-TimeCard-TimeCardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.debug.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F50A7B42EDC9815232527B8 /* Pods-TimeCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.release.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.release.xcconfig"; sourceTree = "<group>"; };
+		3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		48C00497B1E976260FA8C609 /* Pods-TimeCardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.debug.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4D67B2AA0DA3B6D3ADCA5AD7 /* Pods-TimeCardTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.release production.xcconfig"; sourceTree = "<group>"; };
+		5407D5AD0BC0C1C4A8514DAA /* Pods-TimeCardTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.release.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.release.xcconfig"; sourceTree = "<group>"; };
+		5E15810E23BB1EAB00754F69 /* TimeCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E15811123BB1EAB00754F69 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5E15811323BB1EAB00754F69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5E15811523BB1EAB00754F69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5E15811823BB1EAB00754F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeCard.xcdatamodel; sourceTree = "<group>"; };
+		5E15811D23BB1EAE00754F69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5E15812023BB1EAE00754F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5E15812223BB1EAE00754F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E15812723BB1EAE00754F69 /* TimeCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E15812B23BB1EAE00754F69 /* TimeCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCardTests.swift; sourceTree = "<group>"; };
+		5E15812D23BB1EAE00754F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E15813223BB1EAE00754F69 /* TimeCardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeCardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E15813623BB1EAE00754F69 /* TimeCardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeCardUITests.swift; sourceTree = "<group>"; };
+		5E15813823BB1EAE00754F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E15815623BB2CC500754F69 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5E15815823BB2D7100754F69 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		5E15815A23BB2E2000754F69 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		5E15815C23BB3A4B00754F69 /* NewRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordViewController.swift; sourceTree = "<group>"; };
+		5E15815E23BB3CE800754F69 /* NewRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordViewModel.swift; sourceTree = "<group>"; };
+		5E15816023BB3D4700754F69 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		5E15816123BB3D4700754F69 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		5E15816423BB439500754F69 /* AbsencesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesTableViewCell.swift; sourceTree = "<group>"; };
+		5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AbsencesTableViewCell.xib; sourceTree = "<group>"; };
+		5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordTableViewCell.swift; sourceTree = "<group>"; };
+		5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewRecordTableViewCell.xib; sourceTree = "<group>"; };
+		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
+		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.qa.xcconfig"; sourceTree = "<group>"; };
+		7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release production.xcconfig"; sourceTree = "<group>"; };
+		902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.qa.xcconfig"; sourceTree = "<group>"; };
+		AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard_TimeCardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0D4C00530D3B3025D9A0443 /* Pods-TimeCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.debug.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.debug.xcconfig"; sourceTree = "<group>"; };
+		BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1987FBE5D0F94FF07A50DD0 /* Pods-TimeCard.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.release production.xcconfig"; sourceTree = "<group>"; };
+		C54C85300DAB2443CA6E08C5 /* Pods-TimeCardTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.qa.xcconfig"; sourceTree = "<group>"; };
+		DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5E15810B23BB1EAB00754F69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D5FE1BB53F63DF8C1D2B75E /* Pods_TimeCard.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E15812423BB1EAE00754F69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E15812F23BB1EAE00754F69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				474047F4188363329B2E3D73 /* Pods_TimeCard_TimeCardUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		518CAA64622ECB7C04D1F446 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B0D4C00530D3B3025D9A0443 /* Pods-TimeCard.debug.xcconfig */,
+				1F50A7B42EDC9815232527B8 /* Pods-TimeCard.release.xcconfig */,
+				161CD36ACD4C2338035A5DE9 /* Pods-TimeCard-TimeCardUITests.debug.xcconfig */,
+				DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */,
+				48C00497B1E976260FA8C609 /* Pods-TimeCardTests.debug.xcconfig */,
+				5407D5AD0BC0C1C4A8514DAA /* Pods-TimeCardTests.release.xcconfig */,
+				902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */,
+				C1987FBE5D0F94FF07A50DD0 /* Pods-TimeCard.release production.xcconfig */,
+				6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */,
+				7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */,
+				C54C85300DAB2443CA6E08C5 /* Pods-TimeCardTests.qa.xcconfig */,
+				4D67B2AA0DA3B6D3ADCA5AD7 /* Pods-TimeCardTests.release production.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5E15810523BB1EAB00754F69 = {
+			isa = PBXGroup;
+			children = (
+				5E15811023BB1EAB00754F69 /* TimeCard */,
+				5E15812A23BB1EAE00754F69 /* TimeCardTests */,
+				5E15813523BB1EAE00754F69 /* TimeCardUITests */,
+				5E15810F23BB1EAB00754F69 /* Products */,
+				518CAA64622ECB7C04D1F446 /* Pods */,
+				C332979DA907B34F96A7EBA6 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5E15810F23BB1EAB00754F69 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5E15810E23BB1EAB00754F69 /* TimeCard.app */,
+				5E15812723BB1EAE00754F69 /* TimeCardTests.xctest */,
+				5E15813223BB1EAE00754F69 /* TimeCardUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5E15811023BB1EAB00754F69 /* TimeCard */ = {
+			isa = PBXGroup;
+			children = (
+				5E15811123BB1EAB00754F69 /* AppDelegate.swift */,
+				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
+				5E15812223BB1EAE00754F69 /* Info.plist */,
+				5E15814C23BB1F3400754F69 /* Utilities */,
+				5E15814623BB1EDA00754F69 /* Model */,
+				5E15814523BB1ECB00754F69 /* ViewModel */,
+				5E15814423BB1EBF00754F69 /* Views */,
+				5E15814D23BB1F4C00754F69 /* Resources */,
+				5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */,
+			);
+			path = TimeCard;
+			sourceTree = "<group>";
+		};
+		5E15812A23BB1EAE00754F69 /* TimeCardTests */ = {
+			isa = PBXGroup;
+			children = (
+				5E15812B23BB1EAE00754F69 /* TimeCardTests.swift */,
+				5E15812D23BB1EAE00754F69 /* Info.plist */,
+			);
+			path = TimeCardTests;
+			sourceTree = "<group>";
+		};
+		5E15813523BB1EAE00754F69 /* TimeCardUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5E15813623BB1EAE00754F69 /* TimeCardUITests.swift */,
+				5E15813823BB1EAE00754F69 /* Info.plist */,
+			);
+			path = TimeCardUITests;
+			sourceTree = "<group>";
+		};
+		5E15814423BB1EBF00754F69 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5E15814923BB1F0F00754F69 /* Custom Cells */,
+				5E15814823BB1EFF00754F69 /* StoryBoards */,
+				5E15814723BB1EEE00754F69 /* ViewControllers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5E15814523BB1ECB00754F69 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5E15815E23BB3CE800754F69 /* NewRecordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5E15814623BB1EDA00754F69 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5E15814723BB1EEE00754F69 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5E15815823BB2D7100754F69 /* BaseViewController.swift */,
+				5E15811523BB1EAB00754F69 /* ViewController.swift */,
+				5E15815C23BB3A4B00754F69 /* NewRecordViewController.swift */,
+				5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */,
+				5E93929723BDC11F00EB02AB /* ListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5E15814823BB1EFF00754F69 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				5E15811723BB1EAB00754F69 /* Main.storyboard */,
+				5E15811F23BB1EAE00754F69 /* LaunchScreen.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		5E15814923BB1F0F00754F69 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5E15814B23BB1F2300754F69 /* CollectionViewCells */,
+				5E15814A23BB1F1800754F69 /* TableViewCells */,
+			);
+			path = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		5E15814A23BB1F1800754F69 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				5E15816023BB3D4700754F69 /* HomeTableViewCell.swift */,
+				5E15816123BB3D4700754F69 /* HomeTableViewCell.xib */,
+				5E15816423BB439500754F69 /* AbsencesTableViewCell.swift */,
+				5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */,
+				5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */,
+				5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		5E15814B23BB1F2300754F69 /* CollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CollectionViewCells;
+			sourceTree = "<group>";
+		};
+		5E15814C23BB1F3400754F69 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5E15815623BB2CC500754F69 /* Constants.swift */,
+				5E15815A23BB2E2000754F69 /* UIViewController+Extension.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		5E15814D23BB1F4C00754F69 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5E15811D23BB1EAE00754F69 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C332979DA907B34F96A7EBA6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */,
+				AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */,
+				BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5E15810D23BB1EAB00754F69 /* TimeCard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E15813B23BB1EAE00754F69 /* Build configuration list for PBXNativeTarget "TimeCard" */;
+			buildPhases = (
+				8FED81ADE9A4B3993006C885 /* [CP] Check Pods Manifest.lock */,
+				5E15810A23BB1EAB00754F69 /* Sources */,
+				5E15810B23BB1EAB00754F69 /* Frameworks */,
+				5E15810C23BB1EAB00754F69 /* Resources */,
+				E64FE025E3B602504E78BA25 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TimeCard;
+			productName = TimeCard;
+			productReference = 5E15810E23BB1EAB00754F69 /* TimeCard.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5E15812623BB1EAE00754F69 /* TimeCardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E15813E23BB1EAE00754F69 /* Build configuration list for PBXNativeTarget "TimeCardTests" */;
+			buildPhases = (
+				25D21F20209B4BB5254FAF21 /* [CP] Check Pods Manifest.lock */,
+				5E15812323BB1EAE00754F69 /* Sources */,
+				5E15812423BB1EAE00754F69 /* Frameworks */,
+				5E15812523BB1EAE00754F69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5E15812923BB1EAE00754F69 /* PBXTargetDependency */,
+			);
+			name = TimeCardTests;
+			productName = TimeCardTests;
+			productReference = 5E15812723BB1EAE00754F69 /* TimeCardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5E15813123BB1EAE00754F69 /* TimeCardUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E15814123BB1EAE00754F69 /* Build configuration list for PBXNativeTarget "TimeCardUITests" */;
+			buildPhases = (
+				B6740EBF5E8CA4CE6B6A0602 /* [CP] Check Pods Manifest.lock */,
+				5E15812E23BB1EAE00754F69 /* Sources */,
+				5E15812F23BB1EAE00754F69 /* Frameworks */,
+				5E15813023BB1EAE00754F69 /* Resources */,
+				7EFF8D410BE91C20866C2D15 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5E15813423BB1EAE00754F69 /* PBXTargetDependency */,
+			);
+			name = TimeCardUITests;
+			productName = TimeCardUITests;
+			productReference = 5E15813223BB1EAE00754F69 /* TimeCardUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5E15810623BB1EAB00754F69 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1110;
+				LastUpgradeCheck = 1110;
+				ORGANIZATIONNAME = "Naveen Kumar K N";
+				TargetAttributes = {
+					5E15810D23BB1EAB00754F69 = {
+						CreatedOnToolsVersion = 11.1;
+					};
+					5E15812623BB1EAE00754F69 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = 5E15810D23BB1EAB00754F69;
+					};
+					5E15813123BB1EAE00754F69 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = 5E15810D23BB1EAB00754F69;
+					};
+				};
+			};
+			buildConfigurationList = 5E15810923BB1EAB00754F69 /* Build configuration list for PBXProject "TimeCard" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5E15810523BB1EAB00754F69;
+			productRefGroup = 5E15810F23BB1EAB00754F69 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5E15810D23BB1EAB00754F69 /* TimeCard */,
+				5E15812623BB1EAE00754F69 /* TimeCardTests */,
+				5E15813123BB1EAE00754F69 /* TimeCardUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5E15810C23BB1EAB00754F69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */,
+				5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */,
+				5E15816323BB3D4700754F69 /* HomeTableViewCell.xib in Resources */,
+				5E15811923BB1EAB00754F69 /* Main.storyboard in Resources */,
+				5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */,
+				5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E15812523BB1EAE00754F69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E15813023BB1EAE00754F69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		25D21F20209B4BB5254FAF21 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TimeCardTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EFF8D410BE91C20866C2D15 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FED81ADE9A4B3993006C885 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TimeCard-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B6740EBF5E8CA4CE6B6A0602 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TimeCard-TimeCardUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E64FE025E3B602504E78BA25 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TimeCard/Pods-TimeCard-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TimeCard/Pods-TimeCard-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TimeCard/Pods-TimeCard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5E15810A23BB1EAB00754F69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
+				5E15815D23BB3A4B00754F69 /* NewRecordViewController.swift in Sources */,
+				5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */,
+				5E15816623BB439500754F69 /* AbsencesTableViewCell.swift in Sources */,
+				5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */,
+				5E15815723BB2CC500754F69 /* Constants.swift in Sources */,
+				5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */,
+				5E15811623BB1EAB00754F69 /* ViewController.swift in Sources */,
+				5E15811223BB1EAB00754F69 /* AppDelegate.swift in Sources */,
+				5E15811C23BB1EAB00754F69 /* TimeCard.xcdatamodeld in Sources */,
+				5E15816223BB3D4700754F69 /* HomeTableViewCell.swift in Sources */,
+				5E15815B23BB2E2000754F69 /* UIViewController+Extension.swift in Sources */,
+				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
+				5E15815923BB2D7100754F69 /* BaseViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E15812323BB1EAE00754F69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E15812C23BB1EAE00754F69 /* TimeCardTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5E15812E23BB1EAE00754F69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E15813723BB1EAE00754F69 /* TimeCardUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5E15812923BB1EAE00754F69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E15810D23BB1EAB00754F69 /* TimeCard */;
+			targetProxy = 5E15812823BB1EAE00754F69 /* PBXContainerItemProxy */;
+		};
+		5E15813423BB1EAE00754F69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E15810D23BB1EAB00754F69 /* TimeCard */;
+			targetProxy = 5E15813323BB1EAE00754F69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5E15811723BB1EAB00754F69 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5E15811823BB1EAB00754F69 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5E15811F23BB1EAE00754F69 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5E15812023BB1EAE00754F69 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5E15813923BB1EAE00754F69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5E15813A23BB1EAE00754F69 /* Release Production */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Release Production";
+		};
+		5E15813C23BB1EAE00754F69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0D4C00530D3B3025D9A0443 /* Pods-TimeCard.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.TimeCard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEV;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5E15813D23BB1EAE00754F69 /* Release Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1987FBE5D0F94FF07A50DD0 /* Pods-TimeCard.release production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.TimeCard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = RELEASE_PRODUCTION;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release Production";
+		};
+		5E15813F23BB1EAE00754F69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48C00497B1E976260FA8C609 /* Pods-TimeCardTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.MurphyTimeCard.TimeCardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeCard.app/TimeCard";
+			};
+			name = Debug;
+		};
+		5E15814023BB1EAE00754F69 /* Release Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D67B2AA0DA3B6D3ADCA5AD7 /* Pods-TimeCardTests.release production.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.MurphyTimeCard.TimeCardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeCard.app/TimeCard";
+			};
+			name = "Release Production";
+		};
+		5E15814223BB1EAE00754F69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 161CD36ACD4C2338035A5DE9 /* Pods-TimeCard-TimeCardUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCardUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.MurphyTimeCard.TimeCardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeCard;
+			};
+			name = Debug;
+		};
+		5E15814323BB1EAE00754F69 /* Release Production */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCardUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.MurphyTimeCard.TimeCardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeCard;
+			};
+			name = "Release Production";
+		};
+		5E15814E23BB20EF00754F69 /* QA */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = QA;
+		};
+		5E15814F23BB20EF00754F69 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.TimeCard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = QA;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = QA;
+		};
+		5E15815023BB20EF00754F69 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C54C85300DAB2443CA6E08C5 /* Pods-TimeCardTests.qa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCardTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.MurphyTimeCard.TimeCardTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TimeCard.app/TimeCard";
+			};
+			name = QA;
+		};
+		5E15815123BB20EF00754F69 /* QA */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = TimeCardUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.incture.MurphyTimeCard.TimeCardUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = TimeCard;
+			};
+			name = QA;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5E15810923BB1EAB00754F69 /* Build configuration list for PBXProject "TimeCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E15813923BB1EAE00754F69 /* Debug */,
+				5E15814E23BB20EF00754F69 /* QA */,
+				5E15813A23BB1EAE00754F69 /* Release Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release Production";
+		};
+		5E15813B23BB1EAE00754F69 /* Build configuration list for PBXNativeTarget "TimeCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E15813C23BB1EAE00754F69 /* Debug */,
+				5E15814F23BB20EF00754F69 /* QA */,
+				5E15813D23BB1EAE00754F69 /* Release Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release Production";
+		};
+		5E15813E23BB1EAE00754F69 /* Build configuration list for PBXNativeTarget "TimeCardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E15813F23BB1EAE00754F69 /* Debug */,
+				5E15815023BB20EF00754F69 /* QA */,
+				5E15814023BB1EAE00754F69 /* Release Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release Production";
+		};
+		5E15814123BB1EAE00754F69 /* Build configuration list for PBXNativeTarget "TimeCardUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E15814223BB1EAE00754F69 /* Debug */,
+				5E15815123BB20EF00754F69 /* QA */,
+				5E15814323BB1EAE00754F69 /* Release Production */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release Production";
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */,
+			);
+			currentVersion = 5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */;
+			path = TimeCard.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5E15810623BB1EAB00754F69 /* Project object */;
+}
