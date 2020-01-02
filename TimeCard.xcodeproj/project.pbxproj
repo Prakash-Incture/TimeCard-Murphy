@@ -32,6 +32,19 @@
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */; };
+		CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */; };
+		CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */; };
+		CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75923BDCE8200CA5ED7 /* AllocationTimeTypeController.swift */; };
+		CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75D23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift */; };
+		CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75E23BDCE9700CA5ED7 /* AllocationViewModel.swift */; };
+		CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76323BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib */; };
+		CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76423BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift */; };
+		CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76523BDCEB600CA5ED7 /* Headercell.swift */; };
+		CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76623BDCEB600CA5ED7 /* Headercell.xib */; };
+		CD79A76D23BDCED800CA5ED7 /* AllocationHours.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76C23BDCED800CA5ED7 /* AllocationHours.storyboard */; };
+		CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */; };
+		CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */; };
+		CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A77323BE168A00CA5ED7 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +107,19 @@
 		BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1987FBE5D0F94FF07A50DD0 /* Pods-TimeCard.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.release production.xcconfig"; sourceTree = "<group>"; };
 		C54C85300DAB2443CA6E08C5 /* Pods-TimeCardTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.qa.xcconfig"; sourceTree = "<group>"; };
+		CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationModel.swift; sourceTree = "<group>"; };
+		CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordingViewController.swift; sourceTree = "<group>"; };
+		CD79A75923BDCE8200CA5ED7 /* AllocationTimeTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationTimeTypeController.swift; sourceTree = "<group>"; };
+		CD79A75D23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlllocationDataViewModel.swift; sourceTree = "<group>"; };
+		CD79A75E23BDCE9700CA5ED7 /* AllocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationViewModel.swift; sourceTree = "<group>"; };
+		CD79A76323BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericTableviewDropdownCell.xib; sourceTree = "<group>"; };
+		CD79A76423BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableviewDropdownCell.swift; sourceTree = "<group>"; };
+		CD79A76523BDCEB600CA5ED7 /* Headercell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Headercell.swift; sourceTree = "<group>"; };
+		CD79A76623BDCEB600CA5ED7 /* Headercell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Headercell.xib; sourceTree = "<group>"; };
+		CD79A76C23BDCED800CA5ED7 /* AllocationHours.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AllocationHours.storyboard; sourceTree = "<group>"; };
+		CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocatedTimeTableCell.swift; sourceTree = "<group>"; };
+		CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllocatedTimeTableCell.xib; sourceTree = "<group>"; };
+		CD79A77323BE168A00CA5ED7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,6 +198,7 @@
 				5E15811123BB1EAB00754F69 /* AppDelegate.swift */,
 				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
 				5E15812223BB1EAE00754F69 /* Info.plist */,
+				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
 				5E15814623BB1EDA00754F69 /* Model */,
 				5E15814523BB1ECB00754F69 /* ViewModel */,
@@ -302,6 +329,82 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CD79A75523BDCE4700CA5ED7 /* Allocated Hours */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A77223BE166C00CA5ED7 /* Extensions */,
+				CD79A76123BDCE9B00CA5ED7 /* Views */,
+				CD79A75C23BDCE8700CA5ED7 /* ViewModels */,
+				CD79A75723BDCE7800CA5ED7 /* ViewControllers */,
+				CD79A75623BDCE6100CA5ED7 /* Model */,
+			);
+			path = "Allocated Hours";
+			sourceTree = "<group>";
+		};
+		CD79A75623BDCE6100CA5ED7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CD79A75723BDCE7800CA5ED7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */,
+				CD79A75923BDCE8200CA5ED7 /* AllocationTimeTypeController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CD79A75C23BDCE8700CA5ED7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A75E23BDCE9700CA5ED7 /* AllocationViewModel.swift */,
+				CD79A75D23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CD79A76123BDCE9B00CA5ED7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A76B23BDCEC500CA5ED7 /* StoryBoard */,
+				CD79A76223BDCEA200CA5ED7 /* TableviewCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CD79A76223BDCEA200CA5ED7 /* TableviewCells */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A76523BDCEB600CA5ED7 /* Headercell.swift */,
+				CD79A76623BDCEB600CA5ED7 /* Headercell.xib */,
+				CD79A76423BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift */,
+				CD79A76323BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib */,
+				CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */,
+				CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */,
+			);
+			path = TableviewCells;
+			sourceTree = "<group>";
+		};
+		CD79A76B23BDCEC500CA5ED7 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A76C23BDCED800CA5ED7 /* AllocationHours.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		CD79A77223BE166C00CA5ED7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A77323BE168A00CA5ED7 /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -411,10 +514,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */,
 				5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */,
+				CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */,
+				CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */,
 				5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */,
 				5E15816323BB3D4700754F69 /* HomeTableViewCell.xib in Resources */,
 				5E15811923BB1EAB00754F69 /* Main.storyboard in Resources */,
+				CD79A76D23BDCED800CA5ED7 /* AllocationHours.storyboard in Resources */,
 				5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */,
 				5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */,
 			);
@@ -544,19 +651,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */,
+				CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
+				CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */,
+				CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */,
+				CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */,
 				5E15815D23BB3A4B00754F69 /* NewRecordViewController.swift in Sources */,
 				5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */,
 				5E15816623BB439500754F69 /* AbsencesTableViewCell.swift in Sources */,
 				5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */,
+				CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */,
 				5E15815723BB2CC500754F69 /* Constants.swift in Sources */,
 				5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */,
 				5E15811623BB1EAB00754F69 /* ViewController.swift in Sources */,
 				5E15811223BB1EAB00754F69 /* AppDelegate.swift in Sources */,
+				CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */,
 				5E15811C23BB1EAB00754F69 /* TimeCard.xcdatamodeld in Sources */,
 				5E15816223BB3D4700754F69 /* HomeTableViewCell.swift in Sources */,
 				5E15815B23BB2E2000754F69 /* UIViewController+Extension.swift in Sources */,
 				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
+				CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */,
+				CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */,
 				5E15815923BB2D7100754F69 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

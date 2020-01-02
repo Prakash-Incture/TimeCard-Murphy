@@ -26,8 +26,8 @@ class ViewController: BaseViewController {
           self.tableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
     }
    @objc func newRecordBtnClicked(sender:UIButton){
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "NewRecordViewController") as! NewRecordViewController
+        let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
+        let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "NewRecordingViewController") as! NewRecordingViewController
         self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
 }
