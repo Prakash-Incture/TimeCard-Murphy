@@ -45,6 +45,7 @@
 		CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */; };
 		CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */; };
 		CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A77323BE168A00CA5ED7 /* Extensions.swift */; };
+		CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84354423C2EE2200D90118 /* WeekSummaryController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocatedTimeTableCell.swift; sourceTree = "<group>"; };
 		CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllocatedTimeTableCell.xib; sourceTree = "<group>"; };
 		CD79A77323BE168A00CA5ED7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CD84354423C2EE2200D90118 /* WeekSummaryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryController.swift; sourceTree = "<group>"; };
 		DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 				5E15811123BB1EAB00754F69 /* AppDelegate.swift */,
 				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
 				5E15812223BB1EAE00754F69 /* Info.plist */,
+				CD84354323C2EDFC00D90118 /* Week Summary */,
 				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
 				5E15814623BB1EDA00754F69 /* Model */,
@@ -403,6 +406,30 @@
 				CD79A77323BE168A00CA5ED7 /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CD84354323C2EDFC00D90118 /* Week Summary */ = {
+			isa = PBXGroup;
+			children = (
+				CD84354623C2EF0500D90118 /* Views */,
+				CD84354723C2EF0E00D90118 /* ViewController */,
+			);
+			path = "Week Summary";
+			sourceTree = "<group>";
+		};
+		CD84354623C2EF0500D90118 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CD84354723C2EF0E00D90118 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CD84354423C2EE2200D90118 /* WeekSummaryController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -655,6 +682,7 @@
 				CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
 				CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */,
+				CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */,
 				CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */,
 				CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */,
 				5E15815D23BB3A4B00754F69 /* NewRecordViewController.swift in Sources */,
