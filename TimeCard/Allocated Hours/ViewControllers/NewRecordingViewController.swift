@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewRecordingViewController: UIViewController {
+class NewRecordingViewController: BaseViewController {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,6 +23,7 @@ class NewRecordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.customNavigationType = .navWithSaveandCancel
         self.setupViewModel()
         self.setupTableView()
         
@@ -33,6 +34,9 @@ class NewRecordingViewController: UIViewController {
        }
     override func viewWillAppear(_ animated: Bool) {
         self.allocationDataViewModel.delegate = self
+    }
+    override func selectedCancel(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     func setupTableView() {
            self.tableView.tableFooterView = UIView()

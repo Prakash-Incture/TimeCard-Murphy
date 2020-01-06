@@ -34,14 +34,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Recording" id="ciI-nt-UhE">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="PUI-TE-q7n">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="X9I-x9-BP2">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="New Recording" id="ciI-nt-UhE"/>
                     <connections>
                         <outlet property="tableView" destination="sfT-v1-jEH" id="45d-yi-dcD"/>
                     </connections>

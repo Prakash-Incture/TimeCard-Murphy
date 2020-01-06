@@ -207,9 +207,8 @@
 				CD84354323C2EDFC00D90118 /* Week Summary */,
 				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
-				5E15814623BB1EDA00754F69 /* Model */,
-				5E15814523BB1ECB00754F69 /* ViewModel */,
-				5E15814423BB1EBF00754F69 /* Views */,
+				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
+				5E93929923BF1D6300EB02AB /* Absences */,
 				5E15814D23BB1F4C00754F69 /* Resources */,
 				5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */,
 			);
@@ -256,7 +255,8 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = Model;
+			name = Model;
+			path = ../Model;
 			sourceTree = "<group>";
 		};
 		5E15814723BB1EEE00754F69 /* ViewControllers */ = {
@@ -324,6 +324,16 @@
 				5E15811D23BB1EAE00754F69 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		5E93929923BF1D6300EB02AB /* Absences */ = {
+			isa = PBXGroup;
+			children = (
+				5E15814623BB1EDA00754F69 /* Model */,
+				5E15814523BB1ECB00754F69 /* ViewModel */,
+				5E15814423BB1EBF00754F69 /* Views */,
+			);
+			path = Absences;
 			sourceTree = "<group>";
 		};
 		C332979DA907B34F96A7EBA6 /* Frameworks */ = {
