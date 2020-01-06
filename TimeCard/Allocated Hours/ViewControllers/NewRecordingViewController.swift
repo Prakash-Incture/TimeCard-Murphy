@@ -35,6 +35,9 @@ class NewRecordingViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.allocationDataViewModel.delegate = self
     }
+    override func selectedCancel(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     func setupTableView() {
            self.tableView.tableFooterView = UIView()
            self.tableView.register(UINib(nibName: "GenericTableviewDropdownCell", bundle: nil), forCellReuseIdentifier: "GenericTableviewDropdownCell")
