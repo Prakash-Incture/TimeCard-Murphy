@@ -18,6 +18,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sfT-v1-jEH">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="N6m-A8-vXg"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="2Qh-H2-Goj"/>
@@ -83,6 +84,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEV-gP-41X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1862" y="133"/>
+        </scene>
+        <!--Week Summary Controller-->
+        <scene sceneID="vdd-jD-j2r">
+            <objects>
+                <viewController storyboardIdentifier="WeekSummaryController" id="U20-Ye-dsZ" customClass="WeekSummaryController" customModule="TimeCard" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vas-fh-Uhp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qQQ-bK-Uje">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="U20-Ye-dsZ" id="RpN-7p-dcE"/>
+                                    <outlet property="delegate" destination="U20-Ye-dsZ" id="hjy-KU-Ohe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="qQQ-bK-Uje" firstAttribute="leading" secondItem="LOC-Gk-CiS" secondAttribute="leading" id="7ij-sn-Ytg"/>
+                            <constraint firstItem="qQQ-bK-Uje" firstAttribute="bottom" secondItem="LOC-Gk-CiS" secondAttribute="bottom" id="IlS-cH-8JX"/>
+                            <constraint firstItem="qQQ-bK-Uje" firstAttribute="trailing" secondItem="LOC-Gk-CiS" secondAttribute="trailing" id="l9O-Nf-dCR"/>
+                            <constraint firstItem="qQQ-bK-Uje" firstAttribute="top" secondItem="LOC-Gk-CiS" secondAttribute="top" id="pvV-Ri-15d"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LOC-Gk-CiS"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="qQQ-bK-Uje" id="BFc-lD-XaC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="abJ-aT-4hO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2512.5" y="129.92957746478874"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="9Nz-WG-jxb">

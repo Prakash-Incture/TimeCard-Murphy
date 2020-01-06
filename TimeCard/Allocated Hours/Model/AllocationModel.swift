@@ -15,3 +15,7 @@ struct AllocationModel:Codable {
     var timeType,duration,costCneter:String?
 }
 
+class AllocatedSingleTon:NSObject{
+    static let shared = AllocatedSingleTon()
+    var timeType:String?
+}

@@ -19,6 +19,7 @@
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SQn-3d-aYo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <connections>
                             <outlet property="dataSource" destination="KGk-i7-Jjw" id="GNv-9L-ae7"/>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="TfL-Tg-ap0"/>

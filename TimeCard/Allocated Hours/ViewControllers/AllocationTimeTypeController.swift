@@ -23,7 +23,7 @@ class AllocationTimeTypeController: BaseViewController {
         super.viewDidLoad()
         self.customNavigationType = .navWithBack
         // Do any additional setup after loading the view.
-        
+        self.tableView.tableFooterView = UIView()
     }
 }
 extension AllocationTimeTypeController:UITableViewDataSource,UITableViewDelegate{
@@ -37,8 +37,8 @@ extension AllocationTimeTypeController:UITableViewDataSource,UITableViewDelegate
          return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.allocationData?.timeType = timeType?.inputViewForSelection[indexPath.row] ?? ""
-        delegate?.updateValue(value: self.allocationData?.timeType ?? "")
+       // NotificationCenter.default.post(name: Notification.Name(rawValue: "addingTimeType"), object:timeType?.inputViewForSelection[indexPath.row] ?? "")
+        delegate?.updateValue(value:timeType?.inputViewForSelection[indexPath.row] ?? "")
         self.navigationController?.popViewController(animated: true)
         return
     }

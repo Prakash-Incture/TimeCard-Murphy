@@ -13,10 +13,11 @@ protocol GenericViewModelProtocol: class {
 }
 class AllocationDataViewModel{
     weak var delegate: GenericViewModelProtocol?
-    var allocationData :AllocationModel?
-   
-    var allcationModel:[AllocationModel] = [AllocationModel]()
-    
+    var allocationData :AllocationModel?{
+        didSet{
+            delegate?.didReceiveResponse()
+        }
+    }
     var allcationModelData = AllocaitonData(){
            didSet{
                delegate?.didReceiveResponse()
@@ -25,6 +26,7 @@ class AllocationDataViewModel{
     init(delegate:GenericViewModelProtocol) {
         self.delegate = delegate
     }
+   
     public func dataFetching(){
         let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
         self.allcationModelData.alllocationModel = []
