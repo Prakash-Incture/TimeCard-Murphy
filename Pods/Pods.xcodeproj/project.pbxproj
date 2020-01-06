@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -208,7 +208,7 @@
 		2588579007A771F6DB77054853D43B02 /* UIImage+ExtendedCacheData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ExtendedCacheData.m"; path = "SDWebImage/Core/UIImage+ExtendedCacheData.m"; sourceTree = "<group>"; };
 		2811CC90195A98364361CCC23C62C2A9 /* UIImageView+HighlightedWebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImageView+HighlightedWebCache.h"; path = "SDWebImage/Core/UIImageView+HighlightedWebCache.h"; sourceTree = "<group>"; };
 		2850FEE99EFA3DC95B6BF161C4EC9F46 /* SDImageHEICCoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageHEICCoder.m; path = SDWebImage/Core/SDImageHEICCoder.m; sourceTree = "<group>"; };
-		290A55894794B8CE2445C6D3227CE4FF /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		290A55894794B8CE2445C6D3227CE4FF /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TimeCardTests.framework; path = "Pods-TimeCardTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A3D02DDA160F4B16E8C8D63E4F31A06 /* UIImage+MemoryCacheCost.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MemoryCacheCost.m"; path = "SDWebImage/Core/UIImage+MemoryCacheCost.m"; sourceTree = "<group>"; };
 		2A9DB388FA81317C8E4EA9C649EF3D6A /* SDWebImageCompat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageCompat.m; path = SDWebImage/Core/SDWebImageCompat.m; sourceTree = "<group>"; };
 		2DF28EF68363371056B25E49839E3B35 /* UIImage+MultiFormat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+MultiFormat.h"; path = "SDWebImage/Core/UIImage+MultiFormat.h"; sourceTree = "<group>"; };
@@ -282,11 +282,11 @@
 		96CF2778441344D4428DAF1ABE7B22BC /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImagePrefetcher.h; path = SDWebImage/Core/SDWebImagePrefetcher.h; sourceTree = "<group>"; };
 		99CE07E15F493C04438D755681564C77 /* Pods-TimeCard-TimeCardUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-TimeCard-TimeCardUITests-frameworks.sh"; sourceTree = "<group>"; };
 		9CC81C3B7F8733DEC3A4BBB7F17B007C /* SDWebImageManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageManager.m; path = SDWebImage/Core/SDWebImageManager.m; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E9ED369BFBB8BDC59833D0E8E7905AE /* SDImageAssetManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageAssetManager.h; path = SDWebImage/Private/SDImageAssetManager.h; sourceTree = "<group>"; };
 		9EEC0EE15121CD9A2B174E8AF23E105D /* SDWebImageTransition.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageTransition.h; path = SDWebImage/Core/SDWebImageTransition.h; sourceTree = "<group>"; };
 		9F159221C7A261ED75D6E22AC0566AA8 /* SDImageIOCoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageIOCoder.h; path = SDWebImage/Core/SDImageIOCoder.h; sourceTree = "<group>"; };
-		9F477EAEABE13AFE56A871EEC451383D /* Pods_TimeCard_TimeCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard_TimeCardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F477EAEABE13AFE56A871EEC451383D /* Pods_TimeCard_TimeCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TimeCard_TimeCardUITests.framework; path = "Pods-TimeCard-TimeCardUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE061403B233DA9829EEB1300AB6835 /* SDImageTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageTransformer.h; path = SDWebImage/Core/SDImageTransformer.h; sourceTree = "<group>"; };
 		A0528C94EB1B4BC04819E726E11AED0A /* SDImageCoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageCoder.m; path = SDWebImage/Core/SDImageCoder.m; sourceTree = "<group>"; };
 		A343B9F3AD156537C2903CC7501B700E /* SDImageLoader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageLoader.h; path = SDWebImage/Core/SDImageLoader.h; sourceTree = "<group>"; };
@@ -299,14 +299,14 @@
 		AF3B9FEF4486ECD8C31466AEDDF226E7 /* SDWebImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SDWebImage.modulemap; sourceTree = "<group>"; };
 		AF5C82D1DADEEC2727AFB95A7200C07C /* SDWebImageCacheKeyFilter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDWebImageCacheKeyFilter.h; path = SDWebImage/Core/SDWebImageCacheKeyFilter.h; sourceTree = "<group>"; };
 		B07CEB2E1138C4A7AA17645DC8BFB614 /* SDImageCachesManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageCachesManager.m; path = SDWebImage/Core/SDImageCachesManager.m; sourceTree = "<group>"; };
-		B0B214D775196BA7CA8E17E53048A493 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B214D775196BA7CA8E17E53048A493 /* SDWebImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SDWebImage.framework; path = SDWebImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10DB0F611DD5F2B41DA34B05E900091 /* Pods-TimeCard-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TimeCard-dummy.m"; sourceTree = "<group>"; };
 		B22E1C399D7FE63CE274D0EA6461EA9E /* NSButton+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSButton+WebCache.h"; path = "SDWebImage/Core/NSButton+WebCache.h"; sourceTree = "<group>"; };
 		B2A555AAF052A228A9C4B8544280B6AC /* SDAssociatedObject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDAssociatedObject.h; path = SDWebImage/Private/SDAssociatedObject.h; sourceTree = "<group>"; };
 		B346D06D281D4D3C396F9BBE3DBF0FFE /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		B3EB43832BF8BE9A79273CEC7C3F4D1D /* SDWebImage-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SDWebImage-umbrella.h"; sourceTree = "<group>"; };
 		B4091350FBD17E20A8177CAA9532F229 /* SDImageGraphics.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageGraphics.m; path = SDWebImage/Core/SDImageGraphics.m; sourceTree = "<group>"; };
-		B5DDC699B084562642136438F3551360 /* Pods_TimeCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5DDC699B084562642136438F3551360 /* Pods_TimeCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_TimeCard.framework; path = "Pods-TimeCard.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B83E434551D0BC7C2CA2023224907CBD /* SDImageAssetManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageAssetManager.m; path = SDWebImage/Private/SDImageAssetManager.m; sourceTree = "<group>"; };
 		B8D023B47A51EE5D8271B0A06F90DC5B /* UIImageView+WebCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+WebCache.m"; path = "SDWebImage/Core/UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		BA09A6017495912703E7022ED3C97376 /* NSBezierPath+RoundedCorners.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSBezierPath+RoundedCorners.h"; path = "SDWebImage/Private/NSBezierPath+RoundedCorners.h"; sourceTree = "<group>"; };
@@ -588,6 +588,7 @@
 				005E08B1415F7B98F3FC06B169B33594 /* Core */,
 				9AD76A8F57B6BE4F948E3053DF6A973E /* Support Files */,
 			);
+			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -873,12 +874,11 @@
 				LastUpgradeCheck = 1100;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = A5FA030FAEFF7AD2A5DEC14E72011B00 /* Products */;
@@ -1047,6 +1047,44 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		045514AD85F9505EA68CF3354A8AF30C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		157D3381EB06FFB9B468283A7DEC9901 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E9774511B5A15951882747B49CA40CFE /* Pods-TimeCardTests.debug.xcconfig */;
@@ -1084,6 +1122,44 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
+		};
+		1A1E34B46BFE6FFD5C3A2420FFC01230 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-TimeCard/Pods-TimeCard-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-TimeCard/Pods-TimeCard.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		33A89666307A99A34C7BA4D87D5B8694 /* QA */ = {
 			isa = XCBuildConfiguration;
@@ -1123,6 +1199,44 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = QA;
+		};
+		357E293D921D2C26ADDB1FDFAA5F8123 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		418E3194976E01463B51A2B62795C0C9 /* Release Production */ = {
 			isa = XCBuildConfiguration;
@@ -1201,6 +1315,66 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = "Release Production";
+		};
+		510B057D2E9F059C50D52DA5D90F3ACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
 		};
 		58B77E9CE43A209FB9E3900554803884 /* Release Production */ = {
 			isa = XCBuildConfiguration;
@@ -1315,6 +1489,42 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = QA;
+		};
+		6C9BBE4D3ABDA9917413DA736C3E1FB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D5605E9E1D99EC293F2C9B6F5A69923 /* SDWebImage.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SDWebImage/SDWebImage-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SDWebImage/SDWebImage-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/SDWebImage/SDWebImage.modulemap";
+				PRODUCT_MODULE_NAME = SDWebImage;
+				PRODUCT_NAME = SDWebImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
 		};
 		804E13245C9FBBE6A340C555CA8B2B4C /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1694,50 +1904,55 @@
 			buildConfigurations = (
 				9361FC7F9D886ED1FFD3B1D5CE115C8B /* Debug */,
 				D9DC4A6888360CFDD4D9E0F7163814BD /* QA */,
+				6C9BBE4D3ABDA9917413DA736C3E1FB5 /* Release */,
 				58B77E9CE43A209FB9E3900554803884 /* Release Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				804E13245C9FBBE6A340C555CA8B2B4C /* Debug */,
 				B22699C7C62717259E727556C8576CEA /* QA */,
+				510B057D2E9F059C50D52DA5D90F3ACF /* Release */,
 				CD6E726AE2215A732C2CC12668A0A9B0 /* Release Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		7374BB7470D0F6B71CA1FFEF9D5144FD /* Build configuration list for PBXNativeTarget "Pods-TimeCard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C7F91ABCC79F5513A13BB01DD2919CB4 /* Debug */,
 				33A89666307A99A34C7BA4D87D5B8694 /* QA */,
+				1A1E34B46BFE6FFD5C3A2420FFC01230 /* Release */,
 				418E3194976E01463B51A2B62795C0C9 /* Release Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		A03A6BC6D29DE6A565989B93591BACFE /* Build configuration list for PBXNativeTarget "Pods-TimeCard-TimeCardUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E665C5FE3BF527E3D83BA7F022102B3E /* Debug */,
 				5FF2315CB854C2A249EB8DD2745FED46 /* QA */,
+				357E293D921D2C26ADDB1FDFAA5F8123 /* Release */,
 				FCF6A40F3370E45BAAAE9AC389574FC7 /* Release Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		CD1ED7A83642385BABFE4AC698C07980 /* Build configuration list for PBXNativeTarget "Pods-TimeCardTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				157D3381EB06FFB9B468283A7DEC9901 /* Debug */,
 				68BB864C4AF7BD3404F2D574AAB3B81E /* QA */,
+				045514AD85F9505EA68CF3354A8AF30C /* Release */,
 				450C090930B1F2D48176D4372E6C4020 /* Release Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

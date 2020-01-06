@@ -10,7 +10,7 @@ import UIKit
 protocol UpdateData:class {
     func updateValue(value:String?)
 }
-class AllocationTimeTypeController: UIViewController {
+class AllocationTimeTypeController: BaseViewController {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,7 +21,7 @@ class AllocationTimeTypeController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.customNavigationType = .navWithBack
         // Do any additional setup after loading the view.
         
     }
