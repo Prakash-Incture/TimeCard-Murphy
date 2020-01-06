@@ -9,7 +9,9 @@
 import UIKit
 
 class ViewController: BaseViewController {
-@IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var weekSummaryButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,12 @@ class ViewController: BaseViewController {
         let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "NewRecordingViewController") as! NewRecordingViewController
         self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
+    @IBAction func viewWeekSummaryAction(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
+             let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "WeekSummaryController") as! WeekSummaryController
+             self.navigationController?.pushViewController(newRecordVC, animated: true)
+    }
+    
 }
 
 extension ViewController:UITableViewDelegate,UITableViewDataSource{

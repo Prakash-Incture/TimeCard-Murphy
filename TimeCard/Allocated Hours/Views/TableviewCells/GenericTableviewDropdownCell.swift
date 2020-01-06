@@ -24,11 +24,13 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
       var allocationViewModel:AllocationDataViewModel?
       var allocationData:AllocationModel?{
         didSet{
-            switch cellType {
+            guard let type = cellType else { return }
+            switch type {
             case .timeType:
                 self.cellTextField.text = self.allocationData?.timeType ?? ""
             case .duration:
                 self.cellTextField.text = self.allocationData?.duration ?? ""
+                self.cellTextField.textColor = UIColor(red:0.22, green:0.47, blue:0.80, alpha:1.0)
             default: return
             }
         }
@@ -37,8 +39,28 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        picker.dataSource = self
-        picker.delegate = self
+        self.cellTextField.delegate = self
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAllocatedDataToArray"), object: nil, queue: nil) { notification in
+            var objectData:[AllocationModel] = notification.object as? [AllocationModel] ?? []
+            if self.allocationData?.timeType != "",self.allocationData?.timeType != ""{
+              //  objectData.append(self.allocationData!)
+                for (index,value) in objectData.enumerated(){
+                    if value.timeType == "" || value.duration == ""{
+                        objectData.remove(at: index)
+                    }
+                }
+                self.allocationViewModel?.allcationModelData.alllocationModel = objectData
+                let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
+                self.allocationViewModel?.allcationModelData.alllocationModel?.append(tempData)
+                DispatchQueue.main.async {
+                    self.allocationViewModel?.delegate?.didReceiveResponse()
+                }
+                self.removeObserver()
+                return
+            }else{
+                self.parent?.showAlert(message: "Please fill all the details")
+            }
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -48,12 +70,10 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
     }
     func setModel(_ cellModel : CellModel) {
            self.cellModel = cellModel
-           self.cellTextField.delegate = self
            guard let cellIdentifier = self.cellModel?.cellIdentifier.rawValue else { return }
            self.cellType = AllocationCellIdentifier(rawValue: cellIdentifier)
            self.descriptionLabel.text = self.cellType?.getTitleHeader()
            self.cellTextField.placeholder = cellType?.getPlaceHoldertext
-           self.cellTextField.delegate = self
            self.cellTextField.isUserInteractionEnabled = cellType?.isUserIntractable ?? true
            self.accessoryType = cellModel.cellIdentifier.shouldShowIndicator ? .disclosureIndicator : .none
            self.cellTextField.textColor = cellModel.cellIdentifier.shouldShowIndicator ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : .darkGray
@@ -62,33 +82,48 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
 }
 extension GenericTableviewDropdownCell:UpdateData{
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        switch cellType {
+        guard let type = cellType else { return }
+        switch type {
         case .timeType:
             guard let detailsVC = UIStoryboard(name: "AllocationHours", bundle: Bundle.main).instantiateViewController(withIdentifier: "AllocationTimeTypeController") as? AllocationTimeTypeController else { return }
             detailsVC.timeType = cellType
-            detailsVC.allocationData = allocationData
+            detailsVC.allocationData = self.allocationData
             detailsVC.delegate = self
             self.parent?.navigationController?.pushViewController(detailsVC, animated: true)
             self.cellTextField.resignFirstResponder()
         case .duration:
             self.showPickerview(textField: self.cellTextField)
-        default: return
+        default: break
         }
         
     }
+    func uodateMainModel(){
+        self.allocationViewModel?.allocationData = self.allocationData
+        
+        for (index,value) in (self.allocationViewModel?.allcationModelData.alllocationModel?.enumerated())!{
+            if value.timeType == "" || value.duration == ""{
+                self.allocationViewModel?.allcationModelData.alllocationModel?.remove(at: index)
+                self.allocationViewModel?.allcationModelData.alllocationModel?.append(self.allocationData!)
+                
+            }
+        }
+    }
     func updateValue(value:String?) {
-        switch cellType {
+        guard let type = cellType else { return }
+        switch type {
         case .timeType:
             self.allocationData?.timeType = value ?? ""
-            self.cellTextField.text = value ?? ""
-        default: return
+        case .duration:
+            self.allocationData?.duration = value ?? ""
+        default: break
         }
+        self.uodateMainModel()
     }
 }
 //Picker view Delagetse
 extension GenericTableviewDropdownCell:UIPickerViewDelegate,UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 3
+        return 2
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
@@ -142,6 +177,9 @@ extension GenericTableviewDropdownCell:UIPickerViewDelegate,UIPickerViewDataSour
            toolBar.isTranslucent = true
            toolBar.barTintColor = UIColor(named: "02265A")
            toolBar.sizeToFit()
+        
+           picker.dataSource = self
+           picker.delegate = self
            cellTextField.inputView = picker
            cellTextField.inputAccessoryView = toolBar
            
@@ -151,8 +189,7 @@ extension GenericTableviewDropdownCell:UIPickerViewDelegate,UIPickerViewDataSour
            guard let type = cellType else { return }
            switch type {
            case .duration:
-               self.allocationData?.timeType = "\(hour) Hour \(minutes) Minutes"
-               self.cellTextField.text = "\(hour) Hour \(minutes) Minutes"
+            self.updateValue(value:"\(hour) Hour \(minutes) Minutes")
            default:return
            }
            self.endEditing(true)
@@ -162,4 +199,8 @@ extension GenericTableviewDropdownCell:UIPickerViewDelegate,UIPickerViewDataSour
            self.cellTextField.text = ""
            self.endEditing(true)
        }
+    func removeObserver(){
+          NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "addAllocatedDataToArray"), object: nil)
+         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "addingTimeType"), object: nil)
+    }
 }

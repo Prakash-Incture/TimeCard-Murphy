@@ -71,7 +71,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
-            return CGFloat((self.allocationDataViewModel.allcationModelData.alllocationModel?.count ?? 230) * 230)
+            return CGFloat((self.allocationDataViewModel.allcationModelData.alllocationModel?.count ?? 220) * 220)
         }
         return 60
     }

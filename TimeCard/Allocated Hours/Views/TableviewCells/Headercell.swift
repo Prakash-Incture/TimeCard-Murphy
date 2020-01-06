@@ -22,3 +22,9 @@ class Headercell: UIView {
     */
 
 }
+class WeekHaderCell:UIView{
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var labelText: UILabel!
+    @IBOutlet weak var leftButton: UIButton!
+
+}
