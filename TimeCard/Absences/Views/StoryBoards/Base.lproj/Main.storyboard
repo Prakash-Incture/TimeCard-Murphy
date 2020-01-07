@@ -61,9 +61,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d3W-WZ-p3w">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d3W-WZ-p3w">
+                                <rect key="frame" x="0.0" y="44" width="320" height="463"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gas-JB-hXt">
                                 <rect key="frame" x="16" y="515" width="288" height="40"/>
@@ -85,7 +86,7 @@
                             <constraint firstItem="d3W-WZ-p3w" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2ND-KT-4hO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d3W-WZ-p3w" secondAttribute="trailing" id="95t-vk-yiI"/>
                             <constraint firstItem="gas-JB-hXt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C8L-l7-1i4"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="d3W-WZ-p3w" secondAttribute="bottom" id="WeC-mL-U4M"/>
+                            <constraint firstItem="gas-JB-hXt" firstAttribute="top" secondItem="d3W-WZ-p3w" secondAttribute="bottom" constant="8" id="Tdv-dJ-5EJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gas-JB-hXt" secondAttribute="bottom" constant="13" id="cPD-0L-7IE"/>
                             <constraint firstItem="gas-JB-hXt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="d18-dG-lQa"/>
                             <constraint firstItem="d3W-WZ-p3w" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hAE-em-paw"/>
@@ -101,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1" y="-151"/>
+            <point key="canvasLocation" x="-1.875" y="-151.05633802816902"/>
         </scene>
     </scenes>
 </document>

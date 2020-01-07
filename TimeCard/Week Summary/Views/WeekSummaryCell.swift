@@ -25,7 +25,7 @@ class WeekSummaryCell: UITableViewCell {
                 self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "80.00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
                 self.labelData.font = self.titleText.font.withSize(20)
             case .paidAbsences:
-                   self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "08:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "08:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .ot:
                 self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "06:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .regularTime:

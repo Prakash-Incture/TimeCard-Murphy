@@ -37,11 +37,11 @@ class NewRecordingViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     func setupTableView() {
-           self.tableView.tableFooterView = UIView()
-           self.tableView.register(UINib(nibName: "GenericTableviewDropdownCell", bundle: nil), forCellReuseIdentifier: "GenericTableviewDropdownCell")
-         self.tableView.register(UINib(nibName: "AllocatedTimeTableCell", bundle: nil), forCellReuseIdentifier: "AllocatedTimeTableCell")
+        self.tableView.tableFooterView = UIView()
+        self.tableView.register(UINib(nibName: "GenericTableviewDropdownCell", bundle: nil), forCellReuseIdentifier: "GenericTableviewDropdownCell")
+        self.tableView.register(UINib(nibName: "AllocatedTimeTableCell", bundle: nil), forCellReuseIdentifier: "AllocatedTimeTableCell")
         self.tableView.register(UINib(nibName: "WeekSummaryCell", bundle: nil), forCellReuseIdentifier: "WeekSummaryCell")
-       }
+    }
 }
 //TableView delegates
 extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{

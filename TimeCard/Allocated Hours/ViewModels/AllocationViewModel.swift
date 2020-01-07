@@ -34,6 +34,7 @@ public enum AllocationCellIdentifier: String {
     var inputViewForSelection: [String] {
            switch self {
            case .timeType: return ["Working Time" , "Over Time", "Continuing Education", "Business Travel"]
+           case .costCenter: return ["Cost Center 1" , "Cost Center 2", "Cost Center 3", "Cost Center 4"]
            default:  return []
            }
        }
@@ -46,7 +47,7 @@ public enum AllocationCellIdentifier: String {
        }
     var isUserIntractable: Bool {
           switch self {
-          case .timeType, .duration: return true
+          case .timeType, .duration,.costCenter: return true
           default: return false
           }
       }

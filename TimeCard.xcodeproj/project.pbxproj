@@ -48,6 +48,8 @@
 		CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84354423C2EE2200D90118 /* WeekSummaryController.swift */; };
 		CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84354823C2FBC500D90118 /* WeekSummaryCell.swift */; };
 		CD84354B23C2FBC500D90118 /* WeekSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */; };
+		CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */; };
+		CD84355B23C46EB600D90118 /* CalenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +128,8 @@
 		CD84354423C2EE2200D90118 /* WeekSummaryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryController.swift; sourceTree = "<group>"; };
 		CD84354823C2FBC500D90118 /* WeekSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryCell.swift; sourceTree = "<group>"; };
 		CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekSummaryCell.xib; sourceTree = "<group>"; };
+		CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderTableViewCell.swift; sourceTree = "<group>"; };
+		CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalenderTableViewCell.xib; sourceTree = "<group>"; };
 		DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,7 +209,6 @@
 				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
 				5E15812223BB1EAE00754F69 /* Info.plist */,
 				CD84354323C2EDFC00D90118 /* Week Summary */,
-				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
 				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E93929923BF1D6300EB02AB /* Absences */,
@@ -298,6 +301,8 @@
 				5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */,
 				5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */,
 				5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */,
+				CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */,
+				CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -568,6 +573,7 @@
 				CD79A76D23BDCED800CA5ED7 /* AllocationHours.storyboard in Resources */,
 				5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */,
 				5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */,
+				CD84355B23C46EB600D90118 /* CalenderTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +706,7 @@
 				CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
 				CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */,
+				CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */,
 				CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */,
 				CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */,
 				CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */,
