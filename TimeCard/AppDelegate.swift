@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
          let navigationController:UINavigationController = storyBoard.instantiateInitialViewController() as! UINavigationController
-         let categoryVC = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+         let categoryVC = storyBoard.instantiateViewController(withIdentifier: "DashBoardController") as! DashBoardController
          navigationController.viewControllers = [categoryVC]
          APP_DELEGATE.window?.rootViewController = navigationController
         return true

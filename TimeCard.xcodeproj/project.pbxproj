@@ -50,6 +50,11 @@
 		CD84354B23C2FBC500D90118 /* WeekSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */; };
 		CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */; };
 		CD84355B23C46EB600D90118 /* CalenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */; };
+		CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0902823C4B20100FE3E8E /* DashBoardController.swift */; };
+		CDA0902B23C4B24D00FE3E8E /* DashBoardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA0902A23C4B24D00FE3E8E /* DashBoardCell.xib */; };
+		CDA0902D23C4B25300FE3E8E /* DashBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0902C23C4B25300FE3E8E /* DashBoardCell.swift */; };
+		CDA0903123C4B49A00FE3E8E /* ApprovalListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */; };
+		CDA0903423C4B4BB00FE3E8E /* Approvals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDA0903323C4B4BB00FE3E8E /* Approvals.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +135,11 @@
 		CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekSummaryCell.xib; sourceTree = "<group>"; };
 		CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderTableViewCell.swift; sourceTree = "<group>"; };
 		CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalenderTableViewCell.xib; sourceTree = "<group>"; };
+		CDA0902823C4B20100FE3E8E /* DashBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardController.swift; sourceTree = "<group>"; };
+		CDA0902A23C4B24D00FE3E8E /* DashBoardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashBoardCell.xib; sourceTree = "<group>"; };
+		CDA0902C23C4B25300FE3E8E /* DashBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashBoardCell.swift; sourceTree = "<group>"; };
+		CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalListController.swift; sourceTree = "<group>"; };
+		CDA0903323C4B4BB00FE3E8E /* Approvals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Approvals.storyboard; sourceTree = "<group>"; };
 		DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +218,8 @@
 				5E15811123BB1EAB00754F69 /* AppDelegate.swift */,
 				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
 				5E15812223BB1EAE00754F69 /* Info.plist */,
+				CDA0902E23C4B47800FE3E8E /* Approvals */,
+				CDA0902723C4B1D000FE3E8E /* DashBoard */,
 				CD84354323C2EDFC00D90118 /* Week Summary */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
 				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
@@ -453,6 +465,41 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		CDA0902723C4B1D000FE3E8E /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0902823C4B20100FE3E8E /* DashBoardController.swift */,
+				CDA0902A23C4B24D00FE3E8E /* DashBoardCell.xib */,
+				CDA0902C23C4B25300FE3E8E /* DashBoardCell.swift */,
+			);
+			path = DashBoard;
+			sourceTree = "<group>";
+		};
+		CDA0902E23C4B47800FE3E8E /* Approvals */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0903223C4B4A100FE3E8E /* StoryBoards */,
+				CDA0902F23C4B48200FE3E8E /* ViewControllers */,
+			);
+			path = Approvals;
+			sourceTree = "<group>";
+		};
+		CDA0902F23C4B48200FE3E8E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CDA0903223C4B4A100FE3E8E /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0903323C4B4BB00FE3E8E /* Approvals.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -563,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD84354B23C2FBC500D90118 /* WeekSummaryCell.xib in Resources */,
+				CDA0902B23C4B24D00FE3E8E /* DashBoardCell.xib in Resources */,
 				CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */,
 				5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */,
 				CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */,
@@ -570,6 +618,7 @@
 				5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */,
 				5E15816323BB3D4700754F69 /* HomeTableViewCell.xib in Resources */,
 				5E15811923BB1EAB00754F69 /* Main.storyboard in Resources */,
+				CDA0903423C4B4BB00FE3E8E /* Approvals.storyboard in Resources */,
 				CD79A76D23BDCED800CA5ED7 /* AllocationHours.storyboard in Resources */,
 				5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */,
 				5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */,
@@ -701,6 +750,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */,
 				CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */,
 				CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */,
 				CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */,
@@ -714,6 +764,7 @@
 				5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */,
 				5E15816623BB439500754F69 /* AbsencesTableViewCell.swift in Sources */,
 				5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */,
+				CDA0903123C4B49A00FE3E8E /* ApprovalListController.swift in Sources */,
 				CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */,
 				5E15815723BB2CC500754F69 /* Constants.swift in Sources */,
 				5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */,
@@ -726,6 +777,7 @@
 				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
 				CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */,
 				CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */,
+				CDA0902D23C4B25300FE3E8E /* DashBoardCell.swift in Sources */,
 				5E15815923BB2D7100754F69 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

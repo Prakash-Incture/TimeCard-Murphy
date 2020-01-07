@@ -18,7 +18,7 @@ class ViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
-        self.customNavigationType = .navPlain
+       // self.customNavigationType = .navPlain
       
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +35,13 @@ class ViewController: BaseViewController {
             self.loadTableView(date: notification.object as? Date ?? Date())
             self.removeObserver()
         }
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @objc func onTapOfBackAction(){
+        self.dismiss(animated: true, completion: nil)
     }
    @objc func newRecordBtnClicked(sender:UIButton){
         let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
