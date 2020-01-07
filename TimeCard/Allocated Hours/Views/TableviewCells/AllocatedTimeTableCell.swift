@@ -18,6 +18,7 @@ class AllocatedTimeTableCell: UITableViewCell {
             self.tableView.reloadData()
         }
     }
+    var currentPage:CurrentPage?
     var allocationViewModel:AllocationDataViewModel?
 
     override func awakeFromNib() {
@@ -55,6 +56,9 @@ extension AllocatedTimeTableCell:UITableViewDataSource,UITableViewDelegate{
         case .AllocatedTimeTableCell:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? GenericTableviewDropdownCell else { fatalError("Textfield cell not found") }
             return cell
+        case .WeekSummaryCell:
+             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? GenericTableviewDropdownCell else { fatalError("Textfield cell not found") }
+                return cell
         }
         
     }

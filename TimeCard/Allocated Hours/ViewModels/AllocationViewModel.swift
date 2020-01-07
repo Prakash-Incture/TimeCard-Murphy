@@ -8,13 +8,18 @@
 
 import Foundation
 public enum AllocationReuseIdentifier: String {
-    case GenericTableviewDropdownCell,AllocatedTimeTableCell
+    case GenericTableviewDropdownCell,AllocatedTimeTableCell,WeekSummaryCell
 }
 public enum AllocationCellIdentifier: String {
     case timeType = "Time Type"
     case duration = "Duration"
     case costCenter = "Cost Center"
     case addAbscences = "Add Absences"
+    case total = "Total"
+    case paidAbsences = "Paid Absences"
+    case ot = "OT1.5"
+    case regularTime = "Regular Time\nPer day"
+    case status = "Status"
     
     func getTitleHeader() -> String {
         return self.rawValue
@@ -23,7 +28,7 @@ public enum AllocationCellIdentifier: String {
     var shouldShowIndicator: Bool {
         switch self {
         case .timeType, .duration, .costCenter, .addAbscences: return true
-       // default: return false
+        default: return false
         }
     }
     var inputViewForSelection: [String] {
@@ -49,9 +54,11 @@ public enum AllocationCellIdentifier: String {
 
 public enum CurrentPage: Int {
     case newRecording
+    case weekSummary
     func getCurrentPageHeaders() -> [[CellModel]] {
        switch self {
             case .newRecording: return AllocationHeader.getAbsenceCells()
+            case .weekSummary:  return AllocationHeader.getWeekSummaryCells()
         }
     }
     func titleForHeaderInSection(section: Int) -> String {
@@ -60,6 +67,8 @@ public enum CurrentPage: Int {
             if section == 1{
                 return "Absence"
             }
+            return ""
+         case .weekSummary:
             return ""
         }
     }
@@ -93,5 +102,19 @@ static func getAllocationCells() -> [CellModel] {
           [Header(reuseIdentifier: .GenericTableviewDropdownCell, cellIdentifier: AllocationCellIdentifier.addAbscences)]
         ]
            return rowModel
+    }
+    static func getWeekSummaryCells() -> [[CellModel]]{
+        var rowModel : [[CellModel]] = [[CellModel]]()
+       rowModel = [
+            [Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.total),
+          Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.paidAbsences),
+          Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.ot),
+            Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.regularTime),
+            Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.status)
+            ],
+          [Header(reuseIdentifier: .AllocatedTimeTableCell, cellIdentifier: AllocationCellIdentifier.total)]
+        ]
+
+        return rowModel
     }
 }

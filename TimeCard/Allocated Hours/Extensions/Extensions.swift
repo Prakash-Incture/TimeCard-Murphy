@@ -16,3 +16,20 @@ extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 }
+class StringColorChnage{
+    func conevrtToAttributedString(firstString:String,secondString:String,firstColor:UIColor,secondColor:UIColor) -> NSMutableAttributedString{
+           var secondStringValues = secondString
+           if secondString.count < 1{
+               secondStringValues = "--"
+           }
+           let attributedStringOne = NSAttributedString(string:firstString,
+                                                        attributes:[NSAttributedString.Key.foregroundColor: firstColor,NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17) as Any])
+           let attributedStringTwo = NSAttributedString(string:secondStringValues,
+                                                        attributes:[NSAttributedString.Key.foregroundColor: secondColor,NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17) as Any])
+           let finalString = NSMutableAttributedString()
+           finalString.append(attributedStringOne)
+           finalString.append(attributedStringTwo)
+           
+           return finalString
+}
+}
