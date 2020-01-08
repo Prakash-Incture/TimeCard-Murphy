@@ -22,6 +22,7 @@ class DashBoardController: UIViewController {
     func setUpTableView(){
         tableView.delegate = self
         tableView.dataSource = self
+        self.tableView.tableFooterView = UIView()
           self.tableView.register(UINib(nibName: "DashBoardCell", bundle: nil), forCellReuseIdentifier: "DashBoardCell")
 
     }
@@ -48,5 +49,8 @@ extension DashBoardController:UITableViewDataSource,UITableViewDelegate{
             let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "ApprovalListController") as! ApprovalListController
             self.navigationController?.pushViewController(newRecordVC, animated: true)
         }
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 220
     }
 }
