@@ -10,8 +10,9 @@ import UIKit
 
 class NewRecordTableViewCell: UITableViewCell {
     @IBOutlet weak var contentLbl: UILabel!
-    
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var arrowImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

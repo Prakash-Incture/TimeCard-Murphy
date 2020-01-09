@@ -104,6 +104,10 @@ static func getAllocationCells() -> [CellModel] {
         ]
            return rowModel
     }
+    
+    
+    
+    
     static func getWeekSummaryCells() -> [[CellModel]]{
         var rowModel : [[CellModel]] = [[CellModel]]()
        rowModel = [

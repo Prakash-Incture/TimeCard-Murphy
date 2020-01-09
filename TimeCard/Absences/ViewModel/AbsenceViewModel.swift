@@ -7,6 +7,9 @@
 //
 
 import Foundation
+public enum AbsenceReuseIdentifier: String {
+    case AbsenceCell
+}
 enum AbsenceIdentifier:String{
     case timeType = "Time Type"
     case availableBalance = "Available Balance"
@@ -44,7 +47,42 @@ enum AbsenceIdentifier:String{
          }
 }
 
-class AbsenceViewModel{
-    var absenceModelIdentifier: AbsenceIdentifier?
 
+struct AbsenceViewModel: CellModelForAbsence {
+    var absenceModelIdentifier: AbsenceIdentifier
+    
+    var reuseIdentifier: AbsenceReuseIdentifier
+    
+    init(reuseIdentifier: AbsenceReuseIdentifier, cellIdentifier: AbsenceIdentifier) {
+        self.reuseIdentifier = reuseIdentifier
+        self.absenceModelIdentifier = cellIdentifier
+    }
+}
+
+protocol CellModelForAbsence {
+    var reuseIdentifier : AbsenceReuseIdentifier { get set }
+    var absenceModelIdentifier : AbsenceIdentifier { get set }
+}
+
+class AbsenceModel{
+    static func getAbsenceRecordCells() -> [CellModelForAbsence] {
+     var rowModel : [CellModelForAbsence] = [CellModelForAbsence]()
+        rowModel.append(AbsenceViewModel(reuseIdentifier: .AbsenceCell, cellIdentifier: AbsenceIdentifier.timeType))
+        rowModel.append(AbsenceViewModel(reuseIdentifier: .AbsenceCell, cellIdentifier: AbsenceIdentifier.availableBalance))
+        rowModel.append(AbsenceViewModel(reuseIdentifier: .AbsenceCell, cellIdentifier: AbsenceIdentifier.startDate))
+        rowModel.append(AbsenceViewModel(reuseIdentifier: .AbsenceCell, cellIdentifier: AbsenceIdentifier.endDate))
+        rowModel.append(AbsenceViewModel(reuseIdentifier: .AbsenceCell, cellIdentifier: AbsenceIdentifier.requesting))
+      return rowModel
+    }
+}
+public enum AbsenceCurrentPage: Int {
+    case absenceRecording
+    func getCurrentPageHeaders() -> [CellModelForAbsence] {
+       switch self {
+       case .absenceRecording: return AbsenceModel.getAbsenceRecordCells()
+        }
+    }
+    func titleForHeaderInSection(section: Int) -> String {
+            return ""
+        }
 }
