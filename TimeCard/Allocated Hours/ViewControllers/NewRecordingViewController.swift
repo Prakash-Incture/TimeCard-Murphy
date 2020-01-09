@@ -13,10 +13,8 @@ class NewRecordingViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
     //Variables
-    var currentHeaderCells: [[CellModel]] = CurrentPage.newRecording.getCurrentPageHeaders()
-
-    var HeaderCellsTable = AllocationHeader.getAbsenceCells()
     var currentPage: CurrentPage = CurrentPage.newRecording
+    var currentHeaderCells: [[CellModel]] = CurrentPage.newRecording.getCurrentPageHeaders()
     var allocationDataViewModel:AllocationDataViewModel!
     
     
@@ -39,10 +37,11 @@ class NewRecordingViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     func setupTableView() {
-           self.tableView.tableFooterView = UIView()
-           self.tableView.register(UINib(nibName: "GenericTableviewDropdownCell", bundle: nil), forCellReuseIdentifier: "GenericTableviewDropdownCell")
-         self.tableView.register(UINib(nibName: "AllocatedTimeTableCell", bundle: nil), forCellReuseIdentifier: "AllocatedTimeTableCell")
-       }
+        self.tableView.tableFooterView = UIView()
+        self.tableView.register(UINib(nibName: "GenericTableviewDropdownCell", bundle: nil), forCellReuseIdentifier: "GenericTableviewDropdownCell")
+        self.tableView.register(UINib(nibName: "AllocatedTimeTableCell", bundle: nil), forCellReuseIdentifier: "AllocatedTimeTableCell")
+        self.tableView.register(UINib(nibName: "WeekSummaryCell", bundle: nil), forCellReuseIdentifier: "WeekSummaryCell")
+    }
 }
 //TableView delegates
 extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
@@ -67,6 +66,9 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             cell.allocationDataArray = self.allocationDataViewModel?.allcationModelData.alllocationModel ?? []
             cell.allocationViewModel = self.allocationDataViewModel
             cell.parent = self
+            return cell
+        case .WeekSummaryCell:
+              guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? WeekSummaryCell else { fatalError("Textfield cell not found") }
             return cell
         }
     }

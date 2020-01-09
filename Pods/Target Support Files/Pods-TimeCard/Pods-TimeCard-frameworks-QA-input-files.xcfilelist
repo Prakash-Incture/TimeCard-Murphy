@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-TimeCard/Pods-TimeCard-frameworks.sh
+${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework

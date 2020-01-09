@@ -31,6 +31,8 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
             case .duration:
                 self.cellTextField.text = self.allocationData?.duration ?? ""
                 self.cellTextField.textColor = UIColor(red:0.22, green:0.47, blue:0.80, alpha:1.0)
+            case .costCenter:
+                self.cellTextField.text = self.allocationData?.costCneter ?? ""
             default: return
             }
         }
@@ -89,6 +91,15 @@ extension GenericTableviewDropdownCell:UpdateData{
             detailsVC.timeType = cellType
             detailsVC.allocationData = self.allocationData
             detailsVC.delegate = self
+            detailsVC.cellType = self.cellType
+            self.parent?.navigationController?.pushViewController(detailsVC, animated: true)
+            self.cellTextField.resignFirstResponder()
+        case .costCenter:
+            guard let detailsVC = UIStoryboard(name: "AllocationHours", bundle: Bundle.main).instantiateViewController(withIdentifier: "AllocationTimeTypeController") as? AllocationTimeTypeController else { return }
+            detailsVC.timeType = cellType
+            detailsVC.allocationData = self.allocationData
+            detailsVC.delegate = self
+            detailsVC.cellType = self.cellType
             self.parent?.navigationController?.pushViewController(detailsVC, animated: true)
             self.cellTextField.resignFirstResponder()
         case .duration:
@@ -101,7 +112,7 @@ extension GenericTableviewDropdownCell:UpdateData{
         self.allocationViewModel?.allocationData = self.allocationData
         
         for (index,value) in (self.allocationViewModel?.allcationModelData.alllocationModel?.enumerated())!{
-            if value.timeType == "" || value.duration == ""{
+            if value.timeType == "" || value.duration == "" || value.costCneter == ""{
                 self.allocationViewModel?.allcationModelData.alllocationModel?.remove(at: index)
                 self.allocationViewModel?.allcationModelData.alllocationModel?.append(self.allocationData!)
                 
@@ -113,6 +124,8 @@ extension GenericTableviewDropdownCell:UpdateData{
         switch type {
         case .timeType:
             self.allocationData?.timeType = value ?? ""
+        case .costCenter:
+            self.allocationData?.costCneter = value ?? ""
         case .duration:
             self.allocationData?.duration = value ?? ""
         default: break
