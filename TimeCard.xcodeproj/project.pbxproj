@@ -31,6 +31,8 @@
 		5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */; };
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
+		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
+		5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929C23C3008E00EB02AB /* ListViewModel.swift */; };
 		A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */; };
 		CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */; };
 		CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */; };
@@ -100,6 +102,8 @@
 		5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewRecordTableViewCell.xib; sourceTree = "<group>"; };
 		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
 		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceViewModel.swift; sourceTree = "<group>"; };
+		5E93929C23C3008E00EB02AB /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.qa.xcconfig"; sourceTree = "<group>"; };
 		7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release production.xcconfig"; sourceTree = "<group>"; };
 		902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.qa.xcconfig"; sourceTree = "<group>"; };
@@ -201,7 +205,6 @@
 				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
 				5E15812223BB1EAE00754F69 /* Info.plist */,
 				CD84354323C2EDFC00D90118 /* Week Summary */,
-				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
 				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
 				5E93929923BF1D6300EB02AB /* Absences */,
@@ -243,6 +246,8 @@
 			isa = PBXGroup;
 			children = (
 				5E15815E23BB3CE800754F69 /* NewRecordViewModel.swift */,
+				5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */,
+				5E93929C23C3008E00EB02AB /* ListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -709,6 +714,8 @@
 				5E15816223BB3D4700754F69 /* HomeTableViewCell.swift in Sources */,
 				5E15815B23BB2E2000754F69 /* UIViewController+Extension.swift in Sources */,
 				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
+				5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */,
+				5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */,
 				CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */,
 				CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */,
 				5E15815923BB2D7100754F69 /* BaseViewController.swift in Sources */,

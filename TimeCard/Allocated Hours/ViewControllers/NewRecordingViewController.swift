@@ -79,6 +79,16 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
         }
         return 60
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            guard let absenceVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "AbsencesViewController") as? AbsencesViewController else { return }
+                self.navigationController?.pushViewController(absenceVC, animated: true)
+            break
+        default:
+            break
+        }
+    }
    
     @objc func allocatedHoursAction(){
       

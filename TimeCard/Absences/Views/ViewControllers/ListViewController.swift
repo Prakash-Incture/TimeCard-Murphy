@@ -10,11 +10,13 @@ import UIKit
 
 class ListViewController: BaseViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var tableView: UITableView!
+              
+       override func viewDidLoad() {
+           super.viewDidLoad()
+           self.customNavigationType = .navWithBack
 
-        self.title = ""
-        self.customNavigationType = .navWithBackandDone
-    }
+       }
     
 }
+

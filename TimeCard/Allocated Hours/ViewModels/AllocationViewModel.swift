@@ -23,7 +23,6 @@ public enum AllocationCellIdentifier: String {
     var shouldShowIndicator: Bool {
         switch self {
         case .timeType, .duration, .costCenter, .addAbscences: return true
-       // default: return false
         }
     }
     var inputViewForSelection: [String] {
