@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -14,10 +15,11 @@ class ViewController: BaseViewController {
     
     var allocationViewModel:AllocationDataViewModel?
     var stringHelper = StringColorChnage()
-
+    var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
+        self.loadOfflineStores()
        // self.customNavigationType = .navPlain
       
     }
@@ -46,6 +48,7 @@ class ViewController: BaseViewController {
    @objc func newRecordBtnClicked(sender:UIButton){
         let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
         let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "NewRecordingViewController") as! NewRecordingViewController
+        newRecordVC.allocationHourPersistence = self.allocationHourPersistence
         self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
     @IBAction func viewWeekSummaryAction(_ sender: Any) {
@@ -108,4 +111,9 @@ extension ViewController:GenericViewModelProtocol{
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "onTapOfDate"), object: nil)
     }
 }
-
+extension ViewController {
+    func loadOfflineStores() {
+        self.allocationHourPersistence.load { [weak self] in
+        }
+    }
+}

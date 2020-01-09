@@ -7,6 +7,32 @@
 //
 
 import UIKit
+import CoreData
+
+// Coredata protocol
+protocol CoreDataProtocol {
+    init(modelName: String)
+    var persistantContainer: NSPersistentContainer { get set }
+    var viewContext: NSManagedObjectContext { get }
+    var isSyncInprogress: Bool { get set }
+    func saveRequest(_ request: URLRequest, for purpose: String?)
+    func removePreviousData(fetchRequest: NSFetchRequest<NSFetchRequestResult>, predicate: NSPredicate?)
+}
+
+extension CoreDataProtocol {
+    var viewContext: NSManagedObjectContext {
+        return self.persistantContainer.viewContext
+    }
+    
+    func saveChanges() {
+        try? self.viewContext.save()
+    }
+    
+    func removeOldData<managedObject: NSManagedObject>(object: managedObject) {
+        self.viewContext.delete(object)
+        try? self.viewContext.save()
+    }
+}
 
 class NewRecordingViewController: BaseViewController {
     //UI Compnents
@@ -16,7 +42,8 @@ class NewRecordingViewController: BaseViewController {
     var currentPage: CurrentPage = CurrentPage.newRecording
     var currentHeaderCells: [[CellModel]] = CurrentPage.newRecording.getCurrentPageHeaders()
     var allocationDataViewModel:AllocationDataViewModel!
-    
+    var allocationHourPersistence:AllocationHoursCoreData?
+        //= AllocationHoursCoreData(modelName: "AllocationOffline")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +68,34 @@ class NewRecordingViewController: BaseViewController {
         self.tableView.register(UINib(nibName: "GenericTableviewDropdownCell", bundle: nil), forCellReuseIdentifier: "GenericTableviewDropdownCell")
         self.tableView.register(UINib(nibName: "AllocatedTimeTableCell", bundle: nil), forCellReuseIdentifier: "AllocatedTimeTableCell")
         self.tableView.register(UINib(nibName: "WeekSummaryCell", bundle: nil), forCellReuseIdentifier: "WeekSummaryCell")
+    }
+    
+    override func selectedSave(sender: UIButton) {
+        let currentDate = Date() // Use the corresponding date to save
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        let result = formatter.string(from: currentDate)
+        
+        if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
+            for allocationObj in newHours {
+                allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: result)
+            }
+        }
+
+        // Get the filtered data here
+       /* if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", result)) as? [AllocationOfflineData]{
+            
+            for model in getResult{
+                let test = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                print(test?.duration ?? "0:00")
+                print(model.date ?? "")
+            }
+
+        }*/
+        
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 //TableView delegates
