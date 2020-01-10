@@ -33,6 +33,11 @@
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		A113514023C5A77E0012AD28 /* ApprovalListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A113513E23C5A77E0012AD28 /* ApprovalListCell.swift */; };
 		A113514123C5A77E0012AD28 /* ApprovalListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A113513F23C5A77E0012AD28 /* ApprovalListCell.xib */; };
+		A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */; };
+		A13BB4DB23C88AD50013312C /* KeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4D923C88AD50013312C /* KeyValueCell.swift */; };
+		A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13BB4DA23C88AD50013312C /* KeyValueCell.xib */; };
+		A13BB4DE23C8ABE30013312C /* AbsenceDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */; };
+		A13BB4E023C8AD050013312C /* AbsenceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */; };
 		A1CC535223C5E3DA008294E3 /* TImeSheetEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535023C5E3DA008294E3 /* TImeSheetEntryCell.swift */; };
 		A1CC535323C5E3DA008294E3 /* TImeSheetEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CC535123C5E3DA008294E3 /* TImeSheetEntryCell.xib */; };
 		A1CC535623C5EEAC008294E3 /* TimesheetDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */; };
@@ -123,6 +128,11 @@
 		902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.qa.xcconfig"; sourceTree = "<group>"; };
 		A113513E23C5A77E0012AD28 /* ApprovalListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalListCell.swift; sourceTree = "<group>"; };
 		A113513F23C5A77E0012AD28 /* ApprovalListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApprovalListCell.xib; sourceTree = "<group>"; };
+		A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsVC.swift; sourceTree = "<group>"; };
+		A13BB4D923C88AD50013312C /* KeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueCell.swift; sourceTree = "<group>"; };
+		A13BB4DA23C88AD50013312C /* KeyValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueCell.xib; sourceTree = "<group>"; };
+		A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsModel.swift; sourceTree = "<group>"; };
+		A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsViewModel.swift; sourceTree = "<group>"; };
 		A1CC535023C5E3DA008294E3 /* TImeSheetEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TImeSheetEntryCell.swift; sourceTree = "<group>"; };
 		A1CC535123C5E3DA008294E3 /* TImeSheetEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TImeSheetEntryCell.xib; sourceTree = "<group>"; };
 		A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetDetailsVC.swift; sourceTree = "<group>"; };
@@ -380,6 +390,8 @@
 				A1CC535123C5E3DA008294E3 /* TImeSheetEntryCell.xib */,
 				A1CC535D23C6E5E0008294E3 /* TimeValuationCell.swift */,
 				A1CC535E23C6E5E0008294E3 /* TimeValuationCell.xib */,
+				A13BB4D923C88AD50013312C /* KeyValueCell.swift */,
+				A13BB4DA23C88AD50013312C /* KeyValueCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -388,6 +400,7 @@
 			isa = PBXGroup;
 			children = (
 				A1CC535823C5F378008294E3 /* TimeSheetDetailsModel.swift */,
+				A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -396,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				A1CC535B23C61009008294E3 /* TimeSheetDetailsVM.swift */,
+				A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -539,6 +553,7 @@
 			children = (
 				CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */,
 				A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */,
+				A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -665,6 +680,7 @@
 				CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */,
 				5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */,
 				CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */,
+				A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */,
 				CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */,
 				5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */,
 				A1CC535323C5E3DA008294E3 /* TImeSheetEntryCell.xib in Resources */,
@@ -805,12 +821,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */,
+				A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */,
 				CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */,
 				CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */,
 				CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
+				A13BB4DE23C8ABE30013312C /* AbsenceDetailsModel.swift in Sources */,
 				CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */,
 				CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */,
+				A13BB4DB23C88AD50013312C /* KeyValueCell.swift in Sources */,
+				A13BB4E023C8AD050013312C /* AbsenceDetailsViewModel.swift in Sources */,
 				CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */,
 				CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */,
 				CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */,
