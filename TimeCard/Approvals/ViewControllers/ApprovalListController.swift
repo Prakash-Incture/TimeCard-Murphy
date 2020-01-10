@@ -27,6 +27,7 @@ class ApprovalListController: UIViewController {
     
     @IBAction func selectAllBtnTapped(_ sender: Any) {
         selectAllBtn.isSelected = !selectAllBtn.isSelected
+        tableView.reloadData()
     }
     
     @IBAction func approveBtnTapped(_ sender: Any) {
@@ -48,6 +49,10 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
         return 5
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 335.0
+    }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -56,6 +61,15 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ApprovalListCell") as? ApprovalListCell{
             
+            cell.selectBtn.isSelected = selectAllBtn.isSelected ? true : false
+            
+            if indexPath.row == 2 {
+                cell.planedView.isHidden = true
+                cell.workTimeView.isHidden = true
+            }else{
+                cell.planedView.isHidden = false
+                cell.workTimeView.isHidden = false
+            }
             return cell
         }
         
@@ -63,6 +77,7 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
         if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
             self.navigationController?.pushViewController(timeSheetVC, animated: true)
