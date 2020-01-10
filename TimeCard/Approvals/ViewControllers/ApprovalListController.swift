@@ -78,11 +78,18 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
-        if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
-            self.navigationController?.pushViewController(timeSheetVC, animated: true)
+        switch indexPath.row {
+        case 2:
+            let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
+            if let absenceVC = storyBoard.instantiateViewController(withIdentifier: "AbsenceDetailsVC") as? AbsenceDetailsVC{
+                self.navigationController?.pushViewController(absenceVC, animated: true)
+            }
+        default:
+            let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
+            if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
+                self.navigationController?.pushViewController(timeSheetVC, animated: true)
+            }
         }
-        
     }
     
 }
