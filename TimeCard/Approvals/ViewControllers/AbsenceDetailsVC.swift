@@ -21,7 +21,7 @@ class AbsenceDetailsVC: UIViewController {
     @IBOutlet weak var statusLbl: UILabel!
 
     //Variables
-    let tempHeader = ["Employee Time"]
+    var absenceViewModel = AbsenceViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,8 @@ class AbsenceDetailsVC: UIViewController {
     func initialSetup() {
         self.tableView.register(UINib(nibName: "KeyValueCell", bundle: nil), forCellReuseIdentifier: "KeyValueCell")
         empImgView.layer.cornerRadius = empImgView.frame.width/2
+        absenceViewModel.getTemData()
+        tableView.reloadData()
     }
     
     @IBAction func backBtnTapped(_ sender: Any) {
@@ -59,7 +61,7 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
+        return absenceViewModel.absenceDetailsModel.absenceDetails?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -71,11 +73,14 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tempHeader[section]
+        return "    Employee Time"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "KeyValueCell") as? KeyValueCell{
+                let dataModel = absenceViewModel.absenceDetailsModel.absenceDetails?[indexPath.row]
+                cell.keyLbl.text = dataModel?.key ?? ""
+                cell.valueLbl.text = dataModel?.value ?? ""
                 return cell
             }
         
