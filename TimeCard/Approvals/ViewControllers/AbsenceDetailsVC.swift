@@ -83,7 +83,6 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
                 cell.valueLbl.text = dataModel?.value ?? ""
                 return cell
             }
-        
         return UITableViewCell()
     }
     
