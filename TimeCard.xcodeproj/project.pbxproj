@@ -38,6 +38,8 @@
 		A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13BB4DA23C88AD50013312C /* KeyValueCell.xib */; };
 		A13BB4DE23C8ABE30013312C /* AbsenceDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */; };
 		A13BB4E023C8AD050013312C /* AbsenceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */; };
+		CD0504CC23CA283B0089A23F /* TimeSheetDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535B23C61009008294E3 /* TimeSheetDetailsVM.swift */; };
+		CD0504CD23CA28400089A23F /* TimeSheetDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535823C5F378008294E3 /* TimeSheetDetailsModel.swift */; };
 		CD1D2D7B23C7462200B35E33 /* EmpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D7A23C7462200B35E33 /* EmpModel.swift */; };
 		CD1F6F0B23C85FB7001A20D4 /* TimesheetDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */; };
 		CD1F6F0F23C8642F001A20D4 /* AllocatedHoursCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDD5809A23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodeld */; };
@@ -906,6 +908,7 @@
 				CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */,
 				A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */,
 				CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */,
+				CD0504CC23CA283B0089A23F /* TimeSheetDetailsVM.swift in Sources */,
 				CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */,
 				CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
@@ -938,6 +941,7 @@
 				5E15811223BB1EAB00754F69 /* AppDelegate.swift in Sources */,
 				CD1D2D7B23C7462200B35E33 /* EmpModel.swift in Sources */,
 				CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */,
+				CD0504CD23CA28400089A23F /* TimeSheetDetailsModel.swift in Sources */,
 				5E15816223BB3D4700754F69 /* HomeTableViewCell.swift in Sources */,
 				5E15815B23BB2E2000754F69 /* UIViewController+Extension.swift in Sources */,
 				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
