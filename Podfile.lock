@@ -1,18 +1,16 @@
 PODS:
-  - SDWebImage (5.4.0):
-    - SDWebImage/Core (= 5.4.0)
-  - SDWebImage/Core (5.4.0)
+  - FSCalendar (2.8.1)
 
 DEPENDENCIES:
-  - SDWebImage
+  - FSCalendar
 
 SPEC REPOS:
   trunk:
-    - SDWebImage
+    - FSCalendar
 
 SPEC CHECKSUMS:
-  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
 
-PODFILE CHECKSUM: 923aef44ee554ee4536e61016e7faaa3f9597bb3
+PODFILE CHECKSUM: 0f0041ee3a926d3598a344ae567b7915009eacf6
 
 COCOAPODS: 1.8.4

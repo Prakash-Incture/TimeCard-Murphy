@@ -30,6 +30,7 @@ class NavsaveButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.setTitle("Save", for: .normal)
+        self.contentHorizontalAlignment = .right
         self.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 30.0)
     }
 }
@@ -37,6 +38,7 @@ class NavCancelButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.setTitle("Cancel", for: .normal)
+        self.contentHorizontalAlignment = .left
         self.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 30.0)
     }
 }
@@ -61,7 +63,7 @@ class NavDoneButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.setTitle("Done", for: .normal)
-        self.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 30.0)
+        self.frame = CGRect(x: 0.0, y: 2.5, width: 100, height: 30.0)
     }
 }
 class NavBackButton: UIButton {

@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D5FE1BB53F63DF8C1D2B75E /* Pods_TimeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */; };
-		474047F4188363329B2E3D73 /* Pods_TimeCard_TimeCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */; };
+		5B21D9D08C109C332A9DE08B /* Pods_TimeCard_TimeCardUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2087EE7154680A97D7830ABB /* Pods_TimeCard_TimeCardUITests.framework */; };
 		5E15811223BB1EAB00754F69 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811123BB1EAB00754F69 /* AppDelegate.swift */; };
 		5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811323BB1EAB00754F69 /* SceneDelegate.swift */; };
 		5E15811623BB1EAB00754F69 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811523BB1EAB00754F69 /* ViewController.swift */; };
 		5E15811923BB1EAB00754F69 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E15811723BB1EAB00754F69 /* Main.storyboard */; };
-		5E15811C23BB1EAB00754F69 /* TimeCard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */; };
 		5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E15811D23BB1EAE00754F69 /* Assets.xcassets */; };
 		5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E15811F23BB1EAE00754F69 /* LaunchScreen.storyboard */; };
 		5E15812C23BB1EAE00754F69 /* TimeCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15812B23BB1EAE00754F69 /* TimeCardTests.swift */; };
@@ -29,9 +27,56 @@
 		5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */; };
 		5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */; };
 		5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */; };
+		5E253CDE23C6C63700613CC4 /* AbsenceObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */; };
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
-		A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */; };
+		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
+		5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929C23C3008E00EB02AB /* ListViewModel.swift */; };
+		68B6581F29FE820D389F572A /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2140EF55EF4888FCEB2FDF /* Pods_TimeCardTests.framework */; };
+		A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */; };
+		A13BB4DB23C88AD50013312C /* KeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4D923C88AD50013312C /* KeyValueCell.swift */; };
+		A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13BB4DA23C88AD50013312C /* KeyValueCell.xib */; };
+		A13BB4DE23C8ABE30013312C /* AbsenceDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */; };
+		A13BB4E023C8AD050013312C /* AbsenceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */; };
+		CD1D2D7B23C7462200B35E33 /* EmpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D7A23C7462200B35E33 /* EmpModel.swift */; };
+		CD1F6F0B23C85FB7001A20D4 /* TimesheetDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */; };
+		CD1F6F0F23C8642F001A20D4 /* AllocatedHoursCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDD5809A23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodeld */; };
+		CD1F6F1023C8644F001A20D4 /* ApprovalListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A113513E23C5A77E0012AD28 /* ApprovalListCell.swift */; };
+		CD1F6F1123C86452001A20D4 /* TImeSheetEntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535023C5E3DA008294E3 /* TImeSheetEntryCell.swift */; };
+		CD1F6F1223C86455001A20D4 /* TimeValuationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535D23C6E5E0008294E3 /* TimeValuationCell.swift */; };
+		CD1F6F1323C8AB92001A20D4 /* ApprovalListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A113513F23C5A77E0012AD28 /* ApprovalListCell.xib */; };
+		CD1F6F1523C8AB98001A20D4 /* TImeSheetEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CC535123C5E3DA008294E3 /* TImeSheetEntryCell.xib */; };
+		CD1F6F1623C8AB9B001A20D4 /* TimeValuationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1CC535E23C6E5E0008294E3 /* TimeValuationCell.xib */; };
+		CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */; };
+		CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */; };
+		CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75923BDCE8200CA5ED7 /* AllocationTimeTypeController.swift */; };
+		CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75D23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift */; };
+		CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75E23BDCE9700CA5ED7 /* AllocationViewModel.swift */; };
+		CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76323BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib */; };
+		CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76423BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift */; };
+		CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76523BDCEB600CA5ED7 /* Headercell.swift */; };
+		CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76623BDCEB600CA5ED7 /* Headercell.xib */; };
+		CD79A76D23BDCED800CA5ED7 /* AllocationHours.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76C23BDCED800CA5ED7 /* AllocationHours.storyboard */; };
+		CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */; };
+		CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */; };
+		CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A77323BE168A00CA5ED7 /* Extensions.swift */; };
+		CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84354423C2EE2200D90118 /* WeekSummaryController.swift */; };
+		CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84354823C2FBC500D90118 /* WeekSummaryCell.swift */; };
+		CD84354B23C2FBC500D90118 /* WeekSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */; };
+		CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */; };
+		CD84355B23C46EB600D90118 /* CalenderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */; };
+		CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0902823C4B20100FE3E8E /* DashBoardController.swift */; };
+		CDA0902B23C4B24D00FE3E8E /* DashBoardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDA0902A23C4B24D00FE3E8E /* DashBoardCell.xib */; };
+		CDA0902D23C4B25300FE3E8E /* DashBoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0902C23C4B25300FE3E8E /* DashBoardCell.swift */; };
+		CDA0903123C4B49A00FE3E8E /* ApprovalListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */; };
+		CDA0903423C4B4BB00FE3E8E /* Approvals.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDA0903323C4B4BB00FE3E8E /* Approvals.storyboard */; };
+		CDA0903723C6CD7F00FE3E8E /* ServiceEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0903623C6CD7E00FE3E8E /* ServiceEndpoints.swift */; };
+		CDA0903923C6CD9800FE3E8E /* RequestManger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0903823C6CD9800FE3E8E /* RequestManger+extension.swift */; };
+		CDA0903B23C6CE5C00FE3E8E /* RequestManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0903A23C6CE5C00FE3E8E /* RequestManger.swift */; };
+		CDA0903E23C70F1D00FE3E8E /* Absence.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDA0903D23C70F1D00FE3E8E /* Absence.swift */; };
+		CDA0905823C739A700FE3E8E /* Pods_TimeCard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */; };
+		CDA0905923C739A700FE3E8E /* Pods_TimeCard.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CDD5809E23C85EC500CE4A90 /* AllocatedHoursCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD5809D23C85EC500CE4A90 /* AllocatedHoursCoreData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +96,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CDA0904D23C738B600FE3E8E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CDA0905923C739A700FE3E8E /* Pods_TimeCard.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		0F2140EF55EF4888FCEB2FDF /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		161CD36ACD4C2338035A5DE9 /* Pods-TimeCard-TimeCardUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.debug.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1F50A7B42EDC9815232527B8 /* Pods-TimeCard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.release.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.release.xcconfig"; sourceTree = "<group>"; };
+		2087EE7154680A97D7830ABB /* Pods_TimeCard_TimeCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard_TimeCardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		48C00497B1E976260FA8C609 /* Pods-TimeCardTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.debug.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4D67B2AA0DA3B6D3ADCA5AD7 /* Pods-TimeCardTests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.release production.xcconfig"; sourceTree = "<group>"; };
@@ -63,7 +124,6 @@
 		5E15811323BB1EAB00754F69 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5E15811523BB1EAB00754F69 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5E15811823BB1EAB00754F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeCard.xcdatamodel; sourceTree = "<group>"; };
 		5E15811D23BB1EAE00754F69 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E15812023BB1EAE00754F69 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5E15812223BB1EAE00754F69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,16 +144,61 @@
 		5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AbsencesTableViewCell.xib; sourceTree = "<group>"; };
 		5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordTableViewCell.swift; sourceTree = "<group>"; };
 		5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewRecordTableViewCell.xib; sourceTree = "<group>"; };
+		5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AbsenceObjectModel.swift; path = TimeCard/Absences/AbsenceObjectModel.swift; sourceTree = SOURCE_ROOT; };
 		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
 		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceViewModel.swift; sourceTree = "<group>"; };
+		5E93929C23C3008E00EB02AB /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.qa.xcconfig"; sourceTree = "<group>"; };
 		7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release production.xcconfig"; sourceTree = "<group>"; };
 		902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.qa.xcconfig"; sourceTree = "<group>"; };
-		AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard_TimeCardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A113513E23C5A77E0012AD28 /* ApprovalListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalListCell.swift; sourceTree = "<group>"; };
+		A113513F23C5A77E0012AD28 /* ApprovalListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApprovalListCell.xib; sourceTree = "<group>"; };
+		A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsVC.swift; sourceTree = "<group>"; };
+		A13BB4D923C88AD50013312C /* KeyValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueCell.swift; sourceTree = "<group>"; };
+		A13BB4DA23C88AD50013312C /* KeyValueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueCell.xib; sourceTree = "<group>"; };
+		A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsModel.swift; sourceTree = "<group>"; };
+		A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsViewModel.swift; sourceTree = "<group>"; };
+		A1CC535023C5E3DA008294E3 /* TImeSheetEntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TImeSheetEntryCell.swift; sourceTree = "<group>"; };
+		A1CC535123C5E3DA008294E3 /* TImeSheetEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TImeSheetEntryCell.xib; sourceTree = "<group>"; };
+		A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesheetDetailsVC.swift; sourceTree = "<group>"; };
+		A1CC535823C5F378008294E3 /* TimeSheetDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetDetailsModel.swift; sourceTree = "<group>"; };
+		A1CC535B23C61009008294E3 /* TimeSheetDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSheetDetailsVM.swift; sourceTree = "<group>"; };
+		A1CC535D23C6E5E0008294E3 /* TimeValuationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeValuationCell.swift; sourceTree = "<group>"; };
+		A1CC535E23C6E5E0008294E3 /* TimeValuationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeValuationCell.xib; sourceTree = "<group>"; };
 		B0D4C00530D3B3025D9A0443 /* Pods-TimeCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.debug.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.debug.xcconfig"; sourceTree = "<group>"; };
-		BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1987FBE5D0F94FF07A50DD0 /* Pods-TimeCard.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.release production.xcconfig"; sourceTree = "<group>"; };
 		C54C85300DAB2443CA6E08C5 /* Pods-TimeCardTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.qa.xcconfig"; sourceTree = "<group>"; };
+		CD1D2D7A23C7462200B35E33 /* EmpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpModel.swift; sourceTree = "<group>"; };
+		CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationModel.swift; sourceTree = "<group>"; };
+		CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordingViewController.swift; sourceTree = "<group>"; };
+		CD79A75923BDCE8200CA5ED7 /* AllocationTimeTypeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationTimeTypeController.swift; sourceTree = "<group>"; };
+		CD79A75D23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlllocationDataViewModel.swift; sourceTree = "<group>"; };
+		CD79A75E23BDCE9700CA5ED7 /* AllocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationViewModel.swift; sourceTree = "<group>"; };
+		CD79A76323BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GenericTableviewDropdownCell.xib; sourceTree = "<group>"; };
+		CD79A76423BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableviewDropdownCell.swift; sourceTree = "<group>"; };
+		CD79A76523BDCEB600CA5ED7 /* Headercell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Headercell.swift; sourceTree = "<group>"; };
+		CD79A76623BDCEB600CA5ED7 /* Headercell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Headercell.xib; sourceTree = "<group>"; };
+		CD79A76C23BDCED800CA5ED7 /* AllocationHours.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AllocationHours.storyboard; sourceTree = "<group>"; };
+		CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocatedTimeTableCell.swift; sourceTree = "<group>"; };
+		CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllocatedTimeTableCell.xib; sourceTree = "<group>"; };
+		CD79A77323BE168A00CA5ED7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CD84354423C2EE2200D90118 /* WeekSummaryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryController.swift; sourceTree = "<group>"; };
+		CD84354823C2FBC500D90118 /* WeekSummaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekSummaryCell.swift; sourceTree = "<group>"; };
+		CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekSummaryCell.xib; sourceTree = "<group>"; };
+		CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderTableViewCell.swift; sourceTree = "<group>"; };
+		CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalenderTableViewCell.xib; sourceTree = "<group>"; };
+		CDA0902823C4B20100FE3E8E /* DashBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashBoardController.swift; sourceTree = "<group>"; };
+		CDA0902A23C4B24D00FE3E8E /* DashBoardCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashBoardCell.xib; sourceTree = "<group>"; };
+		CDA0902C23C4B25300FE3E8E /* DashBoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashBoardCell.swift; sourceTree = "<group>"; };
+		CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalListController.swift; sourceTree = "<group>"; };
+		CDA0903323C4B4BB00FE3E8E /* Approvals.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Approvals.storyboard; sourceTree = "<group>"; };
+		CDA0903623C6CD7E00FE3E8E /* ServiceEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceEndpoints.swift; sourceTree = "<group>"; };
+		CDA0903823C6CD9800FE3E8E /* RequestManger+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RequestManger+extension.swift"; sourceTree = "<group>"; };
+		CDA0903A23C6CE5C00FE3E8E /* RequestManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManger.swift; sourceTree = "<group>"; };
+		CDA0903D23C70F1D00FE3E8E /* Absence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Absence.swift; sourceTree = "<group>"; };
+		CDD5809B23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AllocatedHoursCoreData.xcdatamodel; sourceTree = "<group>"; };
+		CDD5809D23C85EC500CE4A90 /* AllocatedHoursCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocatedHoursCoreData.swift; sourceTree = "<group>"; };
 		DEF2A9851322811F1941192D /* Pods-TimeCard-TimeCardUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,7 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D5FE1BB53F63DF8C1D2B75E /* Pods_TimeCard.framework in Frameworks */,
+				CDA0905823C739A700FE3E8E /* Pods_TimeCard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */,
+				68B6581F29FE820D389F572A /* Pods_TimeCardTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				474047F4188363329B2E3D73 /* Pods_TimeCard_TimeCardUITests.framework in Frameworks */,
+				5B21D9D08C109C332A9DE08B /* Pods_TimeCard_TimeCardUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +258,7 @@
 				5E15810F23BB1EAB00754F69 /* Products */,
 				518CAA64622ECB7C04D1F446 /* Pods */,
 				C332979DA907B34F96A7EBA6 /* Frameworks */,
+				CD1F6EFE23C85C84001A20D4 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -172,12 +278,14 @@
 				5E15811123BB1EAB00754F69 /* AppDelegate.swift */,
 				5E15811323BB1EAB00754F69 /* SceneDelegate.swift */,
 				5E15812223BB1EAE00754F69 /* Info.plist */,
+				CDA0903523C6CD6200FE3E8E /* Network */,
+				CDA0902E23C4B47800FE3E8E /* Approvals */,
+				CD79A75523BDCE4700CA5ED7 /* Allocated Hours */,
+				CDA0902723C4B1D000FE3E8E /* DashBoard */,
+				CD84354323C2EDFC00D90118 /* Week Summary */,
 				5E15814C23BB1F3400754F69 /* Utilities */,
-				5E15814623BB1EDA00754F69 /* Model */,
-				5E15814523BB1ECB00754F69 /* ViewModel */,
-				5E15814423BB1EBF00754F69 /* Views */,
+				5E93929923BF1D6300EB02AB /* Absences */,
 				5E15814D23BB1F4C00754F69 /* Resources */,
-				5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */,
 			);
 			path = TimeCard;
 			sourceTree = "<group>";
@@ -203,6 +311,7 @@
 		5E15814423BB1EBF00754F69 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CDA0903C23C70EEB00FE3E8E /* Models */,
 				5E15814923BB1F0F00754F69 /* Custom Cells */,
 				5E15814823BB1EFF00754F69 /* StoryBoards */,
 				5E15814723BB1EEE00754F69 /* ViewControllers */,
@@ -214,6 +323,8 @@
 			isa = PBXGroup;
 			children = (
 				5E15815E23BB3CE800754F69 /* NewRecordViewModel.swift */,
+				5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */,
+				5E93929C23C3008E00EB02AB /* ListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -221,8 +332,10 @@
 		5E15814623BB1EDA00754F69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */,
 			);
-			path = Model;
+			name = Model;
+			path = ../Model;
 			sourceTree = "<group>";
 		};
 		5E15814723BB1EEE00754F69 /* ViewControllers */ = {
@@ -264,6 +377,8 @@
 				5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */,
 				5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */,
 				5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */,
+				CD84355823C46EB600D90118 /* CalenderTableViewCell.swift */,
+				CD84355923C46EB600D90118 /* CalenderTableViewCell.xib */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -292,14 +407,244 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		5E93929923BF1D6300EB02AB /* Absences */ = {
+			isa = PBXGroup;
+			children = (
+				5E15814623BB1EDA00754F69 /* Model */,
+				5E15814523BB1ECB00754F69 /* ViewModel */,
+				5E15814423BB1EBF00754F69 /* Views */,
+			);
+			path = Absences;
+			sourceTree = "<group>";
+		};
+		A1CC535423C5EE7D008294E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A113513E23C5A77E0012AD28 /* ApprovalListCell.swift */,
+				A113513F23C5A77E0012AD28 /* ApprovalListCell.xib */,
+				A1CC535023C5E3DA008294E3 /* TImeSheetEntryCell.swift */,
+				A1CC535123C5E3DA008294E3 /* TImeSheetEntryCell.xib */,
+				A1CC535D23C6E5E0008294E3 /* TimeValuationCell.swift */,
+				A1CC535E23C6E5E0008294E3 /* TimeValuationCell.xib */,
+				A13BB4D923C88AD50013312C /* KeyValueCell.swift */,
+				A13BB4DA23C88AD50013312C /* KeyValueCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A1CC535723C5F365008294E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1CC535823C5F378008294E3 /* TimeSheetDetailsModel.swift */,
+				A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A1CC535A23C60FE0008294E3 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A1CC535B23C61009008294E3 /* TimeSheetDetailsVM.swift */,
+				A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		C332979DA907B34F96A7EBA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */,
-				AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */,
-				BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */,
+				2087EE7154680A97D7830ABB /* Pods_TimeCard_TimeCardUITests.framework */,
+				0F2140EF55EF4888FCEB2FDF /* Pods_TimeCardTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD1D2D7923C7460300B35E33 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CD1D2D7A23C7462200B35E33 /* EmpModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CD1F6EFE23C85C84001A20D4 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		CD1F6F0523C85D61001A20D4 /* AllocatedHoursCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CDD5809A23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodeld */,
+				CDD5809D23C85EC500CE4A90 /* AllocatedHoursCoreData.swift */,
+			);
+			name = AllocatedHoursCoreData;
+			path = ../Approvals/AllocatedHoursCoreData;
+			sourceTree = "<group>";
+		};
+		CD79A75523BDCE4700CA5ED7 /* Allocated Hours */ = {
+			isa = PBXGroup;
+			children = (
+				CD1F6F0523C85D61001A20D4 /* AllocatedHoursCoreData */,
+				CD79A77223BE166C00CA5ED7 /* Extensions */,
+				CD79A76123BDCE9B00CA5ED7 /* Views */,
+				CD79A75C23BDCE8700CA5ED7 /* ViewModels */,
+				CD79A75723BDCE7800CA5ED7 /* ViewControllers */,
+				CD79A75623BDCE6100CA5ED7 /* Model */,
+			);
+			path = "Allocated Hours";
+			sourceTree = "<group>";
+		};
+		CD79A75623BDCE6100CA5ED7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CD79A75723BDCE7800CA5ED7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */,
+				CD79A75923BDCE8200CA5ED7 /* AllocationTimeTypeController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CD79A75C23BDCE8700CA5ED7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A75E23BDCE9700CA5ED7 /* AllocationViewModel.swift */,
+				CD79A75D23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CD79A76123BDCE9B00CA5ED7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A76B23BDCEC500CA5ED7 /* StoryBoard */,
+				CD79A76223BDCEA200CA5ED7 /* TableviewCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CD79A76223BDCEA200CA5ED7 /* TableviewCells */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A76523BDCEB600CA5ED7 /* Headercell.swift */,
+				CD79A76623BDCEB600CA5ED7 /* Headercell.xib */,
+				CD79A76423BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift */,
+				CD79A76323BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib */,
+				CD79A76E23BDF17600CA5ED7 /* AllocatedTimeTableCell.swift */,
+				CD79A76F23BDF17600CA5ED7 /* AllocatedTimeTableCell.xib */,
+			);
+			path = TableviewCells;
+			sourceTree = "<group>";
+		};
+		CD79A76B23BDCEC500CA5ED7 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A76C23BDCED800CA5ED7 /* AllocationHours.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		CD79A77223BE166C00CA5ED7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CD79A77323BE168A00CA5ED7 /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CD84354323C2EDFC00D90118 /* Week Summary */ = {
+			isa = PBXGroup;
+			children = (
+				CD84354623C2EF0500D90118 /* Views */,
+				CD84354723C2EF0E00D90118 /* ViewController */,
+			);
+			path = "Week Summary";
+			sourceTree = "<group>";
+		};
+		CD84354623C2EF0500D90118 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CD84354823C2FBC500D90118 /* WeekSummaryCell.swift */,
+				CD84354923C2FBC500D90118 /* WeekSummaryCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CD84354723C2EF0E00D90118 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CD84354423C2EE2200D90118 /* WeekSummaryController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CDA0902723C4B1D000FE3E8E /* DashBoard */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0902823C4B20100FE3E8E /* DashBoardController.swift */,
+				CDA0902A23C4B24D00FE3E8E /* DashBoardCell.xib */,
+				CDA0902C23C4B25300FE3E8E /* DashBoardCell.swift */,
+			);
+			path = DashBoard;
+			sourceTree = "<group>";
+		};
+		CDA0902E23C4B47800FE3E8E /* Approvals */ = {
+			isa = PBXGroup;
+			children = (
+				A1CC535A23C60FE0008294E3 /* ViewModels */,
+				A1CC535723C5F365008294E3 /* Models */,
+				A1CC535423C5EE7D008294E3 /* Views */,
+				CDA0903223C4B4A100FE3E8E /* StoryBoards */,
+				CDA0902F23C4B48200FE3E8E /* ViewControllers */,
+			);
+			path = Approvals;
+			sourceTree = "<group>";
+		};
+		CDA0902F23C4B48200FE3E8E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0903023C4B49A00FE3E8E /* ApprovalListController.swift */,
+				A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */,
+				A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CDA0903223C4B4A100FE3E8E /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0903323C4B4BB00FE3E8E /* Approvals.storyboard */,
+			);
+			path = StoryBoards;
+			sourceTree = "<group>";
+		};
+		CDA0903523C6CD6200FE3E8E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				CD1D2D7923C7460300B35E33 /* Models */,
+				CDA0903623C6CD7E00FE3E8E /* ServiceEndpoints.swift */,
+				CDA0903A23C6CE5C00FE3E8E /* RequestManger.swift */,
+				CDA0903823C6CD9800FE3E8E /* RequestManger+extension.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		CDA0903C23C70EEB00FE3E8E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CDA0903D23C70F1D00FE3E8E /* Absence.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +659,7 @@
 				5E15810B23BB1EAB00754F69 /* Frameworks */,
 				5E15810C23BB1EAB00754F69 /* Resources */,
 				E64FE025E3B602504E78BA25 /* [CP] Embed Pods Frameworks */,
+				CDA0904D23C738B600FE3E8E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -411,12 +757,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD84354B23C2FBC500D90118 /* WeekSummaryCell.xib in Resources */,
+				CD1F6F1523C8AB98001A20D4 /* TImeSheetEntryCell.xib in Resources */,
+				CDA0902B23C4B24D00FE3E8E /* DashBoardCell.xib in Resources */,
+				CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */,
 				5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */,
+				CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */,
+				A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */,
+				CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */,
 				5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */,
 				5E15816323BB3D4700754F69 /* HomeTableViewCell.xib in Resources */,
+				CD1F6F1623C8AB9B001A20D4 /* TimeValuationCell.xib in Resources */,
 				5E15811923BB1EAB00754F69 /* Main.storyboard in Resources */,
+				CDA0903423C4B4BB00FE3E8E /* Approvals.storyboard in Resources */,
+				CD79A76D23BDCED800CA5ED7 /* AllocationHours.storyboard in Resources */,
+				CD1F6F1323C8AB92001A20D4 /* ApprovalListCell.xib in Resources */,
 				5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */,
 				5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */,
+				CD84355B23C46EB600D90118 /* CalenderTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,19 +902,51 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD1F6F0B23C85FB7001A20D4 /* TimesheetDetailsVC.swift in Sources */,
+				CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */,
+				A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */,
+				CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */,
+				CD79A76023BDCE9700CA5ED7 /* AllocationViewModel.swift in Sources */,
+				CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
+				A13BB4DE23C8ABE30013312C /* AbsenceDetailsModel.swift in Sources */,
+				CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */,
+				CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */,
+				CD1F6F1223C86455001A20D4 /* TimeValuationCell.swift in Sources */,
+				A13BB4DB23C88AD50013312C /* KeyValueCell.swift in Sources */,
+				A13BB4E023C8AD050013312C /* AbsenceDetailsViewModel.swift in Sources */,
+				CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */,
+				CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */,
+				CD1F6F1023C8644F001A20D4 /* ApprovalListCell.swift in Sources */,
+				CDA0903E23C70F1D00FE3E8E /* Absence.swift in Sources */,
+				CDA0903723C6CD7F00FE3E8E /* ServiceEndpoints.swift in Sources */,
+				CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */,
 				5E15815D23BB3A4B00754F69 /* NewRecordViewController.swift in Sources */,
 				5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */,
+				CD1F6F0F23C8642F001A20D4 /* AllocatedHoursCoreData.xcdatamodeld in Sources */,
+				CDD5809E23C85EC500CE4A90 /* AllocatedHoursCoreData.swift in Sources */,
+				5E253CDE23C6C63700613CC4 /* AbsenceObjectModel.swift in Sources */,
 				5E15816623BB439500754F69 /* AbsencesTableViewCell.swift in Sources */,
 				5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */,
+				CDA0903123C4B49A00FE3E8E /* ApprovalListController.swift in Sources */,
+				CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */,
+				CDA0903B23C6CE5C00FE3E8E /* RequestManger.swift in Sources */,
 				5E15815723BB2CC500754F69 /* Constants.swift in Sources */,
 				5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */,
+				CDA0903923C6CD9800FE3E8E /* RequestManger+extension.swift in Sources */,
 				5E15811623BB1EAB00754F69 /* ViewController.swift in Sources */,
 				5E15811223BB1EAB00754F69 /* AppDelegate.swift in Sources */,
-				5E15811C23BB1EAB00754F69 /* TimeCard.xcdatamodeld in Sources */,
+				CD1D2D7B23C7462200B35E33 /* EmpModel.swift in Sources */,
+				CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */,
 				5E15816223BB3D4700754F69 /* HomeTableViewCell.swift in Sources */,
 				5E15815B23BB2E2000754F69 /* UIViewController+Extension.swift in Sources */,
 				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
+				5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */,
+				5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */,
+				CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */,
+				CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */,
+				CD1F6F1123C86452001A20D4 /* TImeSheetEntryCell.swift in Sources */,
+				CDA0902D23C4B25300FE3E8E /* DashBoardCell.swift in Sources */,
 				5E15815923BB2D7100754F69 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -732,6 +1122,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -751,6 +1145,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -914,6 +1312,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1015,13 +1417,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		5E15811A23BB1EAB00754F69 /* TimeCard.xcdatamodeld */ = {
+		CDD5809A23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */,
+				CDD5809B23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodel */,
 			);
-			currentVersion = 5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */;
-			path = TimeCard.xcdatamodeld;
+			currentVersion = CDD5809B23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodel */;
+			path = AllocatedHoursCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
