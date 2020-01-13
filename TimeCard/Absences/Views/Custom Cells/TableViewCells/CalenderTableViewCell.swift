@@ -33,6 +33,7 @@ class CalenderTableViewCell: UITableViewCell {
         self.calenderSetUP()
     }
     func calenderSetUP(){
+        
         calenderView.scope = .week
         calenderView.firstWeekday = 1
         calenderView.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -41,6 +42,8 @@ class CalenderTableViewCell: UITableViewCell {
         calenderView.dataSource = self
         calenderView.addGestureRecognizer(panGesture)
         calenderView.select(Date())
+        DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
+        DataSingleton.shared.selectedWeekDates = getCurrentWeekDays()
         self.showDate()
    
     }
@@ -57,6 +60,9 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: last_Date!)
         let min_Date = formatter.string(from: first_Date!)
         self.datelabel.text = min_Date + " - " + max_Date
+        
+        // Show corresponding allocations
+        dateSelected()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -95,24 +101,30 @@ class CalenderTableViewCell: UITableViewCell {
     func handlePanGesture(panGesture: UIPanGestureRecognizer) {
 
     }
+    
+    func dateSelected() {
+        var currentCalender = Calendar.current
+        currentCalender.timeZone = TimeZone(identifier: "UTC")!
+        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10 00:00:00
+        
+        if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
+                  for model in getResult{
+                        let test = self.allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                      print(test?.duration ?? "0:00")
+                      print(model.date ?? "")
+                  }
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
+              }
+    }
 }
 extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
        // Get the filtered data here
         DataSingleton.shared.selectedDate = date as NSDate
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM YYYY"
-        let result = formatter.string(from: (DataSingleton.shared.selectedDate as Date?) ?? Date())
-        if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@",result)) as? [AllocationOfflineData]{
-                  for model in getResult{
-                      let test = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
-                      print(test?.duration ?? "0:00")
-                      print(model.date ?? "")
-                  }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
-
-              }
+        
+        //Get today's beginning & end
+        dateSelected()
               
     }
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -134,12 +146,17 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
      }
     func getCurrentWeekDays() -> [Date]{
         var days:[Date] = []
-        for dateIndex in 0..<7 {
-            guard let startWeek = today else { return [Date()]}
-                   let date = Calendar.current.date(byAdding: .day, value: dateIndex + 1, to: startWeek)
-                      days.append(date ?? Date())
-               }
-           return days
+        
+//        for dateIndex in 0..<7 {
+//            guard let startWeek = today else { return [Date()]}
+//                   let date = Calendar.current.date(byAdding: .day, value: dateIndex + 1, to: startWeek)
+//                      days.append(date ?? Date())
+//               }
+        
+        days.append(DataSingleton.shared.selectedDate! as Date)
+        days.append(Calendar.current.date(byAdding: .day, value: 6, to: DataSingleton.shared.selectedDate! as Date)!)
+        
+        return days
     }
 }
 extension Date {

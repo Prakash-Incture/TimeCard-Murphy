@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeekSummaryController: UIViewController {
+class WeekSummaryController: BaseViewController {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
 
@@ -29,7 +29,12 @@ class WeekSummaryController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
-        self.allocationViewModel?.dataFetching()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.allocationViewModel?.fetchWeekData()
         self.setUpNavigation()
     }
     func setUpNavigation(){

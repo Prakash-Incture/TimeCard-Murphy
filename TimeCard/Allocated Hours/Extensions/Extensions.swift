@@ -88,4 +88,14 @@ enum DateFormat: String {
         return dateString
         
     }
+    
+    func formattedDate(_ format: DateFormat) -> Date {
+        let dateFormatter = DateFormatter()
+        let formettedStr = toDateFormat(format)
+        if let newDate = dateFormatter.date(from: formettedStr){
+            return newDate
+        }else{
+            return self
+        }
+    }
 }

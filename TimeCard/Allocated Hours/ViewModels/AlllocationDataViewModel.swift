@@ -41,6 +41,7 @@ class AllocationDataViewModel{
         return formatter
     }()
     init(delegate:GenericViewModelProtocol) {
+        self.loadOfflineStores()
         self.delegate = delegate
     }
     
@@ -48,7 +49,7 @@ class AllocationDataViewModel{
     lazy var requestMangerTimeOffBalance = RequestManager<EmpTimeAccountBalance>()
     lazy var empJObData = RequestManager<EmpJobModel>()
     lazy var holidayCalender = RequestManager<HolidayAssignment>()
-    var allocationHourPersistence:AllocationHoursCoreData?
+    var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
    
     public func dataFetching(){
         let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
@@ -77,7 +78,7 @@ class AllocationDataViewModel{
         self.allcationModelData.weekData?.removeAll()
         for value in (weekDays.object as? [AllocationOfflineData]) ?? []{
             print(value)
-                guard let allocationModel = allocationHourPersistence?.unarchive(allocationData: value.allocationModel ?? Data()) else {return}
+            guard let allocationModel = allocationHourPersistence?.unarchive(allocationData: value.allocationModel ?? Data()) else {return}
                self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel))
                self.delegate?.didReceiveResponse()
             }
@@ -93,17 +94,41 @@ class AllocationDataViewModel{
         self.allcationModelData.alllocationModel?.append(tempData)
 
     }
+    public func fetchDayData(){
+        if self.allcationModelData.weekData == nil{
+            self.allcationModelData.weekData = []
+            self.allcationModelData.weekData?.append(WeekSummary())
+        }
+        var currentCalender = Calendar.current
+        currentCalender.timeZone = TimeZone(identifier: "UTC")!
+        
+        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate as Date? ?? Date()) // eg. 2016-10-10 00:00:00
+        
+        if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
+            for model in getResult{
+                let allocationModel = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel!))
+                self.delegate?.didReceiveResponse()
+            }
+        }
+    }
+    
     public func fetchWeekData(){
         if self.allcationModelData.weekData == nil{
             self.allcationModelData.weekData = []
             self.allcationModelData.weekData?.append(WeekSummary())
         }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM YYYY"
-        let result = formatter.string(from: (DataSingleton.shared.selectedDate as Date?) ?? Date())
-        if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@",result)) as? [AllocationOfflineData]{
+        var currentCalender = Calendar.current
+        currentCalender.timeZone = TimeZone(identifier: "UTC")!
+        
+        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedWeekDates?.first as Date? ?? Date()) // eg. 2016-10-10 00:00:00
+        let dateTo = currentCalender.startOfDay(for: DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date())
+        
+        if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date >= %@ AND date <= %@", dateFrom as NSDate, dateTo as NSDate)) as? [AllocationOfflineData]{
+//            "(date >= %@) AND (date <= %@) AND complete == 0"
             for model in getResult{
                 let allocationModel = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                print(allocationModel?.costCneter ?? "")
                 self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel!))
                 self.delegate?.didReceiveResponse()
             }
@@ -186,4 +211,12 @@ extension AllocationDataViewModel{
         let weekDay = dateFormatter.string(from: date)
         return weekDay
     }
+}
+
+extension AllocationDataViewModel {
+    func loadOfflineStores() {
+        self.allocationHourPersistence?.load { [weak self] in
+        }
+    }
+   
 }

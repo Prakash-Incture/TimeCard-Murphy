@@ -29,6 +29,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
        }
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var weekSummary:[WeekSummary] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
@@ -43,11 +44,11 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
        // super.viewWillAppear(animated)
         self.allocationViewModel?.delegate = self
         self.configurTableView()
-        self.allocationViewModel?.fetchWeekData()
+        self.allocationViewModel?.fetchDayData()
     }
     private func setupViewModel() {
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
-        self.allocationViewModel?.empTimeOffBalanceAPICalling()
+//        self.allocationViewModel?.empTimeOffBalanceAPICalling() // Uncommand
         }
     func configurTableView(){
         self.tableView.delegate = self

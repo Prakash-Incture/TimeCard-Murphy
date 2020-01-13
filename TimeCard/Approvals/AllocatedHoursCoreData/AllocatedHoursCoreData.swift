@@ -32,7 +32,7 @@ class AllocationHoursCoreData: CoreDataProtocol{
 //        self.saveChanges()
     }
     
-    func saveAllocationHour(allocationModel: AllocationModel, withDate date: String) {
+    func saveAllocationHour(allocationModel: AllocationModel, withDate date: Date) {
         let offlineUpdate = AllocationOfflineData(context: self.viewContext)
         offlineUpdate.allocationModel = AllocationHoursCoreData.self.archive(allocationModel: allocationModel)
         offlineUpdate.date = date
@@ -70,19 +70,24 @@ class AllocationHoursCoreData: CoreDataProtocol{
 
 extension AllocationHoursCoreData{
     static func archive(allocationModel: AllocationModel) -> Data {
-        var allocation = allocationModel
-        return Data(bytes: &allocation, count: MemoryLayout<AllocationModel>.stride)
+        var allocation = Data()
+        do{
+            allocation = try JSONEncoder().encode(allocationModel)
+        }catch{
+            print("Encoding error !")
+        }
+        return allocation
     }
 
     func unarchive(allocationData: Data) -> AllocationModel {
-        guard allocationData.count == MemoryLayout<AllocationModel>.stride else {
-            fatalError("Error!")
+        
+        var allocationModel = AllocationModel()
+        do{
+            allocationModel = try JSONDecoder().decode(AllocationModel.self, from: allocationData)
+        }catch{
+            print("Decoding error !")
         }
-
-        var allocationModel: AllocationModel?
-        allocationData.withUnsafeBytes({(bytes: UnsafePointer<AllocationModel>) -> Void in
-            allocationModel = UnsafePointer<AllocationModel>(bytes).pointee
-        })
-        return allocationModel!
+        
+        return allocationModel
     }
 }

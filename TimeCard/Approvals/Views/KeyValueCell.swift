@@ -9,6 +9,9 @@
 import UIKit
 
 class KeyValueCell: UITableViewCell {
+    
+    @IBOutlet weak var keyLbl: UILabel!
+    @IBOutlet weak var valueLbl: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

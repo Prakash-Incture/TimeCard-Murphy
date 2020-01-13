@@ -68,4 +68,5 @@ struct TimeType : Codable {
 class DataSingleton:NSObject{
     static let shared = DataSingleton()
     var selectedDate:NSDate?
+    var selectedWeekDates: [Date]?
 }

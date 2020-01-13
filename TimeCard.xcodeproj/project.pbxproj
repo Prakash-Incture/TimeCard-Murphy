@@ -33,6 +33,14 @@
 		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
 		5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929C23C3008E00EB02AB /* ListViewModel.swift */; };
 		68B6581F29FE820D389F572A /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F2140EF55EF4888FCEB2FDF /* Pods_TimeCardTests.framework */; };
+		A137E1F523CA47280009A7DE /* SAPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A109544D23CA442C00C5F3C0 /* SAPCommon.framework */; };
+		A137E1F623CA47280009A7DE /* SAPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A109544D23CA442C00C5F3C0 /* SAPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A137E1F723CA47290009A7DE /* SAPFiori.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A109544B23CA442900C5F3C0 /* SAPFiori.framework */; };
+		A137E1F823CA47290009A7DE /* SAPFiori.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A109544B23CA442900C5F3C0 /* SAPFiori.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A137E1F923CA472C0009A7DE /* SAPFioriFlows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A109544A23CA442400C5F3C0 /* SAPFioriFlows.framework */; };
+		A137E1FA23CA472C0009A7DE /* SAPFioriFlows.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A109544A23CA442400C5F3C0 /* SAPFioriFlows.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A137E1FB23CA472D0009A7DE /* SAPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A109544C23CA442B00C5F3C0 /* SAPFoundation.framework */; };
+		A137E1FC23CA472D0009A7DE /* SAPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A109544C23CA442B00C5F3C0 /* SAPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */; };
 		A13BB4DB23C88AD50013312C /* KeyValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4D923C88AD50013312C /* KeyValueCell.swift */; };
 		A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A13BB4DA23C88AD50013312C /* KeyValueCell.xib */; };
@@ -105,7 +113,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A137E1FC23CA472D0009A7DE /* SAPFoundation.framework in Embed Frameworks */,
+				A137E1F623CA47280009A7DE /* SAPCommon.framework in Embed Frameworks */,
+				A137E1F823CA47290009A7DE /* SAPFiori.framework in Embed Frameworks */,
 				CDA0905923C739A700FE3E8E /* Pods_TimeCard.framework in Embed Frameworks */,
+				A137E1FA23CA472C0009A7DE /* SAPFioriFlows.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,6 +166,10 @@
 		6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.qa.xcconfig"; sourceTree = "<group>"; };
 		7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release production.xcconfig"; sourceTree = "<group>"; };
 		902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.qa.xcconfig"; sourceTree = "<group>"; };
+		A109544A23CA442400C5F3C0 /* SAPFioriFlows.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPFioriFlows.framework; sourceTree = "<group>"; };
+		A109544B23CA442900C5F3C0 /* SAPFiori.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPFiori.framework; sourceTree = "<group>"; };
+		A109544C23CA442B00C5F3C0 /* SAPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPFoundation.framework; sourceTree = "<group>"; };
+		A109544D23CA442C00C5F3C0 /* SAPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPCommon.framework; sourceTree = "<group>"; };
 		A113513E23C5A77E0012AD28 /* ApprovalListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovalListCell.swift; sourceTree = "<group>"; };
 		A113513F23C5A77E0012AD28 /* ApprovalListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApprovalListCell.xib; sourceTree = "<group>"; };
 		A13BB4D723C886D60013312C /* AbsenceDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceDetailsVC.swift; sourceTree = "<group>"; };
@@ -209,7 +225,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A137E1FB23CA472D0009A7DE /* SAPFoundation.framework in Frameworks */,
 				CDA0905823C739A700FE3E8E /* Pods_TimeCard.framework in Frameworks */,
+				A137E1F723CA47290009A7DE /* SAPFiori.framework in Frameworks */,
+				A137E1F523CA47280009A7DE /* SAPCommon.framework in Frameworks */,
+				A137E1F923CA472C0009A7DE /* SAPFioriFlows.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +274,10 @@
 		5E15810523BB1EAB00754F69 = {
 			isa = PBXGroup;
 			children = (
+				A109544D23CA442C00C5F3C0 /* SAPCommon.framework */,
+				A109544B23CA442900C5F3C0 /* SAPFiori.framework */,
+				A109544A23CA442400C5F3C0 /* SAPFioriFlows.framework */,
+				A109544C23CA442B00C5F3C0 /* SAPFoundation.framework */,
 				5E15811023BB1EAB00754F69 /* TimeCard */,
 				5E15812A23BB1EAE00754F69 /* TimeCardTests */,
 				5E15813523BB1EAE00754F69 /* TimeCardUITests */,
@@ -1126,11 +1150,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GA8BKD9GZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1149,11 +1175,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GA8BKD9GZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1316,11 +1344,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8GA8BKD9GZ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
