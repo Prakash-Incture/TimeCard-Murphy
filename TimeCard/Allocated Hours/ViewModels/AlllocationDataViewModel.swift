@@ -26,6 +26,7 @@ class AllocationDataViewModel{
                delegate?.didReceiveResponse()
            }
        }
+    var weekData: WeekSummary?
     var absenceData:Absence?
     var timeTypeLookUpdata:TimeAndAbsenceLookUp?
     var empTimeOffBalance:EmpTimeAccountBalance?
@@ -150,6 +151,8 @@ extension AllocationDataViewModel{
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
                 self.timeTypeLookUpdata = value
+            case .successData(let _): break
+                // get Success data here
             }
         })
     }
@@ -168,6 +171,8 @@ extension AllocationDataViewModel{
                 UserDefaults.standard.set(value?.empTimeAccountBalance?.empTimeAccountBalanceData?.balance, forKey: "Emp_Leave_Balnce")
                 UserDefaults.standard.synchronize()
                 self.empJobAPICalling()
+            case .successData(let _): break
+                // Get success data here
             }
         })
     }
@@ -184,6 +189,8 @@ extension AllocationDataViewModel{
                 self.delegate?.showLoadingIndicator = false
                 self.empJobData = value
                 self.holidayCalenderApicalling()
+            case .successData( _): break
+                // Get success data here
             }
         })
     }
@@ -202,6 +209,8 @@ extension AllocationDataViewModel{
                 self.holidaycalnder = self.holidayCalenderData?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date}) as NSArray? ?? []
                 self.delegate?.didReceiveResponse()
                 
+            case .successData( _): break
+                // Get success data here
             }
         })
     }

@@ -7,16 +7,36 @@
 //
 
 import UIKit
+import SAPFiori
 
-class ApprovalListController: UIViewController {
+class ApprovalListController: UIViewController, SAPFioriLoadingIndicator {
+    var loadingIndicator: FUILoadingIndicatorView?
+    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectAllBtn: UIButton!
     @IBOutlet weak var approveBtn: UIButton!
+    var showLoadingIndicator: Bool? {
+           didSet {
+               if showLoadingIndicator == true {
+                   self.showFioriLoadingIndicator("Loading")
+               } else {
+                   self.hideFioriLoadingIndicator()
+               }
+           }
+       }
+    var approveListViewModel = ApproveListViewModel()
+    var dispatchGroup: DispatchGroup = DispatchGroup()
+    lazy var getAssertionToken = RequestManager<ApproveListModels>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialSetup()
+        self.setupViewModel()
+    }
+    
+    private func setupViewModel() {
+        approveListViewModel.callAPIForGettingAssertionToken()
     }
     
     func initialSetup() {

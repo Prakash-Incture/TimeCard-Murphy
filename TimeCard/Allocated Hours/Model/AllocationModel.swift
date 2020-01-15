@@ -24,8 +24,11 @@ class AllocatedSingleTon:NSObject{
 }
 struct WeekSummary:Codable {
     var day,date,hours:String?
+    var dayW: String?
+    var dateW: Date?
+    var hoursW: Int?
 }
-struct UserData:Codable {
+struct UserData: Encodable {
     var userId:String?
     init() {
         self.userId = "vstokes"

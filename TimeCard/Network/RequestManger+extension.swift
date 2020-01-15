@@ -25,4 +25,21 @@ extension RequestManager {
 //    public func fetchlookUpdataAl(for userData:UserData, completion: @escaping (_ responseObject: ResponseType?,_ error:NSError?  ) -> ()) -> Void  {
 //        self.getObject(ServiceEndpoints.lookUpApicalling(params: userData).getUrlRequest(), completionHandler:completion)
 //    }
+    
+    public func fetchAsserionToken(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.getAsserionToken(params: params).getUrlRequest(), completion: completion)
+    }
+    
+    public func fetchAccessToken(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.getAccessToken(params: params).getUrlRequest(), completion: completion)
+    }
+    
+    public func fetchTimeSheetData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.getApprovalTimeSheet.getUrlRequest(), completion: completion)
+    }
+    
+    public func fetchTimeOffData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.getApprovalTimeOffSheet.getUrlRequest(), completion: completion)
+    }
+    
 }

@@ -8,14 +8,18 @@
 
 import Foundation
 typealias HTTPHeader = [String: String]
+
 struct LinkingUrl {
-    
-    static var defaultHeaders: HTTPHeader = ["Content-Type": "application/json", "Accept" : "application/json","cache-control": "no-cache"]
+    static var defaultHeaders: HTTPHeader = ["Accept" : "application/json","cache-control": "no-cache", "Content-Type": "application/json"]
+    static var urlEncodeHeaders: HTTPHeader = ["Content-Type": "application/x-www-form-urlencoded"]
     static var lookUpApi = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/TimeTypeProfile"
     static var empTimeOffBalance = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Time-off-Balance"
     static var empJob = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Emp-Job"
     static var holidayCalender = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Holiday_Calender"
-
+    static var idpUrl = "https://apisalesdemo4.successfactors.com/oauth/idp"
+    static var accessTokenUrl = "https://apisalesdemo4.successfactors.com/oauth/token"
+    static var approvalTimeSheetGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2718%27%20&$format=json"
+    static var approvalTimeOffGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2729%27%20&$format=json"
 }
 
 enum ServiceEndpoints {
@@ -23,6 +27,11 @@ enum ServiceEndpoints {
     case empTimeofBalance(params:UserData)
     case empJob(params:UserData)
     case holidayCalender(paramas:UserData)
+    case getAsserionToken(params: String) // POST
+    case getAccessToken(params: String) // POST
+    case getApprovalTimeSheet
+    case getApprovalTimeOffSheet
+    
     func getUrlRequest() -> URLRequest {
         switch self {
         case .lookUpApicalling(let userData):
@@ -37,9 +46,22 @@ enum ServiceEndpoints {
         case .holidayCalender(let userData):
             let urlString = LinkingUrl.holidayCalender
             return self.urlRequest(for: urlString, method: "POST", body:userData)
+        case .getAsserionToken(let paramsStr):
+            let urlString = LinkingUrl.idpUrl
+            return self.urlRequestWithStringBody(for: urlString, method: "POST", body: paramsStr, addHeader: false)
+        case .getAccessToken(let paramStr):
+            let urlStr = LinkingUrl.accessTokenUrl
+            return self.urlRequestWithStringBody(for: urlStr, method: "POST", body: paramStr, addHeader: false)
+        case .getApprovalTimeSheet:
+            let urlStr = LinkingUrl.approvalTimeSheetGet
+            return self.urlRequestWithStringBody(for: urlStr, method: "GET", body: nil, addHeader: true)
+        case .getApprovalTimeOffSheet:
+            let urlStr = LinkingUrl.approvalTimeOffGet
+            return self.urlRequestWithStringBody(for: urlStr, method: "GET", body: nil, addHeader: true)
         }
       }
-        func urlRequest(for urlString: String, method: String = "GET", body: UserData? = nil) -> URLRequest {
+    
+    func urlRequest(for urlString: String, method: String = "GET", body: UserData? = nil, addHeader: Bool = true) -> URLRequest {
              let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
             let url = URL(string: urlStringVal)
             var urlRequest = URLRequest(url: url!)
@@ -47,7 +69,9 @@ enum ServiceEndpoints {
             LinkingUrl.defaultHeaders.forEach { (key, value) in
                 urlRequest.setValue(value, forHTTPHeaderField: key)
             }
+        if addHeader{
             urlRequest.addValue("Basic UDAwMTI1NDpDaGFpdGFueWFAMg==", forHTTPHeaderField: "Authorization")
+        }
             guard let body = body else { return urlRequest }
             
             do {
@@ -60,6 +84,28 @@ enum ServiceEndpoints {
             
             return urlRequest
         }
+    
+    func urlRequestWithStringBody(for urlString: String, method: String = "GET", body: String?, addHeader: Bool = true) -> URLRequest {
+                let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
+                let url = URL(string: urlStringVal)
+                var urlRequest = URLRequest(url: url!)
+                urlRequest.httpMethod = method
+                LinkingUrl.urlEncodeHeaders.forEach { (key, value) in
+                    urlRequest.setValue(value, forHTTPHeaderField: key)
+                }
+            if addHeader{
+                let accessToken = UserDefaults.standard.object(forKey: ApproveConstants.accessToken as? String ?? "")
+                urlRequest.addValue("Bearer \(accessToken ?? "")", forHTTPHeaderField: "Authorization")
+            }
+        if method == "POST"{
+                    guard let body = body else { return urlRequest }
+                    if let postData = body.data(using: .utf8) {
+                    urlRequest.httpBody = postData
+            }
+        }
+                return urlRequest
+    }
+    
     func userAuthorizationHeaders() -> String{
         let username = "P001254"
         let password = "Chaitanya@2"
@@ -68,6 +114,31 @@ enum ServiceEndpoints {
         let base64LoginString = loginData.base64EncodedString()
         return base64LoginString
     }
-   
 }
 
+enum QHTTPFormURLEncoded {
+  
+    static let contentType = "application/x-www-form-urlencoded"
+  
+    static func urlEncoded(formDataSet: [String: String]) -> String {
+        return formDataSet.map { (key, value) in
+            return escape(key) + "=" + escape(value)
+        }.joined(separator: "&")
+    }
+  
+    private static func escape(_ str: String) -> String {
+        return str.replacingOccurrences(of: "\n", with: "\r\n")
+            .addingPercentEncoding(withAllowedCharacters: sAllowedCharacters)!
+            .replacingOccurrences(of: " ", with: "+")
+    }
+    private static let sAllowedCharacters: CharacterSet = {
+        // Start with `CharacterSet.urlQueryAllowed` then add " " (it's converted to "+" later)
+        // and remove "+" (it has to be percent encoded to prevent a conflict with " ").
+        var allowed = CharacterSet.urlQueryAllowed
+        allowed.insert(" ")
+        allowed.remove("+")
+        allowed.remove("/")
+        allowed.remove("?")
+        return allowed
+    }()
+}

@@ -22,6 +22,7 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
       private var cellType: AllocationCellIdentifier?
       var parent:UIViewController?
       var allocationViewModel:AllocationDataViewModel?
+    var weekData: WeekSummary?
       var allocationData:AllocationModel?{
         didSet{
             guard let type = cellType else { return }
@@ -109,12 +110,19 @@ extension GenericTableviewDropdownCell:UpdateData{
     }
     func uodateMainModel(){
         self.allocationViewModel?.allocationData = self.allocationData
+        self.allocationViewModel?.weekData = self.weekData
         
         for (index,value) in (self.allocationViewModel?.allcationModelData.alllocationModel?.enumerated())!{
             if value.timeType == "" || value.duration == "" || value.costCneter == ""{
                 self.allocationViewModel?.allcationModelData.alllocationModel?.remove(at: index)
                 self.allocationViewModel?.allcationModelData.alllocationModel?.append(self.allocationData!)
-                
+            }
+        }
+        
+        for (index, value) in ((self.allocationViewModel?.allcationModelData.weekData?.enumerated())!) {
+            if value.dateW == nil || value.dayW == "" || value.hoursW == nil{
+                self.allocationViewModel?.allcationModelData.weekData?.remove(at: index)
+                self.allocationViewModel?.allcationModelData.weekData?.append(self.weekData!)
             }
         }
     }
@@ -130,6 +138,10 @@ extension GenericTableviewDropdownCell:UpdateData{
         default: break
         }
         self.uodateMainModel()
+    }
+    //TODO:
+    func updateWeekData() {
+        
     }
 }
 //Picker view Delagetse
