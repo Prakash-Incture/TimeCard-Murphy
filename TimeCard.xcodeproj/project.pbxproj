@@ -28,6 +28,8 @@
 		5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */; };
 		5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */; };
 		5E253CDE23C6C63700613CC4 /* AbsenceObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */; };
+		5E53911323D0395000E5EE09 /* ApproveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */; };
+		5E53911523D0399200E5EE09 /* ApproveModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911423D0399200E5EE09 /* ApproveModels.swift */; };
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
@@ -159,6 +161,8 @@
 		5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordTableViewCell.swift; sourceTree = "<group>"; };
 		5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewRecordTableViewCell.xib; sourceTree = "<group>"; };
 		5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AbsenceObjectModel.swift; path = TimeCard/Absences/AbsenceObjectModel.swift; sourceTree = SOURCE_ROOT; };
+		5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApproveListViewModel.swift; sourceTree = "<group>"; };
+		5E53911423D0399200E5EE09 /* ApproveModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApproveModels.swift; sourceTree = "<group>"; };
 		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
 		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceViewModel.swift; sourceTree = "<group>"; };
@@ -461,6 +465,7 @@
 		A1CC535723C5F365008294E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5E53911423D0399200E5EE09 /* ApproveModels.swift */,
 				A1CC535823C5F378008294E3 /* TimeSheetDetailsModel.swift */,
 				A13BB4DD23C8ABE30013312C /* AbsenceDetailsModel.swift */,
 			);
@@ -470,6 +475,7 @@
 		A1CC535A23C60FE0008294E3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */,
 				A1CC535B23C61009008294E3 /* TimeSheetDetailsVM.swift */,
 				A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */,
 			);
@@ -929,6 +935,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD1F6F0B23C85FB7001A20D4 /* TimesheetDetailsVC.swift in Sources */,
+				5E53911323D0395000E5EE09 /* ApproveListViewModel.swift in Sources */,
 				CDA0902923C4B20100FE3E8E /* DashBoardController.swift in Sources */,
 				A13BB4D823C886D60013312C /* AbsenceDetailsVC.swift in Sources */,
 				CD79A77423BE168A00CA5ED7 /* Extensions.swift in Sources */,
@@ -972,6 +979,7 @@
 				5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */,
 				5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */,
 				CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */,
+				5E53911523D0399200E5EE09 /* ApproveModels.swift in Sources */,
 				CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */,
 				CD1F6F1123C86452001A20D4 /* TImeSheetEntryCell.swift in Sources */,
 				CDA0902D23C4B25300FE3E8E /* DashBoardCell.swift in Sources */,
