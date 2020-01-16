@@ -34,6 +34,8 @@
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
 		5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929C23C3008E00EB02AB /* ListViewModel.swift */; };
+		A1CC536423C72417008294E3 /* AllocatedHoursCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1CC536223C72417008294E3 /* AllocatedHoursCoreData.xcdatamodeld */; };
+		A1CC536623C7242D008294E3 /* AllocatedHoursCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC536523C7242D008294E3 /* AllocatedHoursCoreData.swift */; };
 		A92BD1AFA7E1FB268CB26228 /* Pods_TimeCardTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */; };
 		CD79A75423BDCE1600CA5ED7 /* AllocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */; };
 		CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */; };
@@ -118,6 +120,8 @@
 		6E1223C68CDDDD312ADE68C1 /* Pods-TimeCard-TimeCardUITests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.qa.xcconfig"; sourceTree = "<group>"; };
 		7F28D1247AC84EEE31BE5AC8 /* Pods-TimeCard-TimeCardUITests.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard-TimeCardUITests.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard-TimeCardUITests/Pods-TimeCard-TimeCardUITests.release production.xcconfig"; sourceTree = "<group>"; };
 		902DFC0485DD68EA9016782F /* Pods-TimeCard.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.qa.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.qa.xcconfig"; sourceTree = "<group>"; };
+		A1CC536323C72417008294E3 /* AllocatedHoursCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AllocatedHoursCoreData.xcdatamodel; sourceTree = "<group>"; };
+		A1CC536523C7242D008294E3 /* AllocatedHoursCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllocatedHoursCoreData.swift; sourceTree = "<group>"; };
 		AF7B598CEB99F2830D960B0B /* Pods_TimeCard_TimeCardUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCard_TimeCardUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0D4C00530D3B3025D9A0443 /* Pods-TimeCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.debug.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.debug.xcconfig"; sourceTree = "<group>"; };
 		BAE7FEB775031339E99B8BBD /* Pods_TimeCardTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeCardTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,6 +366,15 @@
 			path = Absences;
 			sourceTree = "<group>";
 		};
+		A1CC536123C723E4008294E3 /* AllocatedHoursCoreData */ = {
+			isa = PBXGroup;
+			children = (
+				A1CC536223C72417008294E3 /* AllocatedHoursCoreData.xcdatamodeld */,
+				A1CC536523C7242D008294E3 /* AllocatedHoursCoreData.swift */,
+			);
+			path = AllocatedHoursCoreData;
+			sourceTree = "<group>";
+		};
 		C332979DA907B34F96A7EBA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +388,7 @@
 		CD79A75523BDCE4700CA5ED7 /* Allocated Hours */ = {
 			isa = PBXGroup;
 			children = (
+				A1CC536123C723E4008294E3 /* AllocatedHoursCoreData */,
 				CD79A77223BE166C00CA5ED7 /* Extensions */,
 				CD79A76123BDCE9B00CA5ED7 /* Views */,
 				CD79A75C23BDCE8700CA5ED7 /* ViewModels */,
@@ -765,6 +779,7 @@
 				CD84354A23C2FBC500D90118 /* WeekSummaryCell.swift in Sources */,
 				5E15815F23BB3CE800754F69 /* NewRecordViewModel.swift in Sources */,
 				CD79A76923BDCEB600CA5ED7 /* Headercell.swift in Sources */,
+				A1CC536423C72417008294E3 /* AllocatedHoursCoreData.xcdatamodeld in Sources */,
 				CD84355A23C46EB600D90118 /* CalenderTableViewCell.swift in Sources */,
 				CD84354523C2EE2200D90118 /* WeekSummaryController.swift in Sources */,
 				CD79A76823BDCEB600CA5ED7 /* GenericTableviewDropdownCell.swift in Sources */,
@@ -787,6 +802,7 @@
 				5E15811423BB1EAB00754F69 /* SceneDelegate.swift in Sources */,
 				5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */,
 				5E93929D23C3008E00EB02AB /* ListViewModel.swift in Sources */,
+				A1CC536623C7242D008294E3 /* AllocatedHoursCoreData.swift in Sources */,
 				CD79A75A23BDCE8200CA5ED7 /* NewRecordingViewController.swift in Sources */,
 				CD79A75B23BDCE8200CA5ED7 /* AllocationTimeTypeController.swift in Sources */,
 				CDA0902D23C4B25300FE3E8E /* DashBoardCell.swift in Sources */,
@@ -1255,6 +1271,16 @@
 			);
 			currentVersion = 5E15811B23BB1EAB00754F69 /* TimeCard.xcdatamodel */;
 			path = TimeCard.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		A1CC536223C72417008294E3 /* AllocatedHoursCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A1CC536323C72417008294E3 /* AllocatedHoursCoreData.xcdatamodel */,
+			);
+			currentVersion = A1CC536323C72417008294E3 /* AllocatedHoursCoreData.xcdatamodel */;
+			path = AllocatedHoursCoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

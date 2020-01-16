@@ -108,7 +108,7 @@
                                 <real key="value" value="0.5"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
-                                <integer key="value" value="1"/>
+                                <integer key="value" value="0"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
                                 <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -171,6 +171,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="calenderView" destination="DwV-5e-byA" id="nWH-u4-2gC"/>
+                <outlet property="datelabel" destination="Mwy-Xb-1lR" id="va6-Bd-Vy4"/>
                 <outlet property="leftButtonAction" destination="AW2-7G-S3Z" id="yjw-L4-FZN"/>
                 <outlet property="rightAction" destination="3dX-s9-WpJ" id="62C-Wr-vGO"/>
             </connections>

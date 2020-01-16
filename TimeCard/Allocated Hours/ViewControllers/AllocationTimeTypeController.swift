@@ -22,7 +22,6 @@ class AllocationTimeTypeController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.customNavigationType = .navWithBack
         // Do any additional setup after loading the view.
         self.tableView.tableFooterView = UIView()
     }
