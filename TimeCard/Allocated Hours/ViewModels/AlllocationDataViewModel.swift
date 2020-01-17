@@ -29,6 +29,7 @@ class AllocationDataViewModel{
     var weekData: WeekSummary?
     var absenceData:Absence?
     var timeTypeLookUpdata:TimeAndAbsenceLookUp?
+    var costCenterData = CostCenterData()
     var empTimeOffBalance:EmpTimeAccountBalance?
     var empJobData:EmpJobModel?
     var holidayCalenderData:HolidayAssignment?
@@ -50,6 +51,7 @@ class AllocationDataViewModel{
     lazy var requestMangerTimeOffBalance = RequestManager<EmpTimeAccountBalance>()
     lazy var empJObData = RequestManager<EmpJobModel>()
     lazy var holidayCalender = RequestManager<HolidayAssignment>()
+    lazy var costCenter = RequestManager<CostCenterData>()
     var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
    
     public func dataFetching(){
@@ -147,10 +149,12 @@ extension AllocationDataViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
+                self.empTimeOffBalanceAPICalling()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
                 self.timeTypeLookUpdata = value
+                self.empTimeOffBalanceAPICalling()
             case .successData(let _): break
                 // get Success data here
             }
@@ -168,7 +172,8 @@ extension AllocationDataViewModel{
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
                 self.empTimeOffBalance = value
-                UserDefaults.standard.set(value?.empTimeAccountBalance?.empTimeAccountBalanceData?.balance, forKey: "Emp_Leave_Balnce")
+                let availableBalance = String(format: "%@ %@",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.balance ?? "",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.timeUnit ?? "")
+                UserDefaults.standard.set( availableBalance, forKey: "Emp_Leave_Balnce")
                 UserDefaults.standard.synchronize()
                 self.empJobAPICalling()
             case .successData(let _): break
@@ -184,6 +189,7 @@ extension AllocationDataViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
+                self.holidayCalenderApicalling()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
@@ -214,6 +220,8 @@ extension AllocationDataViewModel{
             }
         })
     }
+    
+
     func getdayWeekDay(date:Date)-> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"

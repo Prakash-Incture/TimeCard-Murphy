@@ -118,6 +118,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
             }else{
                 //TODO:
                 // Show error message
+                self.showAlert(message: "Please fill all the details")
             }
         }
 
@@ -144,6 +145,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.setModel(cellModel)
                 cell.selectionStyle = .none
                 cell.parent = self
+                cell.costcenterData = self.allocationDataViewModel.costCenterData.cust_WBS_Element_Test?.cust_WBS_Element_Test ?? [CostCenterDataModel]()
                 cell.allocationData = self.allocationDataViewModel.allcationModelData.alllocationModel?[indexPath.row] ?? AllocationModel()
                 return cell
             case .AllocatedTimeTableCell:

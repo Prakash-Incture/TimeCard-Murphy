@@ -22,6 +22,7 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
       private var cellType: AllocationCellIdentifier?
       var parent:UIViewController?
       var allocationViewModel:AllocationDataViewModel?
+    var costcenterData : [CostCenterDataModel]?
     var weekData: WeekSummary?
       var allocationData:AllocationModel?{
         didSet{
@@ -88,15 +89,15 @@ extension GenericTableviewDropdownCell:UpdateData{
         switch type {
         case .timeType:
             guard let detailsVC = UIStoryboard(name: "AllocationHours", bundle: Bundle.main).instantiateViewController(withIdentifier: "AllocationTimeTypeController") as? AllocationTimeTypeController else { return }
-            detailsVC.timeType = self.allocationViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
-            detailsVC.allocationData = self.allocationData
+            //detailsVC.timeType = self.allocationViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
+           detailsVC.allocationData = self.allocationData
             detailsVC.delegate = self
             detailsVC.cellType = self.cellType
             self.parent?.navigationController?.pushViewController(detailsVC, animated: true)
             self.cellTextField.resignFirstResponder()
         case .costCenter:
             guard let detailsVC = UIStoryboard(name: "AllocationHours", bundle: Bundle.main).instantiateViewController(withIdentifier: "AllocationTimeTypeController") as? AllocationTimeTypeController else { return }
-            detailsVC.timeType = self.allocationViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
+            detailsVC.costcenterData = self.costcenterData
             detailsVC.allocationData = self.allocationData
             detailsVC.delegate = self
             detailsVC.cellType = self.cellType
@@ -119,12 +120,12 @@ extension GenericTableviewDropdownCell:UpdateData{
             }
         }
         
-        for (index, value) in ((self.allocationViewModel?.allcationModelData.weekData?.enumerated())!) {
-            if value.dateW == nil || value.dayW == "" || value.hoursW == nil{
-                self.allocationViewModel?.allcationModelData.weekData?.remove(at: index)
-                self.allocationViewModel?.allcationModelData.weekData?.append(self.weekData!)
-            }
-        }
+//        for (index, value) in ((self.allocationViewModel?.allcationModelData.weekData?.enumerated())!) {
+//            if value.dateW == nil || value.dayW == nil || value.hoursW == nil{
+//                self.allocationViewModel?.allcationModelData.weekData?.remove(at: index)
+//                //self.allocationViewModel?.allcationModelData.weekData?.append(self.weekData!)
+//            }
+//        }
     }
     func updateValue(value:String?) {
         guard let type = cellType else { return }

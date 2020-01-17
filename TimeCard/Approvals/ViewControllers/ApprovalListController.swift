@@ -9,7 +9,7 @@
 import UIKit
 import SAPFiori
 
-class ApprovalListController: UIViewController, SAPFioriLoadingIndicator {
+class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     var loadingIndicator: FUILoadingIndicatorView?
     
     
@@ -31,14 +31,19 @@ class ApprovalListController: UIViewController, SAPFioriLoadingIndicator {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.customNavigationType = .navWithFilter
         self.initialSetup()
         self.setupViewModel()
     }
-    
+    override func selectedBack(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     private func setupViewModel() {
         approveListViewModel.callAPIForGettingAssertionToken()
     }
-    
+    override func selectedFilter(sender: UIButton) {
+        
+    }
     func initialSetup() {
         
         self.tableView.register(UINib(nibName: "ApprovalListCell", bundle: nil), forCellReuseIdentifier: "ApprovalListCell")

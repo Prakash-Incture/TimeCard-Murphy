@@ -75,8 +75,8 @@ enum DateFormat: String {
     case dayMonthYearwithTime = "dd, MMM yyyy hh:mm a"
     case yearMonthDateTime = "yyyy-MM-dd'T'HH:mm:ss"
     case monthDateYearTime = "MMM dd, yyyy h:mm:ss a"
-   case  monthDateSingledayTime = "MMM d, yyyy h:mm:ss a"
-
+    case monthDateSingledayTime = "MMM d, yyyy h:mm:ss a"
+    case monthDayYear = "MMM dd, yyyy"
 }
     func toDateFormat(_ format: DateFormat, isUTCTimeZone: Bool = false) -> String {
         let dateFormatter = DateFormatter()

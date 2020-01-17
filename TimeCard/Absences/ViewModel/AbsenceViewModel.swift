@@ -86,3 +86,4 @@ public enum AbsenceCurrentPage: Int {
             return ""
         }
 }
+

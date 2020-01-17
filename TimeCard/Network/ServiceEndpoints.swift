@@ -20,6 +20,7 @@ struct LinkingUrl {
     static var accessTokenUrl = "https://apisalesdemo4.successfactors.com/oauth/token"
     static var approvalTimeSheetGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2718%27%20&$format=json"
     static var approvalTimeOffGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2729%27%20&$format=json"
+    static var costcenter = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EmpCostDistributionItem"
 }
 
 enum ServiceEndpoints {
@@ -31,6 +32,7 @@ enum ServiceEndpoints {
     case getAccessToken(params: String) // POST
     case getApprovalTimeSheet
     case getApprovalTimeOffSheet
+    case getCostcenter(params: UserData)
     
     func getUrlRequest() -> URLRequest {
         switch self {
@@ -58,6 +60,9 @@ enum ServiceEndpoints {
         case .getApprovalTimeOffSheet:
             let urlStr = LinkingUrl.approvalTimeOffGet
             return self.urlRequestWithStringBody(for: urlStr, method: "GET", body: nil, addHeader: true)
+        case .getCostcenter(let userData):
+             let urlStr = LinkingUrl.costcenter
+            return self.urlRequest(for: urlStr, method: "POST", body:userData)
         }
       }
     

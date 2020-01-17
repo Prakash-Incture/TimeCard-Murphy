@@ -23,7 +23,8 @@ class AbsencesViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Absences"
-        self.customNavigationType = .navWithBackandDone
+        self.customNavigationType = .navWithBack
+        absenceData.availableLeaves = UserDefaults.standard.value(forKey: "Emp_Leave_Balnce") as? String
         setupTableViewConfigur()
     }
     func setupTableViewConfigur(){
@@ -39,13 +40,14 @@ class AbsencesViewController: BaseViewController {
     override func selectedBack(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-     override func selectedDone(sender: UIButton) {
-        if absenceData.availableLeaves == nil || absenceData.startDate == nil || absenceData.endDate == nil,absenceData.requesting == nil{
-            self.showAlert(message: "Please fill all the details")
-        }else{
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)
-                   self.navigationController?.popViewController(animated: true)
-        }
+
+    override func selectedCancel(sender: UIButton) {
+        self.customNavigationType = .navWithBack
+    }
+
+    override func selectedSubmit(sender: UIButton) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
@@ -58,6 +60,7 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
       let cell = self.tableView.dequeueReusableCell(withIdentifier: "NewRecordTableViewCell", for: indexPath) as! NewRecordTableViewCell
         let cellModel = currentHeaderCells[indexPath.row]
         cell.contentLbl.text = cellModel.absenceModelIdentifier.rawValue
+        cell.selectionStyle = .none
         switch cellModel.absenceModelIdentifier {
         case .timeType:
             cell.cellTextField.text =  absenceData.timeType
@@ -65,6 +68,8 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
             cell.cellTextField.resignFirstResponder()
             break
             case .availableBalance:
+                cell.accessoryType = .none
+                cell.cellTextField.isUserInteractionEnabled = false
                 cell.cellTextField.text = UserDefaults.standard.value(forKey: "Emp_Leave_Balnce") as? String
             break
             case .startDate:
@@ -78,9 +83,8 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
                 self.setDatePickerView(textField: cell.cellTextField)
             break
         case .requesting:
-            cell.cellTextField.text =  absenceData.requesting
+            cell.cellTextField.text =  absenceData.requesting ?? "Days/Hours"
             self.seytPickerViews(textField:cell.cellTextField)
-
             break
 
         }
@@ -137,7 +141,7 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         }
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        hour = String(row) + "Hours"
+        hour = String(row + 1) + " " + "Hours"
     }
     
     func updateValue(value: String?) {
@@ -192,18 +196,25 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         absenceData.requesting = (self.hour == "") ? "1 Hours" : hour
         self.tableView.reloadData()
         self.view.endEditing(true)
+        if  absenceData.startDate != nil && absenceData.endDate != nil && absenceData.timeType != nil && absenceData.timeType != ""{
+            self.customNavigationType = .navWithCancelandSubmit
+        }
+
 
     }
     @objc func donedatePicker(){
         let formatter = DateFormatter()
-        formatter.dateFormat = Date.DateFormat.monthDateYearLong.rawValue
+        formatter.dateFormat = Date.DateFormat.monthDayYear.rawValue
         if textField?.tag != 1{
-        absenceData.startDate = self.datePickerView.date.toDateFormat(.monthDateSingledayTime)
+            absenceData.startDate = self.datePickerView.date.toDateFormat(.monthDayYear)
         }else{
-        absenceData.endDate = self.datePickerView.date.toDateFormat(.monthDateSingledayTime)
+        absenceData.endDate = self.datePickerView.date.toDateFormat(.monthDayYear)
         }
         self.tableView.reloadData()
         self.view.endEditing(true)
+//        if absenceData.availableLeaves != nil || absenceData.startDate != nil || absenceData.endDate != nil,absenceData.requesting != nil || absenceData.timeType != nil{
+//            self.customNavigationType = .navWithSaveandCancel
+//        }
         
     }
     @objc func cancelDatePicker(){

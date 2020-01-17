@@ -27,9 +27,9 @@
 		5E15816723BB439500754F69 /* AbsencesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */; };
 		5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */; };
 		5E15816B23BB47AC00754F69 /* NewRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */; };
-		5E253CDE23C6C63700613CC4 /* AbsenceObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */; };
 		5E53911323D0395000E5EE09 /* ApproveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */; };
 		5E53911523D0399200E5EE09 /* ApproveModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911423D0399200E5EE09 /* ApproveModels.swift */; };
+		5E53911A23D03DD500E5EE09 /* AbsenceObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911923D03DD500E5EE09 /* AbsenceObjectModel.swift */; };
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
@@ -160,9 +160,9 @@
 		5E15816523BB439500754F69 /* AbsencesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AbsencesTableViewCell.xib; sourceTree = "<group>"; };
 		5E15816823BB47AC00754F69 /* NewRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecordTableViewCell.swift; sourceTree = "<group>"; };
 		5E15816923BB47AC00754F69 /* NewRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewRecordTableViewCell.xib; sourceTree = "<group>"; };
-		5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AbsenceObjectModel.swift; path = TimeCard/Absences/AbsenceObjectModel.swift; sourceTree = SOURCE_ROOT; };
 		5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApproveListViewModel.swift; sourceTree = "<group>"; };
 		5E53911423D0399200E5EE09 /* ApproveModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApproveModels.swift; sourceTree = "<group>"; };
+		5E53911923D03DD500E5EE09 /* AbsenceObjectModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsenceObjectModel.swift; sourceTree = "<group>"; };
 		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
 		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceViewModel.swift; sourceTree = "<group>"; };
@@ -359,15 +359,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		5E15814623BB1EDA00754F69 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				5E253CDD23C6C63700613CC4 /* AbsenceObjectModel.swift */,
-			);
-			name = Model;
-			path = ../Model;
-			sourceTree = "<group>";
-		};
 		5E15814723BB1EEE00754F69 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,10 +428,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		5E53911823D03DBA00E5EE09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5E53911923D03DD500E5EE09 /* AbsenceObjectModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5E93929923BF1D6300EB02AB /* Absences */ = {
 			isa = PBXGroup;
 			children = (
-				5E15814623BB1EDA00754F69 /* Model */,
+				5E53911823D03DBA00E5EE09 /* Model */,
 				5E15814523BB1ECB00754F69 /* ViewModel */,
 				5E15814423BB1EBF00754F69 /* Views */,
 			);
@@ -959,10 +958,10 @@
 				5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */,
 				CD1F6F0F23C8642F001A20D4 /* AllocatedHoursCoreData.xcdatamodeld in Sources */,
 				CDD5809E23C85EC500CE4A90 /* AllocatedHoursCoreData.swift in Sources */,
-				5E253CDE23C6C63700613CC4 /* AbsenceObjectModel.swift in Sources */,
 				5E15816623BB439500754F69 /* AbsencesTableViewCell.swift in Sources */,
 				5E15816A23BB47AC00754F69 /* NewRecordTableViewCell.swift in Sources */,
 				CDA0903123C4B49A00FE3E8E /* ApprovalListController.swift in Sources */,
+				5E53911A23D03DD500E5EE09 /* AbsenceObjectModel.swift in Sources */,
 				CD79A77023BDF17600CA5ED7 /* AllocatedTimeTableCell.swift in Sources */,
 				CDA0903B23C6CE5C00FE3E8E /* RequestManger.swift in Sources */,
 				5E15815723BB2CC500754F69 /* Constants.swift in Sources */,

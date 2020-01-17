@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimesheetDetailsVC: UIViewController {
+class TimesheetDetailsVC: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
@@ -26,7 +26,7 @@ class TimesheetDetailsVC: UIViewController {
     let tempHeader = ["Time Sheet Entry", "", "Time Valuation Result", ""]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.customNavigationType = .navBackWithAction
         self.initialSetup()
     }
     
@@ -36,13 +36,12 @@ class TimesheetDetailsVC: UIViewController {
         self.tableView.register(UINib(nibName: "TimeValuationCell", bundle: nil), forCellReuseIdentifier: "TimeValuationCell")
         empImgView.layer.cornerRadius = empImgView.frame.width/2
     }
-
-    @IBAction func backBtnTapped(_ sender: Any) {
+    override func selectedBack(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+
     }
-    
-    @IBAction func actionTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+    override func selectedAction(sender: UIButton) {
+                let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Decline", style: .default, handler: { (declineAction) in
             
         }))
@@ -53,6 +52,7 @@ class TimesheetDetailsVC: UIViewController {
         
         self.present(actionSheet, animated: true, completion: nil)
     }
+
 }
 
 extension TimesheetDetailsVC: UITableViewDelegate, UITableViewDataSource{

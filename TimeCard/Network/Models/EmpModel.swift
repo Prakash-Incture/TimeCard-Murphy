@@ -297,3 +297,26 @@ struct Holiday:Codable{
         case mdfSystemRecordId = "mdfSystemRecordId"
     }
 }
+
+struct CostCenterData:Codable {
+    var cust_WBS_Element_Test : CostCenterDetailData?
+    enum CodingKeys: String, CodingKey {
+        case cust_WBS_Element_Test = "cust_WBS_Element_Test"
+    }
+}
+struct CostCenterDetailData:Codable {
+    var cust_WBS_Element_Test : [CostCenterDataModel]?
+    enum CodingKeys: String, CodingKey {
+        case cust_WBS_Element_Test = "cust_WBS_Element_Test"
+    }
+}
+struct CostCenterDataModel:Codable {
+    var cust_Costcenter : String?
+    var cust_WBS_Owner : String?
+    var externalName : String?
+    enum CodingKeys: String, CodingKey {
+        case cust_Costcenter = "cust_Costcenter"
+        case cust_WBS_Owner = "cust_WBS_Owner"
+        case externalName = "externalName"
+    }
+}

@@ -25,6 +25,10 @@ extension RequestManager {
 //    public func fetchlookUpdataAl(for userData:UserData, completion: @escaping (_ responseObject: ResponseType?,_ error:NSError?  ) -> ()) -> Void  {
 //        self.getObject(ServiceEndpoints.lookUpApicalling(params: userData).getUrlRequest(), completionHandler:completion)
 //    }
+    public func costCenterAPIcall(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+    self.getData(ServiceEndpoints.getCostcenter(params: userData).getUrlRequest(),completion: completion)
+      }
+
     
     public func fetchAsserionToken(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getAsserionToken(params: params).getUrlRequest(), completion: completion)

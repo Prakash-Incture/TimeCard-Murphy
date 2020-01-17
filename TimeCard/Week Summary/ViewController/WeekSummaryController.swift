@@ -28,10 +28,16 @@ class WeekSummaryController: BaseViewController {
           }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.customNavigationType = .navBackWithAction
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
         
     }
-    
+    override func selectedAction(sender: UIButton) {
+        self.onTapofAction(sender: sender)
+    }
+    override func selectedBack(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.allocationViewModel?.fetchWeekData()
@@ -41,8 +47,8 @@ class WeekSummaryController: BaseViewController {
         self.tableView.tableFooterView = UIView()
         self.tableView.register(UINib(nibName: "AllocatedTimeTableCell", bundle: nil), forCellReuseIdentifier: "AllocatedTimeTableCell")
         self.tableView.register(UINib(nibName: "WeekSummaryCell", bundle: nil), forCellReuseIdentifier: "WeekSummaryCell")
-        let filterItem = UIBarButtonItem.init(title:"Action", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onTapofAction))
-        navigationItem.rightBarButtonItem = filterItem
+//        let filterItem = UIBarButtonItem.init(title:"Action", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.onTapofAction))
+//        navigationItem.rightBarButtonItem = filterItem
         self.navigationItem.title = "Week Summary"
     }
 }
@@ -103,7 +109,7 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
     }
  }
 extension WeekSummaryController{
-    @objc func onTapofAction() {
+    @objc func onTapofAction(sender:UIButton) {
           let alertController = UIAlertController(title: nil, message: "", preferredStyle: .actionSheet)
           
           let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { (alert: UIAlertAction!) -> Void in

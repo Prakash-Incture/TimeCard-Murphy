@@ -68,6 +68,22 @@ class BaseViewController: UIViewController {
                 let pasteBtn = NavPasteButton(type: .custom)
                          navigationItem.rightBarButtonItem = UIBarButtonItem(customView: pasteBtn)
                          pasteBtn.addTarget(self, action: #selector(selectedPaste(sender:)), for: .touchUpInside)
+              case .navWithCancelandSubmit:
+                          let cancelBtn =  NavCancelButton(type: .custom)
+                          navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelBtn)
+                      cancelBtn.addTarget(self, action: #selector(selectedCancel(sender:)), for: .touchUpInside)
+
+                      let saveBtn = NavSubmitButton(type: .custom)
+                          navigationItem.rightBarButtonItem = UIBarButtonItem(customView: saveBtn)
+                          saveBtn.addTarget(self, action: #selector(selectedSubmit(sender:)), for: .touchUpInside)
+                      break
+              case .navWithFilter:
+                           let backBtn =  NavBackButton(type: .custom)
+                             backBtn.addTarget(self, action: #selector(selectedBack(sender:)), for: .touchUpInside)
+                             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backBtn)
+                         let filterBtn = NavFilterButton(type: .custom)
+                             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: filterBtn)
+                             filterBtn.addTarget(self, action: #selector(selectedFilter(sender:)), for: .touchUpInside)
             }
           }
       }
@@ -88,6 +104,9 @@ class BaseViewController: UIViewController {
     @objc func selectedSave(sender: UIButton) {
              DLog(message: "Overide")
          }
+    @objc func selectedSubmit(sender: UIButton) {
+             DLog(message: "Overide")
+         }
     @objc func selectedCancel(sender: UIButton) {
              DLog(message: "Overide")
          }
@@ -100,4 +119,7 @@ class BaseViewController: UIViewController {
     @objc func selectedPaste(sender: UIButton) {
                  DLog(message: "Overide")
              }
+    @objc func selectedFilter(sender: UIButton) {
+                   DLog(message: "Overide")
+               }
 }

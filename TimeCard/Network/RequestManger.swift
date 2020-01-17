@@ -21,13 +21,15 @@ class RequestManager<ResponseType: Codable> {
                 completion?(APIResponse.failure(mesaage: error?.localizedDescription ?? defaultError))
                 return
             }
+          if  let completeData = String(data: data, encoding: .utf8) {
+                        print("\n\n\n Response Received Data: \n \(completeData)\n\n\n")
+                    }
+
             completion?(APIResponse<ResponseType>.successData(value: data))
             do {
-                print(try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) )
                 let parsedData = try JSONDecoder().decode(ResponseType.self, from: data)
                 completion?(APIResponse<ResponseType>.success(value: parsedData, message: "Success"))
             } catch {
-                print(error.localizedDescription, "StatusCode: \(response!)")
                 completion?(APIResponse<ResponseType>.failure(mesaage: "Data Not Found"))
             }
         }
