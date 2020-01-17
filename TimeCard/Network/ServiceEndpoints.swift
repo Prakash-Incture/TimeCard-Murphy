@@ -21,6 +21,9 @@ struct LinkingUrl {
     static var approvalTimeSheetGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2718%27%20&$format=json"
     static var approvalTimeOffGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2729%27%20&$format=json"
     static var costcenter = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EmpCostDistributionItem"
+     static var postAbsencesData = "https://api4preview.sapsf.com/odata/v2/upsert?workflowConfirmed=true"
+    static var idpForTimeSheet = "https://api4preview.sapsf.com/oauth/idp"
+    static var accessTokenforTimeCard = "https://api4preview.sapsf.com//oauth/token"
 }
 
 enum ServiceEndpoints {
@@ -30,8 +33,11 @@ enum ServiceEndpoints {
     case holidayCalender(paramas:UserData)
     case getAsserionToken(params: String) // POST
     case getAccessToken(params: String) // POST
+    case getAsserionTokenForTimesheet(params: String) // POST
+    case getAccessTokenForTimeSheet(params: String) // POST
     case getApprovalTimeSheet
     case getApprovalTimeOffSheet
+    case postAbsenceData(param:[String:Any])
     case getCostcenter(params: UserData)
     
     func getUrlRequest() -> URLRequest {
@@ -63,6 +69,15 @@ enum ServiceEndpoints {
         case .getCostcenter(let userData):
              let urlStr = LinkingUrl.costcenter
             return self.urlRequest(for: urlStr, method: "POST", body:userData)
+        case .postAbsenceData(let param):
+            let urlStr = LinkingUrl.postAbsencesData
+            return self.urlRequestWithBody(for: urlStr, method: "POST", body: param, addHeader: true)
+        case .getAsserionTokenForTimesheet(let paramsStr):
+              let urlStr = LinkingUrl.idpForTimeSheet
+            return self.urlRequestWithStringBody(for: urlStr, method: "POST", body: paramsStr, addHeader: false)
+        case .getAccessTokenForTimeSheet(let paramsStr):
+            let urlString = LinkingUrl.accessTokenforTimeCard
+            return self.urlRequestWithStringBody(for: urlString, method: "POST", body: paramsStr, addHeader: false)
         }
       }
     
@@ -110,7 +125,29 @@ enum ServiceEndpoints {
         }
                 return urlRequest
     }
-    
+    func urlRequestWithBody(for urlString: String, method: String = "GET", body: [String:Any]?, addHeader: Bool = true)  -> URLRequest {
+                let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
+                let url = URL(string: urlStringVal)
+                var urlRequest = URLRequest(url: url!)
+                urlRequest.httpMethod = method
+
+        LinkingUrl.defaultHeaders.forEach { (key, value) in
+                     urlRequest.setValue(value, forHTTPHeaderField: key)
+                 }
+            if addHeader{
+                let accessToken = UserDefaults.standard.object(forKey: accessTokenForTimeSheet) ?? ""
+                urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+            }
+        if method == "POST"{
+            guard let body = body else { return urlRequest }
+            do {
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            } catch {
+                print(error)
+            }
+        }
+                return urlRequest
+    }
     func userAuthorizationHeaders() -> String{
         let username = "P001254"
         let password = "Chaitanya@2"

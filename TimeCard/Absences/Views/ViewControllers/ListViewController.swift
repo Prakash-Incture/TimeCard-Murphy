@@ -7,27 +7,42 @@
 //
 
 import UIKit
-
-class ListViewController: BaseViewController {
+import SAPFiori
+class ListViewController: BaseViewController,SAPFioriLoadingIndicator {
 
     @IBOutlet weak var tableView: UITableView!
     var list = [String]()
-    var sendData : (()->())?
+    var sendData : ((TimeType)->())?
     weak var delegate:UpdateData?
     var absenseData:[AvailableTimeData]?
-
+    var userData:UserData?
+    lazy var requestManger = RequestManager<TimeAndAbsenceLookUp>()
+    var loadingIndicator: FUILoadingIndicatorView?
+    var showLoadingIndicator: Bool? {
+        didSet {
+            if showLoadingIndicator == true {
+                self.showFioriLoadingIndicator("Loding")
+            } else {
+                self.hideFioriLoadingIndicator()
+            }
+        }
+    }
        override func viewDidLoad() {
            super.viewDidLoad()
         self.title = "Absences"
-        //self.customNavigationType = .navPlain
-        self.absenseData = self.absenseData?.filter({$0.timeTypeNav?.timeType?.category == "ABSENCE"})
+        self.customNavigationType = .navWithBack
+       // self.absenseData = self.absenseData?.filter({$0.timeTypeNav?.timeType?.category == "ABSENCE"})
         self.setupTableViewConfigur()
+        self.timeandAbsenseLookUpCalling()
        }
     func setupTableViewConfigur(){
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.tableFooterView = UIView()
         self.tableView.register(UINib(nibName: "NewRecordTableViewCell", bundle: nil), forCellReuseIdentifier: "NewRecordTableViewCell")
+    }
+    override func selectedBack(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
    
 }
@@ -43,16 +58,41 @@ extension ListViewController : UITableViewDataSource,UITableViewDelegate{
         cell.contentLbl.text = data?.timeTypeNav?.timeType?.externalName_en_US
         cell.cellTextField.isHidden = true
         cell.accessoryType = .none
+        cell.selectionStyle = .none
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        // self.sendData?()
         let data = self.absenseData?[indexPath.row]
-         self.delegate?.updateValue(value:data?.timeTypeNav?.timeType?.externalName_en_US)
+        self.sendData?((data?.timeTypeNav?.timeType)!) //self.delegate?.updateValue(value:data?.timeTypeNav?.timeType?.externalName_en_US)
          self.navigationController?.popViewController(animated: true)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 50.0
     }
 
+}
+
+extension ListViewController{
+    func timeandAbsenseLookUpCalling(){
+         self.showLoadingIndicator = true
+         self.requestManger.fetchlookUpdata(for:userData ?? UserData(), completion: { [weak self] result in
+             guard let self = self else { return }
+             switch result {
+             case .failure(let message):
+                print("\(message)")
+                self.showLoadingIndicator = false
+                break
+             case .success(let value, let message):
+                self.absenseData = value?.availableTimeType?.availableTimeType?.filter({$0.timeTypeNav?.timeType?.category == "ABSENCE"})
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                 print(message as Any)
+                 self.showLoadingIndicator = false
+             case .successData( _): break
+                 // get Success data here
+             }
+         })
+     }
 }

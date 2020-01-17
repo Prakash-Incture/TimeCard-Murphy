@@ -99,3 +99,18 @@ enum DateFormat: String {
         }
     }
 }
+extension String{
+    func convertToDate(format: Date.DateFormat, currentDateStringFormat: Date.DateFormat, shouldConvertToUTC: Bool = false) -> Date? {
+         let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = currentDateStringFormat.rawValue
+         guard let myDate = dateFormatter.date(from: self) else { return nil }
+
+         dateFormatter.dateFormat = format.rawValue
+         if shouldConvertToUTC {
+             dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+         }
+         let formattedDateString = dateFormatter.string(from: myDate)
+         let formattedDate = dateFormatter.date(from: formattedDateString)
+         return formattedDate
+     }
+}

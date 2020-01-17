@@ -7,25 +7,42 @@
 //
 
 import UIKit
+import SAPFiori
 
-class AbsencesViewController: BaseViewController {
+class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     
     var datePickerView =  UIDatePicker()
     var hoursPickerView =  UIPickerView()
     @IBOutlet weak var tableView: UITableView!
     var textField:UITextField?
-    
-    
+    lazy var getAssertionToken = RequestManager<ApproveListModels>()
+    lazy var postAbsenceDataCall = RequestManager<ApproveListModels>()
+
+    var idpPayload: GetIDPPayload?
     var currentHeaderCells: [CellModelForAbsence] = AbsenceCurrentPage.absenceRecording.getCurrentPageHeaders()
     var allocationDataViewModel:AllocationDataViewModel!
     var absenceData = Absence()
     var hour:String = ""
+    var userData:UserData?
+
+    var loadingIndicator: FUILoadingIndicatorView?
+     var showLoadingIndicator: Bool? {
+         didSet {
+             if showLoadingIndicator == true {
+                 self.showFioriLoadingIndicator("Loding")
+             } else {
+                 self.hideFioriLoadingIndicator()
+             }
+         }
+     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Absences"
         self.customNavigationType = .navWithBack
         absenceData.availableLeaves = UserDefaults.standard.value(forKey: "Emp_Leave_Balnce") as? String
         setupTableViewConfigur()
+        self.userData = UserData()
+        callAPIForGettingAssertionToken()
     }
     func setupTableViewConfigur(){
   
@@ -46,8 +63,10 @@ class AbsencesViewController: BaseViewController {
     }
 
     override func selectedSubmit(sender: UIButton) {
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)
-        self.navigationController?.popViewController(animated: true)
+        self.postAbsenceData()
+        
+       // NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)
+       // self.navigationController?.popViewController(animated: true)
     }
 }
 extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
@@ -61,6 +80,8 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
         let cellModel = currentHeaderCells[indexPath.row]
         cell.contentLbl.text = cellModel.absenceModelIdentifier.rawValue
         cell.selectionStyle = .none
+        cell.cellTextField.isUserInteractionEnabled = true
+        cell.accessoryType = .disclosureIndicator
         switch cellModel.absenceModelIdentifier {
         case .timeType:
             cell.cellTextField.text =  absenceData.timeType
@@ -155,7 +176,16 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
     @objc func absenceLookUpNavigating(){
         guard let listVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ListViewController") as? ListViewController else { return }
         listVC.delegate = self
-        listVC.absenseData = self.allocationDataViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
+       // listVC.absenseData = self.allocationDataViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
+        listVC.sendData = { data in
+            self.absenceData.timeType = data.externalName_en_US ?? ""
+            self.absenceData.timeTypeId = data.externalCode ?? ""
+                 self.tableView.reloadData()
+                 if (self.currentHeaderCells.count ) != 4{
+                     self.currentHeaderCells.remove(at: 1)
+                     self.tableView.reloadData()
+                 }
+        }
         self.navigationController?.pushViewController(listVC, animated: true)
         self.view.endEditing(true)
         return
@@ -192,6 +222,7 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         textField.inputView = hoursPickerView
         textField.inputAccessoryView = toolBar
     }
+    
     @objc func donePicker(){
         absenceData.requesting = (self.hour == "") ? "1 Hours" : hour
         self.tableView.reloadData()
@@ -199,7 +230,6 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         if  absenceData.startDate != nil && absenceData.endDate != nil && absenceData.timeType != nil && absenceData.timeType != ""{
             self.customNavigationType = .navWithCancelandSubmit
         }
-
 
     }
     @objc func donedatePicker(){
@@ -212,13 +242,134 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         }
         self.tableView.reloadData()
         self.view.endEditing(true)
-//        if absenceData.availableLeaves != nil || absenceData.startDate != nil || absenceData.endDate != nil,absenceData.requesting != nil || absenceData.timeType != nil{
-//            self.customNavigationType = .navWithSaveandCancel
-//        }
         
     }
     @objc func cancelDatePicker(){
         self.view.endEditing(true)
     }
     
+}
+extension AbsencesViewController{
+    
+    func callAPIForGettingAssertionToken() {
+          self.showLoadingIndicator = true
+          
+          let idpBody: [String: String] = ["client_id": clientId, "user_id": "6000193", "token_url": tokenUrl, "private_key": privatekay]
+          let idpBodyStr = QHTTPFormURLEncoded.urlEncoded(formDataSet: idpBody)
+
+          self.getAssertionToken.fetchAsserionTokenForTimeSheet(for:idpPayload ?? GetIDPPayload(), params: idpBodyStr, completion: { [weak self] result in
+              guard let self = self else { return }
+              switch result {
+              case .failure(let message):
+                  self.showLoadingIndicator = false
+              case .successData(value: let value):
+                  let dataStr = String(data: value, encoding: .utf8)!
+                  UserDefaults.standard.set(dataStr, forKey: assertionTokenForTimeSheet)
+                  UserDefaults.standard.synchronize()
+                  self.showLoadingIndicator = false
+                  self.callAPIForGettingAccessToken()
+              case .success( _, let message):
+                  print(message as Any)
+                  self.showLoadingIndicator = false
+              }
+          })
+      }
+      
+      // Get access token
+          func callAPIForGettingAccessToken() {
+              self.showLoadingIndicator = true
+              
+              let idpBody: [String: String] = ["client_id": clientId, "grant_type": grantType, "company_id": companyId, "assertion": UserDefaults.standard.object(forKey: assertionTokenForTimeSheet) as? String ?? ""]
+              let idpBodyStr = QHTTPFormURLEncoded.urlEncoded(formDataSet: idpBody)
+              
+              self.getAssertionToken.fetchAccessTokenForTimeSheet(for:idpPayload ?? GetIDPPayload(), params: idpBodyStr, completion: { [weak self] result in
+                  guard let self = self else { return }
+                  switch result {
+                  case .failure(let message):
+                      self.showLoadingIndicator = false
+                  case .successData(value: let value):
+                      do {
+                          if let jsonObj = try JSONSerialization.jsonObject(with: value, options : .allowFragments) as? Dictionary<String, Any>
+                          {
+                             UserDefaults.standard.set(jsonObj["access_token"], forKey: accessTokenForTimeSheet)
+                             UserDefaults.standard.synchronize()
+                          } else {
+                              print("bad json")
+                          }
+                      } catch let error as NSError {
+                          print(error)
+                      }
+                  case .success( _, let message):
+                      print(message as Any)
+                      self.showLoadingIndicator = false
+                  }
+              })
+          }
+    
+    func postAbsenceData(){
+        let externalCode = Int.random(in: 0...100000000)
+        let startDate = self.absenceData.startDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear)?.currentTimeMillis()
+        let enddate = self.absenceData.endDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear)?.currentTimeMillis()
+        let difference = Calendar.current.dateComponents([.hour, .minute], from: (self.absenceData.startDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear))!, to: (self.absenceData.endDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear))!)
+        let formattedString = String(format: "%02ld\n%02ld", difference.hour!, difference.minute!)
+        let hourdata = difference.hour!/3
+        print(formattedString)
+        let dataDictForEmployee:[String:Any] = [
+            "uri" : "https://api4preview.sapsf.com/odata/v2/EmployeeTime",
+            "type": "SFOData.EmployeeTime"
+        ]
+        let dataDictForUser:[String:Any] = [
+            "uri" : "https://api4preview.sapsf.com/odata/v2/User('\(self.userData?.userId ?? "")')",
+                 "type": "SFOData.User"
+             ]
+        let dictForUser:[String:Any] = [
+            "__metadata" : dataDictForUser
+        ]
+     
+        let dataDictForTymeType:[String:Any] = [
+            "uri" : "https://api4preview.sapsf.com/odata/v2/TimeType('\(self.absenceData.timeTypeId!)')",
+            "type": "SFOData.TimeType"
+        ]
+        let dictForTimeType:[String:Any] = [
+                   "__metadata" : dataDictForTymeType
+               ]
+        let dataDict:[String:Any] = [
+        
+            "__metadata" : dataDictForEmployee,
+            "startDate" : "/Date(\(startDate!))/",
+            "endDate" : "/Date(\(enddate!))/",
+            "externalCode" : "",
+            "fractionQuantity" : "\(hourdata)",
+            "userIdNav" : dictForUser,
+            "timeTypeNav" : dictForTimeType
+        ]
+        self.showLoadingIndicator = true
+        self.postAbsenceDataCall.postAbsencesData(for: dataDict, idpPayload: idpPayload ?? GetIDPPayload(), completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .successData(value: let value):
+                do {
+                    if let jsonObj = try JSONSerialization.jsonObject(with: value, options : .allowFragments) as? Dictionary<String, Any>
+                    {
+                       print(jsonObj)
+                    } else {
+                        print("bad json")
+                    }
+                } catch let error as NSError {
+                    print(error)
+                }
+            case .success( _, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+            }
+        })
+
+    }
+}
+extension Date {
+    func currentTimeMillis() -> Int64 {
+        return Int64(self.timeIntervalSince1970 * 1000)
+    }
 }

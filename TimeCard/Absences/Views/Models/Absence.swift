@@ -9,5 +9,5 @@
 import Foundation
 
 struct Absence:Codable{
-    var timeType,startDate,availableLeaves,endDate,requesting:String?
+    var timeType,startDate,availableLeaves,endDate,requesting,timeTypeId:String?
 }

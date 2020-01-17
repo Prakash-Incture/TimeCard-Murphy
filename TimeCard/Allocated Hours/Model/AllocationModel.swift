@@ -62,10 +62,12 @@ struct TimeTypeNav : Codable {
 struct TimeType : Codable {
     let category : String?
     let externalName_en_US : String?
+    let externalCode : String?
     
     enum CodingKeys: String, CodingKey {
         case category = "category"
         case externalName_en_US = "externalName_en_US"
+        case externalCode = "externalCode"
   }
 }
 class DataSingleton:NSObject{

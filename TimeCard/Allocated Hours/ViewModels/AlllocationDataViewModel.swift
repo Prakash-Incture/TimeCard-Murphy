@@ -141,25 +141,6 @@ class AllocationDataViewModel{
 //Api calling Methods
 extension AllocationDataViewModel{
     
-    func timeandAbsenseLookUpCalling(){
-        self.delegate?.showLoadingIndicator = true
-        self.requestManger.fetchlookUpdata(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.delegate?.failedWithReason(message: message)
-                self.delegate?.showLoadingIndicator = false
-                self.empTimeOffBalanceAPICalling()
-            case .success(let value, let message):
-                print(message as Any)
-                self.delegate?.showLoadingIndicator = false
-                self.timeTypeLookUpdata = value
-                self.empTimeOffBalanceAPICalling()
-            case .successData(let _): break
-                // get Success data here
-            }
-        })
-    }
     func empTimeOffBalanceAPICalling(){
         self.delegate?.showLoadingIndicator = true
         self.requestMangerTimeOffBalance.fetchEmpTimeBalance(for:userData ?? UserData(), completion: { [weak self] result in

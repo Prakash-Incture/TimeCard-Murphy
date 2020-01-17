@@ -28,7 +28,9 @@ extension RequestManager {
     public func costCenterAPIcall(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
     self.getData(ServiceEndpoints.getCostcenter(params: userData).getUrlRequest(),completion: completion)
       }
-
+    public func postAbsencesData(for params:[String:Any],idpPayload: GetIDPPayload, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+        self.getData(ServiceEndpoints.postAbsenceData(param: params).getUrlRequest(),completion: completion)
+      }
     
     public func fetchAsserionToken(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getAsserionToken(params: params).getUrlRequest(), completion: completion)
@@ -37,6 +39,16 @@ extension RequestManager {
     public func fetchAccessToken(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getAccessToken(params: params).getUrlRequest(), completion: completion)
     }
+    
+    
+    public func fetchAsserionTokenForTimeSheet(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.getAsserionTokenForTimesheet(params: params).getUrlRequest(), completion: completion)
+    }
+    
+    public func fetchAccessTokenForTimeSheet(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.getAccessTokenForTimeSheet(params: params).getUrlRequest(), completion: completion)
+    }
+    
     
     public func fetchTimeSheetData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getApprovalTimeSheet.getUrlRequest(), completion: completion)

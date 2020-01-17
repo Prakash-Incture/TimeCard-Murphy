@@ -79,7 +79,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     private func setupViewModel() {
         self.allocationDataViewModel = AllocationDataViewModel(delegate: self)
         self.allocationDataViewModel?.dataFetching()
-        self.allocationDataViewModel.timeandAbsenseLookUpCalling()
+        self.allocationDataViewModel.empTimeOffBalanceAPICalling()
         if self.allocationDataViewModel.allcationModelData.absence == nil{
             self.allocationDataViewModel.allcationModelData.absence = []
             self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
