@@ -320,3 +320,28 @@ struct CostCenterDataModel:Codable {
         case externalName = "externalName"
     }
 }
+
+struct WorkScheduleModel:Codable{
+    var WorkScheduleDay : WorkScheduleDataModel?
+    enum CodingKeys: String, CodingKey {
+        case WorkScheduleDay = "WorkScheduleDay"
+    }
+}
+struct WorkScheduleDataModel:Codable{
+    var WorkScheduleDay : [WorkScheduleDetailDataModel]?
+    enum CodingKeys: String, CodingKey {
+        case WorkScheduleDay = "WorkScheduleDay"
+    }
+}
+struct WorkScheduleDetailDataModel:Codable{
+    var WorkSchedule_externalCode : String?
+    var hoursAndMinutes : String?
+    var day : String?
+    var workingHours : String?
+    enum CodingKeys: String, CodingKey {
+        case WorkSchedule_externalCode = "WorkSchedule_externalCode"
+        case hoursAndMinutes = "hoursAndMinutes"
+        case day = "day"
+        case workingHours = "workingHours"
+    }
+}

@@ -73,7 +73,6 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
             cell.setModel(cellModel)
             cell.allocationData = self.allocationViewModel?.allcationModelData
             cell.selectionStyle = .none
-            cell.allocationData = self.allocationViewModel?.allcationModelData
             return cell
         case .AllocatedTimeTableCell:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? AllocatedTimeTableCell else { fatalError("Textfield cell not found") }
@@ -88,7 +87,8 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier:"WeekSummaryCell") as? WeekSummaryCell else { fatalError("Textfield cell not found") }
              let tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
              cell.titleText.text = "\(tempVal?.day ?? "")\n\(tempVal?.date ?? "")"
-            cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: " Hours", firstColor: cell.titleText.textColor, secondColor: UIColor.lightGray)
+            cell.labelData.text = tempVal?.hours ?? ""
+            //cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: " Hours", firstColor: cell.titleText.textColor, secondColor: UIColor.lightGray)
              return cell
         }
    }

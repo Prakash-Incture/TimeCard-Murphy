@@ -99,7 +99,6 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
                 self.setDatePickerView(textField: cell.cellTextField)
             break
             case .endDate:
-                cell.cellTextField.isHidden = false
                 cell.cellTextField.text =  absenceData.endDate
                 self.setDatePickerView(textField: cell.cellTextField)
             break
@@ -113,36 +112,6 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60.0
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cellModel = currentHeaderCells[indexPath.row]
-//
-//        switch cellModel.absenceModelIdentifier {
-//        case .timeType:
-//            guard let listVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ListViewController") as? ListViewController else { return }
-//            listVC.list = cellModel.absenceModelIdentifier.dataForSelection
-//            listVC.delegate = self
-//            listVC.absenseData = self.allocationDataViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
-//            listVC.sendData = {
-//            }
-//            self.navigationController?.pushViewController(listVC, animated: true)
-//            break
-//        case .availableBalance:
-//            break
-//        case .startDate:
-//            self.hoursPickerView.isHidden = true
-//            self.datePickerView.isHidden = false
-//            break
-//        case .endDate:
-//            self.hoursPickerView.isHidden = true
-//            self.datePickerView.isHidden = false
-//            break
-//        case .requesting:
-//            self.hoursPickerView.isHidden = false
-//            self.datePickerView.isHidden = true
-//
-//            break
-//        }
     }
 }
 extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewDelegate{
@@ -176,7 +145,6 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
     @objc func absenceLookUpNavigating(){
         guard let listVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ListViewController") as? ListViewController else { return }
         listVC.delegate = self
-       // listVC.absenseData = self.allocationDataViewModel?.timeTypeLookUpdata?.availableTimeType?.availableTimeType
         listVC.sendData = { data in
             self.absenceData.timeType = data.externalName_en_US ?? ""
             self.absenceData.timeTypeId = data.externalCode ?? ""
@@ -240,6 +208,10 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         }else{
         absenceData.endDate = self.datePickerView.date.toDateFormat(.monthDayYear)
         }
+        
+        if  absenceData.startDate != nil && absenceData.endDate != nil && absenceData.timeType != nil && absenceData.timeType != ""{
+                self.customNavigationType = .navWithCancelandSubmit
+            }
         self.tableView.reloadData()
         self.view.endEditing(true)
         
@@ -311,8 +283,7 @@ extension AbsencesViewController{
         let startDate = self.absenceData.startDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear)?.currentTimeMillis()
         let enddate = self.absenceData.endDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear)?.currentTimeMillis()
         let difference = Calendar.current.dateComponents([.hour, .minute], from: (self.absenceData.startDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear))!, to: (self.absenceData.endDate?.convertToDate(format: .monthDayYear, currentDateStringFormat: .monthDayYear))!)
-        let formattedString = String(format: "%02ld\n%02ld", difference.hour!, difference.minute!)
-        let hourdata = difference.hour!/3
+        let formattedString = String(format: "%02ld.%02ld", difference.hour!/3, difference.minute!)
         print(formattedString)
         let dataDictForEmployee:[String:Any] = [
             "uri" : "https://api4preview.sapsf.com/odata/v2/EmployeeTime",
@@ -339,7 +310,7 @@ extension AbsencesViewController{
             "startDate" : "/Date(\(startDate!))/",
             "endDate" : "/Date(\(enddate!))/",
             "externalCode" : "",
-            "fractionQuantity" : "\(hourdata)",
+            "fractionQuantity" : formattedString,
             "userIdNav" : dictForUser,
             "timeTypeNav" : dictForTimeType
         ]

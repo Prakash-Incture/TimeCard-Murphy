@@ -123,6 +123,7 @@ struct Results3 : Codable {
     let subjectFullName : String?
     let subjectId : String?
     let url : String?
+    var wfRequestUINav : WfRequestUINav?
 
     enum CodingKeys: String, CodingKey {
 
@@ -133,6 +134,7 @@ struct Results3 : Codable {
         case subjectFullName = "subjectFullName"
         case subjectId = "subjectId"
         case url = "url"
+        case wfRequestUINav = "wfRequestUINav"
     }
 }
 
@@ -144,5 +146,62 @@ struct Todos : Codable {
         case results2 = "results"
     }
 }
+struct WfRequestUINav : Codable {
+    let wfRequestId : String?
+    let businessUnit : String?
+    let operateUserName : String?
+    let legalEntity : String?
+    let jobTitle : String?
+    let division : String?
+    let receivedOn : String?
+    let department : String?
+    let costCenter : String?
+    let todoSubjectLine : String?
+    let operateType : String?
+    let subjectUserId : String?
+    let location : String?
+    let operateDate : String?
+    let subjectUserName : String?
+    let actionType : String?
+    let changedData : String?
+    enum CodingKeys: String, CodingKey {
+        case wfRequestId = "wfRequestId"
+        case businessUnit = "businessUnit"
+        case operateUserName = "operateUserName"
+        case jobTitle = "jobTitle"
+        case legalEntity = "legalEntity"
+        case receivedOn = "receivedOn"
+        case division = "division"
+        case department = "department"
+        case costCenter = "costCenter"
+        case todoSubjectLine = "todoSubjectLine"
+        case operateType = "operateType"
+        case subjectUserId = "subjectUserId"
+        case location = "location"
+        case operateDate = "operateDate"
+        case subjectUserName = "subjectUserName"
+        case actionType = "actionType"
+        case changedData = "changedData"
+    }
+}
 
-
+struct TimeSheetRequestDetailModel:Codable {
+     let d : TimeSheetRequestDetailModelData?
+       enum CodingKeys: String, CodingKey {
+           case d = "d"
+       }
+}
+struct TimeSheetRequestDetailModelData:Codable {
+     let wfRequestId : String?
+     let lastModifiedDateTime : String?
+     let lastModifiedBy : String?
+    let wfRequestUINav : WfRequestUINav?
+    let status : String?
+       enum CodingKeys: String, CodingKey {
+           case wfRequestId = "wfRequestId"
+           case lastModifiedDateTime = "lastModifiedDateTime"
+           case lastModifiedBy = "lastModifiedBy"
+           case wfRequestUINav = "wfRequestUINav"
+           case status = "status"
+       }
+}

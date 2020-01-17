@@ -35,6 +35,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.title = homeScreenTitle
         self.setupViewModel()
         self.loadOfflineStores()
+        self.allocationViewModel?.fetchDayData()
        // self.customNavigationType = .navPlain
       
     }
@@ -102,6 +103,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
               let cell = self.tableView.dequeueReusableCell(withIdentifier: "CalenderTableViewCell", for: indexPath) as! CalenderTableViewCell
             cell.selectionStyle = .none
+            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate as? NSDate
             cell.allocationHourPersistence = self.allocationHourPersistence
             cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder as? [String] ?? []
             return cell
@@ -117,6 +119,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.titleText.text = "\(tempVal?.day ?? "")\n\(tempVal?.date ?? "")"
                 cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: cell.titleText.textColor, secondColor: UIColor.lightGray)
                 cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .none
                 return cell
                 
             }

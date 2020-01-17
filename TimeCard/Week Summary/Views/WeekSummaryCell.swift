@@ -22,7 +22,7 @@ class WeekSummaryCell: UITableViewCell {
             switch type {
             case .total:
                 self.titleText.font = self.titleText.font.withSize(20)
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "80.00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.allocationData?.alllocationModel?.first?.duration ?? "", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
                 self.labelData.font = self.titleText.font.withSize(20)
             case .paidAbsences:
                 self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "08:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
@@ -32,7 +32,8 @@ class WeekSummaryCell: UITableViewCell {
                 self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "45:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .status:
                 self.labelData.text = "To be Submitted"
-                self.labelData.textColor = UIColor(red:0.98, green:0.86, blue:0.71, alpha:1.0)
+                self.labelData.textColor = UIColor.lightGray
+               // self.labelData.textColor = UIColor(red:0.98, green:0.86, blue:0.71, alpha:1.0)
             default: return
             }
         }
@@ -40,6 +41,7 @@ class WeekSummaryCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         // Initialization code
       
     }

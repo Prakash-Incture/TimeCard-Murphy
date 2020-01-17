@@ -22,9 +22,16 @@ extension RequestManager {
     public func holidayCalenderApicall(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
         self.getData(ServiceEndpoints.holidayCalender(paramas: userData).getUrlRequest(), completion: completion)
           }
-//    public func fetchlookUpdataAl(for userData:UserData, completion: @escaping (_ responseObject: ResponseType?,_ error:NSError?  ) -> ()) -> Void  {
-//        self.getObject(ServiceEndpoints.lookUpApicalling(params: userData).getUrlRequest(), completionHandler:completion)
-//    }
+    public func fetchEmpTime(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+              self.getData(ServiceEndpoints.empTimeApi(params: userData).getUrlRequest(), completion: completion)
+          }
+    public func getEmployeeTimeSheet(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+        self.getData(ServiceEndpoints.getEmpTimeSheet(params: userData).getUrlRequest(), completion: completion)
+    }
+    public func fetchEmpWorkSchedule(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+              self.getData(ServiceEndpoints.empWorkSchedule(params: userData).getUrlRequest(), completion: completion)
+          }
+
     public func costCenterAPIcall(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
     self.getData(ServiceEndpoints.getCostcenter(params: userData).getUrlRequest(),completion: completion)
       }
@@ -53,7 +60,9 @@ extension RequestManager {
     public func fetchTimeSheetData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getApprovalTimeSheet.getUrlRequest(), completion: completion)
     }
-    
+    public func fetchTimeSheetDataById(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+           self.getData(ServiceEndpoints.getApprovalTimeDetail(parm: params).getUrlRequest(), completion: completion)
+       }
     public func fetchTimeOffData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getApprovalTimeOffSheet.getUrlRequest(), completion: completion)
     }

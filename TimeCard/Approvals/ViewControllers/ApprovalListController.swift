@@ -12,7 +12,8 @@ import SAPFiori
 class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     var loadingIndicator: FUILoadingIndicatorView?
     
-    
+    @IBOutlet weak var selectAllTitleLbl: UILabel!
+    @IBOutlet weak var selectAllBtnView: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var selectAllBtn: UIButton!
     @IBOutlet weak var approveBtn: UIButton!
@@ -32,13 +33,32 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customNavigationType = .navWithFilter
+        self.selectAllBtnView.constant = 0
+        self.selectAllBtn.isHidden = true
+        self.selectAllTitleLbl.isHidden = true
+        self.tableView.isHidden = true
+        self.approveBtn.isHidden = true
         self.initialSetup()
         self.setupViewModel()
+        self.bindViewModel()
+    }
+    func bindViewModel(){
+        self.approveListViewModel.updateUI = {
+            self.selectAllBtnView.constant = 60.0
+            self.tableView.isHidden = false
+            self.approveBtn.isHidden = false
+            self.selectAllBtn.isHidden = false
+            self.selectAllTitleLbl.isHidden = false
+            self.tableView.reloadData()
+            self.showLoadingIndicator = false
+        }
     }
     override func selectedBack(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
     private func setupViewModel() {
+        approveListViewModel.tableView = self.tableView
+        self.showLoadingIndicator = true
         approveListViewModel.callAPIForGettingAssertionToken()
     }
     override func selectedFilter(sender: UIButton) {
@@ -71,12 +91,12 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.approveListViewModel.timeSheetArray.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 335.0
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 335.0
+//    }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
@@ -85,7 +105,7 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ApprovalListCell") as? ApprovalListCell{
-            
+            let data = self.approveListViewModel.timeSheetArray[indexPath.row]
             cell.selectBtn.isSelected = selectAllBtn.isSelected ? true : false
             
             if indexPath.row == 2 {
@@ -95,6 +115,14 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
                 cell.planedView.isHidden = false
                 cell.workTimeView.isHidden = false
             }
+            cell.appNameLbl.text = data.wfRequestUINav?.operateUserName ?? ""
+            cell.appPositionLbl.text = data.wfRequestUINav?.jobTitle ?? ""
+            cell.initiatedLbl.text = data.wfRequestUINav?.subjectUserId ?? ""
+            cell.initiatedDateLbl.text = data.wfRequestUINav?.receivedOn ?? ""
+            let separatedData = data.subjectFullName?.split(separator: "(")
+            let secondSeparatedData = separatedData?[1].split(separator: ")")
+            cell.periodLbl.text = String(secondSeparatedData?.first ?? "")
+           // Annual Leave (01/09/2020 - 01/09/2020): Omar Ahmed Arafa
             return cell
         }
         
@@ -112,6 +140,7 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
         default:
             let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
             if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
+                timeSheetVC.timeSheetData = self.approveListViewModel.timeSheetArray[indexPath.row]
                 self.navigationController?.pushViewController(timeSheetVC, animated: true)
             }
         }

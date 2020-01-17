@@ -19,6 +19,8 @@ class AbsenceDetailsVC: UIViewController {
     @IBOutlet weak var initiatedBtLbl: UILabel!
     @IBOutlet weak var initiatedDateLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
+    var timeSheetData : Results3?
+
 
     //Variables
     var absenceViewModel = AbsenceDetailsViewModel()
@@ -32,8 +34,10 @@ class AbsenceDetailsVC: UIViewController {
         self.tableView.register(UINib(nibName: "KeyValueCell", bundle: nil), forCellReuseIdentifier: "KeyValueCell")
         empImgView.layer.cornerRadius = empImgView.frame.width/2
         absenceViewModel.getTemData()
+ 
         tableView.reloadData()
     }
+    
     
     @IBAction func backBtnTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 struct ApproveConstants {
     static let clientId = "YWE0NzYxMjQzMGU4OWZkNGQ5Y2NkZjQ1MmRlOQ"
     static let userId = "sfadmin"
@@ -25,7 +25,8 @@ struct ApproveConstants {
 class ApproveListViewModel {
     weak var delegate: GenericViewModelProtocol?
     var dispatchGroup: DispatchGroup = DispatchGroup()
-    
+    var tableView : UITableView?
+    var updateUI : (()->())?
 //    init(delegate:GenericViewModelProtocol) {
 //        self.delegate = delegate
 //    }
@@ -53,8 +54,8 @@ extension ApproveListViewModel{
                 let dataStr = String(data: value, encoding: .utf8)!
                 UserDefaults.standard.set(dataStr, forKey: ApproveConstants.assertionToken)
                 UserDefaults.standard.synchronize()
-                self.callAPIForGettingAccessToken()
                 self.delegate?.showLoadingIndicator = false
+                self.callAPIForGettingAccessToken()
             case .success( _, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
@@ -87,8 +88,9 @@ extension ApproveListViewModel{
                     } catch let error as NSError {
                         print(error)
                     }
+                    self.delegate?.showLoadingIndicator = false
                     self.callAPIForGettingTimeSheetData()
-                    self.callAPIForGettingTimeOffData()
+                    //self.callAPIForGettingTimeOffData()
                 case .success( _, let message):
                     print(message as Any)
                     self.delegate?.showLoadingIndicator = false
@@ -112,11 +114,16 @@ extension ApproveListViewModel{
                         let result = try JSONDecoder().decode(TimeSheetRequestModel.self, from: value )
                         let timeSheetArr = result.d?.results1?[0].todos?.results2?[0].entries?.results3
                         self.timeSheetArray.append(contentsOf: timeSheetArr!)
-                        print("Array count: \(self.timeSheetArray.count ?? 0)")
+                        
+                        for (index,item) in self.timeSheetArray.enumerated(){
+                            self.getTimeSheetDataById(id: item.subjectId ?? "", index: index)
+                        }
+                       
+                      
+                        print("Array count: \(self.timeSheetArray.count)")
                     } catch {
                         print(error.localizedDescription)
                     }
-                    self.delegate?.showLoadingIndicator = false
                 case .success( _, let message):
                     print(message as Any)
                     self.delegate?.showLoadingIndicator = false
@@ -151,6 +158,32 @@ extension ApproveListViewModel{
                     }
                 })
             }
+    
+    func getTimeSheetDataById(id:String,index:Int){
+        self.getAssertionToken.fetchTimeSheetDataById(for: idpPayload ?? GetIDPPayload(),params: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.delegate?.failedWithReason(message: message)
+                self.delegate?.showLoadingIndicator = false
+            case .successData(value: let value):
+
+                do {
+                    let result = try JSONDecoder().decode(TimeSheetRequestDetailModel.self, from: value )
+                    self.timeSheetArray[index].wfRequestUINav = result.d?.wfRequestUINav
+                    DispatchQueue.main.async {
+                            self.updateUI?()
+                        }
+                } catch {
+                    print(error.localizedDescription)
+                }
+                self.delegate?.showLoadingIndicator = false
+            case .success( _, let message):
+                print(message as Any)
+                self.delegate?.showLoadingIndicator = false
+            }
+        })
+    }
     }
 
 

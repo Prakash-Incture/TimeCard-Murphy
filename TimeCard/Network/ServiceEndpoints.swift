@@ -15,11 +15,17 @@ struct LinkingUrl {
     static var lookUpApi = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/TimeTypeProfile"
     static var empTimeOffBalance = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Time-off-Balance"
     static var empJob = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Emp-Job"
+    static var empTime = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EmployeeTime"
+    static var workSchedule = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/WorkSchedule"
+    static var employeeTimeSheet = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EMP_time"
     static var holidayCalender = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Holiday_Calender"
     static var idpUrl = "https://apisalesdemo4.successfactors.com/oauth/idp"
     static var accessTokenUrl = "https://apisalesdemo4.successfactors.com/oauth/token"
     static var approvalTimeSheetGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2718%27%20&$format=json"
     static var approvalTimeOffGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2729%27%20&$format=json"
+    
+    
+    static var approvalTimeDetail = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(5820)?$filter=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$expand=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$format=json"
     static var costcenter = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EmpCostDistributionItem"
      static var postAbsencesData = "https://api4preview.sapsf.com/odata/v2/upsert?workflowConfirmed=true"
     static var idpForTimeSheet = "https://api4preview.sapsf.com/oauth/idp"
@@ -39,6 +45,10 @@ enum ServiceEndpoints {
     case getApprovalTimeOffSheet
     case postAbsenceData(param:[String:Any])
     case getCostcenter(params: UserData)
+    case empWorkSchedule(params:UserData)
+    case empTimeApi(params:UserData)
+    case getEmpTimeSheet(params:UserData)
+    case getApprovalTimeDetail(parm:String)
     
     func getUrlRequest() -> URLRequest {
         switch self {
@@ -78,6 +88,18 @@ enum ServiceEndpoints {
         case .getAccessTokenForTimeSheet(let paramsStr):
             let urlString = LinkingUrl.accessTokenforTimeCard
             return self.urlRequestWithStringBody(for: urlString, method: "POST", body: paramsStr, addHeader: false)
+        case .empWorkSchedule(let userData):
+            let urlString = LinkingUrl.workSchedule
+            return self.urlRequest(for: urlString, method: "POST", body:userData)
+        case .empTimeApi(let userData):
+            let urlString = LinkingUrl.empTime
+            return self.urlRequest(for: urlString, method: "POST", body:userData)
+        case .getEmpTimeSheet(let params):
+            let urlString = LinkingUrl.employeeTimeSheet
+            return self.urlRequest(for: urlString, method: "POST", body:params)
+        case .getApprovalTimeDetail(let parm):
+            let url = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(\(parm))?$filter=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$expand=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$format=json"
+            return self.urlRequestWithStringBody(for: url, method: "GET", body: nil, addHeader: true)
         }
       }
     

@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0BV-K8-Otp">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0BV-K8-Otp">
                                 <rect key="frame" x="0.0" y="112" width="320" height="388"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -28,10 +28,9 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoO-iu-35Z">
-                                        <rect key="frame" x="16" y="15" width="30" height="30"/>
+                                        <rect key="frame" x="16" y="16" width="30" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="0IJ-Eg-cZG"/>
-                                            <constraint firstAttribute="height" constant="30" id="whd-t4-Y90"/>
                                         </constraints>
                                         <state key="normal" image="Checkbox"/>
                                         <state key="selected" image="Checkbox filled"/>
@@ -46,7 +45,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AST-9U-QuZ"/>
                                     <constraint firstItem="OoO-iu-35Z" firstAttribute="centerY" secondItem="YeT-za-IX0" secondAttribute="centerY" id="Rbr-RX-PcW"/>
@@ -70,7 +69,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Onr-GE-InS" secondAttribute="bottom" constant="8" id="AHz-Uc-JFR"/>
                                     <constraint firstItem="Onr-GE-InS" firstAttribute="top" secondItem="iZT-6o-o25" secondAttribute="top" constant="8" id="GYv-cM-2Fa"/>
@@ -80,7 +79,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YeT-za-IX0" firstAttribute="trailing" secondItem="eEJ-je-fFp" secondAttribute="trailing" id="5f0-Q3-2cA"/>
                             <constraint firstItem="iZT-6o-o25" firstAttribute="top" secondItem="0BV-K8-Otp" secondAttribute="bottom" constant="8" symbolic="YES" id="7uu-Lj-lFI"/>
@@ -99,6 +98,8 @@
                     <connections>
                         <outlet property="approveBtn" destination="Onr-GE-InS" id="HuS-U6-CaD"/>
                         <outlet property="selectAllBtn" destination="OoO-iu-35Z" id="1da-xh-orM"/>
+                        <outlet property="selectAllBtnView" destination="AST-9U-QuZ" id="K2S-E6-B83"/>
+                        <outlet property="selectAllTitleLbl" destination="zjW-R5-GrW" id="r9d-aH-hYx"/>
                         <outlet property="tableView" destination="0BV-K8-Otp" id="1VC-Jm-Cvv"/>
                     </connections>
                 </viewController>

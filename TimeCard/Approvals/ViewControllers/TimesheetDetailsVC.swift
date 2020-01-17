@@ -21,6 +21,7 @@ class TimesheetDetailsVC: BaseViewController {
     @IBOutlet weak var initiatedDateLbl: UILabel!
     @IBOutlet weak var workingTimeLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
+    var timeSheetData : Results3?
 
     //Variables
     let tempHeader = ["Time Sheet Entry", "", "Time Valuation Result", ""]
@@ -34,7 +35,16 @@ class TimesheetDetailsVC: BaseViewController {
 
         self.tableView.register(UINib(nibName: "TImeSheetEntryCell", bundle: nil), forCellReuseIdentifier: "TImeSheetEntryCell")
         self.tableView.register(UINib(nibName: "TimeValuationCell", bundle: nil), forCellReuseIdentifier: "TimeValuationCell")
-        empImgView.layer.cornerRadius = empImgView.frame.width/2
+        empImgView.layer.cornerRadius = empImgView.frame.width/2        
+        self.empNameLbl.text = timeSheetData?.wfRequestUINav?.operateUserName ?? ""
+             self.empPositionLbl.text = timeSheetData?.wfRequestUINav?.jobTitle ?? ""
+         self.statusLbl.text = timeSheetData?.statusLabel ?? ""
+         self.initiatedDateLbl.text = timeSheetData?.wfRequestUINav?.receivedOn ?? ""
+         self.initiatedBtLbl.text = timeSheetData?.wfRequestUINav?.subjectUserId ?? ""
+         let separatedData = timeSheetData?.subjectFullName?.split(separator: "(")
+         let secondSeparatedData = separatedData?[1].split(separator: ")")
+         self.periodLbl.text = String(secondSeparatedData?.first ?? "")
+        
     }
     override func selectedBack(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)

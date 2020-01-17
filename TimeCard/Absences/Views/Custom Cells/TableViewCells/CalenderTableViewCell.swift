@@ -29,11 +29,10 @@ class CalenderTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         self.calenderSetUP()
     }
+    
     func calenderSetUP(){
-        
         calenderView.scope = .week
         calenderView.firstWeekday = 1
         calenderView.appearance.headerMinimumDissolvedAlpha = 0.0
@@ -45,7 +44,6 @@ class CalenderTableViewCell: UITableViewCell {
         DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
         DataSingleton.shared.selectedWeekDates = getCurrentWeekDays()
         self.showDate()
-   
     }
 
     func showDate(){
