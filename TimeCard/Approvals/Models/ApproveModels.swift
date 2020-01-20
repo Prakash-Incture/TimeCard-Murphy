@@ -124,10 +124,14 @@ struct Results3 : Codable {
     let subjectId : String?
     let url : String?
     var wfRequestUINav : WfRequestUINav?
+    var workflowAllowedActionListNav : workflowAllowedActionListNav?
     var peroid : String?
     var planned : String?
     var timeType : String?
     var approvalStatus : String?
+    var isSelected : Bool?
+    let wfRequestId : String?
+    var createdOn : String?
     enum CodingKeys: String, CodingKey {
 
         case completedDate = "completedDate"
@@ -142,6 +146,11 @@ struct Results3 : Codable {
         case peroid = "peroid"
         case planned = "planned"
         case approvalStatus = "approvalStatus"
+        case isSelected = "isSelected"
+        case createdOn = "createdOn"
+        case wfRequestId = "wfRequestId"
+
+         case workflowAllowedActionListNav = "workflowAllowedActionListNav"
     }
 }
 
@@ -152,6 +161,20 @@ struct Todos : Codable {
 
         case results2 = "results"
     }
+}
+struct workflowAllowedActionListNav:Codable {
+     let results : [workflowAllowedActionListNavModel]?
+       enum CodingKeys: String, CodingKey {
+           case results = "results"
+       }
+}
+struct workflowAllowedActionListNavModel:Codable {
+     let allowReject : Bool?
+    let allowApprove : Bool?
+       enum CodingKeys: String, CodingKey {
+           case allowReject = "allowReject"
+        case allowApprove = "allowApprove"
+       }
 }
 struct WfRequestUINav : Codable {
     let wfRequestId : String?
@@ -205,6 +228,7 @@ struct TimeSheetRequestDetailModelData:Codable {
      let lastModifiedDateTime : String?
      let lastModifiedBy : String?
     let wfRequestUINav : WfRequestUINav?
+    let workflowAllowedActionListNav : workflowAllowedActionListNav?
     let status : String?
        enum CodingKeys: String, CodingKey {
            case wfRequestId = "wfRequestId"
@@ -212,6 +236,7 @@ struct TimeSheetRequestDetailModelData:Codable {
            case lastModifiedBy = "lastModifiedBy"
            case wfRequestUINav = "wfRequestUINav"
            case status = "status"
+            case workflowAllowedActionListNav = "workflowAllowedActionListNav"
        }
 }
 
@@ -223,5 +248,21 @@ struct ApproverChangedData : Codable{
         case label = "label"
         case newValue = "newValue"
         case oldValue = "oldValue"
+    }
+}
+
+struct ApprovalRequestSuccess:Codable {
+       let d : ApprovalRequestSuccessModel?
+        enum CodingKeys: String, CodingKey {
+            case d = "d"
+        }
+}
+
+struct ApprovalRequestSuccessModel: Codable{
+    var wfRequestId : String?
+    var status : String?
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case wfRequestId = "wfRequestId"
     }
 }

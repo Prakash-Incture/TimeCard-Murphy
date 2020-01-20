@@ -66,5 +66,10 @@ extension RequestManager {
     public func fetchTimeOffData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getApprovalTimeOffSheet.getUrlRequest(), completion: completion)
     }
-    
+    public func callApproveRequestAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.postApproveRequest(id: id).getUrlRequest(), completion: completion)
+    }
+    public func callApproveRejectAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+           self.getData(ServiceEndpoints.postApprovereject(id: id).getUrlRequest(), completion: completion)
+       }
 }

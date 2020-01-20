@@ -19,15 +19,18 @@ class CalenderTableViewCell: UITableViewCell {
     var panGesture = UIPanGestureRecognizer(target: self, action:(Selector(("handlePanGesture:"))))
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMM YYYY"
-        formatter.timeZone = TimeZone(secondsFromGMT:Int(5.30))
+        formatter.dateFormat = "yyyy-MM-dd"
+        //formatter.timeZone = TimeZone(secondsFromGMT:Int(5.30))
         return formatter
     }()
     var previousDate:String?
     var today:Date?
     var allocationHourPersistence:AllocationHoursCoreData?
-    var datesWithMultipleEvents = ["10 Jan 2020", "09 Jan 2020", "08 Jan 2020", "07 Jan 2020"]
-
+    var datesWithMultipleEvents:NSArray?{
+        didSet{
+            self.calenderView.reloadData()
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         self.calenderSetUP()
@@ -40,6 +43,7 @@ class CalenderTableViewCell: UITableViewCell {
         calenderView.calendarHeaderView.isHidden = true
         calenderView.delegate = self
         calenderView.dataSource = self
+        calenderView.scrollEnabled = false
         calenderView.addGestureRecognizer(panGesture)
         calenderView.select(Date())
         DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
@@ -48,9 +52,9 @@ class CalenderTableViewCell: UITableViewCell {
     }
  
     func showDate(){
-        let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-        let currentPage =  self.calenderView.currentPage
-        let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 1, to: currentPage, options: [])
+       let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
+        //let currentPage =  calenderView.currentPage
+        let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to:Date(), options: [])
         let first_Date = gregorianCalendar?.fs_firstDay(ofWeek: nextPage!)
         let last_Date = gregorianCalendar?.fs_lastDay(ofWeek: nextPage!)
         
@@ -61,9 +65,7 @@ class CalenderTableViewCell: UITableViewCell {
         self.datelabel.text = min_Date + " - " + max_Date
         
         // Show corresponding allocations
-        DispatchQueue.main.async {
-            self.dateSelected()
-        }
+        dateSelected()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -136,14 +138,14 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     }
    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
     let dateString = self.dateFormatter.string(from: date as Date? ?? Date())
-        if self.datesWithMultipleEvents.contains(dateString) {
+    if self.datesWithMultipleEvents!.contains(dateString) {
             return 3
         }
         return 0
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
          let key = self.dateFormatter.string(from: date as Date? ?? Date())
-         if self.datesWithMultipleEvents.contains(key) {
+        if self.datesWithMultipleEvents!.contains(key) {
              return [UIColor.magenta, appearance.eventDefaultColor, UIColor.black]
          }
          return nil

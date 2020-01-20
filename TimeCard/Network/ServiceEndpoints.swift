@@ -30,6 +30,7 @@ struct LinkingUrl {
      static var postAbsencesData = "https://api4preview.sapsf.com/odata/v2/upsert?workflowConfirmed=true"
     static var idpForTimeSheet = "https://api4preview.sapsf.com/oauth/idp"
     static var accessTokenforTimeCard = "https://api4preview.sapsf.com//oauth/token"
+
 }
 
 enum ServiceEndpoints {
@@ -49,6 +50,8 @@ enum ServiceEndpoints {
     case empTimeApi(params:UserData)
     case getEmpTimeSheet(params:UserData)
     case getApprovalTimeDetail(parm:String)
+    case postApproveRequest(id:String)
+    case postApprovereject(id:String)
     
     func getUrlRequest() -> URLRequest {
         switch self {
@@ -100,6 +103,12 @@ enum ServiceEndpoints {
         case .getApprovalTimeDetail(let parm):
             let url = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(\(parm))?$filter=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$expand=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$format=json"
             return self.urlRequestWithStringBody(for: url, method: "GET", body: nil, addHeader: true)
+        case .postApproveRequest(let id):
+            let url = "https://apisalesdemo4.successfactors.com/odata/v2/approveWfRequest?wfRequestId=" + id + "L"
+            return self.urlRequestWithoutStringBody(for: url, method:"POST", body:nil ,addHeader: true)
+        case .postApprovereject(let id):
+                 let url = "https://apisalesdemo4.successfactors.com/odata/v2/rejectWfRequest?wfRequestId=" + id + "L"
+                 return self.urlRequestWithoutStringBody(for: url, method:"POST", body:nil ,addHeader: true)
         }
       }
     
@@ -147,6 +156,30 @@ enum ServiceEndpoints {
         }
                 return urlRequest
     }
+    
+    func urlRequestWithoutStringBody(for urlString: String, method: String = "GET", body: String?, addHeader: Bool = true) -> URLRequest {
+                let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
+                let url = URL(string: urlStringVal)
+                var urlRequest = URLRequest(url: url!)
+                urlRequest.httpMethod = method
+                LinkingUrl.defaultHeaders.forEach { (key, value) in
+                                   urlRequest.setValue(value, forHTTPHeaderField: key)
+                               }
+            if addHeader{
+                let accessToken = UserDefaults.standard.object(forKey: ApproveConstants.accessToken as? String ?? "")
+                urlRequest.addValue("Bearer \(accessToken ?? "")", forHTTPHeaderField: "Authorization")
+            }
+        if method == "POST"{
+                    guard let body = body else { return urlRequest }
+                    if let postData = body.data(using: .utf8) {
+                    urlRequest.httpBody = postData
+            }
+        }
+                return urlRequest
+    }
+    
+    
+    
     func urlRequestWithBody(for urlString: String, method: String = "GET", body: [String:Any]?, addHeader: Bool = true)  -> URLRequest {
                 let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
                 let url = URL(string: urlStringVal)

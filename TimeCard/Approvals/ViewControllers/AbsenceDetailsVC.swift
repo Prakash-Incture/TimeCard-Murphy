@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class AbsenceDetailsVC: BaseViewController {
+import SAPFiori
+class AbsenceDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
@@ -21,7 +21,17 @@ class AbsenceDetailsVC: BaseViewController {
     @IBOutlet weak var statusLbl: UILabel!
     var timeSheetData : Results3?
 
-
+    var loadingIndicator: FUILoadingIndicatorView?
+    lazy var postApproval = RequestManager<ApprovalRequestSuccess>()
+    var showLoadingIndicator: Bool? {
+            didSet {
+                if showLoadingIndicator == true {
+                    self.showFioriLoadingIndicator("Loading")
+                } else {
+                    self.hideFioriLoadingIndicator()
+                }
+            }
+        }
     //Variables
     var absenceViewModel = AbsenceDetailsViewModel()
     
@@ -50,16 +60,46 @@ class AbsenceDetailsVC: BaseViewController {
     override func selectedAction(sender: UIButton) {
                 let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Decline", style: .default, handler: { (declineAction) in
-            
+            self.callApprovalRejectAPI(id: self.timeSheetData?.subjectId ?? "")
         }))
         actionSheet.addAction(UIAlertAction(title: "Approve", style: .default, handler: { (approveAction) in
-            
+            self.callApprovalRequestAPI(id: self.timeSheetData?.subjectId ?? "")
+
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
+    func callApprovalRejectAPI(id:String){
+        self.postApproval.callApproveRejectAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .successData(value: let value):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+            }
+        })
+    }
+
+    func callApprovalRequestAPI(id:String){
+        self.postApproval.callApproveRequestAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .successData(value: let value):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+            }
+        })
+    }
+
 }
 
 extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{

@@ -171,32 +171,11 @@ extension AllocationDataViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
-                self.holidayCalenderApicalling()
-            case .success(let value, let message):
-                print(message as Any)
-                self.delegate?.showLoadingIndicator = false
-                self.empJobData = value
-                self.holidayCalenderApicalling()
-            case .successData( _): break
-                // Get success data here
-            }
-        })
-    }
-    func holidayCalenderApicalling(){
-        self.delegate?.showLoadingIndicator = true
-        self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.delegate?.failedWithReason(message: message)
-                self.delegate?.showLoadingIndicator = false
                 self.getEmpTimeAPICall()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
-                self.holidayCalenderData = value
-                self.holidaycalnder = self.holidayCalenderData?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date}) as NSArray? ?? []
-                self.delegate?.didReceiveResponse()
+                self.empJobData = value
                 self.getEmpTimeAPICall()
             case .successData( _): break
                 // Get success data here

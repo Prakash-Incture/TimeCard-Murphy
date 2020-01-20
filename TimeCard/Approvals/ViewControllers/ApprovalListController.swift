@@ -35,6 +35,7 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
         super.viewDidLoad()
         self.customNavigationType = .navWithFilter
         self.selectAllBtnView.constant = 0
+        self.approveViewHtConstarint.constant = 0.0
         self.selectAllBtn.isHidden = true
         self.selectAllTitleLbl.isHidden = true
         self.tableView.isHidden = true
@@ -52,6 +53,12 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
             self.selectAllTitleLbl.isHidden = false
             self.tableView.reloadData()
             self.showLoadingIndicator = false
+        }
+        self.approveListViewModel.successfullMess = { mess in
+            DispatchQueue.main.async {
+                 self.showAlert(message: mess)
+            }
+              self.showLoadingIndicator = false
         }
     }
     override func selectedBack(sender: UIButton) {
@@ -73,16 +80,39 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     
     @IBAction func selectAllBtnTapped(_ sender: Any) {
         selectAllBtn.isSelected = !selectAllBtn.isSelected
+        if selectAllBtn.isSelected == true{
+            self.approveViewHtConstarint.constant = 60.0
+        }
         tableView.reloadData()
     }
     
     @IBAction func approveBtnTapped(_ sender: Any) {
-        let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
-        if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
-            self.navigationController?.pushViewController(timeSheetVC, animated: true)
+        self.showLoadingIndicator = true
+        var count = 0
+        var ids = [String]()
+        for item in self.approveListViewModel.timeSheetArray{
+            if item.isSelected == true{
+                count = count + 1
+                ids.append(item.subjectId ?? "")
+            }
         }
+        if count > 1{
+            self.approveListViewModel.callApprovelAPIForMultipleSelection(arr: ids)
+        }else{
+            self.approveListViewModel.callApprovalRequestAPI(id: ids.first ?? "")
+        }
+
     }
-    
+    @objc func selectBtnClicked(sender:UIButton){
+        if sender.isSelected{
+            sender.isSelected = true
+            self.approveListViewModel.timeSheetArray[sender.tag].isSelected = true
+        }else{
+            sender.isSelected = false
+            self.approveListViewModel.timeSheetArray[sender.tag].isSelected = false
+        }
+        self.tableView.reloadData()
+    }
 }
 
 extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
@@ -107,8 +137,12 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ApprovalListCell") as? ApprovalListCell{
             let data = self.approveListViewModel.timeSheetArray[indexPath.row]
-            cell.selectBtn.isSelected = selectAllBtn.isSelected ? true : false
-            
+            cell.selectBtn.isSelected = data.isSelected ?? false
+            cell.updateUi = {
+                self.approveViewHtConstarint.constant = 60.0
+            }
+            cell.selectBtn.addTarget(self, action: #selector(selectBtnClicked), for:.touchUpInside)
+            cell.selectBtn.tag = indexPath.row
             if indexPath.row == 2 {
                 cell.planedView.isHidden = true
                 cell.workTimeView.isHidden = true

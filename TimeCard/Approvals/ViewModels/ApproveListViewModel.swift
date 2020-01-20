@@ -27,17 +27,72 @@ class ApproveListViewModel {
     var dispatchGroup: DispatchGroup = DispatchGroup()
     var tableView : UITableView?
     var updateUI : (()->())?
+    var successfullMess : ((String)->())?
 //    init(delegate:GenericViewModelProtocol) {
 //        self.delegate = delegate
 //    }
     
     lazy var getAssertionToken = RequestManager<ApproveListModels>()
+    lazy var postApproval = RequestManager<ApprovalRequestSuccess>()
+
+    
     var idpPayload: GetIDPPayload?
     var timeSheetArray = [Results3]()
     var timeArray = [Results1]()
 }
 
 extension ApproveListViewModel{
+    func callApprovelAPIForMultipleSelection(arr:[String]){
+        let dispatchQueue = DispatchQueue(label: "taskQueue")
+        let myGroup = DispatchGroup()
+        let dispatchSemaphore = DispatchSemaphore(value: 0)
+        dispatchQueue.async {
+            for (_,item) in arr.enumerated(){
+                myGroup.enter()
+                self.postApproval.callApproveRequestAPI(id: item , completion: { [weak self] result in
+                    guard self != nil else { return }
+                          switch result {
+                          case .failure(_):
+                            dispatchSemaphore.signal()
+                            myGroup.leave()
+                            break
+                          case .successData(_):
+                            break
+                          case .success(_, _):
+                              dispatchSemaphore.signal()
+                              myGroup.leave()
+                             break
+                          }
+                      })
+                dispatchSemaphore.wait()
+        }
+        }
+        myGroup.notify(queue: dispatchQueue) {
+              DispatchQueue.main.async {
+                self.delegate?.showLoadingIndicator = false
+                 self.successfullMess?("Success")
+                }
+        }
+    }
+
+    
+    func callApprovalRequestAPI(id:String){
+        self.postApproval.callApproveRequestAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.delegate?.failedWithReason(message: message)
+                self.delegate?.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.successfullMess?(value?.d?.status ?? "")
+                self.delegate?.showLoadingIndicator = false
+            case .successData(_):
+                break
+            }
+        })
+    }
+    
     // Get assertion token
     func callAPIForGettingAssertionToken() {
         self.delegate?.showLoadingIndicator = true
@@ -171,6 +226,7 @@ extension ApproveListViewModel{
                 do {
                     let result = try JSONDecoder().decode(TimeSheetRequestDetailModel.self, from: value )
                     self.timeSheetArray[index].wfRequestUINav = result.d?.wfRequestUINav
+                    self.timeSheetArray[index].workflowAllowedActionListNav = result.d?.workflowAllowedActionListNav
                     var jsonString = self.timeSheetArray[index].wfRequestUINav?.changedData ?? ""
                    jsonString = jsonString.replacingOccurrences(of: "\\", with: "")
                    jsonString = jsonString.replacingOccurrences(of: "//", with: "")
