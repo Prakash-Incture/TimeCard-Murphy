@@ -10,6 +10,9 @@ import UIKit
 
 class ApprovalListCell: UITableViewCell {
 
+    @IBOutlet weak var periodTitleLbl: UILabel!
+    @IBOutlet weak var planedTitleLbl: UILabel!
+    @IBOutlet weak var workingTimeTitleLbel: UILabel!
     @IBOutlet weak var appImgView: UIImageView!
     @IBOutlet weak var appNameLbl: UILabel!
     @IBOutlet weak var appPositionLbl: UILabel!

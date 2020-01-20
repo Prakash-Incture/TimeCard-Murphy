@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AbsenceDetailsVC: UIViewController {
+class AbsenceDetailsVC: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
@@ -27,24 +27,28 @@ class AbsenceDetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.customNavigationType = .navBackWithAction
         self.initialSetup()
     }
     
     func initialSetup() {
         self.tableView.register(UINib(nibName: "KeyValueCell", bundle: nil), forCellReuseIdentifier: "KeyValueCell")
         empImgView.layer.cornerRadius = empImgView.frame.width/2
-        absenceViewModel.getTemData()
+        absenceViewModel.getTemData(data: timeSheetData)
+        self.periodLbl.text = timeSheetData?.peroid ?? ""
+        self.statusLbl.text = timeSheetData?.approvalStatus ?? ""
+        self.initiatedDateLbl.text = timeSheetData?.wfRequestUINav?.receivedOn ?? ""
+        self.empPositionLbl.text = timeSheetData?.wfRequestUINav?.jobTitle ?? ""
+        self.empNameLbl.text = timeSheetData?.wfRequestUINav?.subjectUserName ?? ""
+        self.initiatedBtLbl.text = timeSheetData?.wfRequestUINav?.subjectUserName ?? ""
  
         tableView.reloadData()
     }
-    
-    
-    @IBAction func backBtnTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    override func selectedBack(sender: UIButton) {
+                self.navigationController?.popViewController(animated: true)
     }
-    
-    @IBAction func actionTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+    override func selectedAction(sender: UIButton) {
+                let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Decline", style: .default, handler: { (declineAction) in
             
         }))
