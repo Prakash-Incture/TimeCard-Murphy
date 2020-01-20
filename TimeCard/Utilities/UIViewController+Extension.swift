@@ -14,9 +14,11 @@ enum CustomNavType :String{
     case navPlain
     case navWithBack
     case navWithSaveandCancel
+    case navWithCancelandSubmit
     case navWithBackandDone
     case navBackWithAction
     case naveBackWithPaste
+    case navWithFilter
 }
 
 class NavLeftTitleButton: UIButton {
@@ -56,13 +58,23 @@ class NavActionButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.setTitle("Action", for: .normal)
+        self.contentHorizontalAlignment = .right
         self.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 30.0)
     }
 }
 class NavDoneButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.contentHorizontalAlignment = .right
         self.setTitle("Done", for: .normal)
+        self.frame = CGRect(x: 0.0, y: 2.5, width: 100, height: 30.0)
+    }
+}
+class NavSubmitButton: UIButton {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.contentHorizontalAlignment = .right
+        self.setTitle("Submit", for: .normal)
         self.frame = CGRect(x: 0.0, y: 2.5, width: 100, height: 30.0)
     }
 }
@@ -72,8 +84,17 @@ class NavBackButton: UIButton {
         super.layoutSubviews()
         let homeSymbolConfiguration = UIImage.SymbolConfiguration(pointSize: 15, weight: .black)
         let backImage = UIImage(systemName: "chevron.left", withConfiguration: homeSymbolConfiguration)
-
+        self.contentHorizontalAlignment = .left
        self.setImage(backImage, for: .normal)
+        self.contentMode = .center
+    }
+}
+class NavFilterButton: UIButton {
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.setImage(UIImage(named: "Filter"), for: .normal)
+        self.contentHorizontalAlignment = .right
         self.contentMode = .center
     }
 }
