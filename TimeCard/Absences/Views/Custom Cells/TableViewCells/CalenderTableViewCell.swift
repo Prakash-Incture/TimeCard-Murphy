@@ -14,6 +14,7 @@ class CalenderTableViewCell: UITableViewCell {
     @IBOutlet weak var leftButtonAction: UIButton!
     @IBOutlet weak var rightAction: UIButton!
     @IBOutlet weak var datelabel: UILabel!
+    @IBOutlet weak var recordedHours: UILabel!
     
     var panGesture = UIPanGestureRecognizer(target: self, action:(Selector(("handlePanGesture:"))))
     fileprivate lazy var dateFormatter: DateFormatter = {
@@ -45,7 +46,7 @@ class CalenderTableViewCell: UITableViewCell {
         DataSingleton.shared.selectedWeekDates = getCurrentWeekDays()
         self.showDate()
     }
-
+ 
     func showDate(){
         let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
         let currentPage =  self.calenderView.currentPage
@@ -60,7 +61,9 @@ class CalenderTableViewCell: UITableViewCell {
         self.datelabel.text = min_Date + " - " + max_Date
         
         // Show corresponding allocations
-        dateSelected()
+        DispatchQueue.main.async {
+            self.dateSelected()
+        }
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -122,7 +125,10 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
         DataSingleton.shared.selectedDate = date as NSDate
         
         //Get today's beginning & end
-        dateSelected()
+        DispatchQueue.main.async {
+            self.dateSelected()
+        }
+        
               
     }
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {

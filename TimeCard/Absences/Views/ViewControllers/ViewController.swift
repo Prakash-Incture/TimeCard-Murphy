@@ -106,6 +106,15 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             DataSingleton.shared.selectedDate = cell.calenderView.selectedDate as? NSDate
             cell.allocationHourPersistence = self.allocationHourPersistence
             cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder as? [String] ?? []
+            if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
+                var totalMins: Int = 0
+                for data in dataArray{
+                    totalMins = totalMins+(data.duration ?? 0)
+                }
+                let (hours, min) = self.minutesToHoursMin(minutes: totalMins)
+                cell.recordedHours.text = String(format: "%02d:%02d", hours, min)
+            }
+            
             return cell
         }else{
             if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row{
@@ -158,5 +167,9 @@ extension ViewController {
         self.allocationHourPersistence.load { [weak self] in
         }
     }
-   
+    
+    func minutesToHoursMin(minutes: Int) -> (Int, Int) {
+        return (minutes/60, (minutes % 60))
+    }
 }
+
