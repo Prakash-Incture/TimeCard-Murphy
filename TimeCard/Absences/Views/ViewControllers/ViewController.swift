@@ -53,7 +53,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     }
     private func setupViewModel() {
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
-//        self.allocationViewModel?.empTimeOffBalanceAPICalling() // Uncommand
+       // self.allocationViewModel?.empTimeOffBalanceAPICalling() // Uncommand
         }
     func configurTableView(){
         self.tableView.delegate = self
@@ -70,7 +70,28 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             self.removeObserver()
         }
     }
-    
+    func holidayCalenderApicalling(){
+        self.showLoadingIndicator = true
+        self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+                break
+            case .success(let value, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+                self.holidaycalnder = value?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date?.replacingOccurrences(of: "T00:00:00.000", with: "")}) as NSArray? ?? []
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                break
+            case .successData( _): break
+                // Get success data here
+            }
+        })
+    }
+
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -107,18 +128,20 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
               let cell = self.tableView.dequeueReusableCell(withIdentifier: "CalenderTableViewCell", for: indexPath) as! CalenderTableViewCell
             cell.selectionStyle = .none
-            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate as? NSDate
+            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate as NSDate?
             cell.allocationHourPersistence = self.allocationHourPersistence
             cell.datesWithMultipleEvents = self.holidaycalnder
+
             if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
                 var totalMins: Int = 0
                 for data in dataArray{
                     totalMins = totalMins+(data.duration ?? 0)
                 }
-                let (hours, min) = self.minutesToHoursMin(minutes: totalMins)
+                let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
                 cell.recordedHours.text = String(format: "%02d:%02d", hours, min)
             }
             
+           // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
             return cell
         }else{
             if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row{
@@ -172,30 +195,8 @@ extension ViewController {
         }
     }
     
-    func minutesToHoursMin(minutes: Int) -> (Int, Int) {
+    static func minutesToHoursMin(minutes: Int) -> (Int, Int) {
         return (minutes/60, (minutes % 60))
     }
 }
 
-extension ViewController{
-    func holidayCalenderApicalling(){
-        self.showLoadingIndicator = true
-        self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.showLoadingIndicator = false
-            case .success(let value, let message):
-                print(message as Any)
-                self.showLoadingIndicator = false
-                self.holidaycalnder = value?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date?.replacingOccurrences(of: "T00:00:00.000", with: "")}) as NSArray? ?? []
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            case .successData( _): break
-                // Get success data here
-            }
-        })
-    }
-
-}

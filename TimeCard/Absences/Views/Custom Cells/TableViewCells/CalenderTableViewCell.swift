@@ -15,25 +15,31 @@ class CalenderTableViewCell: UITableViewCell {
     @IBOutlet weak var rightAction: UIButton!
     @IBOutlet weak var datelabel: UILabel!
     @IBOutlet weak var recordedHours: UILabel!
+//    @IBOutlet weak var hoursLabel: UILabel!
+
     
     var panGesture = UIPanGestureRecognizer(target: self, action:(Selector(("handlePanGesture:"))))
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        //formatter.timeZone = TimeZone(secondsFromGMT:Int(5.30))
+      //  formatter.timeZone = TimeZone(secondsFromGMT:Int(5.30))
         return formatter
     }()
     var previousDate:String?
     var today:Date?
+    var direction:String?
     var allocationHourPersistence:AllocationHoursCoreData?
     var datesWithMultipleEvents:NSArray?{
         didSet{
             self.calenderView.reloadData()
         }
     }
+
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.calenderSetUP()
+        self.showDate()
     }
     
     func calenderSetUP(){
@@ -47,12 +53,15 @@ class CalenderTableViewCell: UITableViewCell {
         calenderView.addGestureRecognizer(panGesture)
         calenderView.select(Date())
         DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
-        DataSingleton.shared.selectedWeekDates = getCurrentWeekDays()
-        self.showDate()
+        
+        calenderView.scrollEnabled = false
+        dateSelected()
+//        self.hoursLabel.text = (DataSingleton.shared.totalHours == "0.0") ? "0" : DataSingleton.shared.totalHours
     }
  
     func showDate(){
        let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
+
         //let currentPage =  calenderView.currentPage
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to:Date(), options: [])
         let first_Date = gregorianCalendar?.fs_firstDay(ofWeek: nextPage!)
@@ -63,7 +72,7 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: last_Date!)
         let min_Date = formatter.string(from: first_Date!)
         self.datelabel.text = min_Date + " - " + max_Date
-        
+        DataSingleton.shared.selectedWeekDates = [(first_Date ?? Date()), first_Date ?? Date()]
         // Show corresponding allocations
         dateSelected()
     }
@@ -84,9 +93,10 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: maxDate!)
         let min_Date = formatter.string(from: minDate!)
         self.datelabel.text = min_Date + " - " + max_Date
-
-
+        
+        DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
+    
     @IBAction func rightButtonAction(_ sender: Any) {
            let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
            let currentPage = self.calenderView.currentPage
@@ -100,11 +110,10 @@ class CalenderTableViewCell: UITableViewCell {
             let max_Date = formatter.string(from: maxDate!)
             let min_Date = formatter.string(from: minDate!)
             self.datelabel.text = min_Date + " - " + max_Date
+        
+        DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
-    func handlePanGesture(panGesture: UIPanGestureRecognizer) {
-
-    }
-    
+   
     func dateSelected() {
         var currentCalender = Calendar.current
         currentCalender.timeZone = TimeZone(identifier: "UTC")!
@@ -117,6 +126,8 @@ class CalenderTableViewCell: UITableViewCell {
                       print(model.date ?? "")
                   }
             NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
+//            self.hoursLabel.text = DataSingleton.shared.totalHours ?? "0"
+            
               }
     }
 }
@@ -134,19 +145,19 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
               
     }
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-         
+    
     }
    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
     let dateString = self.dateFormatter.string(from: date as Date? ?? Date())
-    if self.datesWithMultipleEvents!.contains(dateString) {
+    if (self.datesWithMultipleEvents?.contains(dateString))! {
             return 3
         }
         return 0
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
          let key = self.dateFormatter.string(from: date as Date? ?? Date())
-        if self.datesWithMultipleEvents!.contains(key) {
-             return [UIColor.magenta, appearance.eventDefaultColor, UIColor.black]
+        if (self.datesWithMultipleEvents?.contains(key))! {
+             return [UIColor.red, appearance.eventDefaultColor, UIColor.black]
          }
          return nil
      }

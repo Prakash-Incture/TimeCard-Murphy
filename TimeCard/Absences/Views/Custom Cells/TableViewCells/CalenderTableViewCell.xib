@@ -71,7 +71,7 @@
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.4549019608" green="0.4549019608" blue="0.50196078430000002" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.50196078431372548" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="1Jp-yA-2qJ" secondAttribute="bottom" constant="6" id="SwC-3N-nHp"/>
                             <constraint firstAttribute="trailing" secondItem="1Jp-yA-2qJ" secondAttribute="trailing" constant="6" id="b0g-S7-1Hr"/>

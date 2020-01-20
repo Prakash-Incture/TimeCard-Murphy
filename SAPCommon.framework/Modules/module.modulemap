@@ -1,11 +1,8 @@
 framework module SAPCommon {
+  umbrella header "SAPCommon.h"
 
-    umbrella header "SAPCommon.h"
-
-    header "CommonCrypto.h"
-    
-    export *
-    module * { export * }
+  export *
+  module * { export * }
 }
 
 module SAPCommon.Swift {

@@ -72,6 +72,30 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? WeekSummaryCell else { fatalError("Textfield cell not found") }
             cell.setModel(cellModel)
             cell.allocationData = self.allocationViewModel?.allcationModelData
+//            var cellType: AllocationCellIdentifier?
+//            switch cellType {
+//            case .total:
+//                if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
+//                    var totalMins: Int = 0
+//                    for data in dataArray{
+//                        totalMins = totalMins+(data.duration ?? 0)
+//                    }
+//                    let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
+//                    cell.labelData.text = String(format: "%02d:%02d", hours, min)
+//                }
+//            case .paidAbsences:
+//                break
+//            case .ot:
+//                break
+//            case .regularTime:
+//                break
+//            case .status:
+//                break
+//            default:
+//                break
+//            }
+            cell.allocationData = self.allocationViewModel?.allcationModelData
+            
             cell.selectionStyle = .none
             return cell
         case .AllocatedTimeTableCell:
@@ -96,6 +120,15 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
            if section == 0{
                let _: CGRect = tableView.frame
                let headerView = (Bundle.main.loadNibNamed("Headercell", owner: self, options: nil)?[1] as? WeekHaderCell)
+            
+            let first_Date = DataSingleton.shared.selectedWeekDates?.first
+            let last_Date = DataSingleton.shared.selectedWeekDates?.last
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMM YYYY"
+            let max_Date = formatter.string(from: last_Date!)
+            let min_Date = formatter.string(from: first_Date!)
+            headerView?.labelText.text = min_Date + " - " + max_Date
+            
                headerView?.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
                return headerView
            }
