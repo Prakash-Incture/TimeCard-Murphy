@@ -88,7 +88,7 @@ class AllocationDataViewModel{
         }
     //Changing the Model to other Model to add data
        func weekSummaryModel(value:AllocationModel) -> WeekSummary{
-        let weekValues = WeekSummary(day:self.getdayWeekDay(date:(DataSingleton.shared.selectedDate as Date?) ?? Date()), date: self.dateFormatter.string(from:(DataSingleton.shared.selectedDate as Date?) ?? Date()), hours: value.duration)
+        let weekValues = WeekSummary(day:self.getdayWeekDay(date:(DataSingleton.shared.selectedDate as Date?) ?? Date()), date: self.dateFormatter.string(from:(DataSingleton.shared.selectedDate as Date?) ?? Date()), hours: value.duration, duration: value.durationMin)
         return weekValues
        }
     public func dataAdding(){

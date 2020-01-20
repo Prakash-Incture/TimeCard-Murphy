@@ -136,13 +136,10 @@ extension GenericTableviewDropdownCell:UpdateData{
             self.allocationData?.costCneter = value ?? ""
         case .duration:
             self.allocationData?.duration = value ?? ""
+            self.allocationData?.durationMin = hour*60+minutes
         default: break
         }
         self.uodateMainModel()
-    }
-    //TODO:
-    func updateWeekData() {
-        
     }
 }
 //Picker view Delagetse

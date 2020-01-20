@@ -16,6 +16,7 @@ struct AllocaitonData: Codable {
 }
 struct AllocationModel:Codable {
     var timeType,duration,costCneter:String?
+    var durationMin: Int?
 }
 
 class AllocatedSingleTon:NSObject{
@@ -24,9 +25,8 @@ class AllocatedSingleTon:NSObject{
 }
 struct WeekSummary:Codable {
     var day,date,hours:String?
-    var dayW: String?
-    var dateW: Date?
-    var hoursW: Int?
+    var duration: Int?
+    
 }
 struct UserData: Encodable {
     var userId:String?
