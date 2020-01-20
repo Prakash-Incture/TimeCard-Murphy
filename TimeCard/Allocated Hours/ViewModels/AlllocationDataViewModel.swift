@@ -34,6 +34,8 @@ class AllocationDataViewModel{
     var empJobData:EmpJobModel?
     var holidayCalenderData:HolidayAssignment?
     var holidaycalnder:NSArray = []
+    var duration:Double = 0
+    var plannedhours = 0
     
     var userData:UserData?
     fileprivate lazy var dateFormatter: DateFormatter = {
@@ -85,6 +87,7 @@ class AllocationDataViewModel{
                self.delegate?.didReceiveResponse()
             }
         self.allcationModelData.weekData?.append(WeekSummary())
+        self.fetchDurationData(weekData: self.allcationModelData.weekData ?? [])
         }
     //Changing the Model to other Model to add data
        func weekSummaryModel(value:AllocationModel) -> WeekSummary{
@@ -137,6 +140,24 @@ class AllocationDataViewModel{
             }
         }
     }
+    func fetchDurationData(weekData:[WeekSummary]){
+        duration = 0
+        for val in weekData{
+            let hourData = self.removeHourText(tempString: val.hours ?? "")
+            duration = duration + hourData
+//            DataSingleton.shared.totalHours = "0"
+        }
+//        DataSingleton.shared.totalHours = String(duration) == "0.0" ? "0" : String(duration)
+        
+    }
+    func removeHourText(tempString:String) -> Double{
+        if tempString != ""{
+        var value = tempString.replacingOccurrences(of: " Hour ", with: ".")
+        value = value.replacingOccurrences(of: " Minutes", with: "")
+        return Double(value) ?? 0
+        }
+        return 0
+    }
 }
 //Api calling Methods
 extension AllocationDataViewModel{
@@ -176,6 +197,7 @@ extension AllocationDataViewModel{
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
                 self.empJobData = value
+               // self.getNumberOfPlannedHours(totalHours: self.empJObData.standardHours, totalWeekhours: empJObData.workingDaysPerWeek)
                 self.holidayCalenderApicalling()
             case .successData( _): break
                 // Get success data here
@@ -195,7 +217,8 @@ extension AllocationDataViewModel{
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
                 self.holidayCalenderData = value
-                self.holidaycalnder = self.holidayCalenderData?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date}) as NSArray? ?? []
+                self.holidaycalnder = self.holidayCalenderData?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date?.replacingOccurrences(of: "T00:00:00.000", with: "")}) as NSArray? ?? []
+                
                 self.delegate?.didReceiveResponse()
                 self.getEmpTimeAPICall()
             case .successData( _): break
@@ -203,6 +226,7 @@ extension AllocationDataViewModel{
             }
         })
     }
+    
     
 func getEmpTimeAPICall(){
     self.delegate?.showLoadingIndicator = true
@@ -262,6 +286,10 @@ func getEmpTimeAPICall(){
         dateFormatter.dateFormat = "EEEE"
         let weekDay = dateFormatter.string(from: date)
         return weekDay
+    }
+    func getNumberOfPlannedHours(totalHours:String,totalWeekhours:String) -> Int{
+        plannedhours = (Int(totalWeekhours) ?? 0)/(Int(totalHours) ?? 0)
+        return plannedhours
     }
 }
 
