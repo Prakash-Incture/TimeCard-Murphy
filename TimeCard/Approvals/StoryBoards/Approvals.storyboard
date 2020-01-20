@@ -97,6 +97,7 @@
                     <navigationItem key="navigationItem" title="Approval" id="JaP-fp-VXm"/>
                     <connections>
                         <outlet property="approveBtn" destination="Onr-GE-InS" id="HuS-U6-CaD"/>
+                        <outlet property="approveViewHtConstarint" destination="KJJ-vI-ZAm" id="zcB-fm-dyH"/>
                         <outlet property="selectAllBtn" destination="OoO-iu-35Z" id="1da-xh-orM"/>
                         <outlet property="selectAllBtnView" destination="AST-9U-QuZ" id="K2S-E6-B83"/>
                         <outlet property="selectAllTitleLbl" destination="zjW-R5-GrW" id="r9d-aH-hYx"/>
@@ -138,8 +139,8 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales manager (70000015), Chicago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEp-0U-Mrm">
-                                                    <rect key="frame" x="112" y="57.5" width="192" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales manager (70000015), Chicago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEp-0U-Mrm">
+                                                    <rect key="frame" x="112" y="61" width="192" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -147,13 +148,13 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="BKq-eQ-uTE" firstAttribute="centerY" secondItem="ApB-D8-0ie" secondAttribute="centerY" constant="-12" id="DrC-Ip-aIz"/>
+                                                <constraint firstItem="bEp-0U-Mrm" firstAttribute="top" secondItem="BKq-eQ-uTE" secondAttribute="bottom" constant="6" id="3lQ-pW-0TH"/>
                                                 <constraint firstItem="BKq-eQ-uTE" firstAttribute="leading" secondItem="ApB-D8-0ie" secondAttribute="trailing" constant="16" id="EXO-ge-qGR"/>
                                                 <constraint firstAttribute="bottom" secondItem="ApB-D8-0ie" secondAttribute="bottom" constant="16" id="G88-fX-BQA"/>
                                                 <constraint firstItem="ApB-D8-0ie" firstAttribute="top" secondItem="TWj-ti-kaN" secondAttribute="top" constant="16" id="PKB-SH-HxL"/>
+                                                <constraint firstAttribute="bottom" secondItem="bEp-0U-Mrm" secondAttribute="bottom" constant="8" id="THH-qQ-05b"/>
                                                 <constraint firstItem="bEp-0U-Mrm" firstAttribute="trailing" secondItem="BKq-eQ-uTE" secondAttribute="trailing" id="UFj-ne-93L"/>
                                                 <constraint firstAttribute="trailing" secondItem="BKq-eQ-uTE" secondAttribute="trailing" constant="16" id="bKi-qc-qeS"/>
-                                                <constraint firstItem="bEp-0U-Mrm" firstAttribute="centerY" secondItem="ApB-D8-0ie" secondAttribute="centerY" constant="12" id="kNG-2N-cgd"/>
                                                 <constraint firstItem="ApB-D8-0ie" firstAttribute="leading" secondItem="TWj-ti-kaN" secondAttribute="leading" constant="16" id="sbd-iu-qN4"/>
                                                 <constraint firstItem="bEp-0U-Mrm" firstAttribute="leading" secondItem="BKq-eQ-uTE" secondAttribute="leading" id="vaH-8i-418"/>
                                             </constraints>
@@ -364,13 +365,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peter Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAU-0l-oK0">
-                                                    <rect key="frame" x="112" y="33.5" width="192" height="21.5"/>
+                                                    <rect key="frame" x="112" y="33.5" width="192" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales manager (70000015), Chicago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7e8-Qc-YRv">
-                                                    <rect key="frame" x="112" y="57.5" width="192" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="Sales manager (70000015), Chicago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7e8-Qc-YRv">
+                                                    <rect key="frame" x="112" y="61" width="192" height="43"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -382,11 +383,12 @@
                                                 <constraint firstItem="MNz-c5-cNo" firstAttribute="top" secondItem="Rt5-Z0-6F2" secondAttribute="top" constant="16" id="4ht-T7-OBG"/>
                                                 <constraint firstAttribute="bottom" secondItem="MNz-c5-cNo" secondAttribute="bottom" constant="16" id="8D6-om-vO6"/>
                                                 <constraint firstAttribute="trailing" secondItem="zAU-0l-oK0" secondAttribute="trailing" constant="16" id="MFw-VG-qat"/>
+                                                <constraint firstAttribute="bottom" secondItem="7e8-Qc-YRv" secondAttribute="bottom" constant="8" id="OL0-0A-CJ4"/>
                                                 <constraint firstItem="7e8-Qc-YRv" firstAttribute="trailing" secondItem="zAU-0l-oK0" secondAttribute="trailing" id="QbB-xJ-g9w"/>
+                                                <constraint firstItem="zAU-0l-oK0" firstAttribute="top" secondItem="Rt5-Z0-6F2" secondAttribute="top" constant="33.5" id="Qji-8f-jF7"/>
+                                                <constraint firstItem="7e8-Qc-YRv" firstAttribute="top" secondItem="zAU-0l-oK0" secondAttribute="bottom" id="UbE-ce-PfG"/>
                                                 <constraint firstItem="7e8-Qc-YRv" firstAttribute="leading" secondItem="zAU-0l-oK0" secondAttribute="leading" id="Wpc-0c-QRx"/>
-                                                <constraint firstItem="7e8-Qc-YRv" firstAttribute="centerY" secondItem="MNz-c5-cNo" secondAttribute="centerY" constant="12" id="fVH-YG-qia"/>
                                                 <constraint firstItem="MNz-c5-cNo" firstAttribute="leading" secondItem="Rt5-Z0-6F2" secondAttribute="leading" constant="16" id="mQp-xH-UuI"/>
-                                                <constraint firstItem="zAU-0l-oK0" firstAttribute="centerY" secondItem="MNz-c5-cNo" secondAttribute="centerY" constant="-12" id="rCF-D2-5RN"/>
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bNg-bS-8yS">
@@ -499,20 +501,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PSV-jk-KEZ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Employee Timesheet" id="BCl-BT-fFG">
-                        <barButtonItem key="leftBarButtonItem" image="back" id="COz-hv-XIu">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="backBtnTapped:" destination="0cj-TO-X1R" id="sbf-98-dFd"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Action" id="VOe-hw-eQs">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="actionTapped:" destination="0cj-TO-X1R" id="Ngf-Og-gjH"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Employee Timesheet" id="BCl-BT-fFG"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="empImgView" destination="MNz-c5-cNo" id="wWR-9q-BhI"/>
@@ -552,7 +541,6 @@
     <resources>
         <image name="Checkbox" width="28" height="28"/>
         <image name="Checkbox filled" width="28" height="28"/>
-        <image name="back" width="25" height="25"/>
         <image name="dash1" width="349" height="152"/>
     </resources>
 </document>

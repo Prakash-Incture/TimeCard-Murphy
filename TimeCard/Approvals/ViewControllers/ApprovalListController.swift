@@ -12,6 +12,7 @@ import SAPFiori
 class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     var loadingIndicator: FUILoadingIndicatorView?
     
+    @IBOutlet weak var approveViewHtConstarint: NSLayoutConstraint!
     @IBOutlet weak var selectAllTitleLbl: UILabel!
     @IBOutlet weak var selectAllBtnView: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
@@ -119,9 +120,21 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
             cell.appPositionLbl.text = data.wfRequestUINav?.jobTitle ?? ""
             cell.initiatedLbl.text = data.wfRequestUINav?.subjectUserId ?? ""
             cell.initiatedDateLbl.text = data.wfRequestUINav?.receivedOn ?? ""
-            let separatedData = data.subjectFullName?.split(separator: "(")
-            let secondSeparatedData = separatedData?[1].split(separator: ")")
-            cell.periodLbl.text = String(secondSeparatedData?.first ?? "")
+           // let separatedData = data.subjectFullName?.split(separator: "(")
+           // let secondSeparatedData = separatedData?[1].split(separator: ")")
+           // cell.periodLbl.text = String(secondSeparatedData?.first ?? "")
+            for (index,value) in data.wfRequestUINav?.approverChangedData?.enumerated() ?? [ApproverChangedData]().enumerated(){
+                if index == 1{
+                    cell.periodTitleLbl.text = value.label
+                    cell.periodLbl.text = value.newValue
+                }else if index == 2{
+                    cell.planedTitleLbl.text = value.label
+                    cell.planedLbl.text = value.newValue
+                }else{
+                    cell.workingTimeTitleLbel.text = value.label
+                    cell.workTimeLbl.text = value.newValue
+                }
+            }
            // Annual Leave (01/09/2020 - 01/09/2020): Omar Ahmed Arafa
             return cell
         }
@@ -130,19 +143,20 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        switch indexPath.row {
-        case 2:
+        let data = self.approveListViewModel.timeArray[0]
+        if data.categoryLabel == "Time Off Requests"{
             let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
             if let absenceVC = storyBoard.instantiateViewController(withIdentifier: "AbsenceDetailsVC") as? AbsenceDetailsVC{
-                self.navigationController?.pushViewController(absenceVC, animated: true)
-            }
-        default:
+                absenceVC.timeSheetData = self.approveListViewModel.timeSheetArray[indexPath.row]
+            self.navigationController?.pushViewController(absenceVC, animated: true)
+        }else{
             let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
-            if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
-                timeSheetVC.timeSheetData = self.approveListViewModel.timeSheetArray[indexPath.row]
-                self.navigationController?.pushViewController(timeSheetVC, animated: true)
-            }
+               if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
+                   timeSheetVC.timeSheetData = self.approveListViewModel.timeSheetArray[indexPath.row]
+                   self.navigationController?.pushViewController(timeSheetVC, animated: true)
+                    }
+        }
+        
         }
     }
     

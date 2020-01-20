@@ -27,15 +27,14 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peter Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kZ-TO-0D5">
-                                <rect key="frame" x="150" y="34.5" width="309" height="19.5"/>
+                                <rect key="frame" x="150" y="34.5" width="298" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales manager (70000015), Chicago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM2-za-nyH">
-                                <rect key="frame" x="150" y="58.5" width="309" height="19.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sales manager (70000015), Chicago jjjjjjjjjj" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vM2-za-nyH">
+                                <rect key="frame" x="150" y="58" width="298" height="46"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -65,12 +64,13 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="j4r-re-52Y" secondAttribute="trailing" constant="16" id="2St-Ar-XJr"/>
                             <constraint firstItem="j4r-re-52Y" firstAttribute="centerY" secondItem="9kZ-TO-0D5" secondAttribute="centerY" id="2xR-6P-8Oq"/>
+                            <constraint firstItem="vM2-za-nyH" firstAttribute="top" secondItem="9kZ-TO-0D5" secondAttribute="bottom" constant="4" id="8jz-Og-fPP"/>
                             <constraint firstItem="90D-zw-oP0" firstAttribute="leading" secondItem="Vwc-Wg-P1h" secondAttribute="leading" constant="16" id="GRu-Eg-mY3"/>
                             <constraint firstItem="9kZ-TO-0D5" firstAttribute="centerY" secondItem="cpV-yI-hSw" secondAttribute="centerY" constant="-12" id="VJX-Zq-xRd"/>
                             <constraint firstItem="vM2-za-nyH" firstAttribute="trailing" secondItem="9kZ-TO-0D5" secondAttribute="trailing" id="WV1-jL-eEU"/>
                             <constraint firstItem="cpV-yI-hSw" firstAttribute="top" secondItem="Vwc-Wg-P1h" secondAttribute="top" constant="16" id="WdS-RW-nUN"/>
                             <constraint firstItem="90D-zw-oP0" firstAttribute="centerY" secondItem="cpV-yI-hSw" secondAttribute="centerY" id="aWh-wQ-DDg"/>
-                            <constraint firstItem="vM2-za-nyH" firstAttribute="centerY" secondItem="cpV-yI-hSw" secondAttribute="centerY" constant="12" id="gzI-Rn-28p"/>
+                            <constraint firstAttribute="bottom" secondItem="vM2-za-nyH" secondAttribute="bottom" constant="8" id="g59-9I-emy"/>
                             <constraint firstItem="vM2-za-nyH" firstAttribute="leading" secondItem="9kZ-TO-0D5" secondAttribute="leading" id="iBl-rP-To8"/>
                             <constraint firstItem="j4r-re-52Y" firstAttribute="leading" secondItem="9kZ-TO-0D5" secondAttribute="trailing" constant="8" id="iHt-gc-c6u"/>
                             <constraint firstItem="cpV-yI-hSw" firstAttribute="leading" secondItem="90D-zw-oP0" secondAttribute="trailing" constant="8" id="qL7-jJ-xXz"/>
@@ -85,13 +85,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="464" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Period" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6a6-M6-5q7">
-                                        <rect key="frame" x="0.0" y="6" width="237.5" height="18"/>
+                                        <rect key="frame" x="0.0" y="6" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="29 Dec 2019 - 14 Jan 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRe-lj-o5y">
-                                        <rect key="frame" x="237.5" y="6" width="237.5" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="29 Dec 2019 - 14 Jan 2019" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRe-lj-o5y">
+                                        <rect key="frame" x="232" y="6" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -112,13 +112,13 @@
                                 <rect key="frame" x="0.0" y="30" width="464" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Planned/Recorded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1B-V6-vfJ">
-                                        <rect key="frame" x="0.0" y="13.5" width="237.5" height="18"/>
+                                        <rect key="frame" x="0.0" y="13.5" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40:00/2:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKC-1W-vjI">
-                                        <rect key="frame" x="237.5" y="13.5" width="237.5" height="18"/>
+                                        <rect key="frame" x="232" y="13.5" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -138,13 +138,13 @@
                                 <rect key="frame" x="0.0" y="75" width="464" height="37.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Working Time Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDS-u8-09n">
-                                        <rect key="frame" x="0.0" y="10" width="237.5" height="18"/>
+                                        <rect key="frame" x="0.0" y="10" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="94A-dc-ohw">
-                                        <rect key="frame" x="237.5" y="10" width="237.5" height="18"/>
+                                        <rect key="frame" x="232" y="10" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -164,13 +164,13 @@
                                 <rect key="frame" x="0.0" y="112.5" width="464" height="37.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initiated by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zq-nU-NYO">
-                                        <rect key="frame" x="0.0" y="10" width="237.5" height="18"/>
+                                        <rect key="frame" x="0.0" y="10" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peter Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9g-oR-Gbz">
-                                        <rect key="frame" x="237.5" y="10" width="237.5" height="18"/>
+                                        <rect key="frame" x="232" y="10" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -190,13 +190,13 @@
                                 <rect key="frame" x="0.0" y="150" width="464" height="37.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initiated Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kks-D2-7Iq">
-                                        <rect key="frame" x="0.0" y="10" width="237.5" height="18"/>
+                                        <rect key="frame" x="0.0" y="10" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19 Dec 2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h56-2K-e0M">
-                                        <rect key="frame" x="237.5" y="10" width="237.5" height="18"/>
+                                        <rect key="frame" x="232" y="10" width="232" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -252,12 +252,15 @@
                 <outlet property="initiatedLbl" destination="g9g-oR-Gbz" id="GwX-UO-Q4x"/>
                 <outlet property="initiatedView" destination="ocf-eE-clF" id="9nU-cr-1M9"/>
                 <outlet property="periodLbl" destination="RRe-lj-o5y" id="mVO-Iu-Ob0"/>
+                <outlet property="periodTitleLbl" destination="6a6-M6-5q7" id="sww-sg-nG8"/>
                 <outlet property="periodView" destination="T8G-Gf-xYV" id="EaG-wu-NZF"/>
                 <outlet property="planedLbl" destination="oKC-1W-vjI" id="nHq-N8-E8s"/>
+                <outlet property="planedTitleLbl" destination="G1B-V6-vfJ" id="CWh-9u-gNx"/>
                 <outlet property="planedView" destination="xGv-kj-utw" id="BxJ-1q-YsH"/>
                 <outlet property="selectBtn" destination="90D-zw-oP0" id="c9h-RD-U9T"/>
                 <outlet property="workTimeLbl" destination="94A-dc-ohw" id="3Fj-Ft-4F6"/>
                 <outlet property="workTimeView" destination="57U-ra-lqP" id="qg3-a7-47d"/>
+                <outlet property="workingTimeTitleLbel" destination="BDS-u8-09n" id="r9P-qX-Qv7"/>
             </connections>
             <point key="canvasLocation" x="118.84057971014494" y="67.96875"/>
         </tableViewCell>

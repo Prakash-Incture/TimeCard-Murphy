@@ -124,7 +124,10 @@ struct Results3 : Codable {
     let subjectId : String?
     let url : String?
     var wfRequestUINav : WfRequestUINav?
-
+    var peroid : String?
+    var planned : String?
+    var timeType : String?
+    var approvalStatus : String?
     enum CodingKeys: String, CodingKey {
 
         case completedDate = "completedDate"
@@ -135,6 +138,10 @@ struct Results3 : Codable {
         case subjectId = "subjectId"
         case url = "url"
         case wfRequestUINav = "wfRequestUINav"
+        case timeType = "timeType"
+        case peroid = "peroid"
+        case planned = "planned"
+        case approvalStatus = "approvalStatus"
     }
 }
 
@@ -164,6 +171,7 @@ struct WfRequestUINav : Codable {
     let subjectUserName : String?
     let actionType : String?
     let changedData : String?
+    var approverChangedData : [ApproverChangedData]?
     enum CodingKeys: String, CodingKey {
         case wfRequestId = "wfRequestId"
         case businessUnit = "businessUnit"
@@ -182,6 +190,7 @@ struct WfRequestUINav : Codable {
         case subjectUserName = "subjectUserName"
         case actionType = "actionType"
         case changedData = "changedData"
+        case approverChangedData = "approverChangedData"
     }
 }
 
@@ -204,4 +213,15 @@ struct TimeSheetRequestDetailModelData:Codable {
            case wfRequestUINav = "wfRequestUINav"
            case status = "status"
        }
+}
+
+struct ApproverChangedData : Codable{
+    let label : String?
+    let newValue : String?
+    let oldValue : String?
+    enum CodingKeys: String, CodingKey {
+        case label = "label"
+        case newValue = "newValue"
+        case oldValue = "oldValue"
+    }
 }

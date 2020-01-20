@@ -34,6 +34,7 @@ class ApproveListViewModel {
     lazy var getAssertionToken = RequestManager<ApproveListModels>()
     var idpPayload: GetIDPPayload?
     var timeSheetArray = [Results3]()
+    var timeArray = [Results1]()
 }
 
 extension ApproveListViewModel{
@@ -90,7 +91,6 @@ extension ApproveListViewModel{
                     }
                     self.delegate?.showLoadingIndicator = false
                     self.callAPIForGettingTimeSheetData()
-                    //self.callAPIForGettingTimeOffData()
                 case .success( _, let message):
                     print(message as Any)
                     self.delegate?.showLoadingIndicator = false
@@ -113,14 +113,10 @@ extension ApproveListViewModel{
                     do {
                         let result = try JSONDecoder().decode(TimeSheetRequestModel.self, from: value )
                         let timeSheetArr = result.d?.results1?[0].todos?.results2?[0].entries?.results3
+                        self.timeArray = result.d?.results1 ?? [Results1]()
                         self.timeSheetArray.append(contentsOf: timeSheetArr!)
-                        
-                        for (index,item) in self.timeSheetArray.enumerated(){
-                            self.getTimeSheetDataById(id: item.subjectId ?? "", index: index)
-                        }
-                       
-                      
-                        print("Array count: \(self.timeSheetArray.count)")
+                      self.callAPIForGettingTimeOffData()
+
                     } catch {
                         print(error.localizedDescription)
                     }
@@ -147,7 +143,11 @@ extension ApproveListViewModel{
                             let result = try JSONDecoder().decode(TimeSheetRequestModel.self, from: value )
                             let timeSheetArr = result.d?.results1?[0].todos?.results2?[0].entries?.results3
                             self.timeSheetArray.append(contentsOf: timeSheetArr!)
-                            print("Array count: \(self.timeSheetArray.count ?? 0)")
+                            for (index,item) in self.timeSheetArray.enumerated(){
+                                                       self.getTimeSheetDataById(id: item.subjectId ?? "", index: index)
+                                                   }
+                            print("Array count: \(self.timeSheetArray.count)")
+
                         } catch {
                             print(error.localizedDescription)
                         }
@@ -171,6 +171,42 @@ extension ApproveListViewModel{
                 do {
                     let result = try JSONDecoder().decode(TimeSheetRequestDetailModel.self, from: value )
                     self.timeSheetArray[index].wfRequestUINav = result.d?.wfRequestUINav
+                    var jsonString = self.timeSheetArray[index].wfRequestUINav?.changedData ?? ""
+                   jsonString = jsonString.replacingOccurrences(of: "\\", with: "")
+                   jsonString = jsonString.replacingOccurrences(of: "//", with: "")
+                    print(jsonString)
+                    
+                    var approverChangedData = [ApproverChangedData]()
+  
+                    
+                    let data = Data(jsonString.utf8)
+
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]] {
+                            do {
+                                let jsonobject = try JSONSerialization.data(withJSONObject: json)
+                                let decoder = JSONDecoder()
+                                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                                 approverChangedData = try decoder.decode([ApproverChangedData].self, from: jsonobject)
+                                
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    } catch let error as NSError {
+                        print("Failed to load: \(error.localizedDescription)")
+                    }
+
+                    self.timeSheetArray[index].wfRequestUINav?.approverChangedData = approverChangedData
+                    for item in approverChangedData{
+                        if item.label == "Time Type"{
+                            self.timeSheetArray[index].timeType = item.newValue ?? ""
+                        }else if item.label == "Approval Status"{
+                            self.timeSheetArray[index].approvalStatus = item.newValue ?? ""
+                        }else if item.label == "Period"{
+                            self.timeSheetArray[index].peroid = item.newValue ?? ""
+                        }
+                    }
                     DispatchQueue.main.async {
                             self.updateUI?()
                         }
