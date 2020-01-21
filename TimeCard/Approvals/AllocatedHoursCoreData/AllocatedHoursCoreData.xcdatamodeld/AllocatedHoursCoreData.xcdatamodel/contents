@@ -3,8 +3,9 @@
     <entity name="AllocationOfflineData" representedClassName="AllocationOfflineData" syncable="YES" codeGenerationType="class">
         <attribute name="allocationModel" optional="YES" attributeType="Binary"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="AllocationOfflineData" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="AllocationOfflineData" positionX="-63" positionY="-18" width="128" height="28"/>
     </elements>
 </model>

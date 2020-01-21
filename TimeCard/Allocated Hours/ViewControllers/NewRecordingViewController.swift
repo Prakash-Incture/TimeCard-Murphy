@@ -62,18 +62,20 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.customNavigationType = .navWithSaveandCancel
-        self.setupViewModel()
         self.setupTableView()
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAbsenceData"), object: nil, queue: nil) { notification in
-            for (index,value) in  (self.allocationDataViewModel.allcationModelData.absence?.enumerated())!{
-                if value.timeType == nil {
-                    self.allocationDataViewModel.allcationModelData.absence?.remove(at: index)
-                    self.allocationDataViewModel.allcationModelData.absence?.append(notification.object as! Absence)
-                    self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
-                }
-            }
-            self.removeObservers()
-        }
+        self.setupViewModel()
+
+        
+        //        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAbsenceData"), object: nil, queue: nil) { notification in
+        //            for (index,value) in  (self.allocationDataViewModel.allcationModelData.absence?.enumerated())!{
+        //                if value.timeType == nil {
+        //                    self.allocationDataViewModel.allcationModelData.absence?.remove(at: index)
+        //                    self.allocationDataViewModel.allcationModelData.absence?.append(notification.object as! Absence)
+        //                    self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
+        //                }
+        //            }
+        //            self.removeObservers()
+        //        }
         
     }
     private func setupViewModel() {
@@ -84,10 +86,16 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
             self.allocationDataViewModel.allcationModelData.absence = []
             self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
         }
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.getAbsenceOfflineData()
+        }
+
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.allocationDataViewModel?.delegate = self
+        
     }
     override func selectedCancel(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -106,11 +114,11 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
                 var currentCalender = Calendar.current
                 currentCalender.timeZone = TimeZone(identifier: "UTC")! //UTC
                 let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10
-                        if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
-                            for allocationObj in newHours {
-                                allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
-                            }
-                        }
+                if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
+                    for allocationObj in newHours {
+                        allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
+                    }
+                }
                 
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
@@ -121,6 +129,33 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
                 self.showAlert(message: "Please fill all the details")
             }
         }
+        
+    }
+    
+    func getAbsenceOfflineData() {
+        
+        var currentCalender = Calendar.current
+        currentCalender.timeZone = TimeZone(identifier: "UTC")!
+        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10 00:00:00
+        
+        guard let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData] else {
+            return
+        }
+         self.allocationDataViewModel.allcationModelData.absence?.removeAll()
+        for model in getResult{
+            let absence = self.allocationHourPersistence?.unarchiveAbsence(absenceData: model.allocationModel ?? Data())
+            
+             self.allocationDataViewModel.allcationModelData.absence?.append(absence ?? Absence())
+            self.tableView.reloadData()
+            
+            for (index,value) in  (self.allocationDataViewModel.allcationModelData.absence?.enumerated())!{
+                if value.timeType == nil {
+                    self.allocationDataViewModel.allcationModelData.absence?.remove(at: index)
+                }
+            }
+            
+        }
+        self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
 
     }
 }
@@ -164,12 +199,14 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             if  ((self.allocationDataViewModel.allcationModelData.absence?.count ?? 0) - 1) == indexPath.row{
                 cell.descriptionLabel.text = "Add Absences"
                 cell.accessoryType = .disclosureIndicator
+                cell.cellTextField.placeholder = ""
                 cell.cellTextField.addTarget(self, action: #selector(absenceLookUpNavigating), for: .editingDidBegin)
             }else{
                 let tempData = self.allocationDataViewModel.allcationModelData.absence?[indexPath.row]
                 cell.descriptionLabel.text = tempData?.timeType
                 cell.cellTextField.text = ""
                 cell.cellTextField.placeholder = ""
+                cell.cellTextField.isUserInteractionEnabled = false
                 cell.accessoryType = .none
             }
             return cell
@@ -182,7 +219,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
             return CGFloat((self.allocationDataViewModel.allcationModelData.alllocationModel?.count ?? 220) * 220)
         }
-        return 60
+        return 50
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
