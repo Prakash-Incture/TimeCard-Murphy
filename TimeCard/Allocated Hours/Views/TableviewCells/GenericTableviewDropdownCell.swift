@@ -137,6 +137,7 @@ extension GenericTableviewDropdownCell:UpdateData{
         case .duration:
             self.allocationData?.duration = value ?? ""
             self.allocationData?.durationMin = hour*60+minutes
+            self.allocationData?.selectedDate = DataSingleton.shared.selectedDate as Date?
         default: break
         }
         self.uodateMainModel()
