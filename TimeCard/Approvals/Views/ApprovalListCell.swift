@@ -28,7 +28,7 @@ class ApprovalListCell: UITableViewCell {
     @IBOutlet weak var initiatedLbl: UILabel!
     @IBOutlet weak var initiatedDateLbl: UILabel!
     @IBOutlet weak var selectBtn: UIButton!
-    var updateUi : (()->())?
+    var updateUi : ((Bool)->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         appImgView.layer.cornerRadius = appImgView.frame.width/2
@@ -41,9 +41,7 @@ class ApprovalListCell: UITableViewCell {
     
     @IBAction func selectBtnTapped(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        if sender.isSelected == true{
-        self.updateUi?()
-        }
+        self.updateUi?(sender.isSelected)
     }
     
 }

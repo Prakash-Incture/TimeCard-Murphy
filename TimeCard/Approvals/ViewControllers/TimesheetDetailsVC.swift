@@ -22,8 +22,10 @@ class TimesheetDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
     @IBOutlet weak var workingTimeLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
     var timeSheetData : Results3?
+    var timeData : TimeSheetDetailsData?
     var loadingIndicator: FUILoadingIndicatorView?
     lazy var postApproval = RequestManager<ApprovalRequestSuccess>()
+    lazy var timeSheetApprovalDetails = RequestManager<TimeSheetApproverDetailsModel>()
     var showLoadingIndicator: Bool? {
             didSet {
                 if showLoadingIndicator == true {
@@ -34,10 +36,11 @@ class TimesheetDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
             }
         }
     //Variables
-    let tempHeader = ["Time Sheet Entry", "", "Time Valuation Result", ""]
+    let tempHeader = ["Employee Sheet Entry", "Time Valuation Result"]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customNavigationType = .navBackWithAction
+        self.callDetails(id: timeSheetData?.subjectId ?? "")
         self.initialSetup()
     }
     
@@ -46,15 +49,14 @@ class TimesheetDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
         self.tableView.register(UINib(nibName: "TImeSheetEntryCell", bundle: nil), forCellReuseIdentifier: "TImeSheetEntryCell")
         self.tableView.register(UINib(nibName: "TimeValuationCell", bundle: nil), forCellReuseIdentifier: "TimeValuationCell")
         empImgView.layer.cornerRadius = empImgView.frame.width/2        
-        self.empNameLbl.text = timeSheetData?.wfRequestUINav?.operateUserName ?? ""
-             self.empPositionLbl.text = timeSheetData?.wfRequestUINav?.jobTitle ?? ""
-         self.statusLbl.text = timeSheetData?.statusLabel ?? ""
-         self.initiatedDateLbl.text = timeSheetData?.wfRequestUINav?.receivedOn ?? ""
-         self.initiatedBtLbl.text = timeSheetData?.wfRequestUINav?.subjectUserId ?? ""
-         let separatedData = timeSheetData?.subjectFullName?.split(separator: "(")
-         let secondSeparatedData = separatedData?[1].split(separator: ")")
-         self.periodLbl.text = String(secondSeparatedData?.first ?? "")
-        
+        self.statusLbl.text = timeSheetData?.statusLabel ?? ""
+        self.initiatedDateLbl.text = timeSheetData?.wfRequestUINav?.receivedOn ?? ""
+        self.empPositionLbl.text = timeSheetData?.wfRequestUINav?.jobTitle ?? ""
+        self.empNameLbl.text = timeSheetData?.wfRequestUINav?.todoSubjectLine ?? ""
+        self.initiatedBtLbl.text = timeSheetData?.wfRequestUINav?.operateUserName ?? ""
+        self.workingTimeLbl.text = timeSheetData?.WorkingTimeAccount ?? ""
+        self.plannedLbl.text = timeSheetData?.planned_Recorded ?? ""
+        self.periodLbl.text = timeSheetData?.peroid ?? ""
     }
     override func selectedBack(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -110,11 +112,16 @@ class TimesheetDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
 extension TimesheetDetailsVC: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return self.timeData?.employeeTimeSheetEntry?.results?.count ?? 0
+        default:
+            return self.timeData?.employeeTimeValuationResult?.results?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -133,12 +140,39 @@ extension TimesheetDetailsVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-        case 0,1:
+        case 0:
+            
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TImeSheetEntryCell") as? TImeSheetEntryCell{
+                let data = self.timeData?.employeeTimeSheetEntry?.results?[indexPath.row]
+                cell.costCentreLbl.text = data?.costCenter ?? ""
+                cell.hoursMinutesLbl.text = data?.quantityInHoursAndMinutes ?? ""
+                cell.timeTypeLbl.text = data?.timeTypeName ?? ""
+                var startDate = ""
+                let stringArray = data?.startDate?.components(separatedBy: CharacterSet.decimalDigits.inverted)
+                for item in stringArray! {
+                    if let number = Int(item) {
+                        let date = Date(milliseconds: Int64(number))
+                        startDate = date.toDateFormat(.dayMonthYear)
+                    }
+                }
+                cell.startDateLbl.text = startDate
                 return cell
             }
         default:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "TimeValuationCell") as? TimeValuationCell{
+                let data = self.timeData?.employeeTimeValuationResult?.results?[indexPath.row]
+                var bookingDate = ""
+                let stringArray = data?.bookingDate?.components(separatedBy: CharacterSet.decimalDigits.inverted)
+                for item in stringArray! {
+                    if let number = Int(item) {
+                        let date = Date(milliseconds: Int64(number))
+                        bookingDate = date.toDateFormat(.dayMonthYear)
+                    }
+                }
+                cell.bookingdateLbl.text = bookingDate
+                cell.payTimeNameLbl.text = data?.payTypeName ?? ""
+                cell.costCenterLbl.text = data?.costCenter ?? ""
+                cell.hoursAndMinutesLbl.text = data?.hoursAndMinutes ?? ""
                 return cell
             }
         }
@@ -146,4 +180,25 @@ extension TimesheetDetailsVC: UITableViewDelegate, UITableViewDataSource{
         return UITableViewCell()
     }
     
+}
+extension TimesheetDetailsVC{
+    func callDetails(id:String){
+        self.showLoadingIndicator = true
+        self.timeSheetApprovalDetails.callApproveTimeSheetDetailAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure( _):
+                self.showLoadingIndicator = false
+            case .successData(value:  _):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.timeData = value?.d?.results?.first
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                self.showLoadingIndicator = false
+            }
+        })
+    }
 }

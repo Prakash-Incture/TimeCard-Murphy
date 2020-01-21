@@ -10,6 +10,10 @@ import UIKit
 
 class TimeValuationCell: UITableViewCell {
 
+    @IBOutlet weak var costCenterLbl: UILabel!
+    @IBOutlet weak var bookingdateLbl: UILabel!
+    @IBOutlet weak var hoursAndMinutesLbl: UILabel!
+    @IBOutlet weak var payTimeNameLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

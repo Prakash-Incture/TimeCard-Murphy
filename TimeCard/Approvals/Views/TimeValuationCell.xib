@@ -98,6 +98,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bookingdateLbl" destination="WXd-FO-hkU" id="mjL-IG-Vmz"/>
+                <outlet property="costCenterLbl" destination="Zhl-eU-U4s" id="1YO-eh-wVE"/>
+                <outlet property="hoursAndMinutesLbl" destination="nip-cf-aIA" id="DnD-FE-wwu"/>
+                <outlet property="payTimeNameLbl" destination="ndg-qv-2kT" id="Wqm-MW-1AM"/>
+            </connections>
             <point key="canvasLocation" x="32.608695652173914" y="74.330357142857139"/>
         </tableViewCell>
     </objects>

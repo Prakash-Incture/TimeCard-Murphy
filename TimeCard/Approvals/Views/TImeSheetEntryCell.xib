@@ -98,6 +98,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="costCentreLbl" destination="TNI-Rr-f0Y" id="5QH-iK-sng"/>
+                <outlet property="hoursMinutesLbl" destination="hpm-Lh-Bw5" id="7qs-nU-IiZ"/>
+                <outlet property="startDateLbl" destination="PB5-45-PQ3" id="6fa-M2-hrg"/>
+                <outlet property="timeTypeLbl" destination="oPK-4f-MuK" id="z6F-Mi-cBc"/>
+            </connections>
             <point key="canvasLocation" x="45.652173913043484" y="4.0178571428571423"/>
         </tableViewCell>
     </objects>

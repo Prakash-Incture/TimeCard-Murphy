@@ -11,23 +11,44 @@ import Foundation
 class AbsenceDetailsViewModel {
     var absenceDetailsModel = AbsenceDetailsModel()
     
-    public func getTemData(data:Results3?){
-        let sdates = data?.peroid?.components(separatedBy: "-")
-        let startDate = sdates?.first ?? ""
-        let endDate = sdates?[1] ?? ""
-        let difference = Calendar.current.dateComponents([.hour, .minute], from: (startDate.convertToDate(format: .monthDateYearSlashSeperator, currentDateStringFormat: .monthDateYearSlashSeperator))!, to: (endDate.convertToDate(format: .monthDateYearSlashSeperator, currentDateStringFormat: .monthDateYearSlashSeperator))!)
-        let deductionQnt = String(((difference.hour!/24) + 1))
+    public func getTemData(data:TimeOffDetailsData?){
+        var startDate = ""
+        let stringArray = data?.startDate?.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        for item in stringArray! {
+            if let number = Int(item) {
+                let date = Date(milliseconds: Int64(number))
+                startDate = date.toDateFormat(.dayMonthYear)
+            }
+        }
+     
+        var endDate =  ""
+        let array = data?.endDate?.components(separatedBy: CharacterSet.decimalDigits.inverted)
+              for item in array! {
+                  if let number = Int(item) {
+                      let date = Date(milliseconds: Int64(number))
+                      endDate = date.toDateFormat(.dayMonthYear)
+                  }
+              }
+        var createdDate =  ""
+        let createdArray = data?.createdDate?.components(separatedBy: CharacterSet.decimalDigits.inverted)
+              for item in createdArray! {
+                  if let number = Int(item) {
+                      let date = Date(milliseconds: Int64(number))
+                      createdDate = date.toDateFormat(.dayMonthYear)
+                  }
+              }
         absenceDetailsModel.absenceDetails = [
-                                        AbsenceDetail(key: "Deduction Quantity", value: deductionQnt),
-                                        AbsenceDetail(key: "Time Type", value: data?.timeType ?? ""),
-                                        AbsenceDetail(key: "Start Date", value: startDate),
+                                              AbsenceDetail(key: "Deduction Quantity", value: data?.deductionQuantity ?? ""),
+                                              AbsenceDetail(key: "Time Type", value: data?.timeTypeNav?.externalName_en_US ?? ""),
+                                              AbsenceDetail(key: "Start Date", value: startDate),
                                         AbsenceDetail(key: "End Date", value: endDate),
                                         AbsenceDetail(key: "Time Off Used", value: ""),
-                                        AbsenceDetail(key: "Approval Status", value: data?.approvalStatus ?? ""),
-                                        AbsenceDetail(key: "Cancellation Workflow Request", value: data?.workflowAllowedActionListNav?.results?.first?.allowReject == true ? "Yes":"No"),
-                                        AbsenceDetail(key: "Created by", value: data?.wfRequestUINav?.subjectUserName ?? ""),
-                                        AbsenceDetail(key: "Created on", value: data?.wfRequestUINav?.receivedOn ?? ""),
-                                        AbsenceDetail(key: "Workflow Initiated by Admin", value: "No")]
+                                        AbsenceDetail(key: "Approval Status", value: data?.approvalStatusNav?.value ?? ""),
+                                        AbsenceDetail(key: "Flexible Requesting", value: data?.timeTypeNav?.flexibleRequestingAllowed == true ? "Yes":"No"),
+                                        AbsenceDetail(key: "Cancellation Workflow Request", value: data?.timeTypeNav?.activateCancellationWorkflow == true ? "Yes":"No"),
+                                        AbsenceDetail(key: "Created by", value: data?.timeTypeNav?.createdBy ?? ""),
+                                        AbsenceDetail(key: "Created on", value:  createdDate),
+                                        AbsenceDetail(key: "Workflow Initiated by Admin", value: data?.workflowInitiatedByAdmin == true ? "Yes" : "No")]
         
     }
     

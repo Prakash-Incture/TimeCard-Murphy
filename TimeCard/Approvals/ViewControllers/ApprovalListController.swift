@@ -80,8 +80,13 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     
     @IBAction func selectAllBtnTapped(_ sender: Any) {
         selectAllBtn.isSelected = !selectAllBtn.isSelected
-        if selectAllBtn.isSelected == true{
-            self.approveViewHtConstarint.constant = 60.0
+        for (index,_) in self.approveListViewModel.timeSheetArray.enumerated(){
+                self.approveListViewModel.timeSheetArray[index].isSelected = selectAllBtn.isSelected
+               }
+        if selectAllBtn.isSelected{
+             self.approveViewHtConstarint.constant = 60.0
+        }else{
+             self.approveViewHtConstarint.constant = 0.0
         }
         tableView.reloadData()
     }
@@ -113,6 +118,26 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
         }
         self.tableView.reloadData()
     }
+    func manipulateUI(index:Int,state:Bool){
+        self.approveListViewModel.timeSheetArray[index].isSelected = state
+                   var count = 0
+                   for item in self.approveListViewModel.timeSheetArray{
+                       if item.isSelected == true{
+                           count = count + 1
+                       }
+                   }
+                   if count == self.approveListViewModel.timeSheetArray.count{
+                       self.selectAllBtn.isSelected = true
+                   }else{
+                       self.selectAllBtn.isSelected = false
+                   }
+                   if count == 0{
+                       self.approveViewHtConstarint.constant = 0.0
+                   }else{
+                   self.approveViewHtConstarint.constant = 60.0
+                   }
+        self.tableView.reloadData()
+    }
 }
 
 extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
@@ -138,8 +163,8 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ApprovalListCell") as? ApprovalListCell{
             let data = self.approveListViewModel.timeSheetArray[indexPath.row]
             cell.selectBtn.isSelected = data.isSelected ?? false
-            cell.updateUi = {
-                self.approveViewHtConstarint.constant = 60.0
+            cell.updateUi = { state in
+                self.manipulateUI(index: indexPath.row, state: state)
             }
             cell.selectBtn.addTarget(self, action: #selector(selectBtnClicked), for:.touchUpInside)
             cell.selectBtn.tag = indexPath.row
@@ -183,14 +208,13 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
             if let absenceVC = storyBoard.instantiateViewController(withIdentifier: "AbsenceDetailsVC") as? AbsenceDetailsVC{
                 absenceVC.timeSheetData = self.approveListViewModel.timeSheetArray[indexPath.row]
             self.navigationController?.pushViewController(absenceVC, animated: true)
-        }else{
+            }}else{
             let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
                if let timeSheetVC = storyBoard.instantiateViewController(withIdentifier: "TimesheetDetailsVC") as? TimesheetDetailsVC{
                    timeSheetVC.timeSheetData = self.approveListViewModel.timeSheetArray[indexPath.row]
                    self.navigationController?.pushViewController(timeSheetVC, animated: true)
                     }
         }
-    }
     }
     
 }

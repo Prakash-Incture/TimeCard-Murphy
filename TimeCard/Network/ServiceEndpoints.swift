@@ -50,6 +50,8 @@ enum ServiceEndpoints {
     case empTimeApi(params:UserData)
     case getEmpTimeSheet(params:UserData)
     case getApprovalTimeDetail(parm:String)
+    case getApprovalTimeSheetDetail(parm:String)
+    case getApprovalTimeOffDetail(parm:String)
     case postApproveRequest(id:String)
     case postApprovereject(id:String)
     
@@ -101,7 +103,7 @@ enum ServiceEndpoints {
             let urlString = LinkingUrl.employeeTimeSheet
             return self.urlRequest(for: urlString, method: "POST", body:params)
         case .getApprovalTimeDetail(let parm):
-            let url = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(\(parm))?$filter=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$expand=wfRequestUINav, workflowAllowedActionListNav, wfRequestParticipatorNav,wfRequestCommentsNav&$format=json"
+            let url = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(\(parm))?$filter=wfRequestUINav, workflowAllowedActionListNav&$expand=wfRequestUINav, workflowAllowedActionListNav&$format=json"
             return self.urlRequestWithStringBody(for: url, method: "GET", body: nil, addHeader: true)
         case .postApproveRequest(let id):
             let url = "https://apisalesdemo4.successfactors.com/odata/v2/approveWfRequest?wfRequestId=" + id + "L"
@@ -109,6 +111,12 @@ enum ServiceEndpoints {
         case .postApprovereject(let id):
                  let url = "https://apisalesdemo4.successfactors.com/odata/v2/rejectWfRequest?wfRequestId=" + id + "L"
                  return self.urlRequestWithoutStringBody(for: url, method:"POST", body:nil ,addHeader: true)
+        case .getApprovalTimeOffDetail(let parm):
+             let url = "https://apisalesdemo4.successfactors.com/odata/v2/EmployeeTime?$filter=workflowRequestId eq '\(parm)'&$select=startDate,endDate,deductionQuantity,createdDate,createdBy,workflowInitiatedByAdmin,userIdNav,timeCalendar,timeTypeNav,approvalStatusNav&$expand=userIdNav,timeCalendar,timeTypeNav,approvalStatusNav&$format=json"
+                return self.urlRequestforGet(for: url, method: "GET", body: nil, addHeader: true)
+        case .getApprovalTimeSheetDetail(let parm):
+            let url = "https://apisalesdemo4.successfactors.com/odata/v2/EmployeeTimeSheet?$filter=workflowRequestId eq '\(parm)'&$select=period,plannedHoursAndMinutes,workingTimeAccountHoursAndMinutes,recordedHoursAndMinutes,userIdNav,employeeTimeSheetEntry,employeeTimeValuationResult&$expand=userIdNav,employeeTimeSheetEntry,employeeTimeValuationResult&$format=json"
+                return self.urlRequestforGet(for: url, method: "GET", body: nil, addHeader: true)
         }
       }
     
@@ -156,7 +164,26 @@ enum ServiceEndpoints {
         }
                 return urlRequest
     }
-    
+    func urlRequestforGet(for urlString: String, method: String = "GET", body: String?, addHeader: Bool = true) -> URLRequest {
+                let urlStringVal = urlString.replacingOccurrences(of: " ", with: "%20")
+                let url = URL(string: urlStringVal)
+                var urlRequest = URLRequest(url: url!)
+                urlRequest.httpMethod = method
+                LinkingUrl.urlEncodeHeaders.forEach { (key, value) in
+                    urlRequest.setValue(value, forHTTPHeaderField: key)
+                }
+            if addHeader{
+                let accessToken = UserDefaults.standard.object(forKey: ApproveConstants.accessToken as? String ?? "")
+                urlRequest.addValue("Bearer \(accessToken ?? "")", forHTTPHeaderField: "Authorization")
+            }
+        if method == "POST"{
+                    guard let body = body else { return urlRequest }
+                    if let postData = body.data(using: .utf8) {
+                    urlRequest.httpBody = postData
+            }
+        }
+                return urlRequest
+    }
     func urlRequestWithoutStringBody(for urlString: String, method: String = "GET", body: String?, addHeader: Bool = true) -> URLRequest {
                 let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
                 let url = URL(string: urlStringVal)

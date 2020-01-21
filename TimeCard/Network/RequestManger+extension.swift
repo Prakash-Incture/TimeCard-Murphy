@@ -72,4 +72,10 @@ extension RequestManager {
     public func callApproveRejectAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
            self.getData(ServiceEndpoints.postApprovereject(id: id).getUrlRequest(), completion: completion)
        }
+    public func callApproveTimeSheetDetailAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+             self.getData(ServiceEndpoints.getApprovalTimeSheetDetail(parm: id).getUrlRequest(), completion: completion)
+         }
+    public func callApproveTimeOffDetailAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+                self.getData(ServiceEndpoints.getApprovalTimeOffDetail(parm: id).getUrlRequest(), completion: completion)
+            }
 }

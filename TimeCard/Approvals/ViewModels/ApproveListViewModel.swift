@@ -288,7 +288,11 @@ extension ApproveListViewModel{
                                       self.timeSheetArray[index].approvalStatus = item.newValue ?? ""
                                   }else if item.label == "Period"{
                                       self.timeSheetArray[index].peroid = item.newValue ?? ""
-                                  }
+                                  }else if item.label == "Working Time Account"{
+                                    self.timeSheetArray[index].WorkingTimeAccount = item.newValue ?? ""
+                                }else if item.label == "Planned/Recorded"{
+                                    self.timeSheetArray[index].planned_Recorded = item.newValue ?? ""
+                                }
                               }
                             
                           } catch {
