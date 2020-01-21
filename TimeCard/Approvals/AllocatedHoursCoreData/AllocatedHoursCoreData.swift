@@ -36,6 +36,15 @@ class AllocationHoursCoreData: CoreDataProtocol{
         let offlineUpdate = AllocationOfflineData(context: self.viewContext)
         offlineUpdate.allocationModel = AllocationHoursCoreData.self.archive(allocationModel: allocationModel)
         offlineUpdate.date = date
+        offlineUpdate.key = "Allocation"
+        self.saveChanges()
+    }
+    
+    func saveAbsenceHour(absenceModel: Absence, withDate date: Date) {
+        let offlineUpdate = AllocationOfflineData(context: self.viewContext)
+        offlineUpdate.allocationModel = AllocationHoursCoreData.self.archiveAbsence(absenceModel: absenceModel)
+        offlineUpdate.date = date
+        offlineUpdate.key = "Absence"
         self.saveChanges()
     }
     
@@ -78,16 +87,34 @@ extension AllocationHoursCoreData{
         }
         return allocation
     }
+    
+    static func archiveAbsence(absenceModel: Absence) -> Data {
+        var absence = Data()
+        do{
+            absence = try JSONEncoder().encode(absenceModel)
+        }catch{
+            print("Encoding error !")
+        }
+        return absence
+    }
 
     func unarchive(allocationData: Data) -> AllocationModel {
-        
         var allocationModel = AllocationModel()
         do{
             allocationModel = try JSONDecoder().decode(AllocationModel.self, from: allocationData)
         }catch{
             print("Decoding error !")
         }
-        
         return allocationModel
+    }
+    
+    func unarchiveAbsence(absenceData: Data) -> Absence {
+        var absenceModel = Absence()
+        do{
+            absenceModel = try JSONDecoder().decode(Absence.self, from: absenceData)
+        }catch{
+            print("Decoding error !")
+        }
+        return absenceModel
     }
 }
