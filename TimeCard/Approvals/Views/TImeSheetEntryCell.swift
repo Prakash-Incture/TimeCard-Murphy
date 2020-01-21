@@ -10,6 +10,10 @@ import UIKit
 
 class TImeSheetEntryCell: UITableViewCell {
 
+    @IBOutlet weak var hoursMinutesLbl: UILabel!
+    @IBOutlet weak var costCentreLbl: UILabel!
+    @IBOutlet weak var startDateLbl: UILabel!
+    @IBOutlet weak var timeTypeLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
