@@ -16,20 +16,17 @@ class AbsenceDetailsViewModel {
         let startDate = sdates?.first ?? ""
         let endDate = sdates?[1] ?? ""
         let difference = Calendar.current.dateComponents([.hour, .minute], from: (startDate.convertToDate(format: .monthDateYearSlashSeperator, currentDateStringFormat: .monthDateYearSlashSeperator))!, to: (endDate.convertToDate(format: .monthDateYearSlashSeperator, currentDateStringFormat: .monthDateYearSlashSeperator))!)
-        let deductionQnt = String(difference.hour!/24)
-        absenceDetailsModel.absenceDetails = [AbsenceDetail(key: "Reccurence Group", value: "--"),
+        let deductionQnt = String(((difference.hour!/24) + 1))
+        absenceDetailsModel.absenceDetails = [
                                         AbsenceDetail(key: "Deduction Quantity", value: deductionQnt),
                                         AbsenceDetail(key: "Time Type", value: data?.timeType ?? ""),
                                         AbsenceDetail(key: "Start Date", value: startDate),
                                         AbsenceDetail(key: "End Date", value: endDate),
                                         AbsenceDetail(key: "Time Off Used", value: ""),
-                                        AbsenceDetail(key: "Balance of 31 Dec 2019", value: "23 days"),
                                         AbsenceDetail(key: "Approval Status", value: data?.approvalStatus ?? ""),
-                                        AbsenceDetail(key: "Cancellation Workflow Request", value: "--"),
-                                        AbsenceDetail(key: "Flexible Requesting", value: "No"),
+                                        AbsenceDetail(key: "Cancellation Workflow Request", value: data?.workflowAllowedActionListNav?.results?.first?.allowReject == true ? "Yes":"No"),
                                         AbsenceDetail(key: "Created by", value: data?.wfRequestUINav?.subjectUserName ?? ""),
                                         AbsenceDetail(key: "Created on", value: data?.wfRequestUINav?.receivedOn ?? ""),
-                                        AbsenceDetail(key: "Documentation", value: "--"),
                                         AbsenceDetail(key: "Workflow Initiated by Admin", value: "No")]
         
     }

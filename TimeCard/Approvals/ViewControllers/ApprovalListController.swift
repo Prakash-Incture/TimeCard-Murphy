@@ -177,7 +177,7 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = self.approveListViewModel.timeArray[0]
+        let data = self.approveListViewModel.timeSheetArray[indexPath.row]
         if data.categoryLabel == "Time Off Requests"{
             let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
             if let absenceVC = storyBoard.instantiateViewController(withIdentifier: "AbsenceDetailsVC") as? AbsenceDetailsVC{
@@ -190,8 +190,7 @@ extension ApprovalListController: UITableViewDelegate, UITableViewDataSource{
                    self.navigationController?.pushViewController(timeSheetVC, animated: true)
                     }
         }
-        
-        }
+    }
     }
     
 }

@@ -74,12 +74,14 @@ class AbsenceDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
         self.postApproval.callApproveRejectAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .failure(let message):
+            case .failure(_):
                 self.showLoadingIndicator = false
-            case .successData(value: let value):
+            case .successData(value: _):
                 self.showLoadingIndicator = false
-            case .success(let value, let message):
-                print(message as Any)
+                DispatchQueue.main.async {
+                    self.showAlert(message: "Successful")
+                }
+            case .success(_, _):
                 self.showLoadingIndicator = false
             }
         })
@@ -89,13 +91,15 @@ class AbsenceDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
         self.postApproval.callApproveRequestAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .failure(let message):
+            case .failure( _):
                 self.showLoadingIndicator = false
-            case .successData(value: let value):
+            case .successData(value:  _):
                 self.showLoadingIndicator = false
-            case .success(let value, let message):
-                print(message as Any)
+            case .success( _,  _):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.showAlert(message: "Successful")
+                }
             }
         })
     }
@@ -121,7 +125,7 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "    Employee Time"
+        return "   " + (self.timeSheetData?.wfRequestUINav?.objectType ?? "")
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

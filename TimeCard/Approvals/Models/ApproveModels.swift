@@ -132,6 +132,7 @@ struct Results3 : Codable {
     var isSelected : Bool?
     let wfRequestId : String?
     var createdOn : String?
+    var categoryLabel : String?
     enum CodingKeys: String, CodingKey {
 
         case completedDate = "completedDate"
@@ -149,7 +150,7 @@ struct Results3 : Codable {
         case isSelected = "isSelected"
         case createdOn = "createdOn"
         case wfRequestId = "wfRequestId"
-
+        case categoryLabel = "categoryLabel"
          case workflowAllowedActionListNav = "workflowAllowedActionListNav"
     }
 }
@@ -194,6 +195,7 @@ struct WfRequestUINav : Codable {
     let subjectUserName : String?
     let actionType : String?
     let changedData : String?
+    var objectType : String?
     var approverChangedData : [ApproverChangedData]?
     enum CodingKeys: String, CodingKey {
         case wfRequestId = "wfRequestId"
@@ -213,6 +215,7 @@ struct WfRequestUINav : Codable {
         case subjectUserName = "subjectUserName"
         case actionType = "actionType"
         case changedData = "changedData"
+        case objectType = "objectType"
         case approverChangedData = "approverChangedData"
     }
 }
