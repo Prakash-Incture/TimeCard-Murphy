@@ -309,7 +309,7 @@ extension AbsencesViewController{
             "__metadata" : dataDictForEmployee,
             "startDate" : "/Date(\(startDate!))/",
             "endDate" : "/Date(\(enddate!))/",
-            "externalCode" : "",
+            "externalCode" : String(externalCode),
             "fractionQuantity" : formattedString,
             "userIdNav" : dictForUser,
             "timeTypeNav" : dictForTimeType

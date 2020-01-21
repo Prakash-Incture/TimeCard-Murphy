@@ -189,6 +189,9 @@ extension TimesheetDetailsVC{
             switch result {
             case .failure( _):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             case .successData(value:  _):
                 self.showLoadingIndicator = false
             case .success(let value, let message):
