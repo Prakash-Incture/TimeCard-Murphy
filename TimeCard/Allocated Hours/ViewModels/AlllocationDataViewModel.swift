@@ -110,10 +110,8 @@ class AllocationDataViewModel{
             self.allcationModelData.weekData = []
             self.allcationModelData.weekData?.append(WeekSummary())
         }
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")!
         
-        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate as Date? ?? Date()) // eg. 2016-10-10 00:00:00
+        let dateFrom = (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate()
         
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
             self.allcationModelData.weekData?.removeAll()
@@ -130,11 +128,9 @@ class AllocationDataViewModel{
             self.allcationModelData.weekData = []
             self.allcationModelData.weekData?.append(WeekSummary())
         }
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")!
         
-        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedWeekDates?.first as Date? ?? Date()) // eg. 2016-10-10 00:00:00
-        let dateTo = currentCalender.startOfDay(for: DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date())
+        let dateFrom = (DataSingleton.shared.selectedWeekDates?.first as Date? ?? Date()).getUTCFormatDate() // eg. 2016-10-10 00:00:00
+        let dateTo = (DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date()).getUTCFormatDate()
         
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date >= %@ AND date <= %@", dateFrom as NSDate, dateTo as NSDate)) as? [AllocationOfflineData]{
 //            "(date >= %@) AND (date <= %@) AND complete == 0"

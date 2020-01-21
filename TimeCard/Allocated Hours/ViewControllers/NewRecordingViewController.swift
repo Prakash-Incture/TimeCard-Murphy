@@ -111,9 +111,8 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
         if let newRec = self.allocationDataViewModel.allcationModelData.alllocationModel?.last{
             if newRec.costCneter != "" && newRec.duration != "" && newRec.timeType != "" {
                 //Get today's beginning & end
-                var currentCalender = Calendar.current
-                currentCalender.timeZone = TimeZone(identifier: "UTC")! //UTC
-                let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10
+  
+                let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
                 if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
                     for allocationObj in newHours {
                         allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
@@ -134,9 +133,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     
     func getAbsenceOfflineData() {
         
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")!
-        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10 00:00:00
+        let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
         
         guard let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData] else {
             return

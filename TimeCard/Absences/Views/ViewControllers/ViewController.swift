@@ -62,7 +62,8 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
           self.tableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
           self.tableView.register(UINib(nibName: "CalenderTableViewCell", bundle: nil), forCellReuseIdentifier: "CalenderTableViewCell")
         self.tableView.register(UINib(nibName: "WeekSummaryCell", bundle: nil), forCellReuseIdentifier: "WeekSummaryCell")
-         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "onTapOfDate"), object: nil, queue: nil) { notification in
+
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "onTapOfDate"), object: nil, queue: nil) { notification in
            // self.allocationViewModel = AllocationDataViewModel(delegate: self)
             self.allocationViewModel?.allocationHourPersistence = self.allocationHourPersistence
             self.allocationViewModel?.addingWeekData(weekDays:notification)
@@ -70,6 +71,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             self.removeObserver()
         }
     }
+    
     func holidayCalenderApicalling(){
         self.showLoadingIndicator = true
         self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
