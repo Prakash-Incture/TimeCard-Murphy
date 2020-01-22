@@ -127,15 +127,18 @@ extension GenericTableviewDropdownCell:UpdateData{
 //            }
 //        }
     }
-    func updateValue(value:String?) {
+    func updateValue(value:String?,id:String) {
         guard let type = cellType else { return }
         switch type {
         case .timeType:
             self.allocationData?.timeType = value ?? ""
+            self.allocationData?.timeTypeId = id
         case .costCenter:
             self.allocationData?.costCneter = value ?? ""
+            self.allocationData?.costCenterId = id
         case .duration:
             self.allocationData?.duration = value ?? ""
+            self.allocationData?.durationValueInHours = id
             self.allocationData?.durationMin = hour*60+minutes
             self.allocationData?.selectedDate = (DataSingleton.shared.selectedDate as Date?)?.getUTCFormatDate()
         default: break
@@ -212,7 +215,7 @@ extension GenericTableviewDropdownCell:UIPickerViewDelegate,UIPickerViewDataSour
            guard let type = cellType else { return }
            switch type {
            case .duration:
-            self.updateValue(value:"\(hour) Hour \(minutes) Minutes")
+            self.updateValue(value:"\(hour) Hour \(minutes) Minutes", id: "\(hour)")
            default:return
            }
            self.endEditing(true)

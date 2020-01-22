@@ -32,6 +32,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     var holidaycalnder:NSArray = []
     var userData:UserData?
     lazy var holidayCalender = RequestManager<HolidayAssignment>()
+    lazy var empTimeAPi = RequestManager<EmpJobModel>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,6 +72,65 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             self.removeObserver()
         }
     }
+    func getEmpTimeSheetAPICall(){
+           self.showLoadingIndicator = true
+        let dataDict = [
+            "userId" : userData?.userId ?? "",
+            "Start_Date": "2019-01-01T00:00:00.000",
+            "End_Date": "2020-01-22T00:00:00.000"
+        ]
+           self.empTimeAPi.getEmployeeTimeSheet(for:dataDict, completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.failedWithReason(message: message)
+                   self.showLoadingIndicator = false
+                self.getEmpTimeOffSheetAPICall()
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                   self.getEmpTimeOffSheetAPICall()
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+    func getEmpTimeOffSheetAPICall(){
+           self.showLoadingIndicator = true
+        let dataDict = [
+            "userId" : userData?.userId ?? ""
+        ]
+           self.empTimeAPi.getEmployeeTimeOffSheet(for:dataDict, completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.failedWithReason(message: message)
+                   self.showLoadingIndicator = false
+                self.empJobAPICalling()
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                   self.empJobAPICalling()
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+    func empJobAPICalling(){
+        self.showLoadingIndicator = true
+        self.empTimeAPi.fetchEmpJob(for:userData ?? UserData(), completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+            case .successData( _): break
+                // Get success data here
+            }
+        })
+    }
     
     func holidayCalenderApicalling(){
         self.showLoadingIndicator = true
@@ -79,6 +139,8 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             switch result {
             case .failure(let message):
                 self.showLoadingIndicator = false
+                self.getEmpTimeSheetAPICall()
+
                 break
             case .success(let value, let message):
                 print(message as Any)
@@ -87,6 +149,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+                self.getEmpTimeSheetAPICall()
                 break
             case .successData( _): break
                 // Get success data here

@@ -25,9 +25,12 @@ extension RequestManager {
     public func fetchEmpTime(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
               self.getData(ServiceEndpoints.empTimeApi(params: userData).getUrlRequest(), completion: completion)
           }
-    public func getEmployeeTimeSheet(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
-        self.getData(ServiceEndpoints.getEmpTimeSheet(params: userData).getUrlRequest(), completion: completion)
+    public func getEmployeeTimeSheet(for userData:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+        self.getData(ServiceEndpoints.getEmpTimeSheet(param: userData).getUrlRequest(), completion: completion)
     }
+    public func getEmployeeTimeOffSheet(for userData:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+          self.getData(ServiceEndpoints.getEmpTimeOffData(param: userData).getUrlRequest(), completion: completion)
+      }
     public func fetchEmpWorkSchedule(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
               self.getData(ServiceEndpoints.empWorkSchedule(params: userData).getUrlRequest(), completion: completion)
           }

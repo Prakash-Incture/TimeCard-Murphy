@@ -15,7 +15,7 @@ struct AllocaitonData: Codable {
     var total,paidAbsences,ot,regularTime,status:String?
 }
 struct AllocationModel:Codable {
-    var timeType,duration,costCneter:String?
+    var timeType,duration,costCneter,timeTypeId,costCenterId,durationValueInHours:String?
     var durationMin: Int?
     var selectedDate: Date?
 }

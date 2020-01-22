@@ -172,7 +172,7 @@ extension AllocationDataViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
-                self.empJobAPICalling()
+                self.getEmpWorkScheduleAPICall()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
@@ -180,52 +180,13 @@ extension AllocationDataViewModel{
                 let availableBalance = String(format: "%@ %@",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.balance ?? "",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.timeUnit ?? "")
                 UserDefaults.standard.set( availableBalance, forKey: "Emp_Leave_Balnce")
                 UserDefaults.standard.synchronize()
-                self.empJobAPICalling()
+                self.getEmpWorkScheduleAPICall()
             case .successData(let _): break
                 // Get success data here
             }
         })
     }
-    func empJobAPICalling(){
-        self.delegate?.showLoadingIndicator = true
-        self.empJObData.fetchEmpJob(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.delegate?.failedWithReason(message: message)
-                self.delegate?.showLoadingIndicator = false
-                self.getEmpTimeAPICall()
-            case .success(let value, let message):
-                print(message as Any)
-                self.delegate?.showLoadingIndicator = false
-                self.empJobData = value
-               // self.getNumberOfPlannedHours(totalHours: self.empJObData.standardHours, totalWeekhours: empJObData.workingDaysPerWeek)
-                 self.getEmpTimeAPICall()
-            case .successData( _): break
-                // Get success data here
-            }
-        })
-    }
-    
-    
-func getEmpTimeAPICall(){
-    self.delegate?.showLoadingIndicator = true
-    self.empTimeAPi.fetchEmpTime(for:userData ?? UserData(), completion: { [weak self] result in
-        guard let self = self else { return }
-        switch result {
-        case .failure(let message):
-            self.delegate?.failedWithReason(message: message)
-            self.delegate?.showLoadingIndicator = false
-            self.getEmpWorkScheduleAPICall()
-        case .success(let value, let message):
-            print(message as Any)
-            self.delegate?.showLoadingIndicator = false
-            self.getEmpWorkScheduleAPICall()
-        case .successData( _): break
-            // Get success data here
-        }
-    })
-}
+
     func getEmpWorkScheduleAPICall(){
         self.delegate?.showLoadingIndicator = true
         self.empTimeAPi.fetchEmpWorkSchedule(for:userData ?? UserData(), completion: { [weak self] result in
@@ -234,33 +195,14 @@ func getEmpTimeAPICall(){
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
-                self.getEmpTimeSheetAPICall()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
-                self.getEmpTimeSheetAPICall()
             case .successData( _): break
                 // Get success data here
             }
         })
     }
-    func getEmpTimeSheetAPICall(){
-           self.delegate?.showLoadingIndicator = true
-           self.empTimeAPi.getEmployeeTimeSheet(for:userData ?? UserData(), completion: { [weak self] result in
-               guard let self = self else { return }
-               switch result {
-               case .failure(let message):
-                   self.delegate?.failedWithReason(message: message)
-                   self.delegate?.showLoadingIndicator = false
-               case .success(let value, let message):
-                   print(message as Any)
-                   self.delegate?.showLoadingIndicator = false
-                   
-               case .successData( _): break
-                   // Get success data here
-               }
-           })
-       }
     func getdayWeekDay(date:Date)-> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"

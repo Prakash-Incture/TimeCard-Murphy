@@ -83,8 +83,8 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
                 self.allocationHourPersistence.saveAbsenceHour(absenceModel: self.absenceData, withDate: dateFrom)
             }
         }
-        
-        self.navigationController?.popViewController(animated: true)
+        self.postAbsenceData()
+       // self.navigationController?.popViewController(animated: true)
     }
 }
 extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
@@ -155,7 +155,7 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         hour = String(row + 1) + " " + "Hours"
     }
     
-    func updateValue(value: String?) {
+    func updateValue(value: String?,id:String) {
         absenceData.timeType = value ?? ""
         self.tableView.reloadData()
         if (self.currentHeaderCells.count ) != 4{
@@ -338,7 +338,7 @@ extension AbsencesViewController{
             "__metadata" : dataDictForEmployee,
             "startDate" : "/Date(\(startDate!))/",
             "endDate" : "/Date(\(enddate!))/",
-            "externalCode" : String(externalCode),
+            "externalCode" : "\(externalCode)",
             "fractionQuantity" : formattedString,
             "userIdNav" : dictForUser,
             "timeTypeNav" : dictForTimeType
