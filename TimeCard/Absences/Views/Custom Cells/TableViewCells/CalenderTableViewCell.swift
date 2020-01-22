@@ -64,7 +64,6 @@ class CalenderTableViewCell: UITableViewCell {
     func showDate(){
        let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
 
-        //let currentPage =  calenderView.currentPage
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to:Date(), options: [])
         let first_Date = gregorianCalendar?.fs_firstDay(ofWeek: nextPage!)
         let last_Date = gregorianCalendar?.fs_lastDay(ofWeek: nextPage!)
@@ -84,7 +83,7 @@ class CalenderTableViewCell: UITableViewCell {
     }
     @IBAction func leftButtonAction(_ sender: Any) {
       let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-        let currentPage = calenderView.currentPage
+        let currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: -1, to: currentPage, options: [])
         calenderView.setCurrentPage(nextPage!, animated: true)
         
@@ -101,7 +100,7 @@ class CalenderTableViewCell: UITableViewCell {
     
     @IBAction func rightButtonAction(_ sender: Any) {
            let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-           let currentPage = self.calenderView.currentPage
+        let currentPage = self.calenderView.currentPage.addingTimeInterval(172800.0)
             let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 1, to: currentPage, options: [])
             calenderView.setCurrentPage(nextPage!, animated: true)
             
@@ -129,6 +128,37 @@ class CalenderTableViewCell: UITableViewCell {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
               }
     }
+    
+    func dayChanges(day: Int) {
+//        self.calenderView.firstWeekday = UInt(day)
+        let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
+//
+//                let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to:Date(), options: [])
+//                let first_Date = gregorianCalendar?.fs_firstDay(ofWeek: nextPage!)?.addingTimeInterval(-172800.0)
+//                let last_Date = gregorianCalendar?.fs_lastDay(ofWeek: nextPage!)?.addingTimeInterval(-172800.0)
+//
+//                let formatter = DateFormatter()
+//                formatter.dateFormat = "dd MMM YYYY"
+//                let max_Date = formatter.string(from: last_Date!)
+//                let min_Date = formatter.string(from: first_Date!)
+        
+        let currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
+                let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: -1, to: currentPage, options: [])
+                calenderView.setCurrentPage(nextPage!, animated: true)
+                
+        let minDate = (gregorianCalendar?.fs_firstDay(ofWeek: nextPage!))!
+                let maxDate = gregorianCalendar?.fs_lastDay(ofWeek: nextPage!)
+        let mNDate = gregorianCalendar?.date(byAdding: NSCalendar.Unit.day, value: day-8, to: minDate, options: [])
+                let mXDate = gregorianCalendar?.date(byAdding: NSCalendar.Unit.day, value: day-8, to: maxDate!, options: [])
+                
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd MMM"
+                let max_Date = formatter.string(from: mXDate! )
+                let min_Date = formatter.string(from: mNDate! )
+
+                self.datelabel.text = min_Date + " - " + max_Date
+                DataSingleton.shared.selectedWeekDates = [(mNDate ?? Date()), mXDate ?? Date()]
+    }
 }
 extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     
@@ -145,8 +175,9 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
             self.dateSelected()
         }
     }
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+
     }
 
    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {

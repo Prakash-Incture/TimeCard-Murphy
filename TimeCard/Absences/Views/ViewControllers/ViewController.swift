@@ -202,13 +202,16 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             cell.allocationHourPersistence = self.allocationHourPersistence
             cell.datesWithMultipleEvents = self.holidaycalnder
             cell.calenderView.firstWeekday = UInt(startWeekDay)
+            cell.dayChanges(day: startWeekDay)
             cell.selecedDateValues = { index in
                 if index < 0{
                     self.plannedHour = self.workSheduledData?[0].workingHours ?? ""
                 }else{
                     self.plannedHour = self.workSheduledData?[index].workingHours ?? ""
                 }
-                self.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
             if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
                 var totalMins: Int = 0
@@ -244,6 +247,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             }
         }
     }
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section != 0{
             return 80
