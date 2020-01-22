@@ -12,7 +12,7 @@ protocol GenericViewModelProtocol: class {
     var  showLoadingIndicator: Bool? { get set }
     func didReceiveResponse()
     func failedWithReason(message: String)
-
+    
 }
 class AllocationDataViewModel{
     weak var delegate: GenericViewModelProtocol?
@@ -22,10 +22,10 @@ class AllocationDataViewModel{
         }
     }
     var allcationModelData = AllocaitonData(){
-           didSet{
-               delegate?.didReceiveResponse()
-           }
-       }
+        didSet{
+            delegate?.didReceiveResponse()
+        }
+    }
     var weekData: WeekSummary?
     var absenceData:Absence?
     var timeTypeLookUpdata:TimeAndAbsenceLookUp?
@@ -56,7 +56,7 @@ class AllocationDataViewModel{
     lazy var empTimeAPi = RequestManager<EmpJobModel>()
     lazy var holidayCalender = RequestManager<HolidayAssignment>()
     var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
-   
+    
     public func dataFetching(){
         let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
         self.allcationModelData.alllocationModel = []
@@ -78,32 +78,51 @@ class AllocationDataViewModel{
         self.allcationModelData.weekData?.append(tempWeekData)
     }
     public func addingWeekData(weekDays:Notification){
-           self.allcationModelData.weekData = []
+        self.allcationModelData.weekData = []
         self.allcationModelData.weekData?.removeAll()
         for value in (weekDays.object as? [AllocationOfflineData]) ?? []{
             print(value)
-            guard let allocationModel = allocationHourPersistence?.unarchive(allocationData: value.allocationModel ?? Data()) else {return}
-               self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel))
-               self.delegate?.didReceiveResponse()
+            if value.key == "Allocation"{
+                guard let allocationModel = allocationHourPersistence?.unarchive(allocationData: value.allocationModel ?? Data()) else {return}
+                self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel))
+            }else{
+                guard let absenceModel = allocationHourPersistence?.unarchiveAbsence(absenceData: value.allocationModel ?? Data()) else {return}
+                self.allcationModelData.weekData?.append(self.weekSummaryModel(value: absenceModel, with: value.date ?? Date().getUTCFormatDate()))
             }
+            
+            self.delegate?.didReceiveResponse()
+        }
         self.allcationModelData.weekData?.append(WeekSummary())
         self.fetchDurationData(weekData: self.allcationModelData.weekData ?? [])
-        }
+    }
     //Changing the Model to other Model to add data
-       func weekSummaryModel(value:AllocationModel) -> WeekSummary{
-        //DataSingleton.shared.selectedDate
+    // Allocation
+    func weekSummaryModel(value:AllocationModel) -> WeekSummary{
         let weekValues = WeekSummary(
             day:self.getdayWeekDay(date:(value.selectedDate as Date?) ?? Date()),
             date: self.dateFormatter.string(from:(value.selectedDate as Date?) ?? Date()),
             hours: value.duration,
             duration: value.durationMin,
-            selectedDate: value.selectedDate)
+            selectedDate: value.selectedDate,
+            isAbsence: false)
         return weekValues
-       }
+    }
+    // Absence
+    func weekSummaryModel(value: Absence, with selectedDate: Date) -> WeekSummary{
+        let weekValues = WeekSummary(
+            day:self.getdayWeekDay(date:(selectedDate as Date?) ?? Date()),
+            date: self.dateFormatter.string(from:(selectedDate as Date?) ?? Date()),
+            hours: value.duration,
+            duration: value.durationMin,
+            selectedDate: selectedDate,
+            isAbsence: true)
+        return weekValues
+    }
+    
     public func dataAdding(){
         let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
         self.allcationModelData.alllocationModel?.append(tempData)
-
+        
     }
     public func fetchDayData(){
         if self.allcationModelData.weekData == nil{
@@ -116,8 +135,13 @@ class AllocationDataViewModel{
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
             self.allcationModelData.weekData?.removeAll()
             for model in getResult{
-                let allocationModel = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
-                self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel!))
+                if model.key == "Allocation"{
+                    let allocationModel = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                    self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel!))
+                }else{
+                    let absenceModel = (allocationHourPersistence?.unarchiveAbsence(absenceData: model.allocationModel ?? Data()))!
+                    self.allcationModelData.weekData?.append(self.weekSummaryModel(value: absenceModel, with: dateFrom))
+                }
                 self.delegate?.didReceiveResponse()
             }
         }
@@ -133,11 +157,14 @@ class AllocationDataViewModel{
         let dateTo = (DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date()).getUTCFormatDate()
         
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date >= %@ AND date <= %@", dateFrom as NSDate, dateTo as NSDate)) as? [AllocationOfflineData]{
-//            "(date >= %@) AND (date <= %@) AND complete == 0"
             for model in getResult{
-                let allocationModel = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
-                print(allocationModel?.costCneter ?? "")
-                self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel!))
+                if model.key == "Allocation"{
+                    let allocationModel = allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                    self.allcationModelData.weekData?.append(self.weekSummaryModel(value: allocationModel!))
+                }else{
+                    let absenceModel = (allocationHourPersistence?.unarchiveAbsence(absenceData: model.allocationModel ?? Data()))!
+                    self.allcationModelData.weekData?.append(self.weekSummaryModel(value: absenceModel, with: dateFrom))
+                }
                 self.delegate?.didReceiveResponse()
             }
         }
@@ -147,16 +174,14 @@ class AllocationDataViewModel{
         for val in weekData{
             let hourData = self.removeHourText(tempString: val.hours ?? "")
             duration = duration + hourData
-//            DataSingleton.shared.totalHours = "0"
         }
-//        DataSingleton.shared.totalHours = String(duration) == "0.0" ? "0" : String(duration)
         
     }
     func removeHourText(tempString:String) -> Double{
         if tempString != ""{
-        var value = tempString.replacingOccurrences(of: " Hour ", with: ".")
-        value = value.replacingOccurrences(of: " Minutes", with: "")
-        return Double(value) ?? 0
+            var value = tempString.replacingOccurrences(of: " Hour ", with: ".")
+            value = value.replacingOccurrences(of: " Minutes", with: "")
+            return Double(value) ?? 0
         }
         return 0
     }
@@ -202,5 +227,5 @@ extension AllocationDataViewModel {
         self.allocationHourPersistence?.load { [weak self] in
         }
     }
-   
+    
 }

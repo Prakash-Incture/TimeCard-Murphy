@@ -47,7 +47,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.setupViewModel()
         self.loadOfflineStores()
         self.holidayCalenderApicalling()
-        self.allocationViewModel?.fetchDayData()
+//        self.allocationViewModel?.fetchDayData()
        // self.customNavigationType = .navPlain
       
     }
@@ -60,7 +60,6 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     
     private func setupViewModel() {
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
-       // self.allocationViewModel?.empTimeOffBalanceAPICalling() // Uncommand
         }
     
     func configurTableView(){
@@ -214,10 +213,14 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
                 var totalMins: Int = 0
                 for data in dataArray{
-                    totalMins = totalMins+(data.duration ?? 0)
+                    if !(data.isAbsence ?? false){
+                        totalMins = totalMins+(data.duration ?? 0)
+                    }else{
+                        totalMins = totalMins-(data.duration ?? 0)
+                    }
                 }
-                let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
-                cell.recordedHours.text = String(format: "%02d:%02d", hours, min)
+                let (hours, min) = Date.minutesToHoursMin(minutes: totalMins)
+                cell.recordedHours.text = String(format: "%02d:%02d", hours, abs(min))
             }
             cell.plannedHourLbl.text = "Planned time \(self.plannedHour) hours"
            // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
@@ -273,10 +276,6 @@ extension ViewController {
     func loadOfflineStores() {
         self.allocationHourPersistence.load { [weak self] in
         }
-    }
-    
-    static func minutesToHoursMin(minutes: Int) -> (Int, Int) {
-        return (minutes/60, (minutes % 60))
     }
 }
 

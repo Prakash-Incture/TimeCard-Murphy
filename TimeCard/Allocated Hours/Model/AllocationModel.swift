@@ -28,6 +28,7 @@ struct WeekSummary:Codable {
     var day,date,hours:String?
     var duration: Int?
     var selectedDate: Date?
+    var isAbsence: Bool?
 }
 struct UserData: Encodable {
     var userId:String?
@@ -76,7 +77,8 @@ class DataSingleton:NSObject{
     var selectedDate:NSDate?
     var selectedWeekDates: [Date]?
     var totalHours:String?
-    var plannedHours:String?
+    var plannedHours: Int? = 13*60
+    var workingDayPerWeek: Int? = 5
 }
 
 struct EmployeeTimeSheetModel:Codable {

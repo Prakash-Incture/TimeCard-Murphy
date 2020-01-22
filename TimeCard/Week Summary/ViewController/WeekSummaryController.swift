@@ -76,29 +76,6 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? WeekSummaryCell else { fatalError("Textfield cell not found") }
             cell.setModel(cellModel)
             cell.allocationData = self.allocationViewModel?.allcationModelData
-//            var cellType: AllocationCellIdentifier?
-//            switch cellType {
-//            case .total:
-//                if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
-//                    var totalMins: Int = 0
-//                    for data in dataArray{
-//                        totalMins = totalMins+(data.duration ?? 0)
-//                    }
-//                    let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
-//                    cell.labelData.text = String(format: "%02d:%02d", hours, min)
-//                }
-//            case .paidAbsences:
-//                break
-//            case .ot:
-//                break
-//            case .regularTime:
-//                break
-//            case .status:
-//                break
-//            default:
-//                break
-//            }
-            cell.allocationData = self.allocationViewModel?.allcationModelData
             
             cell.selectionStyle = .none
             return cell
