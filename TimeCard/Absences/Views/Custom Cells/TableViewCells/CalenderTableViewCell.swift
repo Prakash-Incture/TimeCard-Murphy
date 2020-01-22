@@ -58,7 +58,6 @@ class CalenderTableViewCell: UITableViewCell {
         
         calenderView.scrollEnabled = false
         dateSelected()
-//        self.hoursLabel.text = (DataSingleton.shared.totalHours == "0.0") ? "0" : DataSingleton.shared.totalHours
     }
  
     func showDate(){
@@ -127,8 +126,6 @@ class CalenderTableViewCell: UITableViewCell {
                       print(model.date ?? "")
                   }
             NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
-//            self.hoursLabel.text = DataSingleton.shared.totalHours ?? "0"
-            
               }
     }
 }
