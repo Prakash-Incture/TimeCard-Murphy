@@ -42,6 +42,18 @@
 		A13BB4E023C8AD050013312C /* AbsenceDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13BB4DF23C8AD050013312C /* AbsenceDetailsViewModel.swift */; };
 		CD0504CA23CA27B90089A23F /* TimeSheetDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535823C5F378008294E3 /* TimeSheetDetailsModel.swift */; };
 		CD0504CB23CA27C50089A23F /* TimeSheetDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535B23C61009008294E3 /* TimeSheetDetailsVM.swift */; };
+		CD10147823D85CAF00232E5D /* SAPFioriFlows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147223D85CAE00232E5D /* SAPFioriFlows.framework */; };
+		CD10147923D85CAF00232E5D /* SAPFioriFlows.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147223D85CAE00232E5D /* SAPFioriFlows.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD10147A23D85CAF00232E5D /* SAPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147323D85CAE00232E5D /* SAPCommon.framework */; };
+		CD10147B23D85CAF00232E5D /* SAPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147323D85CAE00232E5D /* SAPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD10147C23D85CAF00232E5D /* SAPOData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147423D85CAF00232E5D /* SAPOData.framework */; };
+		CD10147D23D85CAF00232E5D /* SAPOData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147423D85CAF00232E5D /* SAPOData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD10147E23D85CAF00232E5D /* SAPOfflineOData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147523D85CAF00232E5D /* SAPOfflineOData.framework */; };
+		CD10147F23D85CAF00232E5D /* SAPOfflineOData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147523D85CAF00232E5D /* SAPOfflineOData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD10148023D85CAF00232E5D /* SAPFiori.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147623D85CAF00232E5D /* SAPFiori.framework */; };
+		CD10148123D85CAF00232E5D /* SAPFiori.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147623D85CAF00232E5D /* SAPFiori.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CD10148223D85CAF00232E5D /* SAPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147723D85CAF00232E5D /* SAPFoundation.framework */; };
+		CD10148323D85CAF00232E5D /* SAPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CD10147723D85CAF00232E5D /* SAPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD1D2D7B23C7462200B35E33 /* EmpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D7A23C7462200B35E33 /* EmpModel.swift */; };
 		CD1F6F0B23C85FB7001A20D4 /* TimesheetDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CC535523C5EEAC008294E3 /* TimesheetDetailsVC.swift */; };
 		CD1F6F0F23C8642F001A20D4 /* AllocatedHoursCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CDD5809A23C85EB800CE4A90 /* AllocatedHoursCoreData.xcdatamodeld */; };
@@ -108,6 +120,12 @@
 			dstSubfolderSpec = 10;
 			files = (
 				CDA0905923C739A700FE3E8E /* Pods_TimeCard.framework in Embed Frameworks */,
+				CD10148123D85CAF00232E5D /* SAPFiori.framework in Embed Frameworks */,
+				CD10147B23D85CAF00232E5D /* SAPCommon.framework in Embed Frameworks */,
+				CD10147F23D85CAF00232E5D /* SAPOfflineOData.framework in Embed Frameworks */,
+				CD10148323D85CAF00232E5D /* SAPFoundation.framework in Embed Frameworks */,
+				CD10147923D85CAF00232E5D /* SAPFioriFlows.framework in Embed Frameworks */,
+				CD10147D23D85CAF00232E5D /* SAPOData.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +193,12 @@
 		B0D4C00530D3B3025D9A0443 /* Pods-TimeCard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.debug.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.debug.xcconfig"; sourceTree = "<group>"; };
 		C1987FBE5D0F94FF07A50DD0 /* Pods-TimeCard.release production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCard.release production.xcconfig"; path = "Target Support Files/Pods-TimeCard/Pods-TimeCard.release production.xcconfig"; sourceTree = "<group>"; };
 		C54C85300DAB2443CA6E08C5 /* Pods-TimeCardTests.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeCardTests.qa.xcconfig"; path = "Target Support Files/Pods-TimeCardTests/Pods-TimeCardTests.qa.xcconfig"; sourceTree = "<group>"; };
+		CD10147223D85CAE00232E5D /* SAPFioriFlows.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPFioriFlows.framework; sourceTree = "<group>"; };
+		CD10147323D85CAE00232E5D /* SAPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPCommon.framework; sourceTree = "<group>"; };
+		CD10147423D85CAF00232E5D /* SAPOData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPOData.framework; sourceTree = "<group>"; };
+		CD10147523D85CAF00232E5D /* SAPOfflineOData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPOfflineOData.framework; sourceTree = "<group>"; };
+		CD10147623D85CAF00232E5D /* SAPFiori.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPFiori.framework; sourceTree = "<group>"; };
+		CD10147723D85CAF00232E5D /* SAPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SAPFoundation.framework; sourceTree = "<group>"; };
 		CD1D2D7A23C7462200B35E33 /* EmpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpModel.swift; sourceTree = "<group>"; };
 		CD79A75323BDCE1600CA5ED7 /* AllocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllocationModel.swift; sourceTree = "<group>"; };
 		CD79A75823BDCE8100CA5ED7 /* NewRecordingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewRecordingViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +238,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDA0905823C739A700FE3E8E /* Pods_TimeCard.framework in Frameworks */,
+				CD10148023D85CAF00232E5D /* SAPFiori.framework in Frameworks */,
+				CD10147A23D85CAF00232E5D /* SAPCommon.framework in Frameworks */,
+				CD10147E23D85CAF00232E5D /* SAPOfflineOData.framework in Frameworks */,
+				CD10148223D85CAF00232E5D /* SAPFoundation.framework in Frameworks */,
+				CD10147823D85CAF00232E5D /* SAPFioriFlows.framework in Frameworks */,
+				CD10147C23D85CAF00232E5D /* SAPOData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +490,12 @@
 		C332979DA907B34F96A7EBA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD10147323D85CAE00232E5D /* SAPCommon.framework */,
+				CD10147623D85CAF00232E5D /* SAPFiori.framework */,
+				CD10147223D85CAE00232E5D /* SAPFioriFlows.framework */,
+				CD10147723D85CAF00232E5D /* SAPFoundation.framework */,
+				CD10147423D85CAF00232E5D /* SAPOData.framework */,
+				CD10147523D85CAF00232E5D /* SAPOfflineOData.framework */,
 				3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */,
 				2087EE7154680A97D7830ABB /* Pods_TimeCard_TimeCardUITests.framework */,
 				0F2140EF55EF4888FCEB2FDF /* Pods_TimeCardTests.framework */,
