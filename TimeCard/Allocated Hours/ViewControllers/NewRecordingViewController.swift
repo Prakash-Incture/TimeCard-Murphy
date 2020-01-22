@@ -134,8 +134,8 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     func getAbsenceOfflineData() {
         
         let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
-        
-        guard let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData] else {
+        //"(date == %@) AND (key == %@)", dateFrom as NSDate, "Absence"
+        guard let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@ AND key == %@", dateFrom as NSDate, "Absence")) as? [AllocationOfflineData] else {
             return
         }
          self.allocationDataViewModel.allcationModelData.absence?.removeAll()

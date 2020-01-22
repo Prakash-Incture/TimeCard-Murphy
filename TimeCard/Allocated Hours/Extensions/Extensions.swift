@@ -121,7 +121,8 @@ enum DateFormat: String {
     func getUTCFormatDate() -> Date {
         var currentCalender = Calendar.current
         currentCalender.timeZone = TimeZone(identifier: "UTC")!
-        return currentCalender.startOfDay(for: self)
+        let newDate = self.addingTimeInterval(TimeInterval(NSTimeZone.local.secondsFromGMT()))
+        return currentCalender.startOfDay(for: newDate)
     }
 }
 extension String{

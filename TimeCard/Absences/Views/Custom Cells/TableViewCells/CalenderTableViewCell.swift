@@ -136,6 +136,7 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
        // Get the filtered data here
+        
         DataSingleton.shared.selectedDate = date.getUTCFormatDate() as NSDate
         
         //Get today's beginning & end

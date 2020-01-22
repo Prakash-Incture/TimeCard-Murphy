@@ -130,7 +130,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
               let cell = self.tableView.dequeueReusableCell(withIdentifier: "CalenderTableViewCell", for: indexPath) as! CalenderTableViewCell
             cell.selectionStyle = .none
-            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate as NSDate?
+            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate?.getUTCFormatDate() as NSDate?
             cell.allocationHourPersistence = self.allocationHourPersistence
             cell.datesWithMultipleEvents = self.holidaycalnder
 
