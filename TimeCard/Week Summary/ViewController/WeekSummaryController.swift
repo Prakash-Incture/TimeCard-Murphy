@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class WeekSummaryController: BaseViewController {
+import SAPFiori
+class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
 
@@ -17,19 +17,23 @@ class WeekSummaryController: BaseViewController {
     var currentHeaderCells: [[CellModel]] = CurrentPage.weekSummary.getCurrentPageHeaders()
     var allocationViewModel:AllocationDataViewModel?
     var stringHelper = StringColorChnage()
+    var loadingIndicator: FUILoadingIndicatorView?
     var showLoadingIndicator: Bool? {
-              didSet {
-                  if showLoadingIndicator == true {
-                   //   self.showFioriLoadingIndicator("Syncing Data")
-                  } else {
-                     // self.hideFioriLoadingIndicator()
-                  }
-              }
-          }
+           didSet {
+               if showLoadingIndicator == true {
+                   self.showFioriLoadingIndicator("Loading")
+               } else {
+                   self.hideFioriLoadingIndicator()
+               }
+           }
+       }
+    lazy var empTimeSheetAPi = RequestManager<EmployeeTimeSheetModel>()
+    lazy var empTimeOffSheetAPi = RequestManager<EmployeeTimeOffDataModel>()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customNavigationType = .navBackWithAction
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
+        self.getEmpTimeSheetAPICall()
         
     }
     override func selectedAction(sender: UIButton) {
@@ -170,10 +174,61 @@ extension WeekSummaryController{
 }
 extension WeekSummaryController:GenericViewModelProtocol{
     func failedWithReason(message: String) {
-        self.showAlert(message: message)
+        DispatchQueue.main.async {
+            self.showAlert(message: message)
+        }
     }
     
     func didReceiveResponse() {
         self.tableView.reloadData()
     }
+}
+extension WeekSummaryController{
+    func getEmpTimeSheetAPICall(){
+           self.showLoadingIndicator = true
+        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
+        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
+        let dataDict = [
+            "userId" : UserData().userId ?? "",
+            "Start_Date": startDate,
+            "End_Date": endDate
+        ]
+        self.empTimeSheetAPi.getEmployeeTimeSheet(for:dataDict as [String : Any], completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.showLoadingIndicator = false
+                self.getEmpTimeOffSheetAPICall()
+               case .success(_, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                   self.getEmpTimeOffSheetAPICall()
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+    func getEmpTimeOffSheetAPICall(){
+           self.showLoadingIndicator = true
+        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
+        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
+        let dataDict = [
+                  "userId" : UserData().userId ?? "",
+                  "Start_Date": startDate,
+                  "End_Date": endDate
+              ]
+        self.empTimeOffSheetAPi.getEmployeeTimeOffSheet(for:dataDict as [String : Any], completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.showLoadingIndicator = false
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+
 }

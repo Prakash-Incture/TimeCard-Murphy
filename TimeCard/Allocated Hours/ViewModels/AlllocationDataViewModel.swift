@@ -172,37 +172,19 @@ extension AllocationDataViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
-                self.getEmpWorkScheduleAPICall()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
                 self.empTimeOffBalance = value
-                let availableBalance = String(format: "%@ %@",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.balance ?? "",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.timeUnit ?? "")
+                let availableBalance = String(format: "%@ %@",value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.first?.balance ?? "",value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.first?.timeUnit ?? "")
                 UserDefaults.standard.set( availableBalance, forKey: "Emp_Leave_Balnce")
                 UserDefaults.standard.synchronize()
-                self.getEmpWorkScheduleAPICall()
-            case .successData(let _): break
+            case .successData(_): break
                 // Get success data here
             }
         })
     }
 
-    func getEmpWorkScheduleAPICall(){
-        self.delegate?.showLoadingIndicator = true
-        self.empTimeAPi.fetchEmpWorkSchedule(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.delegate?.failedWithReason(message: message)
-                self.delegate?.showLoadingIndicator = false
-            case .success(let value, let message):
-                print(message as Any)
-                self.delegate?.showLoadingIndicator = false
-            case .successData( _): break
-                // Get success data here
-            }
-        })
-    }
     func getdayWeekDay(date:Date)-> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"

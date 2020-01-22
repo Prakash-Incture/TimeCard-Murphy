@@ -78,3 +78,39 @@ class DataSingleton:NSObject{
     var totalHours:String?
     var plannedHours:String?
 }
+
+struct EmployeeTimeSheetModel:Codable {
+    var EmployeeTimeSheet : EmployeeTimeSheetDetailModel?
+}
+struct EmployeeTimeSheetDetailModel:Codable {
+    var EmployeeTimeSheet : [EmployeeTimeSheetDetailDataModel]?
+}
+struct EmployeeTimeSheetDetailDataModel:Codable {
+    var period : String?
+    var recordedHoursAndMinutes : String?
+    var endDate : String?
+    var employeeTimeSheetEntry : EmployeeTimeSheetEntryModel?
+    var comment : String?
+    var workflowRequestId : String?
+    var workflowAction : String?
+    var plannedHoursAndMinutes : String?
+    var approvalStatusNav : ApprovalStatusNav?
+    var absencesExist : String?
+    var startDate : String?
+}
+struct EmployeeTimeSheetEntryModel:Codable {
+    var EmployeeTimeSheetEntry: [EmployeeTimeSheetEntryDataModel]?
+}
+struct EmployeeTimeSheetEntryDataModel:Codable {
+    var quantityInHours: String?
+    var costCenter: String?
+    var quantityInHoursAndMinutes: String?
+    var timeTypeName: String?
+    var startDate: String?
+}
+struct ApprovalStatusNav:Codable {
+    var MDFEnumValue : ApprovalStatusNavDeatailModel?
+}
+struct ApprovalStatusNavDeatailModel:Codable {
+    var en_US : String?
+}

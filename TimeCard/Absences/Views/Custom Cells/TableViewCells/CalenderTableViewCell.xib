@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -71,7 +71,7 @@
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.50196078431372548" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="quaternarySystemFillColor" red="0.4549019608" green="0.4549019608" blue="0.50196078430000002" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="1Jp-yA-2qJ" secondAttribute="bottom" constant="6" id="SwC-3N-nHp"/>
                             <constraint firstAttribute="trailing" secondItem="1Jp-yA-2qJ" secondAttribute="trailing" constant="6" id="b0g-S7-1Hr"/>
@@ -180,6 +180,7 @@
                 <outlet property="calenderView" destination="DwV-5e-byA" id="nWH-u4-2gC"/>
                 <outlet property="datelabel" destination="Mwy-Xb-1lR" id="va6-Bd-Vy4"/>
                 <outlet property="leftButtonAction" destination="AW2-7G-S3Z" id="yjw-L4-FZN"/>
+                <outlet property="plannedHourLbl" destination="Jci-zn-OQ7" id="oi1-eo-gkO"/>
                 <outlet property="recordedHours" destination="oem-9y-jjE" id="Gtv-cm-oDP"/>
                 <outlet property="rightAction" destination="3dX-s9-WpJ" id="62C-Wr-vGO"/>
             </connections>
@@ -187,7 +188,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chevron.left" catalog="system" width="46" height="64"/>
-        <image name="chevron.right" catalog="system" width="46" height="64"/>
+        <image name="chevron.left" catalog="system" width="48" height="64"/>
+        <image name="chevron.right" catalog="system" width="48" height="64"/>
     </resources>
 </document>
