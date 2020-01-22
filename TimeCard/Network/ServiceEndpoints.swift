@@ -13,12 +13,16 @@ struct LinkingUrl {
     static var defaultHeaders: HTTPHeader = ["Accept" : "application/json","cache-control": "no-cache", "Content-Type": "application/json"]
     static var urlEncodeHeaders: HTTPHeader = ["Content-Type": "application/x-www-form-urlencoded"]
     static var lookUpApi = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/TimeTypeProfile"
-    static var empTimeOffBalance = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Time-off-Balance"
+    static var empTimeOffBalance = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EmpTimeAccountBalancework"
     static var empJob = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Emp-Job"
     static var empTime = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EmployeeTime"
     static var workSchedule = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/WorkSchedule"
-    static var employeeTimeSheet = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EMP_time"
+    static var employeeTimeSheet = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EMP_Time_Sheet"
+    static var employeeTimeOff = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Employee_Time_Off"
     static var holidayCalender = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Holiday_Calender"
+    
+    
+    
     static var idpUrl = "https://apisalesdemo4.successfactors.com/oauth/idp"
     static var accessTokenUrl = "https://apisalesdemo4.successfactors.com/oauth/token"
     static var approvalTimeSheetGet = "https://apisalesdemo4.successfactors.com/odata/v2/Todo?$filter=status%20eq%20%272%27%20and%20categoryId%20eq%20%2718%27%20&$format=json"
@@ -48,7 +52,8 @@ enum ServiceEndpoints {
     case getCostcenter(params: UserData)
     case empWorkSchedule(params:UserData)
     case empTimeApi(params:UserData)
-    case getEmpTimeSheet(params:UserData)
+    case getEmpTimeSheet(param:[String:Any])
+    case getEmpTimeOffData(param:[String:Any])
     case getApprovalTimeDetail(parm:String)
     case getApprovalTimeSheetDetail(parm:String)
     case getApprovalTimeOffDetail(parm:String)
@@ -101,7 +106,7 @@ enum ServiceEndpoints {
             return self.urlRequest(for: urlString, method: "POST", body:userData)
         case .getEmpTimeSheet(let params):
             let urlString = LinkingUrl.employeeTimeSheet
-            return self.urlRequest(for: urlString, method: "POST", body:params)
+            return self.urlRequestWithBody(for: urlString, method: "POST", body: params, addHeader: false)
         case .getApprovalTimeDetail(let parm):
             let url = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(\(parm))?$filter=wfRequestUINav, workflowAllowedActionListNav&$expand=wfRequestUINav, workflowAllowedActionListNav&$format=json"
             return self.urlRequestWithStringBody(for: url, method: "GET", body: nil, addHeader: true)
@@ -117,6 +122,9 @@ enum ServiceEndpoints {
         case .getApprovalTimeSheetDetail(let parm):
             let url = "https://apisalesdemo4.successfactors.com/odata/v2/EmployeeTimeSheet?$filter=workflowRequestId eq '\(parm)'&$select=period,plannedHoursAndMinutes,workingTimeAccountHoursAndMinutes,recordedHoursAndMinutes,userIdNav,employeeTimeSheetEntry,employeeTimeValuationResult&$expand=userIdNav,employeeTimeSheetEntry,employeeTimeValuationResult&$format=json"
                 return self.urlRequestforGet(for: url, method: "GET", body: nil, addHeader: true)
+        case .getEmpTimeOffData(let param):
+              let urlString = LinkingUrl.employeeTimeOff
+                      return self.urlRequestWithBody(for: urlString, method: "POST", body: param, addHeader: false)
         }
       }
     
@@ -193,6 +201,7 @@ enum ServiceEndpoints {
                                    urlRequest.setValue(value, forHTTPHeaderField: key)
                                }
             if addHeader{
+  
                 let accessToken = UserDefaults.standard.object(forKey: ApproveConstants.accessToken as? String ?? "")
                 urlRequest.addValue("Bearer \(accessToken ?? "")", forHTTPHeaderField: "Authorization")
             }
@@ -217,8 +226,15 @@ enum ServiceEndpoints {
                      urlRequest.setValue(value, forHTTPHeaderField: key)
                  }
             if addHeader{
-                let accessToken = UserDefaults.standard.object(forKey: accessTokenForTimeSheet) ?? ""
-                urlRequest.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+                let username = "HCI_Incture@C0000171358D"
+                     let password = "Murphy@321"
+                     let loginString = String(format: "%@:%@", username, password)
+                     let loginData = loginString.data(using: String.Encoding.utf8)!
+                     let base64LoginString = loginData.base64EncodedString()
+                             
+                     urlRequest.setValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+               // let accessToken = UserDefaults.standard.object(forKey: accessTokenForTimeSheet) ?? ""
+                //urlRequest.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
             }
         if method == "POST"{
             guard let body = body else { return urlRequest }

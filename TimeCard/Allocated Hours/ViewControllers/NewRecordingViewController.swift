@@ -44,7 +44,8 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     var currentPage: CurrentPage = CurrentPage.newRecording
     var currentHeaderCells: [[CellModel]] = CurrentPage.newRecording.getCurrentPageHeaders()
     var allocationDataViewModel:AllocationDataViewModel!
-    
+    lazy var postTimeSheetDataCall = RequestManager<ApproveListModels>()
+
     var showLoadingIndicator: Bool? {
         didSet {
             if showLoadingIndicator == true {
@@ -123,6 +124,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
                 }
+                self.postTimeSheetDataAPICall()
             }else{
                 //TODO:
                 // Show error message
@@ -131,7 +133,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
         }
         
     }
-    
+
     func getAbsenceOfflineData() {
         
         var currentCalender = Calendar.current
@@ -263,4 +265,47 @@ extension NewRecordingViewController: GenericViewModelProtocol {
     {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "addAbsenceData"), object: nil)
     }
+}
+extension NewRecordingViewController{
+    
+    func postTimeSheetDataAPICall(){
+         let externalCode = Int.random(in: 0...100000000)
+        let startDate = (DataSingleton.shared.selectedDate as Date?)!.currentTimeMillis()
+         let dataDictForEmployee:[String:Any] = [
+            "uri":"ExternalTimeData('\(externalCode)')"
+        ]
+         let dataDict:[String:Any] = [
+             
+             "__metadata" : dataDictForEmployee,
+             "startDate" : "/Date(\(startDate))/",
+             "externalCode" : "\(externalCode)",
+            "hours" : self.allocationDataViewModel.allcationModelData.alllocationModel?.last?.durationValueInHours ?? "",
+             "userId" : UserData().userId ?? "",
+             "costCenter" : self.allocationDataViewModel.allcationModelData.alllocationModel?.last?.costCenterId ?? "",
+             "timeType" : self.allocationDataViewModel.allcationModelData.alllocationModel?.last?.timeTypeId ?? ""
+         ]
+         self.showLoadingIndicator = true
+         self.postTimeSheetDataCall.postAbsencesData(for: dataDict, idpPayload: GetIDPPayload(), completion: { [weak self] result in
+             guard let self = self else { return }
+             switch result {
+             case .failure( _):
+                 self.showLoadingIndicator = false
+             case .successData(value: let value):
+                 do {
+                     if let jsonObj = try JSONSerialization.jsonObject(with: value, options : .allowFragments) as? Dictionary<String, Any>
+                     {
+                         print(jsonObj)
+                     } else {
+                         print("bad json")
+                     }
+                 } catch let error as NSError {
+                     print(error)
+                 }
+             case .success( _, let message):
+                 print(message as Any)
+                 self.showLoadingIndicator = false
+             }
+         })
+         
+     }
 }

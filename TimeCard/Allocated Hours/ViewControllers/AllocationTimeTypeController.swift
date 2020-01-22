@@ -10,7 +10,7 @@ import UIKit
 import SAPFiori
 
 protocol UpdateData:class {
-    func updateValue(value:String?)
+    func updateValue(value:String?,id:String)
 }
 class AllocationTimeTypeController: BaseViewController,SAPFioriLoadingIndicator {
     //UI Compnents
@@ -45,7 +45,6 @@ class AllocationTimeTypeController: BaseViewController,SAPFioriLoadingIndicator 
         self.getData()
         self.tableView.tableFooterView = UIView()
         self.tableViewConstant.constant = 0
-        self.timeType = self.timeType?.filter({$0.timeTypeNav?.timeType?.category == "ATTENDANCE"})
         self.tableView.register(UINib(nibName: "NewRecordTableViewCell", bundle: nil), forCellReuseIdentifier: "NewRecordTableViewCell")
 
     }
@@ -96,12 +95,12 @@ extension AllocationTimeTypeController:UITableViewDataSource,UITableViewDelegate
         guard let type = cellType else { return }
         switch type {
         case .timeType:
-            delegate?.updateValue(value:timeTypeData?.timeTypeNav?.timeType?.externalName_en_US  ?? "")
+            delegate?.updateValue(value:timeTypeData?.timeTypeNav?.timeType?.externalName_en_US  ?? "", id: timeTypeData?.timeTypeNav?.timeType?.externalCode ?? "")
             self.navigationController?.popViewController(animated: true)
             return
         case .costCenter:
             let data = self.costcenterData?[indexPath.row]
-            delegate?.updateValue(value:data?.externalName ?? "")
+            delegate?.updateValue(value:data?.externalName ?? "", id: data?.cust_Costcenter ?? "")
             self.navigationController?.popViewController(animated: true)
             return
         default: return
@@ -123,6 +122,8 @@ extension AllocationTimeTypeController{
                   case .success(let value, let message):
                       print(message as Any)
                       self.timeType = value?.availableTimeType?.availableTimeType
+                      self.timeType = self.timeType?.filter({$0.timeTypeNav?.timeType?.category == "ATTENDANCE"})
+
                       DispatchQueue.main.async {
                             self.tableView.reloadData()
                       }
