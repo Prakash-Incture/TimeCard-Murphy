@@ -73,12 +73,9 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.absenceData.duration = "8 Hours"
         self.absenceData.durationMin = 8*60
         
-        //Get today's beginning & end
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")! //UTC
         let absenceDates = Date.dates(from: self.absenceData.dateStart ?? Date(), to: self.absenceData.dateEnd ?? Date())
         for absenceDate in absenceDates{
-            let dateFrom = currentCalender.startOfDay(for: absenceDate as Date) // eg. 2016-10-10
+            let dateFrom = (absenceDate as Date).getUTCFormatDate()
             
             
             //        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)

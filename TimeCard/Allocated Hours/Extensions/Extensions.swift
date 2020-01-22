@@ -116,6 +116,13 @@ enum DateFormat: String {
         }
         return dates
     }
+    
+    // Returns UTC date format
+    func getUTCFormatDate() -> Date {
+        var currentCalender = Calendar.current
+        currentCalender.timeZone = TimeZone(identifier: "UTC")!
+        return currentCalender.startOfDay(for: self)
+    }
 }
 extension String{
     func convertToDate(format: Date.DateFormat, currentDateStringFormat: Date.DateFormat, shouldConvertToUTC: Bool = false) -> Date? {
