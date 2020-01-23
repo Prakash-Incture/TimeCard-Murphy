@@ -74,6 +74,9 @@ enum DateFormat: String {
     case hourMinuteSeconds12Hour = "hh:mm:ss a"
     case dayMonthYearwithTime = "dd, MMM yyyy hh:mm a"
     case yearMonthDateTime = "yyyy-MM-dd'T'HH:mm:ss"
+    case yearMonthDateTimese = "yyyy-MM-dd'T'HH:mm:ss.ss"
+    case yearMonthDateTimesec = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+
     case monthDateYearTime = "MMM dd, yyyy h:mm:ss a"
     case monthDateSingledayTime = "MMM d, yyyy h:mm:ss a"
     case monthDayYear = "MMM dd, yyyy"

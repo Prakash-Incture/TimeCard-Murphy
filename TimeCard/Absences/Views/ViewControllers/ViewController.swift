@@ -40,7 +40,9 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     lazy var holidayCalender = RequestManager<HolidayAssignment>()
     lazy var empTimeAPi = RequestManager<EmpJobModel>()
     lazy var workScheduleAPI = RequestManager<WorkScheduleModel>()
-    
+    lazy var empTimeSheetAPi = RequestManager<EmployeeTimeSheetModel>()
+    var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
@@ -109,6 +111,9 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                      self.startWeekDay = 5
                 }
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
                 self.getEmpWorkScheduleAPICall()
             case .successData( _): break
                 // Get success data here
@@ -122,18 +127,20 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
              switch result {
              case .failure(_):
                  self.showLoadingIndicator = false
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                 DispatchQueue.main.async {
+                     self.tableView.reloadData()
+                 }
+                self.getEmpTimeSheetAPICall()
+
              case .success(let value, let message):
                  print(message as Any)
                  self.showLoadingIndicator = false
                  self.workSheduledData = value?.WorkScheduleDay?.WorkScheduleDay
                  self.plannedHour = value?.WorkScheduleDay?.WorkScheduleDay?.first?.workingHours ?? ""
-
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+                 DispatchQueue.main.async {
+                     self.tableView.reloadData()
+                 }
+                 self.getEmpTimeSheetAPICall()
              case .successData( _): break
                  // Get success data here
              }
@@ -161,7 +168,126 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             }
         })
     }
+    func getEmpTimeSheetAPICall(){
+           self.showLoadingIndicator = true
+        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
+        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
+        let dataDict = [
+            "userId" : UserData().userId ?? "",
+            "Start_Date": startDate,
+            "End_Date": endDate
+        ]
+        self.empTimeSheetAPi.getEmployeeTimeSheet(for:dataDict as [String : Any], completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                  // self.mainupulateData(value: value)
+               case .successData(let value):
+                self.showLoadingIndicator = false
+               do {
+                self.timeSheetObject.removeAll()
+                let jsonObject = try JSONSerialization.jsonObject(with: value, options: .allowFragments)
+                let data = jsonObject as? [String:Any]
+                let employeeTimeData = data?["EmployeeTimeSheet"] as? [String:Any]
+                var empData  = employeeTimeData?["EmployeeTimeSheet"]
+                if empData is Array<Any>{
+                    let empDataArr = empData as? [[String:Any]]
+                    for item in empDataArr!{
+                        var object = EmployeeTimeSheetDetailDataModel()
+                        object.period = item["period"] as? String
+                        object.absencesExist = item["absencesExist"] as? String
+                        object.endDate = item["endDate"] as? String
+                        object.startDate = item["startDate"] as? String
+                        object.plannedHoursAndMinutes = item["plannedHoursAndMinutes"] as? String
+                        object.recordedHoursAndMinutes = item["recordedHoursAndMinutes"] as? String
+                        var approveStatusNav = ApprovalStatusNav()
+                        var approveObj = ApprovalStatusNavDeatailModel()
+                        let statObj = item["approvalStatusNav"] as? [String: Any]
+                        let st = statObj?["MDFEnumValue"] as?  [String:Any]
+                        approveObj.en_US = st?["en_US"] as? String
+                        approveStatusNav.MDFEnumValue = approveObj
+                        object.approvalStatusNav = approveStatusNav
+                        var entry = EmployeeTimeSheetEntryModel()
+                        var timeEntry = [EmployeeTimeSheetEntryDataModel]()
+                        let employeeTimeEntry = item["employeeTimeSheetEntry"]
+                        if employeeTimeEntry is Dictionary<AnyHashable,Any>{
+                            let empEntry = employeeTimeEntry as? [String: Any]
+                            if empEntry?["EmployeeTimeSheetEntry"] is Array<Any>{
+                                let emmpArr = empEntry?["EmployeeTimeSheetEntry"] as? [[String:Any]]
+                                for item in emmpArr!{
+                                    var timeObject = EmployeeTimeSheetEntryDataModel()
+                                    timeObject.costCenter = item["costCenter"] as? String
+                                    timeObject.startDate = item["startDate"] as? String
+                                    timeObject.timeTypeName = item["timeTypeName"] as? String
+                                    timeObject.quantityInHours = item["quantityInHours"] as? String
+                                    timeObject.quantityInHoursAndMinutes = item["quantityInHoursAndMinutes"] as? String
+                                    timeEntry.append(timeObject)
+                                }
+                            }
+                        }
+                        entry.EmployeeTimeSheetEntry = timeEntry
+                        object.employeeTimeSheetEntry = entry
+                        self.timeSheetObject.append(object)
+                    }
+                    
+                }else{
+                    var empData  = employeeTimeData?["EmployeeTimeSheet"] as? [String:Any]
+                    var object = EmployeeTimeSheetDetailDataModel()
+                    object.period = empData?["period"] as? String
+                                         object.absencesExist = empData?["absencesExist"] as? String
+                                         object.endDate = empData?["endDate"] as? String
+                                         object.startDate = empData?["startDate"] as? String
+                                         object.plannedHoursAndMinutes = empData?["plannedHoursAndMinutes"] as? String
+                                         object.recordedHoursAndMinutes = empData?["recordedHoursAndMinutes"] as? String
+                                         var approveStatusNav = ApprovalStatusNav()
+                                         var approveObj = ApprovalStatusNavDeatailModel()
+                                         let statObj = empData?["approvalStatusNav"] as? [String: Any]
+                                         let st = statObj?["MDFEnumValue"] as?  [String:Any]
+                                         approveObj.en_US = st?["en_US"] as? String
+                                         approveStatusNav.MDFEnumValue = approveObj
+                                         object.approvalStatusNav = approveStatusNav
+                    var entry = EmployeeTimeSheetEntryModel()
+                    var timeEntry = [EmployeeTimeSheetEntryDataModel]()
+                    let employeeTimeEntry = empData?["employeeTimeSheetEntry"]
+                    if employeeTimeEntry is Dictionary<AnyHashable,Any>{
+                        let empEntry = employeeTimeEntry as? [String: Any]
+                        if empEntry?["EmployeeTimeSheetEntry"] is Array<Any>{
+                            let emmpArr = empEntry?["EmployeeTimeSheetEntry"] as? [[String:Any]]
+                            for item in emmpArr!{
+                                var timeObject = EmployeeTimeSheetEntryDataModel()
+                                timeObject.costCenter = item["costCenter"] as? String
+                                timeObject.startDate = item["startDate"] as? String
+                                timeObject.timeTypeName = item["timeTypeName"] as? String
+                                timeObject.quantityInHours = item["quantityInHours"] as? String
+                                timeObject.quantityInHoursAndMinutes = item["quantityInHoursAndMinutes"] as? String
+                                timeEntry.append(timeObject)
+                            }
+                            entry.EmployeeTimeSheetEntry = timeEntry
+                            object.employeeTimeSheetEntry = entry
+                            self.timeSheetObject.append(object)
+                        }else{
+                            self.timeSheetObject.append(object)
+                        }
+                    }
+                }
+                
 
+                   } catch let myJSONError {
+                       print(myJSONError)
+                   }
+
+                break
+                   // Get success data here
+               }
+           })
+       }
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -180,7 +306,40 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
              let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "WeekSummaryController") as! WeekSummaryController
              self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
-    
+    func manipulateTimeSheetData(date:Date){
+        self.allocationViewModel?.allcationModelData.weekData?.removeAll()
+        let data = self.timeSheetObject.first
+        if data?.employeeTimeSheetEntry?.EmployeeTimeSheetEntry != nil{
+        for item in (data?.employeeTimeSheetEntry?.EmployeeTimeSheetEntry)!{
+            var startDate = Date()
+            let count = item.startDate?.count
+            if count == 23{
+                startDate = (item.startDate?.convertToDate(format: .yearMonthDateTimesec, currentDateStringFormat: .yearMonthDateTimesec))!
+
+            }else if count == 22{
+                startDate = (item.startDate?.convertToDate(format: .yearMonthDateTimese, currentDateStringFormat: .yearMonthDateTimese))!
+
+            }else if count == 19{
+                startDate = (item.startDate?.convertToDate(format: .yearMonthDateTime, currentDateStringFormat: .yearMonthDateTime))!
+
+            }
+            let startStringDate = startDate.toDateFormat(.dayMonthYear)
+            let selecteddate = date.toDateFormat(.dayMonthYear)
+            if selecteddate == startStringDate{
+                var weekSummaryData = WeekSummary()
+                weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as Date?) ?? Date())
+                weekSummaryData.duration = (Int(Double(item.quantityInHours ?? "0.0")!) * 60)
+                weekSummaryData.hours = (item.quantityInHours ?? "") + " " + "Hrs"
+                weekSummaryData.date = startStringDate
+                self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
+            }
+        }
+    }
+        self.allocationViewModel?.allcationModelData.weekData?.append(WeekSummary())
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
 }
 
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
@@ -203,17 +362,19 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             cell.datesWithMultipleEvents = self.holidaycalnder
             cell.calenderView.firstWeekday = UInt(startWeekDay)
             cell.dayChanges(day: startWeekDay)
-            cell.selecedDateValues = { index in
+            cell.selecedDateValues = { index,date in
                 if index < 0{
                     self.plannedHour = self.workSheduledData?[0].workingHours ?? ""
-                  //  DataSingleton.shared.plannedHours = Int(self.workSheduledData?[0].workingHours ?? "")
                 }else{
                     self.plannedHour = self.workSheduledData?[index].workingHours ?? ""
-                   //   DataSingleton.shared.plannedHours = Int(self.workSheduledData?[index].workingHours ?? "")
                 }
+                self.manipulateTimeSheetData(date:date)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+            }
+            cell.clickOption = {
+                self.getEmpTimeSheetAPICall()
             }
             if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
                 var totalMins: Int = 0

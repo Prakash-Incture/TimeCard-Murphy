@@ -29,7 +29,8 @@ class CalenderTableViewCell: UITableViewCell {
     var previousDate:String?
     var today:Date?
     var direction:String?
-    var selecedDateValues : ((Int)->())?
+    var selecedDateValues : ((Int,Date)->())?
+    var clickOption : (()->())?
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var datesWithMultipleEvents:NSArray?{
         didSet{
@@ -83,7 +84,7 @@ class CalenderTableViewCell: UITableViewCell {
     }
     @IBAction func leftButtonAction(_ sender: UIButton) {
         let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-        var currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
+        let currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
         if sender.tag == 0{
             //currentPage = self.calenderView.currentPage.addingTimeInterval(-172800.0)
             sender.tag = 1
@@ -100,8 +101,8 @@ class CalenderTableViewCell: UITableViewCell {
         let min_Date = formatter.string(from: minDate!)
         self.datelabel.text = min_Date + " - " + max_Date
         DataSingleton.shared.dateText = self.datelabel.text
-
         DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
+        self.clickOption?()
     }
     
     @IBAction func rightButtonAction(_ sender: UIButton) {
@@ -125,6 +126,8 @@ class CalenderTableViewCell: UITableViewCell {
         DataSingleton.shared.dateText = self.datelabel.text
 
         DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
+        self.clickOption?()
+
     }
     
     func dayChanges(day: Int) {
@@ -175,15 +178,14 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // Get the filtered data here
-        let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
         
         DataSingleton.shared.selectedDate = date.getUTCFormatDate() as NSDate
         let index = calendar.currentPage.days(from: calendar.selectedDate!)
-        self.selecedDateValues?(index)
+        self.selecedDateValues?(index, date.getUTCFormatDate())
         //Get today's beginning & end
-        DispatchQueue.main.async {
-            self.dateSelected()
-        }
+//        DispatchQueue.main.async {
+//            self.dateSelected()
+//        }
     }
 
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {

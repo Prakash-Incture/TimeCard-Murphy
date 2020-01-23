@@ -25,7 +25,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     var hour:String = ""
     var userData:UserData?
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
-    var balanceHour = ""
+    var balanceHour = " "
     var loadingIndicator: FUILoadingIndicatorView?
     var showLoadingIndicator: Bool? {
         didSet {
@@ -258,7 +258,7 @@ extension AbsencesViewController{
         self.showLoadingIndicator = true
         let dataDict = [
             "userId": UserData().userId ?? "",
-            "timeAccountType":"TA_OffS_Vacation"
+            "timeAccountType":id
         ]
         self.requestMangerTimeOffBalance.fetchEmpTimeBalance(for:dataDict, completion: { [weak self] result in
             guard let self = self else { return }
