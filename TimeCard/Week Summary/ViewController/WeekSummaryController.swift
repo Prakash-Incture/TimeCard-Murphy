@@ -222,6 +222,7 @@ extension WeekSummaryController{
     }
     
     func postTimeSheetData(){
+        self.showLoadingIndicator = true
         let dispatchQueue = DispatchQueue(label: "taskQueue")
                       let myGroup = DispatchGroup()
                       let dispatchSemaphore = DispatchSemaphore(value: 0)
@@ -245,12 +246,10 @@ extension WeekSummaryController{
                   guard let self = self else { return }
                   switch result {
                   case .failure(let message):
-                      self.showLoadingIndicator = false
                     dispatchSemaphore.signal()
                     myGroup.leave()
                   case .success(let value, let message):
                       print(message as Any)
-                      self.showLoadingIndicator = false
                     dispatchSemaphore.signal()
                     myGroup.leave()
                   case .successData( _): break
@@ -274,12 +273,10 @@ extension WeekSummaryController{
                     guard let self = self else { return }
                     switch result {
                     case .failure(let message):
-                        self.showLoadingIndicator = false
                         dispatchSemaphore.signal()
                         myGroup.leave()
                     case .success(let value, let message):
                         print(message as Any)
-                        self.showLoadingIndicator = false
                         dispatchSemaphore.signal()
                         myGroup.leave()
                     case .successData( _): break
@@ -292,6 +289,7 @@ extension WeekSummaryController{
         }
         myGroup.notify(queue: dispatchQueue) {
                     DispatchQueue.main.async {
+                        self.showLoadingIndicator = false
                         self.showAlert(message: "Successful")
                     }
              }

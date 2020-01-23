@@ -85,7 +85,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
                 self.allocationHourPersistence.saveAbsenceHour(absenceModel: self.absenceData, withDate: dateFrom)
             }
         }
-        self.postAbsenceData()
+       // self.postAbsenceData()
        // self.navigationController?.popViewController(animated: true)
     }
 }
