@@ -96,7 +96,9 @@ class WeekSummaryCell: UITableViewCell {
     }
     
     func getTotalMins() -> String {
-        let (hours, min) = Date.minutesToHoursMin(minutes: Int(totalMinWithAbsence))
+        var (hours, min) = Date.minutesToHoursMin(minutes: Int(totalMinWithAbsence))
+        hours = hours<0 ? 0 : hours
+        min = min<0 ? 0 : min
         return String(format: "%02d:%02d", hours, abs(min))
     }
     

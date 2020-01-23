@@ -72,7 +72,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         //        self.postAbsenceData()
         // Static absence duration for 1 day
         let absDuration = DataSingleton.shared.plannedHours
-        self.absenceData.duration = "\(absDuration ?? 0) Hours"
+        self.absenceData.duration = "\((absDuration ?? 0)/60) Hours"
         self.absenceData.durationMin = absDuration
         
         let absenceDates = Date.dates(from: self.absenceData.dateStart ?? Date(), to: self.absenceData.dateEnd ?? Date())

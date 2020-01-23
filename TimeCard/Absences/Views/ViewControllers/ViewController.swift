@@ -222,7 +222,9 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                         totalMins = totalMins-(data.duration ?? 0)
                     }
                 }
-                let (hours, min) = Date.minutesToHoursMin(minutes: totalMins)
+                var (hours, min) = Date.minutesToHoursMin(minutes: totalMins)
+                hours = hours<0 ? 0 : hours
+                min = min<0 ? 0 : min
                 cell.recordedHours.text = String(format: "%02d:%02d", hours, abs(min))
             }
             cell.plannedHourLbl.text = "Planned time \(self.plannedHour) hours"

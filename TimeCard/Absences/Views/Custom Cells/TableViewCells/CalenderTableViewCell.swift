@@ -67,7 +67,6 @@ class CalenderTableViewCell: UITableViewCell {
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to:Date(), options: [])
         let first_Date = gregorianCalendar?.fs_firstDay(ofWeek: nextPage!)
         let last_Date = gregorianCalendar?.fs_lastDay(ofWeek: nextPage!)
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM YYYY"
         let max_Date = formatter.string(from: last_Date!)
