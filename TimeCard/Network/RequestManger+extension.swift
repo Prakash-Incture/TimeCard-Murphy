@@ -13,7 +13,7 @@ extension RequestManager {
     public func fetchlookUpdata(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
         self.getData(ServiceEndpoints.lookUpApicalling(params: userData).getUrlRequest(), completion: completion)
     }
-    public func fetchEmpTimeBalance(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+    public func fetchEmpTimeBalance(for userData:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
         self.getData(ServiceEndpoints.empTimeofBalance(params: userData).getUrlRequest(), completion: completion)
     }
     public func fetchEmpJob(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
@@ -41,7 +41,12 @@ extension RequestManager {
     public func postAbsencesData(for params:[String:Any],idpPayload: GetIDPPayload, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
         self.getData(ServiceEndpoints.postAbsenceData(param: params).getUrlRequest(),completion: completion)
       }
-    
+    public func postTimeOffEntry(for params:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+           self.getData(ServiceEndpoints.postTimeOffEntry(param: params).getUrlRequest(),completion: completion)
+         }
+    public func postTimeSheetEntry(for params:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+           self.getData(ServiceEndpoints.postTimeSheetEntry(param: params).getUrlRequest(),completion: completion)
+         }
     public func fetchAsserionToken(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getAsserionToken(params: params).getUrlRequest(), completion: completion)
     }

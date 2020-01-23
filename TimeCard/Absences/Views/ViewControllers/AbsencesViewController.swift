@@ -16,7 +16,8 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     @IBOutlet weak var tableView: UITableView!
     lazy var getAssertionToken = RequestManager<ApproveListModels>()
     lazy var postAbsenceDataCall = RequestManager<ApproveListModels>()
-    
+    lazy var requestMangerTimeOffBalance = RequestManager<EmpTimeAccountBalance>()
+
     var idpPayload: GetIDPPayload?
     var currentHeaderCells: [CellModelForAbsence] = AbsenceCurrentPage.absenceRecording.getCurrentPageHeaders()
     var allocationDataViewModel:AllocationDataViewModel!
@@ -24,7 +25,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     var hour:String = ""
     var userData:UserData?
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
-    
+    var balanceHour = ""
     var loadingIndicator: FUILoadingIndicatorView?
     var showLoadingIndicator: Bool? {
         didSet {
@@ -47,7 +48,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.loadOfflineStores()
         setupTableViewConfigur()
         self.userData = UserData()
-        callAPIForGettingAssertionToken()
+       // callAPIForGettingAssertionToken()
     }
     func setupTableViewConfigur(){
         
@@ -109,7 +110,7 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
         case .availableBalance:
             cell.accessoryType = .none
             cell.cellTextField.isUserInteractionEnabled = false
-            cell.cellTextField.text = UserDefaults.standard.value(forKey: "Emp_Leave_Balnce") as? String
+            cell.cellTextField.text = self.balanceHour
             break
         case .startDate:
             cell.cellTextField.text =  absenceData.startDate
@@ -169,11 +170,12 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         listVC.sendData = { data in
             self.absenceData.timeType = data.externalName_en_US ?? ""
             self.absenceData.timeTypeId = data.externalCode ?? ""
+            self.empTimeOffBalanceAPICalling(id: self.absenceData.timeTypeId!)
             self.tableView.reloadData()
-            if (self.currentHeaderCells.count ) != 4{
-                self.currentHeaderCells.remove(at: 1)
-                self.tableView.reloadData()
-            }
+//            if (self.currentHeaderCells.count ) != 4{
+//                self.currentHeaderCells.remove(at: 1)
+//                self.tableView.reloadData()
+//            }
         }
         self.navigationController?.pushViewController(listVC, animated: true)
         self.view.endEditing(true)
@@ -251,7 +253,30 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
     
 }
 extension AbsencesViewController{
-    
+    func empTimeOffBalanceAPICalling(id:String){
+        self.showLoadingIndicator = true
+        let dataDict = [
+            "userId": UserData().userId ?? "",
+            "timeAccountType":"TA_OffS_Vacation"
+        ]
+        self.requestMangerTimeOffBalance.fetchEmpTimeBalance(for:dataDict, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.balanceHour = ((value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.balance ?? "") + " " + (value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.timeUnit ?? ""))
+                self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .successData(_): break
+                // Get success data here
+            }
+        })
+    }
+
     func callAPIForGettingAssertionToken() {
         self.showLoadingIndicator = true
         
