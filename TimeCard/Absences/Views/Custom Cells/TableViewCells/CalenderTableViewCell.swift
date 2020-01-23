@@ -157,7 +157,7 @@ class CalenderTableViewCell: UITableViewCell {
            //
         }
     }
-    
+    // Fetch offline data
     func dateSelected() {
         
         let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()

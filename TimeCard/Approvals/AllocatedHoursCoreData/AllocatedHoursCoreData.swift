@@ -58,6 +58,31 @@ class AllocationHoursCoreData: CoreDataProtocol{
         }
     }
     
+    // Remove offline object using unique id
+    func removePreviousDataWithUniqueId(fetchRequest: NSFetchRequest<NSFetchRequestResult>, predicate: NSPredicate?, uniqueId: Double) {
+        fetchRequest.predicate = predicate
+        
+        if let result = try? self.viewContext.fetch(fetchRequest) as? [AllocationOfflineData], !result.isEmpty {
+            for object in result {
+                
+                guard let dataObj = object.allocationModel else {return}
+                if object.key == "Allocation"{
+                    let allocationObj = self.unarchive(allocationData: dataObj)
+                    if allocationObj.uniqueId == uniqueId{
+                        self.removeOldData(object: object as NSManagedObject)
+                        return
+                    }
+                }else{
+                    let allocationObj = self.unarchiveAbsence(absenceData: dataObj)
+                    if allocationObj.uniqueId == uniqueId{
+                        self.removeOldData(object: object as NSManagedObject)
+                        return
+                    }
+                }
+            }
+        }
+    }
+    
     func fetchAllFrequesntSeraches(with predicate: NSPredicate) -> [NSManagedObject] {
         return get(withPredicate: predicate, entity: "AllocationOfflineData")
     }

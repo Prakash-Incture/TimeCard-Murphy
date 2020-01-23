@@ -14,4 +14,6 @@ struct Absence:Codable{
     var duration: String?
     var durationMin: Int?
     var isAbsence: Bool?
+    var uniqueId: Double?
+    
 }

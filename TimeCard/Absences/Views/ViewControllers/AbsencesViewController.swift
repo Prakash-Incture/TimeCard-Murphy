@@ -82,11 +82,12 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
             
             //        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)
             DispatchQueue.main.async {
+                self.absenceData.uniqueId = Date().timeIntervalSince1970 // Adding unique id
                 self.allocationHourPersistence.saveAbsenceHour(absenceModel: self.absenceData, withDate: dateFrom)
             }
         }
        // self.postAbsenceData()
-       // self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
@@ -125,7 +126,7 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
             cell.cellTextField.resignFirstResponder()
             break
         case .requesting:
-            cell.cellTextField.text =  absenceData.requesting ?? "0 Hours"
+            cell.cellTextField.text = absenceData.requesting ?? "0 Hours"
             cell.cellTextField.isUserInteractionEnabled = false
             self.seytPickerViews(textField:cell.cellTextField)
             break
