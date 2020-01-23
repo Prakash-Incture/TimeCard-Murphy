@@ -115,6 +115,30 @@ class CalenderTableViewCell: UITableViewCell {
         DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
     
+    func dayChanges(day: Int) {
+        // Default date factor is one. If changes in from day, we can manipulate the start and end date
+        if day != 1 {
+            let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
+
+//            let currentPage = calenderView.currentPage
+//            let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to: currentPage, options: [])
+//            calenderView.setCurrentPage(nextPage!, animated: true)
+
+            let minDate = (gregorianCalendar?.fs_firstDay(ofWeek: self.calenderView.currentPage))!
+            let maxDate = gregorianCalendar?.fs_lastDay(ofWeek: self.calenderView.currentPage)
+            let mNDate = gregorianCalendar?.date(byAdding: NSCalendar.Unit.day, value: day-8, to: minDate, options: [])
+            let mXDate = gregorianCalendar?.date(byAdding: NSCalendar.Unit.day, value: day-8, to: maxDate!, options: [])
+
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMM YYYY"
+            let max_Date = formatter.string(from: mXDate! )
+            let min_Date = formatter.string(from: mNDate! )
+
+            self.datelabel.text = min_Date + " - " + max_Date
+            DataSingleton.shared.selectedWeekDates = [(mNDate ?? Date()), mXDate ?? Date()]
+        }
+    }
+    
     func dateSelected() {
         
         let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
@@ -129,29 +153,7 @@ class CalenderTableViewCell: UITableViewCell {
         }
     }
     
-    func dayChanges(day: Int) {
-        // Default date factor is one. If changes in from day, we can manipulate the start and end date
-        if day != 1 {
-            let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
 
-            let currentPage = calenderView.currentPage
-            let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to: currentPage, options: [])
-            calenderView.setCurrentPage(nextPage!, animated: true)
-
-            let minDate = (gregorianCalendar?.fs_firstDay(ofWeek: nextPage!))!
-            let maxDate = gregorianCalendar?.fs_lastDay(ofWeek: nextPage!)
-            let mNDate = gregorianCalendar?.date(byAdding: NSCalendar.Unit.day, value: day-8, to: minDate, options: [])
-            let mXDate = gregorianCalendar?.date(byAdding: NSCalendar.Unit.day, value: day-8, to: maxDate!, options: [])
-
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd MMM YYYY"
-            let max_Date = formatter.string(from: mXDate! )
-            let min_Date = formatter.string(from: mNDate! )
-
-            self.datelabel.text = min_Date + " - " + max_Date
-            DataSingleton.shared.selectedWeekDates = [(mNDate ?? Date()), mXDate ?? Date()]
-        }
-    }
 }
 extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     
@@ -170,7 +172,16 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     }
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        
+//        let startDate: Date
+//        let endDate: Date?
+//        if self.calenderView.scope == .week {
+//            startDate = self.calenderView.currentPage
+//            endDate = self.calenderView.gregorian.date(byAdding: .day, value: 6, to: startDate)
+//        } else { // .month
+//            let indexPath = self.calenderView.calculator.indexPath(for: self.calenderView.currentPage, scope: .month)
+//            startDate = self.calenderView.calculator.monthHead(forSection: (indexPath?.section)!)!
+//            endDate = self.calenderView.gregorian.date(byAdding: .day, value: 41, to: startDate)
+//        }
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
