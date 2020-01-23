@@ -20,8 +20,8 @@ struct LinkingUrl {
     static var employeeTimeSheet = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/EMP_Time_Sheet"
     static var employeeTimeOff = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Employee_Time_Off"
     static var holidayCalender = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Holiday_Calender"
-    
-    
+    static var External_Time_Record_Entry = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/External_Time_Record_Entry"
+    static var Time_Off_Entry = "https://l5470-iflmap.hcisbp.us2.hana.ondemand.com/http/Employee_Time"
     
     static var idpUrl = "https://apisalesdemo4.successfactors.com/oauth/idp"
     static var accessTokenUrl = "https://apisalesdemo4.successfactors.com/oauth/token"
@@ -39,7 +39,7 @@ struct LinkingUrl {
 
 enum ServiceEndpoints {
     case lookUpApicalling(params:UserData)
-    case empTimeofBalance(params:UserData)
+    case empTimeofBalance(params:[String:Any])
     case empJob(params:UserData)
     case holidayCalender(paramas:UserData)
     case getAsserionToken(params: String) // POST
@@ -59,15 +59,16 @@ enum ServiceEndpoints {
     case getApprovalTimeOffDetail(parm:String)
     case postApproveRequest(id:String)
     case postApprovereject(id:String)
-    
+    case postTimeSheetEntry(param:[String:Any])
+    case postTimeOffEntry(param:[String:Any])
     func getUrlRequest() -> URLRequest {
         switch self {
         case .lookUpApicalling(let userData):
             let urlString = LinkingUrl.lookUpApi
             return self.urlRequest(for: urlString, method: "POST", body:userData)
-        case .empTimeofBalance(let userData):
+        case .empTimeofBalance(let parm):
             let urlString = LinkingUrl.empTimeOffBalance
-            return self.urlRequest(for: urlString, method: "POST", body:userData)
+            return self.urlRequestWithBodyandBasicOauth(for: urlString, method: "POST", body: parm, addHeader: true)
         case .empJob(let userData):
             let urlString = LinkingUrl.empJob
             return self.urlRequest(for: urlString, method: "POST", body:userData)
@@ -125,6 +126,12 @@ enum ServiceEndpoints {
         case .getEmpTimeOffData(let param):
               let urlString = LinkingUrl.employeeTimeOff
               return self.urlRequestWithBodyandBasicOauth(for: urlString, method: "POST", body: param, addHeader: true)
+        case .postTimeSheetEntry(let param):
+                let urlString = LinkingUrl.External_Time_Record_Entry
+                      return self.urlRequestWithBodyandBasicOauth(for: urlString, method: "POST", body: param, addHeader: true)
+        case .postTimeOffEntry(let param):
+                let urlString = LinkingUrl.Time_Off_Entry
+            return self.urlRequestWithBodyandBasicOauth(for: urlString, method: "POST", body: param, addHeader: true)
         }
       }
     

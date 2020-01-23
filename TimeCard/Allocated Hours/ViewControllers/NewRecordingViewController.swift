@@ -82,7 +82,6 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     private func setupViewModel() {
         self.allocationDataViewModel = AllocationDataViewModel(delegate: self)
         self.allocationDataViewModel?.dataFetching()
-        self.allocationDataViewModel.empTimeOffBalanceAPICalling()
         if self.allocationDataViewModel.allcationModelData.absence == nil{
             self.allocationDataViewModel.allcationModelData.absence = []
             self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
@@ -123,7 +122,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
                 }
-                self.postTimeSheetDataAPICall()
+               // self.postTimeSheetDataAPICall()
             }else{
                 //TODO:
                 // Show error message

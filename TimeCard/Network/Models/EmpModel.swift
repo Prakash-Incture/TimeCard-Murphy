@@ -15,7 +15,7 @@ struct EmpTimeAccountBalance:Codable {
     }
 }
 struct EmployTimeAccountBalanceData:Codable {
-    let EmpTimeAccountBalance : [EmpDataModel]?
+    let EmpTimeAccountBalance : EmpDataModel?
     enum CodingKeys: String, CodingKey {
         case EmpTimeAccountBalance = "EmpTimeAccountBalance"
     }

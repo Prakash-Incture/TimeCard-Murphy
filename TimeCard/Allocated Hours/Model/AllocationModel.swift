@@ -29,6 +29,9 @@ struct WeekSummary:Codable {
     var duration: Int?
     var selectedDate: Date?
     var isAbsence: Bool?
+    var startDate,endDate:String?
+    var timeTypeId,costCenterId,durationValueInHours: String?
+    
 }
 struct UserData: Encodable {
     var userId:String?
@@ -85,7 +88,7 @@ struct EmployeeTimeSheetModel:Codable {
     var EmployeeTimeSheet : EmployeeTimeSheetDetailModel?
 }
 struct EmployeeTimeSheetDetailModel:Codable {
-    var EmployeeTimeSheet : [EmployeeTimeSheetDetailDataModel]?
+    var EmployeeTimeSheet : EmployeeTimeSheetDetailDataModel?
 }
 struct EmployeeTimeSheetDetailDataModel:Codable {
     var period : String?

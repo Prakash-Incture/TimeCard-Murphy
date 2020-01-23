@@ -37,6 +37,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
         
     }
     override func selectedAction(sender: UIButton) {
+
         self.onTapofAction(sender: sender)
     }
     override func selectedBack(sender: UIButton) {
@@ -45,6 +46,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.allocationViewModel?.fetchWeekData()
+
         self.setUpNavigation()
     }
     func setUpNavigation(){
@@ -134,7 +136,8 @@ extension WeekSummaryController{
 
           })
           let submit = UIAlertAction(title: "Submit", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.navigationController?.popViewController(animated: true)
+                    self.postTimeSheetData()
+
           })
           
           cancel.setValue(UIColor.red, forKey: "titleTextColor")
@@ -176,9 +179,10 @@ extension WeekSummaryController{
                case .failure(let message):
                    self.showLoadingIndicator = false
                 self.getEmpTimeOffSheetAPICall()
-               case .success(_, let message):
+               case .success(let value, let message):
                    print(message as Any)
                    self.showLoadingIndicator = false
+                  // self.mainupulateData(value: value)
                    self.getEmpTimeOffSheetAPICall()
                case .successData( _): break
                    // Get success data here
@@ -207,5 +211,73 @@ extension WeekSummaryController{
                }
            })
        }
-
+    func mainupulateData(value:EmployeeTimeSheetModel?){
+        self.allocationViewModel?.allcationModelData.weekData?.removeAll()
+        var data = WeekSummary()
+        data.isAbsence = false
+        data.day = ""
+        data.date = ""
+        data.hours = ""
+        self.allocationViewModel?.allcationModelData.weekData?.append(data)
+    }
+    
+    func postTimeSheetData(){
+        
+        for item in (self.allocationViewModel?.allcationModelData.weekData) ?? [WeekSummary](){
+            if item.isAbsence == false{
+            let externalCode = Int.random(in: 0...100000000)
+            let startdate = item.date?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+              let externalTimeDict : [String: Any] = [
+                      "externalCode": "\(externalCode)",
+                      "hours": item.durationValueInHours ?? "",
+                      "costCenter": item.costCenterId ?? "",
+                      "timeType": item.timeTypeId ?? "",
+                      "userId": UserData().userId ?? "",
+                      "startDate": startdate?.toDateFormat(.yearMonthDateTime) ?? ""
+            
+              ]
+              let dataDict : [String : Any] = ["ExternalTimeData": externalTimeDict]
+              self.empTimeOffSheetAPi.postTimeSheetEntry(for: dataDict, completion: { [weak self] result in
+                  guard let self = self else { return }
+                  switch result {
+                  case .failure(let message):
+                      self.showLoadingIndicator = false
+                  case .success(let value, let message):
+                      print(message as Any)
+                      self.showLoadingIndicator = false
+                  case .successData( _): break
+                      // Get success data here
+                  }
+              })
+        }else{
+                let startdate = item.startDate?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+                 let endDate = item.endDate?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+                let externalCode = Int.random(in: 0...100000000)
+            let employeeDataDict : [String:Any] = [
+                         "startDate": startdate?.toDateFormat(.yearMonthDateTime) ?? "",
+                         "endDate": endDate?.toDateFormat(.yearMonthDateTime) ?? "",
+                         "externalCode": "\(externalCode)",
+                         "fractionQuantity": item.hours ?? "",
+                         "userId": UserData().userId ?? "",
+                         "timeType": item.timeTypeId ?? ""
+                    ]
+                let dataDict : [String : Any] = ["EmployeeTime":employeeDataDict]
+                self.empTimeOffSheetAPi.postTimeOffEntry(for: dataDict, completion: { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .failure(let message):
+                        self.showLoadingIndicator = false
+                    case .success(let value, let message):
+                        print(message as Any)
+                        self.showLoadingIndicator = false
+                    case .successData( _): break
+                        // Get success data here
+                    }
+                })
+        }
+        }
+    }
+    func postAbsenceData(){
+    
+    }
 }
