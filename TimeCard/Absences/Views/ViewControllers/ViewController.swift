@@ -82,12 +82,10 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     }
 
     func empJobAPICalling(){
-        self.showLoadingIndicator = true
         self.empTimeAPi.fetchEmpJob(for:userData ?? UserData(), completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let message):
-                self.showLoadingIndicator = false
                 self.getEmpWorkScheduleAPICall()
             case .success(let value, let message):
                 print(message as Any)
@@ -110,7 +108,6 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                 }else{
                      self.startWeekDay = 5
                 }
-                self.showLoadingIndicator = false
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -121,12 +118,10 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         })
     }
     func getEmpWorkScheduleAPICall(){
-         self.showLoadingIndicator = true
          self.workScheduleAPI.fetchEmpWorkSchedule(for:userData ?? UserData(), completion: { [weak self] result in
              guard let self = self else { return }
              switch result {
              case .failure(_):
-                 self.showLoadingIndicator = false
                  DispatchQueue.main.async {
                      self.tableView.reloadData()
                  }
@@ -134,7 +129,6 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
 
              case .success(let value, let message):
                  print(message as Any)
-                 self.showLoadingIndicator = false
                  self.workSheduledData = value?.WorkScheduleDay?.WorkScheduleDay
                  self.plannedHour = value?.WorkScheduleDay?.WorkScheduleDay?.first?.workingHours ?? ""
                  DispatchQueue.main.async {
@@ -147,18 +141,15 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
          })
      }
     func holidayCalenderApicalling(){
-        self.showLoadingIndicator = true
+        SDGEProgressView.startLoader("")
         self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure( _):
-                self.showLoadingIndicator = false
                 self.empJobAPICalling()
-
                 break
             case .success(let value, let message):
                 print(message as Any)
-                self.showLoadingIndicator = false
                 self.holidaycalnder = value?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date?.replacingOccurrences(of: "T00:00:00.000", with: "")}) as NSArray? ?? []
            
                 self.empJobAPICalling()
@@ -169,7 +160,10 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         })
     }
     func getEmpTimeSheetAPICall(){
-           self.showLoadingIndicator = true
+        DispatchQueue.main.async {
+        SDGEProgressView.startLoader("")
+        }
+        
         let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
         let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
         let dataDict = [
@@ -181,16 +175,14 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                guard let self = self else { return }
                switch result {
                case .failure(let message):
-                   self.showLoadingIndicator = false
                 DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
                     self.tableView.reloadData()
                 }
                case .success(let value, let message):
                    print(message as Any)
-                   self.showLoadingIndicator = false
                   // self.mainupulateData(value: value)
                case .successData(let value):
-                self.showLoadingIndicator = false
                do {
                 self.timeSheetObject.removeAll()
                 let jsonObject = try JSONSerialization.jsonObject(with: value, options: .allowFragments)
@@ -282,7 +274,10 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                    } catch let myJSONError {
                        print(myJSONError)
                    }
-
+               DispatchQueue.main.async {
+                 SDGEProgressView.stopLoader()
+               }
+              
                 break
                    // Get success data here
                }
@@ -448,6 +443,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
 }
 extension ViewController:GenericViewModelProtocol{
+    
    
     func failedWithReason(message: String) {
        // self.showAlert(message: message)

@@ -186,18 +186,11 @@ extension WeekSummaryController{
                }
            })
        }
-    func mainupulateData(value:EmployeeTimeSheetModel?){
-        self.allocationViewModel?.allcationModelData.weekData?.removeAll()
-        var data = WeekSummary()
-        data.isAbsence = false
-        data.day = ""
-        data.date = ""
-        data.hours = ""
-        self.allocationViewModel?.allcationModelData.weekData?.append(data)
-    }
     
     func postTimeSheetData(){
-        self.showLoadingIndicator = true
+        DispatchQueue.main.async {
+            SDGEProgressView.startLoader("")
+        }
         let dispatchQueue = DispatchQueue(label: "taskQueue")
                       let myGroup = DispatchGroup()
                       let dispatchSemaphore = DispatchSemaphore(value: 0)
@@ -264,13 +257,10 @@ extension WeekSummaryController{
         }
         myGroup.notify(queue: dispatchQueue) {
                     DispatchQueue.main.async {
-                        self.showLoadingIndicator = false
+                            SDGEProgressView.stopLoader()
                         self.showAlert(message: "Successful")
                     }
              }
 
-    }
-    func postAbsenceData(){
-    
     }
 }
