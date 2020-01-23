@@ -44,15 +44,15 @@ class WeekSummaryCell: UITableViewCell {
             switch type {
             case .total:
                 self.titleText.font = self.titleText.font.withSize(20)
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getTotalMins() , secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getTotalMins() , secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
                 self.labelData.font = self.titleText.font.withSize(20)
                 
             case .paidAbsences:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getPaidAbsenceMins(), secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getPaidAbsenceMins(), secondString: " Hrs", firstColor: .red, secondColor: .red)
             case .ot:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getOTMins(), secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getOTMins(), secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .regularTime:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getRegularTime(), secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getRegularTime(), secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .status:
                 self.labelData.text = "To be Submitted"
                 self.labelData.textColor = UIColor.lightGray
@@ -97,9 +97,7 @@ class WeekSummaryCell: UITableViewCell {
     }
     
     func getTotalMins() -> String {
-        var (hours, min) = Date.minutesToHoursMin(minutes: Int(totalMinWithAbsence))
-        hours = hours<0 ? 0 : hours
-        min = min<0 ? 0 : min
+        let (hours, min) = Date.minutesToHoursMin(minutes: Int(totalMinsWorked))
         return String(format: "%02d:%02d", hours, abs(min))
     }
     

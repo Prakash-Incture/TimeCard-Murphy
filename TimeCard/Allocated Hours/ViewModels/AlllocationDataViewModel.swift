@@ -100,7 +100,11 @@ class AllocationDataViewModel{
             hours: value.duration,
             duration: value.durationMin,
             selectedDate: value.selectedDate,
-            isAbsence: false,timeTypeId:value.timeTypeId, costCenterId: value.costCenterId,durationValueInHours: value.durationValueInHours
+            isAbsence: false,
+            timeTypeId:value.timeTypeId,
+            costCenterId: value.costCenterId,
+            durationValueInHours: value.durationValueInHours,
+            uniqueId: value.uniqueId
             )
         return weekValues
     }
@@ -112,7 +116,12 @@ class AllocationDataViewModel{
             hours: value.duration,
             duration: value.durationMin,
             selectedDate: selectedDate,
-            isAbsence: true,startDate: value.startDate,endDate: value.endDate,timeTypeId: value.timeTypeId)
+            isAbsence: true,
+            startDate: value.startDate,
+            endDate: value.endDate,
+            timeTypeId: value.timeTypeId,
+            uniqueId: value.uniqueId
+        )
         return weekValues
     }
     
@@ -128,7 +137,7 @@ class AllocationDataViewModel{
         }
         
         let dateFrom = (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate()
-        
+        // Fetch offline data
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
             self.allcationModelData.weekData?.removeAll()
             for model in getResult{
@@ -153,7 +162,7 @@ class AllocationDataViewModel{
         
         let dateFrom = (DataSingleton.shared.selectedWeekDates?.first as Date? ?? Date()).getUTCFormatDate() // eg. 2016-10-10 00:00:00
         let dateTo = (DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date()).getUTCFormatDate()
-        
+        //Fetch offline data
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date >= %@ AND date <= %@", dateFrom as NSDate, dateTo as NSDate)) as? [AllocationOfflineData]{
             for model in getResult{
                 if model.key == "Allocation"{

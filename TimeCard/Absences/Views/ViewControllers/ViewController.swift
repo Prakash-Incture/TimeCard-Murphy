@@ -244,7 +244,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "WeekSummaryCell", for: indexPath) as! WeekSummaryCell
                 let tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
                 cell.titleText.text = "\(tempVal?.day ?? "")\n\(tempVal?.date ?? "")"
-                cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: cell.titleText.textColor, secondColor: UIColor.lightGray)
+                let highlightColor: UIColor = tempVal?.isAbsence ?? false ? .red : .lightGray
+                cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: highlightColor, secondColor: highlightColor)
                 cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .none
                 return cell
@@ -260,12 +261,30 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         }
         return 379
     }
-//    func loadTableView(date:Date){
-//        self.allocationViewModel = AllocationDataViewModel(delegate: self)
-//        self.allocationViewModel?.addingWeekData(weekDays:)
-//        self.tableView.reloadData()
-//    }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let cell = tableView.cellForRow(at: indexPath)
+        if (indexPath.section == 1) && (cell?.reuseIdentifier != "HomeTableViewCell"){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            // Delete object from local array
+            
+            let dataObj = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
+            let predicate = NSPredicate(format: "date == %@", (dataObj?.selectedDate as NSDate?)!)
+            
+            // Delete request for offline object
+            self.allocationHourPersistence.removePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: (dataObj?.uniqueId)!)
+            self.allocationViewModel?.allcationModelData.weekData?.remove(at: indexPath.row)
+            self.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        }
+    }
 }
 extension ViewController:GenericViewModelProtocol{
    

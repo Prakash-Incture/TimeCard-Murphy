@@ -114,7 +114,8 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
   
                 let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
                 if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
-                    for allocationObj in newHours {
+                    for var allocationObj in newHours {
+                        allocationObj.uniqueId = Date().timeIntervalSince1970 // Adding unique id
                         allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
                     }
                 }
@@ -131,7 +132,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
         }
         
     }
-
+// Fetch offline data
     func getAbsenceOfflineData() {
         
         let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
