@@ -222,8 +222,12 @@ extension WeekSummaryController{
     }
     
     func postTimeSheetData(){
-        
+        let dispatchQueue = DispatchQueue(label: "taskQueue")
+                      let myGroup = DispatchGroup()
+                      let dispatchSemaphore = DispatchSemaphore(value: 0)
+               dispatchQueue.async {
         for item in (self.allocationViewModel?.allcationModelData.weekData) ?? [WeekSummary](){
+            myGroup.enter()
             if item.isAbsence == false{
             let externalCode = Int.random(in: 0...100000000)
             let startdate = item.date?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
@@ -242,9 +246,13 @@ extension WeekSummaryController{
                   switch result {
                   case .failure(let message):
                       self.showLoadingIndicator = false
+                    dispatchSemaphore.signal()
+                    myGroup.leave()
                   case .success(let value, let message):
                       print(message as Any)
                       self.showLoadingIndicator = false
+                    dispatchSemaphore.signal()
+                    myGroup.leave()
                   case .successData( _): break
                       // Get success data here
                   }
@@ -267,15 +275,27 @@ extension WeekSummaryController{
                     switch result {
                     case .failure(let message):
                         self.showLoadingIndicator = false
+                        dispatchSemaphore.signal()
+                        myGroup.leave()
                     case .success(let value, let message):
                         print(message as Any)
                         self.showLoadingIndicator = false
+                        dispatchSemaphore.signal()
+                        myGroup.leave()
                     case .successData( _): break
                         // Get success data here
                     }
                 })
         }
+            dispatchSemaphore.wait()
         }
+        }
+        myGroup.notify(queue: dispatchQueue) {
+                    DispatchQueue.main.async {
+                        self.showAlert(message: "Successful")
+                    }
+             }
+
     }
     func postAbsenceData(){
     
