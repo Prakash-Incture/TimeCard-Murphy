@@ -149,8 +149,9 @@ class CalenderTableViewCell: UITableViewCell {
             self.datelabel.text = min_Date + " - " + max_Date
             if tagVal == 0{
             DataSingleton.shared.dateText = self.datelabel.text
-            }
             DataSingleton.shared.selectedWeekDates = [(mNDate ?? Date()), mXDate ?? Date()]
+            }
+           //
         }
     }
     

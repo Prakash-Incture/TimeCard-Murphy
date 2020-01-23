@@ -30,6 +30,18 @@
 		5E53911323D0395000E5EE09 /* ApproveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */; };
 		5E53911523D0399200E5EE09 /* ApproveModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911423D0399200E5EE09 /* ApproveModels.swift */; };
 		5E53911A23D03DD500E5EE09 /* AbsenceObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E53911923D03DD500E5EE09 /* AbsenceObjectModel.swift */; };
+		5E73747B23D97B260056D278 /* SAPCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747523D97B260056D278 /* SAPCommon.framework */; };
+		5E73747C23D97B260056D278 /* SAPCommon.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747523D97B260056D278 /* SAPCommon.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5E73747D23D97B260056D278 /* SAPFiori.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747623D97B260056D278 /* SAPFiori.framework */; };
+		5E73747E23D97B260056D278 /* SAPFiori.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747623D97B260056D278 /* SAPFiori.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5E73747F23D97B260056D278 /* SAPOData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747723D97B260056D278 /* SAPOData.framework */; };
+		5E73748023D97B260056D278 /* SAPOData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747723D97B260056D278 /* SAPOData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5E73748123D97B260056D278 /* SAPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747823D97B260056D278 /* SAPFoundation.framework */; };
+		5E73748223D97B260056D278 /* SAPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747823D97B260056D278 /* SAPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5E73748323D97B260056D278 /* SAPFioriFlows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747923D97B260056D278 /* SAPFioriFlows.framework */; };
+		5E73748423D97B260056D278 /* SAPFioriFlows.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747923D97B260056D278 /* SAPFioriFlows.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5E73748523D97B260056D278 /* SAPOfflineOData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747A23D97B260056D278 /* SAPOfflineOData.framework */; };
+		5E73748623D97B260056D278 /* SAPOfflineOData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747A23D97B260056D278 /* SAPOfflineOData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
@@ -105,7 +117,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5E73748223D97B260056D278 /* SAPFoundation.framework in Embed Frameworks */,
+				5E73748423D97B260056D278 /* SAPFioriFlows.framework in Embed Frameworks */,
+				5E73747C23D97B260056D278 /* SAPCommon.framework in Embed Frameworks */,
+				5E73747E23D97B260056D278 /* SAPFiori.framework in Embed Frameworks */,
+				5E73748623D97B260056D278 /* SAPOfflineOData.framework in Embed Frameworks */,
 				CDA0905923C739A700FE3E8E /* Pods_TimeCard.framework in Embed Frameworks */,
+				5E73748023D97B260056D278 /* SAPOData.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +167,12 @@
 		5E53911223D0395000E5EE09 /* ApproveListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApproveListViewModel.swift; sourceTree = "<group>"; };
 		5E53911423D0399200E5EE09 /* ApproveModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApproveModels.swift; sourceTree = "<group>"; };
 		5E53911923D03DD500E5EE09 /* AbsenceObjectModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsenceObjectModel.swift; sourceTree = "<group>"; };
+		5E73747523D97B260056D278 /* SAPCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPCommon.framework; path = "../TimeCard 2/SAPCommon.framework"; sourceTree = "<group>"; };
+		5E73747623D97B260056D278 /* SAPFiori.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPFiori.framework; path = "../TimeCard 2/SAPFiori.framework"; sourceTree = "<group>"; };
+		5E73747723D97B260056D278 /* SAPOData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPOData.framework; path = "../TimeCard 2/SAPOData.framework"; sourceTree = "<group>"; };
+		5E73747823D97B260056D278 /* SAPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPFoundation.framework; path = "../TimeCard 2/SAPFoundation.framework"; sourceTree = "<group>"; };
+		5E73747923D97B260056D278 /* SAPFioriFlows.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPFioriFlows.framework; path = "../TimeCard 2/SAPFioriFlows.framework"; sourceTree = "<group>"; };
+		5E73747A23D97B260056D278 /* SAPOfflineOData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPOfflineOData.framework; path = "../TimeCard 2/SAPOfflineOData.framework"; sourceTree = "<group>"; };
 		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
 		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceViewModel.swift; sourceTree = "<group>"; };
@@ -211,7 +235,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E73748123D97B260056D278 /* SAPFoundation.framework in Frameworks */,
+				5E73748323D97B260056D278 /* SAPFioriFlows.framework in Frameworks */,
+				5E73747B23D97B260056D278 /* SAPCommon.framework in Frameworks */,
+				5E73747D23D97B260056D278 /* SAPFiori.framework in Frameworks */,
+				5E73748523D97B260056D278 /* SAPOfflineOData.framework in Frameworks */,
 				CDA0905823C739A700FE3E8E /* Pods_TimeCard.framework in Frameworks */,
+				5E73747F23D97B260056D278 /* SAPOData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +488,12 @@
 		C332979DA907B34F96A7EBA6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E73747523D97B260056D278 /* SAPCommon.framework */,
+				5E73747623D97B260056D278 /* SAPFiori.framework */,
+				5E73747923D97B260056D278 /* SAPFioriFlows.framework */,
+				5E73747823D97B260056D278 /* SAPFoundation.framework */,
+				5E73747723D97B260056D278 /* SAPOData.framework */,
+				5E73747A23D97B260056D278 /* SAPOfflineOData.framework */,
 				3C0114855B62D5634D30C3A2 /* Pods_TimeCard.framework */,
 				2087EE7154680A97D7830ABB /* Pods_TimeCard_TimeCardUITests.framework */,
 				0F2140EF55EF4888FCEB2FDF /* Pods_TimeCardTests.framework */,
@@ -1133,6 +1169,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
 				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1158,6 +1200,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
 				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1327,6 +1375,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
+					"$(PROJECT_DIR)\\ 2",
 				);
 				INFOPLIST_FILE = TimeCard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
