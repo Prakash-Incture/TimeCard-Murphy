@@ -230,6 +230,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.recordedHours.text = String(format: "%02d:%02d", hours, abs(min))
             }
             cell.plannedHourLbl.text = "Planned time \(self.plannedHour) hours"
+            cell.datelabel.text = DataSingleton.shared.dateText
            // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
             return cell
         }else{

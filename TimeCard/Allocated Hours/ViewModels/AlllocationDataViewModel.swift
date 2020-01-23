@@ -141,6 +141,7 @@ class AllocationDataViewModel{
                 }
                 self.delegate?.didReceiveResponse()
             }
+            self.allcationModelData.weekData?.append(WeekSummary())
         }
     }
     

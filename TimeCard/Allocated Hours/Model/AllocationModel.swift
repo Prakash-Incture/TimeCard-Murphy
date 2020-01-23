@@ -82,6 +82,7 @@ class DataSingleton:NSObject{
     var totalHours:String?
     var plannedHours: Int? = 13*60
     var workingDayPerWeek: Int? = 5
+    var dateText:String?
 }
 
 struct EmployeeTimeSheetModel:Codable {
