@@ -124,7 +124,17 @@ struct Results3 : Codable {
     let subjectId : String?
     let url : String?
     var wfRequestUINav : WfRequestUINav?
-
+    var workflowAllowedActionListNav : workflowAllowedActionListNav?
+    var peroid : String?
+    var WorkingTimeAccount : String?
+    var planned_Recorded : String?
+    var planned : String?
+    var timeType : String?
+    var approvalStatus : String?
+    var isSelected : Bool?
+    let wfRequestId : String?
+    var createdOn : String?
+    var categoryLabel : String?
     enum CodingKeys: String, CodingKey {
 
         case completedDate = "completedDate"
@@ -135,6 +145,17 @@ struct Results3 : Codable {
         case subjectId = "subjectId"
         case url = "url"
         case wfRequestUINav = "wfRequestUINav"
+        case timeType = "timeType"
+        case peroid = "peroid"
+        case planned = "planned"
+        case approvalStatus = "approvalStatus"
+        case isSelected = "isSelected"
+        case createdOn = "createdOn"
+        case wfRequestId = "wfRequestId"
+        case categoryLabel = "categoryLabel"
+        case WorkingTimeAccount = "WorkingTimeAccount"
+        case planned_Recorded = "planned_Recorded"
+        case workflowAllowedActionListNav = "workflowAllowedActionListNav"
     }
 }
 
@@ -145,6 +166,20 @@ struct Todos : Codable {
 
         case results2 = "results"
     }
+}
+struct workflowAllowedActionListNav:Codable {
+     let results : [workflowAllowedActionListNavModel]?
+       enum CodingKeys: String, CodingKey {
+           case results = "results"
+       }
+}
+struct workflowAllowedActionListNavModel:Codable {
+     let allowReject : Bool?
+    let allowApprove : Bool?
+       enum CodingKeys: String, CodingKey {
+           case allowReject = "allowReject"
+        case allowApprove = "allowApprove"
+       }
 }
 struct WfRequestUINav : Codable {
     let wfRequestId : String?
@@ -164,6 +199,8 @@ struct WfRequestUINav : Codable {
     let subjectUserName : String?
     let actionType : String?
     let changedData : String?
+    var objectType : String?
+    var approverChangedData : [ApproverChangedData]?
     enum CodingKeys: String, CodingKey {
         case wfRequestId = "wfRequestId"
         case businessUnit = "businessUnit"
@@ -182,6 +219,8 @@ struct WfRequestUINav : Codable {
         case subjectUserName = "subjectUserName"
         case actionType = "actionType"
         case changedData = "changedData"
+        case objectType = "objectType"
+        case approverChangedData = "approverChangedData"
     }
 }
 
@@ -196,6 +235,7 @@ struct TimeSheetRequestDetailModelData:Codable {
      let lastModifiedDateTime : String?
      let lastModifiedBy : String?
     let wfRequestUINav : WfRequestUINav?
+    let workflowAllowedActionListNav : workflowAllowedActionListNav?
     let status : String?
        enum CodingKeys: String, CodingKey {
            case wfRequestId = "wfRequestId"
@@ -203,5 +243,110 @@ struct TimeSheetRequestDetailModelData:Codable {
            case lastModifiedBy = "lastModifiedBy"
            case wfRequestUINav = "wfRequestUINav"
            case status = "status"
+            case workflowAllowedActionListNav = "workflowAllowedActionListNav"
        }
+}
+
+struct ApproverChangedData : Codable{
+    let label : String?
+    let newValue : String?
+    let oldValue : String?
+    enum CodingKeys: String, CodingKey {
+        case label = "label"
+        case newValue = "newValue"
+        case oldValue = "oldValue"
+    }
+}
+
+struct ApprovalRequestSuccess:Codable {
+       let d : ApprovalRequestSuccessModel?
+        enum CodingKeys: String, CodingKey {
+            case d = "d"
+        }
+}
+
+struct ApprovalRequestSuccessModel: Codable{
+    var wfRequestId : String?
+    var status : String?
+    enum CodingKeys: String, CodingKey {
+        case status = "status"
+        case wfRequestId = "wfRequestId"
+    }
+}
+
+struct TimeOffDetailsModel:Codable{
+    var d : TimeOffDetailsDataModel?
+}
+
+struct TimeOffDetailsDataModel:Codable {
+    var results : [TimeOffDetailsData]?
+}
+
+struct TimeOffDetailsData:Codable {
+    var deductionQuantity : String?
+    var endDate : String?
+    var createdDate : String?
+    var createdBy : String?
+    var startDate : String?
+    var workflowInitiatedByAdmin : Bool?
+    var timeCalendar : TimeOffDetailsTimeCalendar?
+    var timeTypeNav : TimeOffDetailstimeTypeNav?
+    var approvalStatusNav : TimeOffDetailsapprovalStatusNav?
+}
+struct TimeOffDetailsapprovalStatusNav:Codable {
+    var value : String?
+}
+struct TimeOffDetailstimeTypeNav:Codable {
+    var workflowConfiguration : String?
+    var activateCancellationWorkflow : Bool?
+    var flexibleRequestingAllowed : Bool?
+    var collisionGrouping : String?
+    var createdBy : String?
+    var externalName_en_US : String?
+}
+struct TimeOffDetailsTimeCalendar:Codable {
+    var quantityInDays : String?
+    var workScheduleInternalId : String?
+    var deductionQuantity : String?
+    var quantityInHours : String?
+}
+struct TimeSheetApproverDetailsModel:Codable{
+    var d : TimeSheetDetailsDataModel?
+}
+
+struct TimeSheetDetailsDataModel:Codable {
+    var results : [TimeSheetDetailsData]?
+}
+struct TimeSheetDetailsData:Codable {
+    var workingTimeAccountHoursAndMinutes : String?
+    var period : String?
+    var plannedHoursAndMinutes : String?
+    var recordedHoursAndMinutes : String?
+    var employeeTimeSheetEntry : TimeSheetEmployeeTimeSheetEntry?
+    var employeeTimeValuationResult : TimeSheetEmployeeTimeValuationResult?
+}
+struct TimeSheetEmployeeTimeSheetEntry:Codable {
+    var results : [TimeSheetEmployeeTimeSheetEntryData]?
+}
+struct TimeSheetEmployeeTimeSheetEntryData:Codable {
+    var timeTypeName : String?
+    var costCenter : String?
+    var createdDate : String?
+    var createdBy : String?
+    var quantityInHours : String?
+    var startDate : String?
+    var endDate : String?
+    var quantityInHoursAndMinutes : String?
+}
+struct TimeSheetEmployeeTimeValuationResult:Codable {
+ var results : [TimeSheetEmployeeTimeValuationResultData]?
+}
+struct TimeSheetEmployeeTimeValuationResultData:Codable {
+    var postingTarget : String?
+    var hoursAndMinutes : String?
+    var approvalStatus : String?
+    var costCenter : String?
+    var bookingDate : String?
+    var startDate : String?
+    var payTypeName : String?
 }

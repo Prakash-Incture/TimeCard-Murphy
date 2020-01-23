@@ -25,9 +25,12 @@ extension RequestManager {
     public func fetchEmpTime(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
               self.getData(ServiceEndpoints.empTimeApi(params: userData).getUrlRequest(), completion: completion)
           }
-    public func getEmployeeTimeSheet(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
-        self.getData(ServiceEndpoints.getEmpTimeSheet(params: userData).getUrlRequest(), completion: completion)
+    public func getEmployeeTimeSheet(for userData:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+        self.getData(ServiceEndpoints.getEmpTimeSheet(param: userData).getUrlRequest(), completion: completion)
     }
+    public func getEmployeeTimeOffSheet(for userData:[String:Any], completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
+          self.getData(ServiceEndpoints.getEmpTimeOffData(param: userData).getUrlRequest(), completion: completion)
+      }
     public func fetchEmpWorkSchedule(for userData:UserData, completion: @escaping ((APIResponse<ResponseType>) -> Void))  {
               self.getData(ServiceEndpoints.empWorkSchedule(params: userData).getUrlRequest(), completion: completion)
           }
@@ -66,5 +69,16 @@ extension RequestManager {
     public func fetchTimeOffData(for idpPayload: GetIDPPayload, params: String = "", completion: @escaping ((APIResponse<ResponseType>) -> Void)){
         self.getData(ServiceEndpoints.getApprovalTimeOffSheet.getUrlRequest(), completion: completion)
     }
-    
+    public func callApproveRequestAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+        self.getData(ServiceEndpoints.postApproveRequest(id: id).getUrlRequest(), completion: completion)
+    }
+    public func callApproveRejectAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+           self.getData(ServiceEndpoints.postApprovereject(id: id).getUrlRequest(), completion: completion)
+       }
+    public func callApproveTimeSheetDetailAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+             self.getData(ServiceEndpoints.getApprovalTimeSheetDetail(parm: id).getUrlRequest(), completion: completion)
+         }
+    public func callApproveTimeOffDetailAPI( id : String, completion: @escaping ((APIResponse<ResponseType>) -> Void)){
+                self.getData(ServiceEndpoints.getApprovalTimeOffDetail(parm: id).getUrlRequest(), completion: completion)
+            }
 }

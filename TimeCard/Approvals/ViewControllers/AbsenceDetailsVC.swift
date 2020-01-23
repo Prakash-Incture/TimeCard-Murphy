@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class AbsenceDetailsVC: UIViewController {
+import SAPFiori
+class AbsenceDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var headerView: UIView!
@@ -20,42 +20,90 @@ class AbsenceDetailsVC: UIViewController {
     @IBOutlet weak var initiatedDateLbl: UILabel!
     @IBOutlet weak var statusLbl: UILabel!
     var timeSheetData : Results3?
+    var timeOffData : TimeOffDetailsData?
+    var loadingIndicator: FUILoadingIndicatorView?
+    lazy var postApproval = RequestManager<ApprovalRequestSuccess>()
+    lazy var getApprovalTimeOff = RequestManager<TimeOffDetailsModel>()
 
-
+    var showLoadingIndicator: Bool? {
+            didSet {
+                if showLoadingIndicator == true {
+                    self.showFioriLoadingIndicator("Loading")
+                } else {
+                    self.hideFioriLoadingIndicator()
+                }
+            }
+        }
     //Variables
     var absenceViewModel = AbsenceDetailsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.customNavigationType = .navBackWithAction
+        self.callDetails(id: timeSheetData?.subjectId ?? "")
         self.initialSetup()
     }
     
     func initialSetup() {
         self.tableView.register(UINib(nibName: "KeyValueCell", bundle: nil), forCellReuseIdentifier: "KeyValueCell")
         empImgView.layer.cornerRadius = empImgView.frame.width/2
-        absenceViewModel.getTemData()
- 
-        tableView.reloadData()
+        self.periodLbl.text = timeSheetData?.peroid ?? ""
+        self.statusLbl.text = timeSheetData?.approvalStatus ?? ""
+        self.initiatedDateLbl.text = timeSheetData?.wfRequestUINav?.receivedOn ?? ""
+        self.empPositionLbl.text = timeSheetData?.wfRequestUINav?.jobTitle ?? ""
+        self.empNameLbl.text = timeSheetData?.wfRequestUINav?.todoSubjectLine ?? ""
+        self.initiatedBtLbl.text = timeSheetData?.wfRequestUINav?.subjectUserName ?? ""
+     }
+    override func selectedBack(sender: UIButton) {
+                self.navigationController?.popViewController(animated: true)
     }
-    
-    
-    @IBAction func backBtnTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @IBAction func actionTapped(_ sender: Any) {
-        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+    override func selectedAction(sender: UIButton) {
+                let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Decline", style: .default, handler: { (declineAction) in
-            
+            self.callApprovalRejectAPI(id: self.timeSheetData?.subjectId ?? "")
         }))
         actionSheet.addAction(UIAlertAction(title: "Approve", style: .default, handler: { (approveAction) in
-            
+            self.callApprovalRequestAPI(id: self.timeSheetData?.subjectId ?? "")
+
         }))
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
+    func callApprovalRejectAPI(id:String){
+        self.postApproval.callApproveRejectAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(_):
+                self.showLoadingIndicator = false
+            case .successData(value: _):
+                self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.showAlert(message: "Successful")
+                }
+            case .success(_, _):
+                self.showLoadingIndicator = false
+            }
+        })
+    }
+
+    func callApprovalRequestAPI(id:String){
+        self.postApproval.callApproveRequestAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure( _):
+                self.showLoadingIndicator = false
+            case .successData(value:  _):
+                self.showLoadingIndicator = false
+            case .success( _,  _):
+                self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.showAlert(message: "Successful")
+                }
+            }
+        })
+    }
+
 }
 
 extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
@@ -77,7 +125,7 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "    Employee Time"
+        return "   " + (self.timeSheetData?.wfRequestUINav?.objectType ?? "")
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,4 +138,26 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
             return UITableViewCell()
     }
     
+}
+extension AbsenceDetailsVC{
+    func callDetails(id:String){
+        self.showLoadingIndicator = true
+        self.getApprovalTimeOff.callApproveTimeOffDetailAPI(id: id, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .successData(value: let value):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.timeOffData = value?.d?.results?.first
+                self.absenceViewModel.getTemData(data: self.timeOffData)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                self.showLoadingIndicator = false
+            }
+        })
+    }
 }

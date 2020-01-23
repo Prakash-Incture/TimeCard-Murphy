@@ -91,7 +91,13 @@ class AllocationDataViewModel{
         }
     //Changing the Model to other Model to add data
        func weekSummaryModel(value:AllocationModel) -> WeekSummary{
-        let weekValues = WeekSummary(day:self.getdayWeekDay(date:(DataSingleton.shared.selectedDate as Date?) ?? Date()), date: self.dateFormatter.string(from:(DataSingleton.shared.selectedDate as Date?) ?? Date()), hours: value.duration)
+        //DataSingleton.shared.selectedDate
+        let weekValues = WeekSummary(
+            day:self.getdayWeekDay(date:(value.selectedDate as Date?) ?? Date()),
+            date: self.dateFormatter.string(from:(value.selectedDate as Date?) ?? Date()),
+            hours: value.duration,
+            duration: value.durationMin,
+            selectedDate: value.selectedDate)
         return weekValues
        }
     public func dataAdding(){
@@ -104,10 +110,8 @@ class AllocationDataViewModel{
             self.allcationModelData.weekData = []
             self.allcationModelData.weekData?.append(WeekSummary())
         }
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")!
         
-        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate as Date? ?? Date()) // eg. 2016-10-10 00:00:00
+        let dateFrom = (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate()
         
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
             self.allcationModelData.weekData?.removeAll()
@@ -124,11 +128,9 @@ class AllocationDataViewModel{
             self.allcationModelData.weekData = []
             self.allcationModelData.weekData?.append(WeekSummary())
         }
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")!
         
-        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedWeekDates?.first as Date? ?? Date()) // eg. 2016-10-10 00:00:00
-        let dateTo = currentCalender.startOfDay(for: DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date())
+        let dateFrom = (DataSingleton.shared.selectedWeekDates?.first as Date? ?? Date()).getUTCFormatDate() // eg. 2016-10-10 00:00:00
+        let dateTo = (DataSingleton.shared.selectedWeekDates?.last as Date? ?? Date()).getUTCFormatDate()
         
         if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date >= %@ AND date <= %@", dateFrom as NSDate, dateTo as NSDate)) as? [AllocationOfflineData]{
 //            "(date >= %@) AND (date <= %@) AND complete == 0"
@@ -145,9 +147,9 @@ class AllocationDataViewModel{
         for val in weekData{
             let hourData = self.removeHourText(tempString: val.hours ?? "")
             duration = duration + hourData
-            DataSingleton.shared.totalHours = "0"
+//            DataSingleton.shared.totalHours = "0"
         }
-        DataSingleton.shared.totalHours = String(duration) == "0.0" ? "0" : String(duration)
+//        DataSingleton.shared.totalHours = String(duration) == "0.0" ? "0" : String(duration)
         
     }
     func removeHourText(tempString:String) -> Double{
@@ -170,7 +172,7 @@ extension AllocationDataViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
-                self.empJobAPICalling()
+                self.getEmpWorkScheduleAPICall()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
@@ -178,74 +180,13 @@ extension AllocationDataViewModel{
                 let availableBalance = String(format: "%@ %@",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.balance ?? "",value?.empTimeAccountBalance?.empTimeAccountBalanceData?.timeUnit ?? "")
                 UserDefaults.standard.set( availableBalance, forKey: "Emp_Leave_Balnce")
                 UserDefaults.standard.synchronize()
-                self.empJobAPICalling()
+                self.getEmpWorkScheduleAPICall()
             case .successData(let _): break
                 // Get success data here
             }
         })
     }
-    func empJobAPICalling(){
-        self.delegate?.showLoadingIndicator = true
-        self.empJObData.fetchEmpJob(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.delegate?.failedWithReason(message: message)
-                self.delegate?.showLoadingIndicator = false
-                self.holidayCalenderApicalling()
-            case .success(let value, let message):
-                print(message as Any)
-                self.delegate?.showLoadingIndicator = false
-                self.empJobData = value
-               // self.getNumberOfPlannedHours(totalHours: self.empJObData.standardHours, totalWeekhours: empJObData.workingDaysPerWeek)
-                self.holidayCalenderApicalling()
-            case .successData( _): break
-                // Get success data here
-            }
-        })
-    }
-    func holidayCalenderApicalling(){
-        self.delegate?.showLoadingIndicator = true
-        self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let message):
-                self.delegate?.failedWithReason(message: message)
-                self.delegate?.showLoadingIndicator = false
-                self.getEmpTimeAPICall()
-            case .success(let value, let message):
-                print(message as Any)
-                self.delegate?.showLoadingIndicator = false
-                self.holidayCalenderData = value
-                self.holidaycalnder = self.holidayCalenderData?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date?.replacingOccurrences(of: "T00:00:00.000", with: "")}) as NSArray? ?? []
-                
-                self.delegate?.didReceiveResponse()
-                self.getEmpTimeAPICall()
-            case .successData( _): break
-                // Get success data here
-            }
-        })
-    }
-    
-    
-func getEmpTimeAPICall(){
-    self.delegate?.showLoadingIndicator = true
-    self.empTimeAPi.fetchEmpTime(for:userData ?? UserData(), completion: { [weak self] result in
-        guard let self = self else { return }
-        switch result {
-        case .failure(let message):
-            self.delegate?.failedWithReason(message: message)
-            self.delegate?.showLoadingIndicator = false
-            self.getEmpWorkScheduleAPICall()
-        case .success(let value, let message):
-            print(message as Any)
-            self.delegate?.showLoadingIndicator = false
-            self.getEmpWorkScheduleAPICall()
-        case .successData( _): break
-            // Get success data here
-        }
-    })
-}
+
     func getEmpWorkScheduleAPICall(){
         self.delegate?.showLoadingIndicator = true
         self.empTimeAPi.fetchEmpWorkSchedule(for:userData ?? UserData(), completion: { [weak self] result in
@@ -254,33 +195,14 @@ func getEmpTimeAPICall(){
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
-                self.getEmpTimeSheetAPICall()
             case .success(let value, let message):
                 print(message as Any)
                 self.delegate?.showLoadingIndicator = false
-                self.getEmpTimeSheetAPICall()
             case .successData( _): break
                 // Get success data here
             }
         })
     }
-    func getEmpTimeSheetAPICall(){
-           self.delegate?.showLoadingIndicator = true
-           self.empTimeAPi.getEmployeeTimeSheet(for:userData ?? UserData(), completion: { [weak self] result in
-               guard let self = self else { return }
-               switch result {
-               case .failure(let message):
-                   self.delegate?.failedWithReason(message: message)
-                   self.delegate?.showLoadingIndicator = false
-               case .success(let value, let message):
-                   print(message as Any)
-                   self.delegate?.showLoadingIndicator = false
-                   
-               case .successData( _): break
-                   // Get success data here
-               }
-           })
-       }
     func getdayWeekDay(date:Date)-> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"

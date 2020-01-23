@@ -44,7 +44,8 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     var currentPage: CurrentPage = CurrentPage.newRecording
     var currentHeaderCells: [[CellModel]] = CurrentPage.newRecording.getCurrentPageHeaders()
     var allocationDataViewModel:AllocationDataViewModel!
-    
+    lazy var postTimeSheetDataCall = RequestManager<ApproveListModels>()
+
     var showLoadingIndicator: Bool? {
         didSet {
             if showLoadingIndicator == true {
@@ -62,32 +63,40 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.customNavigationType = .navWithSaveandCancel
-        self.setupViewModel()
         self.setupTableView()
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAbsenceData"), object: nil, queue: nil) { notification in
-            for (index,value) in  (self.allocationDataViewModel.allcationModelData.absence?.enumerated())!{
-                if value.timeType == nil {
-                    self.allocationDataViewModel.allcationModelData.absence?.remove(at: index)
-                    self.allocationDataViewModel.allcationModelData.absence?.append(notification.object as! Absence)
-                    self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
-                }
-            }
-            self.removeObservers()
-        }
+        self.setupViewModel()
+
+        
+        //        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAbsenceData"), object: nil, queue: nil) { notification in
+        //            for (index,value) in  (self.allocationDataViewModel.allcationModelData.absence?.enumerated())!{
+        //                if value.timeType == nil {
+        //                    self.allocationDataViewModel.allcationModelData.absence?.remove(at: index)
+        //                    self.allocationDataViewModel.allcationModelData.absence?.append(notification.object as! Absence)
+        //                    self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
+        //                }
+        //            }
+        //            self.removeObservers()
+        //        }
         
     }
     private func setupViewModel() {
         self.allocationDataViewModel = AllocationDataViewModel(delegate: self)
         self.allocationDataViewModel?.dataFetching()
-        //self.allocationDataViewModel.empTimeOffBalanceAPICalling()
+        self.allocationDataViewModel.empTimeOffBalanceAPICalling()
         if self.allocationDataViewModel.allcationModelData.absence == nil{
             self.allocationDataViewModel.allcationModelData.absence = []
             self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
         }
-        self.tableView.reloadData()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.getAbsenceOfflineData()
+        }
+
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.allocationDataViewModel?.delegate = self
+        
     }
     override func selectedCancel(sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
@@ -103,24 +112,49 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
         if let newRec = self.allocationDataViewModel.allcationModelData.alllocationModel?.last{
             if newRec.costCneter != "" && newRec.duration != "" && newRec.timeType != "" {
                 //Get today's beginning & end
-                var currentCalender = Calendar.current
-                currentCalender.timeZone = TimeZone(identifier: "UTC")! //UTC
-                let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10
-                        if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
-                            for allocationObj in newHours {
-                                allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
-                            }
-                        }
+  
+                let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
+                if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
+                    for allocationObj in newHours {
+                        allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
+                    }
+                }
                 
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
                 }
+                self.postTimeSheetDataAPICall()
             }else{
                 //TODO:
                 // Show error message
                 self.showAlert(message: "Please fill all the details")
             }
         }
+        
+    }
+
+    func getAbsenceOfflineData() {
+        
+        let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
+        //"(date == %@) AND (key == %@)", dateFrom as NSDate, "Absence"
+        guard let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@ AND key == %@", dateFrom as NSDate, "Absence")) as? [AllocationOfflineData] else {
+            return
+        }
+         self.allocationDataViewModel.allcationModelData.absence?.removeAll()
+        for model in getResult{
+            let absence = self.allocationHourPersistence?.unarchiveAbsence(absenceData: model.allocationModel ?? Data())
+            
+             self.allocationDataViewModel.allcationModelData.absence?.append(absence ?? Absence())
+            self.tableView.reloadData()
+            
+            for (index,value) in  (self.allocationDataViewModel.allcationModelData.absence?.enumerated())!{
+                if value.timeType == nil {
+                    self.allocationDataViewModel.allcationModelData.absence?.remove(at: index)
+                }
+            }
+            
+        }
+        self.allocationDataViewModel.allcationModelData.absence?.append(Absence())
 
     }
 }
@@ -164,12 +198,14 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             if  ((self.allocationDataViewModel.allcationModelData.absence?.count ?? 0) - 1) == indexPath.row{
                 cell.descriptionLabel.text = "Add Absences"
                 cell.accessoryType = .disclosureIndicator
+                cell.cellTextField.placeholder = ""
                 cell.cellTextField.addTarget(self, action: #selector(absenceLookUpNavigating), for: .editingDidBegin)
             }else{
                 let tempData = self.allocationDataViewModel.allcationModelData.absence?[indexPath.row]
                 cell.descriptionLabel.text = tempData?.timeType
                 cell.cellTextField.text = ""
                 cell.cellTextField.placeholder = ""
+                cell.cellTextField.isUserInteractionEnabled = false
                 cell.accessoryType = .none
             }
             return cell
@@ -182,7 +218,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
             return CGFloat((self.allocationDataViewModel.allcationModelData.alllocationModel?.count ?? 220) * 220)
         }
-        return 60
+        return 50
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
@@ -226,4 +262,47 @@ extension NewRecordingViewController: GenericViewModelProtocol {
     {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "addAbsenceData"), object: nil)
     }
+}
+extension NewRecordingViewController{
+    
+    func postTimeSheetDataAPICall(){
+         let externalCode = Int.random(in: 0...100000000)
+        let startDate = (DataSingleton.shared.selectedDate as Date?)!.currentTimeMillis()
+         let dataDictForEmployee:[String:Any] = [
+            "uri":"ExternalTimeData('\(externalCode)')"
+        ]
+         let dataDict:[String:Any] = [
+             
+             "__metadata" : dataDictForEmployee,
+             "startDate" : "/Date(\(startDate))/",
+             "externalCode" : "\(externalCode)",
+            "hours" : self.allocationDataViewModel.allcationModelData.alllocationModel?.last?.durationValueInHours ?? "",
+             "userId" : UserData().userId ?? "",
+             "costCenter" : self.allocationDataViewModel.allcationModelData.alllocationModel?.last?.costCenterId ?? "",
+             "timeType" : self.allocationDataViewModel.allcationModelData.alllocationModel?.last?.timeTypeId ?? ""
+         ]
+         self.showLoadingIndicator = true
+         self.postTimeSheetDataCall.postAbsencesData(for: dataDict, idpPayload: GetIDPPayload(), completion: { [weak self] result in
+             guard let self = self else { return }
+             switch result {
+             case .failure( _):
+                 self.showLoadingIndicator = false
+             case .successData(value: let value):
+                 do {
+                     if let jsonObj = try JSONSerialization.jsonObject(with: value, options : .allowFragments) as? Dictionary<String, Any>
+                     {
+                         print(jsonObj)
+                     } else {
+                         print("bad json")
+                     }
+                 } catch let error as NSError {
+                     print(error)
+                 }
+             case .success( _, let message):
+                 print(message as Any)
+                 self.showLoadingIndicator = false
+             }
+         })
+         
+     }
 }

@@ -29,12 +29,17 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
        }
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var weekSummary:[WeekSummary] = []
-    
+    var holidaycalnder:NSArray = []
+    var userData:UserData?
+    lazy var holidayCalender = RequestManager<HolidayAssignment>()
+    lazy var empTimeAPi = RequestManager<EmpJobModel>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
         self.setupViewModel()
         self.loadOfflineStores()
+        self.holidayCalenderApicalling()
         self.allocationViewModel?.fetchDayData()
        // self.customNavigationType = .navPlain
       
@@ -42,14 +47,14 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
    
     
     override func viewWillAppear(_ animated: Bool) {
-       // super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
         self.allocationViewModel?.delegate = self
         self.configurTableView()
         self.allocationViewModel?.fetchDayData()
     }
     private func setupViewModel() {
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
-        self.allocationViewModel?.empTimeOffBalanceAPICalling() // Uncommand
+       // self.allocationViewModel?.empTimeOffBalanceAPICalling() // Uncommand
         }
     func configurTableView(){
         self.tableView.delegate = self
@@ -58,7 +63,8 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
           self.tableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
           self.tableView.register(UINib(nibName: "CalenderTableViewCell", bundle: nil), forCellReuseIdentifier: "CalenderTableViewCell")
         self.tableView.register(UINib(nibName: "WeekSummaryCell", bundle: nil), forCellReuseIdentifier: "WeekSummaryCell")
-         NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "onTapOfDate"), object: nil, queue: nil) { notification in
+
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "onTapOfDate"), object: nil, queue: nil) { notification in
            // self.allocationViewModel = AllocationDataViewModel(delegate: self)
             self.allocationViewModel?.allocationHourPersistence = self.allocationHourPersistence
             self.allocationViewModel?.addingWeekData(weekDays:notification)
@@ -66,7 +72,91 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             self.removeObserver()
         }
     }
+    func getEmpTimeSheetAPICall(){
+           self.showLoadingIndicator = true
+        let dataDict = [
+            "userId" : userData?.userId ?? "",
+            "Start_Date": "2019-01-01T00:00:00.000",
+            "End_Date": "2020-01-22T00:00:00.000"
+        ]
+           self.empTimeAPi.getEmployeeTimeSheet(for:dataDict, completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.failedWithReason(message: message)
+                   self.showLoadingIndicator = false
+                self.getEmpTimeOffSheetAPICall()
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                   self.getEmpTimeOffSheetAPICall()
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+    func getEmpTimeOffSheetAPICall(){
+           self.showLoadingIndicator = true
+        let dataDict = [
+            "userId" : userData?.userId ?? ""
+        ]
+           self.empTimeAPi.getEmployeeTimeOffSheet(for:dataDict, completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.failedWithReason(message: message)
+                   self.showLoadingIndicator = false
+                self.empJobAPICalling()
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                   self.empJobAPICalling()
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+    func empJobAPICalling(){
+        self.showLoadingIndicator = true
+        self.empTimeAPi.fetchEmpJob(for:userData ?? UserData(), completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+            case .success(let value, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+            case .successData( _): break
+                // Get success data here
+            }
+        })
+    }
     
+    func holidayCalenderApicalling(){
+        self.showLoadingIndicator = true
+        self.holidayCalender.holidayCalenderApicall(for:userData ?? UserData(), completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let message):
+                self.showLoadingIndicator = false
+                self.getEmpTimeSheetAPICall()
+
+                break
+            case .success(let value, let message):
+                print(message as Any)
+                self.showLoadingIndicator = false
+                self.holidaycalnder = value?.holidayAssignment?.holidayDataAssignment?.compactMap({$0.date?.replacingOccurrences(of: "T00:00:00.000", with: "")}) as NSArray? ?? []
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                self.getEmpTimeSheetAPICall()
+                break
+            case .successData( _): break
+                // Get success data here
+            }
+        })
+    }
+
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -103,9 +193,20 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0{
               let cell = self.tableView.dequeueReusableCell(withIdentifier: "CalenderTableViewCell", for: indexPath) as! CalenderTableViewCell
             cell.selectionStyle = .none
-            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate as NSDate?
+            DataSingleton.shared.selectedDate = cell.calenderView.selectedDate?.getUTCFormatDate() as NSDate?
             cell.allocationHourPersistence = self.allocationHourPersistence
-            cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
+            cell.datesWithMultipleEvents = self.holidaycalnder
+
+            if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
+                var totalMins: Int = 0
+                for data in dataArray{
+                    totalMins = totalMins+(data.duration ?? 0)
+                }
+                let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
+                cell.recordedHours.text = String(format: "%02d:%02d", hours, min)
+            }
+            
+           // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
             return cell
         }else{
             if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row{
@@ -158,5 +259,9 @@ extension ViewController {
         self.allocationHourPersistence.load { [weak self] in
         }
     }
-   
+    
+    static func minutesToHoursMin(minutes: Int) -> (Int, Int) {
+        return (minutes/60, (minutes % 60))
+    }
 }
+

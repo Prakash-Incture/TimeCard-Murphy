@@ -14,7 +14,8 @@ class CalenderTableViewCell: UITableViewCell {
     @IBOutlet weak var leftButtonAction: UIButton!
     @IBOutlet weak var rightAction: UIButton!
     @IBOutlet weak var datelabel: UILabel!
-    @IBOutlet weak var hoursLabel: UILabel!
+    @IBOutlet weak var recordedHours: UILabel!
+//    @IBOutlet weak var hoursLabel: UILabel!
 
     
     var panGesture = UIPanGestureRecognizer(target: self, action:(Selector(("handlePanGesture:"))))
@@ -27,12 +28,13 @@ class CalenderTableViewCell: UITableViewCell {
     var previousDate:String?
     var today:Date?
     var direction:String?
-    var allocationHourPersistence:AllocationHoursCoreData?
+    var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var datesWithMultipleEvents:NSArray?{
         didSet{
             self.calenderView.reloadData()
         }
     }
+
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,17 +49,21 @@ class CalenderTableViewCell: UITableViewCell {
         calenderView.calendarHeaderView.isHidden = true
         calenderView.delegate = self
         calenderView.dataSource = self
+        calenderView.scrollEnabled = false
         calenderView.addGestureRecognizer(panGesture)
-        calenderView.select(Date())
+
+        calenderView.select(Date().getUTCFormatDate())
+        self.loadOfflineStores()
         DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
-        DataSingleton.shared.selectedWeekDates = getCurrentWeekDays()
+        
         calenderView.scrollEnabled = false
         dateSelected()
-        self.hoursLabel.text = (DataSingleton.shared.totalHours == "0.0") ? "0" : DataSingleton.shared.totalHours
+//        self.hoursLabel.text = (DataSingleton.shared.totalHours == "0.0") ? "0" : DataSingleton.shared.totalHours
     }
-
+ 
     func showDate(){
-        let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
+       let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
+
         //let currentPage =  calenderView.currentPage
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 0, to:Date(), options: [])
         let first_Date = gregorianCalendar?.fs_firstDay(ofWeek: nextPage!)
@@ -68,10 +74,9 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: last_Date!)
         let min_Date = formatter.string(from: first_Date!)
         self.datelabel.text = min_Date + " - " + max_Date
-        
+        DataSingleton.shared.selectedWeekDates = [(first_Date ?? Date()), last_Date ?? Date()]
         // Show corresponding allocations
         dateSelected()
-        
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -90,9 +95,10 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: maxDate!)
         let min_Date = formatter.string(from: minDate!)
         self.datelabel.text = min_Date + " - " + max_Date
-
-
+        
+        DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
+    
     @IBAction func rightButtonAction(_ sender: Any) {
            let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
            let currentPage = self.calenderView.currentPage
@@ -106,21 +112,22 @@ class CalenderTableViewCell: UITableViewCell {
             let max_Date = formatter.string(from: maxDate!)
             let min_Date = formatter.string(from: minDate!)
             self.datelabel.text = min_Date + " - " + max_Date
+        
+        DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
    
     func dateSelected() {
-        var currentCalender = Calendar.current
-        currentCalender.timeZone = TimeZone(identifier: "UTC")!
-        let dateFrom = currentCalender.startOfDay(for: DataSingleton.shared.selectedDate! as Date) // eg. 2016-10-10 00:00:00
+
+        let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
         
-        if let getResult = allocationHourPersistence?.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
+        if let getResult = allocationHourPersistence.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
                   for model in getResult{
-                        let test = self.allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
-                      print(test?.duration ?? "0:00")
+                    let test = self.allocationHourPersistence.unarchive(allocationData: model.allocationModel ?? Data())
+                    print(test.duration ?? "0:00")
                       print(model.date ?? "")
                   }
             NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
-            self.hoursLabel.text = DataSingleton.shared.totalHours ?? "0"
+//            self.hoursLabel.text = DataSingleton.shared.totalHours ?? "0"
             
               }
     }
@@ -129,11 +136,13 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
        // Get the filtered data here
-        DataSingleton.shared.selectedDate = date as NSDate
+        
+        DataSingleton.shared.selectedDate = date.getUTCFormatDate() as NSDate
         
         //Get today's beginning & end
-        dateSelected()
-              
+        DispatchQueue.main.async {
+            self.dateSelected()
+        }
     }
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
     
@@ -152,20 +161,6 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
          }
          return nil
      }
-    func getCurrentWeekDays() -> [Date]{
-        var days:[Date] = []
-        
-//        for dateIndex in 0..<7 {
-//            guard let startWeek = today else { return [Date()]}
-//                   let date = Calendar.current.date(byAdding: .day, value: dateIndex + 1, to: startWeek)
-//                      days.append(date ?? Date())
-//               }
-        
-        days.append(DataSingleton.shared.selectedDate! as Date)
-        days.append(Calendar.current.date(byAdding: .day, value: 6, to: DataSingleton.shared.selectedDate! as Date)!)
-        
-        return days
-    }
 }
 extension Date {
     var startOfWeek: Date? {
@@ -174,4 +169,11 @@ extension Date {
         return gregorian.date(byAdding: .day, value: 1, to: sunday)
     }
     
+}
+
+extension CalenderTableViewCell {
+func loadOfflineStores() {
+    self.allocationHourPersistence.load { [weak self] in
+    }
+}
 }

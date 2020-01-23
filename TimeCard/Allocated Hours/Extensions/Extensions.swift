@@ -98,6 +98,32 @@ enum DateFormat: String {
             return self
         }
     }
+    
+    /// Returns the amount of days from another date
+    func days(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
+    }
+    
+    // Returns array of dates
+    static func dates(from fromDate: Date, to toDate: Date) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+
+        while date <= toDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
+            date = newDate
+        }
+        return dates
+    }
+    
+    // Returns UTC date format
+    func getUTCFormatDate() -> Date {
+        var currentCalender = Calendar.current
+        currentCalender.timeZone = TimeZone(identifier: "UTC")!
+        let newDate = self.addingTimeInterval(TimeInterval(NSTimeZone.local.secondsFromGMT()))
+        return currentCalender.startOfDay(for: newDate)
+    }
 }
 extension String{
     func convertToDate(format: Date.DateFormat, currentDateStringFormat: Date.DateFormat, shouldConvertToUTC: Bool = false) -> Date? {

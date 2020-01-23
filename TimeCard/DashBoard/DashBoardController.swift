@@ -43,7 +43,7 @@ extension DashBoardController:UITableViewDataSource,UITableViewDelegate{
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             //  let navController = UINavigationController(rootViewController : newRecordVC)
-            DataSingleton.shared.totalHours = "0"
+//            DataSingleton.shared.totalHours = "0"
             self.navigationController?.pushViewController(newRecordVC, animated: true)
         default:
             let storyBoard = UIStoryboard(name: "Approvals", bundle: nil)
