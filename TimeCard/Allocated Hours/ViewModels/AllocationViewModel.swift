@@ -18,7 +18,7 @@ public enum AllocationCellIdentifier: String {
     case total = "Total"
     case paidAbsences = "Paid Absences"
     case ot = "OT1.5"
-    case regularTime = "Regular Time\nPer day"
+    case regularTime = "Regular Time\nPer Week"
     case status = "Status"
     
     func getTitleHeader() -> String {

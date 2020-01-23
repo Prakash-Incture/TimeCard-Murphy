@@ -15,29 +15,43 @@ class WeekSummaryCell: UITableViewCell {
     private var cellModel : CellModel?
     private var cellType: AllocationCellIdentifier?
     var stringHelper = StringColorChnage()
+    var totalMins = 0.0
+    var absenceHr: Int = 0
+    var otHrs: Int = 0
+    var totalMinsWorked: Int = 0
+    var totalMinWithAbsence = 0.0
     
     var allocationData:AllocaitonData?{
         didSet{
             guard let type = cellType else { return }
+            totalMins = Double(DataSingleton.shared.plannedHours ?? 0) * Double(DataSingleton.shared.workingDayPerWeek ?? 0)
+            
+            if let dataArray = self.allocationData?.weekData{
+                absenceHr = 0
+                totalMinsWorked = 0
+                totalMinWithAbsence = 0.0
+                for data in dataArray{
+                    if (data.isAbsence ?? false){
+                        absenceHr = absenceHr+(data.duration ?? 0)
+                        totalMinWithAbsence = totalMins-Double(absenceHr)
+                    }else{
+                        totalMinsWorked = totalMinsWorked+(data.duration ?? 0)
+                    }
+                }
+            }
+            
             switch type {
             case .total:
                 self.titleText.font = self.titleText.font.withSize(20)
-                if let dataArray = self.allocationData?.weekData{
-                    var totalMins: Int = 0
-                    for data in dataArray{
-                        totalMins = totalMins+(data.duration ?? 0)
-                    }
-                    let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
-                    self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: String(format: "%02d:%02d", hours, min) , secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
-                    self.labelData.font = self.titleText.font.withSize(20)
-                }
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getTotalMins() , secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.font = self.titleText.font.withSize(20)
                 
             case .paidAbsences:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "08:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getPaidAbsenceMins(), secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .ot:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "06:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getOTMins(), secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .regularTime:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: "45:00 ", secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getRegularTime(), secondString: "Hours", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .status:
                 self.labelData.text = "To be Submitted"
                 self.labelData.textColor = UIColor.lightGray
@@ -66,4 +80,28 @@ class WeekSummaryCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    // Arithmatic logics for time calculations
+    func getOTMins() -> String {
+            if totalMinsWorked > Int(totalMinWithAbsence){
+                otHrs = totalMinsWorked - Int(totalMinWithAbsence)
+            }
+        let (hours, min) = Date.minutesToHoursMin(minutes: otHrs)
+        return String(format: "%02d:%02d", hours, abs(min))
+    }
+    
+    func getPaidAbsenceMins() -> String {
+        let (hours, min) = Date.minutesToHoursMin(minutes: absenceHr)
+        return String(format: "%02d:%02d", hours, abs(min))
+    }
+    
+    func getTotalMins() -> String {
+        let (hours, min) = Date.minutesToHoursMin(minutes: Int(totalMinWithAbsence))
+        return String(format: "%02d:%02d", hours, abs(min))
+    }
+    
+    func getRegularTime() -> String {
+        let (hours, min) = Date.minutesToHoursMin(minutes: Int(totalMins))
+        return String(format: "%02d:%02d", hours, abs(min))
+    }
 }

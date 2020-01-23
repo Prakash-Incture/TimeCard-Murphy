@@ -124,6 +124,11 @@ enum DateFormat: String {
         let newDate = self.addingTimeInterval(TimeInterval(NSTimeZone.local.secondsFromGMT()))
         return currentCalender.startOfDay(for: newDate)
     }
+    
+    // Returns Hours and Minutes
+    static func minutesToHoursMin(minutes: Int) -> (Int, Int) {
+        return (minutes/60, (minutes % 60))
+    }
 }
 extension String{
     func convertToDate(format: Date.DateFormat, currentDateStringFormat: Date.DateFormat, shouldConvertToUTC: Bool = false) -> Date? {

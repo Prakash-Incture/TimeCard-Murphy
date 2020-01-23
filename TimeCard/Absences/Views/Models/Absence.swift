@@ -13,4 +13,5 @@ struct Absence:Codable{
     var dateStart, dateEnd: Date?
     var duration: String?
     var durationMin: Int?
+    var isAbsence: Bool?
 }

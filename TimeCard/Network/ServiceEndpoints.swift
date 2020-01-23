@@ -106,7 +106,7 @@ enum ServiceEndpoints {
             return self.urlRequest(for: urlString, method: "POST", body:userData)
         case .getEmpTimeSheet(let params):
             let urlString = LinkingUrl.employeeTimeSheet
-            return self.urlRequestWithBody(for: urlString, method: "POST", body: params, addHeader: false)
+            return self.urlRequestWithBodyandBasicOauth(for: urlString, method: "POST", body: params, addHeader: true)
         case .getApprovalTimeDetail(let parm):
             let url = "https://apisalesdemo4.successfactors.com/odata/v2/WfRequest(\(parm))?$filter=wfRequestUINav, workflowAllowedActionListNav&$expand=wfRequestUINav, workflowAllowedActionListNav&$format=json"
             return self.urlRequestWithStringBody(for: url, method: "GET", body: nil, addHeader: true)
@@ -124,7 +124,7 @@ enum ServiceEndpoints {
                 return self.urlRequestforGet(for: url, method: "GET", body: nil, addHeader: true)
         case .getEmpTimeOffData(let param):
               let urlString = LinkingUrl.employeeTimeOff
-                      return self.urlRequestWithBody(for: urlString, method: "POST", body: param, addHeader: false)
+              return self.urlRequestWithBodyandBasicOauth(for: urlString, method: "POST", body: param, addHeader: true)
         }
       }
     
@@ -169,6 +169,28 @@ enum ServiceEndpoints {
                     if let postData = body.data(using: .utf8) {
                     urlRequest.httpBody = postData
             }
+        }
+                return urlRequest
+    }
+    func urlRequestWithBodyandBasicOauth(for urlString: String, method: String = "GET", body: [String:Any]?, addHeader: Bool = true) -> URLRequest {
+                let urlStringVal = urlString.replacingOccurrences(of: " ", with: "")
+                let url = URL(string: urlStringVal)
+                var urlRequest = URLRequest(url: url!)
+                urlRequest.httpMethod = method
+                LinkingUrl.defaultHeaders.forEach { (key, value) in
+                    urlRequest.setValue(value, forHTTPHeaderField: key)
+                }
+            if addHeader{
+                urlRequest.setValue("Basic \(self.userAuthorizationHeaders())", forHTTPHeaderField: "Authorization")
+
+            }
+        if method == "POST"{
+                guard let body = body else { return urlRequest }
+                               do {
+                                   urlRequest.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+                               } catch {
+                                   print(error)
+                               }
         }
                 return urlRequest
     }

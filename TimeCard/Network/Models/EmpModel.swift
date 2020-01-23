@@ -9,15 +9,15 @@
 import Foundation
 
 struct EmpTimeAccountBalance:Codable {
-    let empTimeAccountBalance : EmployTimeAccountBalanceData?
+    let EmpTimeAccountBalance : EmployTimeAccountBalanceData?
     enum CodingKeys: String, CodingKey {
-        case empTimeAccountBalance = "EmpTimeAccountBalance"
+        case EmpTimeAccountBalance = "EmpTimeAccountBalance"
     }
 }
 struct EmployTimeAccountBalanceData:Codable {
-    let empTimeAccountBalanceData : EmpDataModel?
+    let EmpTimeAccountBalance : [EmpDataModel]?
     enum CodingKeys: String, CodingKey {
-        case empTimeAccountBalanceData = "EmpTimeAccountBalance"
+        case EmpTimeAccountBalance = "EmpTimeAccountBalance"
     }
 }
 struct EmpDataModel:Codable {
@@ -31,214 +31,36 @@ struct EmpDataModel:Codable {
     }
 }
 struct EmpJobModel:Codable{
-    let empJob : EmpJob?
-    enum CodingKeys: String, CodingKey {
-        case empJob = "EmpJob"
-    }
+    let EmpJob : EmpJobData?
 }
-struct EmpJob:Codable {
-    let employeeJob : EmployeeDetails?
-    enum CodingKeys: String, CodingKey {
-        case employeeJob = "EmpJob"
-    }
+struct EmpJobData:Codable {
+    let EmpJob : EmployeeDetails?
 }
 struct EmployeeDetails:Codable{
-    let occupationalLevels : String?
-    let workscheduleCode : String?
-    let businessUnit : String?
-    let lastModifiedDateTime : String?
-    let notes : String?
-    let fgtsOptant : String?
-    let commitmentIndicator : String?
-    let endDate : String?
-    let harmfulAgentExposure : String?
-    let contractType : String?
-    let mandatoryWorkBreakRecord : String?
-    let jobTitle : String?
-    let sickPaySupplement : String?
-    let createdDateTime : String?
-    let jobCode : String?
-    let electoralCollegeForWorksCouncil : String?
-    let validFrom : String?
-    let integrationAgent : String?
-    let fgtsDate : String?
-    let payScaleLevel : String?
-    let division : String?
-    let timeTypeProfileCode : String?
-    let eeoClass : String?
-    let familyRelationshipWithEmployer : String?
-    let hazard : String?
-    let exchangeRate : String?
-    let fromCurrency : String?
-    let internshipLevel : String?
-    let eeo5JobCategory : String?
-    let flsaStatus : String?
     let holidayCalendarCode : String?
-    let empRelationship : String?
-    let educationalEntity : String?
-    let permitIndicator : String?
+    let workscheduleCode : String?
+    var userNav : UserDetails?
     let costCenter : String?
     let standardHours : String?
-    let residentVote : String?
     let timeRecordingProfileCode : String?
-    let electoralCollegeForWorkersRepresentatives : String?
-    let laborProtection : String?
-    let eeo4JobCategory : String?
-    let eventReason : String?
-    let isCompetitionClauseActive : String?
-    let internshipSchool : String?
-    let assedicCertInitialStateNum : String?
-    let includedChallengedPersonQuota : String?
-    let fgtsPercent : String?
-    let toCurrency : String?
-    let position : String?
-    let startDate : String?
-    let payScaleArea : String?
-    let exclExecutiveSector : String?
-    let isFulltimeEmployee : String?
-    let emplStatus : String?
-    let probationPeriodEndDate : String?
-    let payScaleType : String?
-    let timezone : String?
-    let workingDaysPerWeek : String?
-    let countryOfCompany : String?
-    let expectedReturnDate : String?
-    let regularTemp : String?
-    let eeo6JobCategory : String?
-    let createdOn : String?
-    let municipalInseeCode : String?
-    let pcfm : String?
-    let healthRisk : String?
-    let workLocation : String?
-    let contractReferenceForAed : String?
-    let timeRecordingAdmissibilityCode : String?
-    let isSideLineJobAllowed : String?
-    let fte : String?
-    let payGrade : String?
-    let travelDistance : String?
-    let company : String?
-    let retired : String?
-    let event : String?
-    let department : String?
-    let eeo1JobCategory : String?
-    let timeRecordingVariant : String?
-    let employeeClass : String?
-    let employmentType : String?
-    let assedicCertObjectNum : String?
-    let lastModifiedBy : String?
     let managerId : String?
-    let userId : String?
-    let lastModifiedOn : String?
-    let payScaleGroup : String?
-    let mandatoryInternship : String?
-    let employeeWorkgroupMembership : String?
-    let positionEntryDate : String?
-    let dynamicBreakConfigCode : String?
-    let createdBy : String?
-    let workerCategory : String?
-    let defaultOvertimeCompensationVariant : String?
-    let seqNumber : String?
-    let location : String?
-
-    enum CodingKeys: String, CodingKey {
-
-        case occupationalLevels = "occupationalLevels"
-        case workscheduleCode = "workscheduleCode"
-        case businessUnit = "businessUnit"
-        case lastModifiedDateTime = "lastModifiedDateTime"
-        case notes = "notes"
-        case fgtsOptant = "fgtsOptant"
-        case commitmentIndicator = "commitmentIndicator"
-        case endDate = "endDate"
-        case harmfulAgentExposure = "harmfulAgentExposure"
-        case contractType = "contractType"
-        case mandatoryWorkBreakRecord = "mandatoryWorkBreakRecord"
-        case jobTitle = "jobTitle"
-        case sickPaySupplement = "sickPaySupplement"
-        case createdDateTime = "createdDateTime"
-        case jobCode = "jobCode"
-        case electoralCollegeForWorksCouncil = "electoralCollegeForWorksCouncil"
-        case validFrom = "validFrom"
-        case integrationAgent = "integrationAgent"
-        case fgtsDate = "fgtsDate"
-        case payScaleLevel = "payScaleLevel"
-        case division = "division"
-        case timeTypeProfileCode = "timeTypeProfileCode"
-        case eeoClass = "eeoClass"
-        case familyRelationshipWithEmployer = "familyRelationshipWithEmployer"
-        case hazard = "hazard"
-        case exchangeRate = "exchangeRate"
-        case fromCurrency = "fromCurrency"
-        case internshipLevel = "internshipLevel"
-        case eeo5JobCategory = "eeo5JobCategory"
-        case flsaStatus = "flsaStatus"
-        case holidayCalendarCode = "holidayCalendarCode"
-        case empRelationship = "empRelationship"
-        case educationalEntity = "educationalEntity"
-        case permitIndicator = "permitIndicator"
-        case costCenter = "costCenter"
-        case standardHours = "standardHours"
-        case residentVote = "residentVote"
-        case timeRecordingProfileCode = "timeRecordingProfileCode"
-        case electoralCollegeForWorkersRepresentatives = "electoralCollegeForWorkersRepresentatives"
-        case laborProtection = "laborProtection"
-        case eeo4JobCategory = "eeo4JobCategory"
-        case eventReason = "eventReason"
-        case isCompetitionClauseActive = "isCompetitionClauseActive"
-        case internshipSchool = "internshipSchool"
-        case assedicCertInitialStateNum = "assedicCertInitialStateNum"
-        case includedChallengedPersonQuota = "includedChallengedPersonQuota"
-        case fgtsPercent = "fgtsPercent"
-        case toCurrency = "toCurrency"
-        case position = "position"
-        case startDate = "startDate"
-        case payScaleArea = "payScaleArea"
-        case exclExecutiveSector = "exclExecutiveSector"
-        case isFulltimeEmployee = "isFulltimeEmployee"
-        case emplStatus = "emplStatus"
-        case probationPeriodEndDate = "probationPeriodEndDate"
-        case payScaleType = "payScaleType"
-        case timezone = "timezone"
-        case workingDaysPerWeek = "workingDaysPerWeek"
-        case countryOfCompany = "countryOfCompany"
-        case expectedReturnDate = "expectedReturnDate"
-        case regularTemp = "regularTemp"
-        case eeo6JobCategory = "eeo6JobCategory"
-        case createdOn = "createdOn"
-        case municipalInseeCode = "municipalInseeCode"
-        case pcfm = "pcfm"
-        case healthRisk = "healthRisk"
-        case workLocation = "workLocation"
-        case contractReferenceForAed = "contractReferenceForAed"
-        case timeRecordingAdmissibilityCode = "timeRecordingAdmissibilityCode"
-        case isSideLineJobAllowed = "isSideLineJobAllowed"
-        case fte = "fte"
-        case payGrade = "payGrade"
-        case travelDistance = "travelDistance"
-        case company = "company"
-        case retired = "retired"
-        case event = "event"
-        case department = "department"
-        case eeo1JobCategory = "eeo1JobCategory"
-        case timeRecordingVariant = "timeRecordingVariant"
-        case employeeClass = "employeeClass"
-        case employmentType = "employmentType"
-        case assedicCertObjectNum = "assedicCertObjectNum"
-        case lastModifiedBy = "lastModifiedBy"
-        case managerId = "managerId"
-        case userId = "userId"
-        case lastModifiedOn = "lastModifiedOn"
-        case payScaleGroup = "payScaleGroup"
-        case mandatoryInternship = "mandatoryInternship"
-        case employeeWorkgroupMembership = "employeeWorkgroupMembership"
-        case positionEntryDate = "positionEntryDate"
-        case dynamicBreakConfigCode = "dynamicBreakConfigCode"
-        case createdBy = "createdBy"
-        case workerCategory = "workerCategory"
-        case defaultOvertimeCompensationVariant = "defaultOvertimeCompensationVariant"
-        case seqNumber = "seqNumber"
-        case location = "location"
-    }
+    let workingDaysPerWeek : String?
+    let timeRecordingVariant : String?
+    var payGrade : String?
+}
+struct UserDetails:Codable {
+    var User : UserDetailsModel?
+}
+struct UserDetailsModel:Codable {
+    var division : String?
+    var defaultFullName : String?
+    var firstName : String?
+    var lastName : String?
+    var jobCode : String?
+    var title : String?
+    var department : String?
+    var userId : String?
+    var email : String?
 }
 struct HolidayAssignment:Codable {
     let holidayAssignment:HolidayAssignmentdata?
@@ -344,4 +166,29 @@ struct WorkScheduleDetailDataModel:Codable{
         case day = "day"
         case workingHours = "workingHours"
     }
+}
+struct EmployeeTimeOffDataModel:Codable {
+    var EmployeeTime : EmployeeTimeOffModel?
+}
+struct EmployeeTimeOffModel:Codable {
+    var EmployeeTime : EmployeeTimeOffDetailModel?
+}
+struct EmployeeTimeOffDetailModel:Codable {
+    var endDate : String?
+    var displayQuantity : String?
+    var quantityInDays : String?
+    var startDate : String?
+    var createdDateTime : String?
+    var timeType : String?
+    var flexibleRequesting : String?
+    var approvalStatus : String?
+    var deductionQuantity : String?
+    var timeTypeNav : TimeOffTimeType?
+}
+struct TimeOffTimeType:Codable {
+    var TimeType : TimeOffTimeTypeModel?
+}
+struct TimeOffTimeTypeModel:Codable {
+    var category : String?
+    var externalName_en_US : String?
 }

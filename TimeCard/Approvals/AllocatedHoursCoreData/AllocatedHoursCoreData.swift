@@ -36,7 +36,7 @@ class AllocationHoursCoreData: CoreDataProtocol{
         let offlineUpdate = AllocationOfflineData(context: self.viewContext)
         offlineUpdate.allocationModel = AllocationHoursCoreData.self.archive(allocationModel: allocationModel)
         offlineUpdate.date = date
-    //    offlineUpdate.key = "Allocation"
+        offlineUpdate.key = "Allocation"
         self.saveChanges()
     }
     
@@ -44,7 +44,7 @@ class AllocationHoursCoreData: CoreDataProtocol{
         let offlineUpdate = AllocationOfflineData(context: self.viewContext)
         offlineUpdate.allocationModel = AllocationHoursCoreData.self.archiveAbsence(absenceModel: absenceModel)
         offlineUpdate.date = date
-       // offlineUpdate.key = "Absence"
+        offlineUpdate.key = "Absence"
         self.saveChanges()
     }
     

@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class WeekSummaryController: BaseViewController {
+import SAPFiori
+class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
 
@@ -17,19 +17,23 @@ class WeekSummaryController: BaseViewController {
     var currentHeaderCells: [[CellModel]] = CurrentPage.weekSummary.getCurrentPageHeaders()
     var allocationViewModel:AllocationDataViewModel?
     var stringHelper = StringColorChnage()
+    var loadingIndicator: FUILoadingIndicatorView?
     var showLoadingIndicator: Bool? {
-              didSet {
-                  if showLoadingIndicator == true {
-                   //   self.showFioriLoadingIndicator("Syncing Data")
-                  } else {
-                     // self.hideFioriLoadingIndicator()
-                  }
-              }
-          }
+           didSet {
+               if showLoadingIndicator == true {
+                   self.showFioriLoadingIndicator("Loading")
+               } else {
+                   self.hideFioriLoadingIndicator()
+               }
+           }
+       }
+    lazy var empTimeSheetAPi = RequestManager<EmployeeTimeSheetModel>()
+    lazy var empTimeOffSheetAPi = RequestManager<EmployeeTimeOffDataModel>()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customNavigationType = .navBackWithAction
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
+        self.getEmpTimeSheetAPICall()
         
     }
     override func selectedAction(sender: UIButton) {
@@ -71,29 +75,6 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
         case .WeekSummaryCell:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? WeekSummaryCell else { fatalError("Textfield cell not found") }
             cell.setModel(cellModel)
-            cell.allocationData = self.allocationViewModel?.allcationModelData
-//            var cellType: AllocationCellIdentifier?
-//            switch cellType {
-//            case .total:
-//                if let dataArray = self.allocationViewModel?.allcationModelData.weekData{
-//                    var totalMins: Int = 0
-//                    for data in dataArray{
-//                        totalMins = totalMins+(data.duration ?? 0)
-//                    }
-//                    let (hours, min) = ViewController.minutesToHoursMin(minutes: totalMins)
-//                    cell.labelData.text = String(format: "%02d:%02d", hours, min)
-//                }
-//            case .paidAbsences:
-//                break
-//            case .ot:
-//                break
-//            case .regularTime:
-//                break
-//            case .status:
-//                break
-//            default:
-//                break
-//            }
             cell.allocationData = self.allocationViewModel?.allcationModelData
             
             cell.selectionStyle = .none
@@ -170,10 +151,61 @@ extension WeekSummaryController{
 }
 extension WeekSummaryController:GenericViewModelProtocol{
     func failedWithReason(message: String) {
-        self.showAlert(message: message)
+        DispatchQueue.main.async {
+            self.showAlert(message: message)
+        }
     }
     
     func didReceiveResponse() {
         self.tableView.reloadData()
     }
+}
+extension WeekSummaryController{
+    func getEmpTimeSheetAPICall(){
+           self.showLoadingIndicator = true
+        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
+        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
+        let dataDict = [
+            "userId" : UserData().userId ?? "",
+            "Start_Date": startDate,
+            "End_Date": endDate
+        ]
+        self.empTimeSheetAPi.getEmployeeTimeSheet(for:dataDict as [String : Any], completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.showLoadingIndicator = false
+                self.getEmpTimeOffSheetAPICall()
+               case .success(_, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+                   self.getEmpTimeOffSheetAPICall()
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+    func getEmpTimeOffSheetAPICall(){
+           self.showLoadingIndicator = true
+        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
+        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
+        let dataDict = [
+                  "userId" : UserData().userId ?? "",
+                  "Start_Date": startDate,
+                  "End_Date": endDate
+              ]
+        self.empTimeOffSheetAPi.getEmployeeTimeOffSheet(for:dataDict as [String : Any], completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                   self.showLoadingIndicator = false
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.showLoadingIndicator = false
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+
 }

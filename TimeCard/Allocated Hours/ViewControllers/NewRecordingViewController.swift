@@ -119,7 +119,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
                         allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
                     }
                 }
-                
+
                 DispatchQueue.main.async {
                     self.navigationController?.popViewController(animated: true)
                 }

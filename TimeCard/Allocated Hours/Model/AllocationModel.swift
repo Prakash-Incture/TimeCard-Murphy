@@ -28,6 +28,7 @@ struct WeekSummary:Codable {
     var day,date,hours:String?
     var duration: Int?
     var selectedDate: Date?
+    var isAbsence: Bool?
 }
 struct UserData: Encodable {
     var userId:String?
@@ -76,5 +77,43 @@ class DataSingleton:NSObject{
     var selectedDate:NSDate?
     var selectedWeekDates: [Date]?
     var totalHours:String?
-    var plannedHours:String?
+    var plannedHours: Int? = 13*60
+    var workingDayPerWeek: Int? = 5
+    var dateText:String?
+}
+
+struct EmployeeTimeSheetModel:Codable {
+    var EmployeeTimeSheet : EmployeeTimeSheetDetailModel?
+}
+struct EmployeeTimeSheetDetailModel:Codable {
+    var EmployeeTimeSheet : [EmployeeTimeSheetDetailDataModel]?
+}
+struct EmployeeTimeSheetDetailDataModel:Codable {
+    var period : String?
+    var recordedHoursAndMinutes : String?
+    var endDate : String?
+    var employeeTimeSheetEntry : EmployeeTimeSheetEntryModel?
+    var comment : String?
+    var workflowRequestId : String?
+    var workflowAction : String?
+    var plannedHoursAndMinutes : String?
+    var approvalStatusNav : ApprovalStatusNav?
+    var absencesExist : String?
+    var startDate : String?
+}
+struct EmployeeTimeSheetEntryModel:Codable {
+    var EmployeeTimeSheetEntry: [EmployeeTimeSheetEntryDataModel]?
+}
+struct EmployeeTimeSheetEntryDataModel:Codable {
+    var quantityInHours: String?
+    var costCenter: String?
+    var quantityInHoursAndMinutes: String?
+    var timeTypeName: String?
+    var startDate: String?
+}
+struct ApprovalStatusNav:Codable {
+    var MDFEnumValue : ApprovalStatusNavDeatailModel?
+}
+struct ApprovalStatusNavDeatailModel:Codable {
+    var en_US : String?
 }
