@@ -15,7 +15,8 @@ protocol UpdateData:class {
 class AllocationTimeTypeController: BaseViewController,SAPFioriLoadingIndicator {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var searchBar: UISearchBar!
+
     @IBOutlet weak var tableViewConstant: NSLayoutConstraint!
     
     var timeType:[AvailableTimeData]?
@@ -23,6 +24,11 @@ class AllocationTimeTypeController: BaseViewController,SAPFioriLoadingIndicator 
     weak var delegate:UpdateData?
     var cellType: AllocationCellIdentifier?
     var costcenterData : [CostCenterDataModel]?
+    var costCenterSerachData:[CostCenterDataModel]?{
+        didSet{
+            self.tableView.reloadData()
+        }
+    }
     var userData:UserData?
     lazy var costCenter = RequestManager<CostCenterData>()
     lazy var requestManger = RequestManager<TimeAndAbsenceLookUp>()
@@ -42,9 +48,9 @@ class AllocationTimeTypeController: BaseViewController,SAPFioriLoadingIndicator 
         // Do any additional setup after loading the view.
         self.customNavigationType = .navWithBack
         self.title = self.cellType?.rawValue
+        self.tableViewConstant.constant = self.title == "Cost Center" ? 44 : 0
         self.getData()
         self.tableView.tableFooterView = UIView()
-        self.tableViewConstant.constant = 0
         self.tableView.register(UINib(nibName: "NewRecordTableViewCell", bundle: nil), forCellReuseIdentifier: "NewRecordTableViewCell")
 
     }
@@ -58,7 +64,11 @@ extension AllocationTimeTypeController:UITableViewDataSource,UITableViewDelegate
         case .timeType:
             return timeType?.count ?? 0
         case .costCenter:
-             return costcenterData?.count ?? 0
+            if searchBar.text != ""{
+             return costCenterSerachData?.count ?? 0
+            }else{
+                 return costcenterData?.count ?? 0
+            }
         default:
             return 0
         }
@@ -75,11 +85,19 @@ extension AllocationTimeTypeController:UITableViewDataSource,UITableViewDelegate
                 return cell
         case .costCenter:
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "NewRecordTableViewCell", for: indexPath) as! NewRecordTableViewCell
-                let data = self.costcenterData?[indexPath.row]
-                cell.contentLbl.text = data?.externalName ?? ""
-                cell.cellTextField.isUserInteractionEnabled = false
-                cell.cellTextField.text = data?.cust_Costcenter ?? ""
-                cell.accessoryType = .none
+                if costCenterSerachData?.count != nil{
+                    let data = self.costCenterSerachData?[indexPath.row]
+                    cell.contentLbl.text = data?.externalName ?? ""
+                    cell.cellTextField.isUserInteractionEnabled = false
+                    cell.cellTextField.text = data?.cust_Costcenter ?? ""
+                    cell.accessoryType = .none
+                }else{
+                    let data = self.costcenterData?[indexPath.row]
+                    cell.contentLbl.text = data?.externalName ?? ""
+                    cell.cellTextField.isUserInteractionEnabled = false
+                    cell.cellTextField.text = data?.cust_Costcenter ?? ""
+                    cell.accessoryType = .none
+                }
                 return cell
         default:
             let cell  = UITableViewCell(style:.default, reuseIdentifier: "Cell")
@@ -99,9 +117,15 @@ extension AllocationTimeTypeController:UITableViewDataSource,UITableViewDelegate
             self.navigationController?.popViewController(animated: true)
             return
         case .costCenter:
-            let data = self.costcenterData?[indexPath.row]
-            delegate?.updateValue(value:data?.externalName ?? "", id: data?.cust_Costcenter ?? "")
-            self.navigationController?.popViewController(animated: true)
+            if costCenterSerachData?.count != nil{
+                let data = self.costCenterSerachData?[indexPath.row]
+                delegate?.updateValue(value:data?.externalName ?? "", id: data?.cust_Costcenter ?? "")
+                self.navigationController?.popViewController(animated: true)
+            }else{
+                let data = self.costcenterData?[indexPath.row]
+                delegate?.updateValue(value:data?.externalName ?? "", id: data?.cust_Costcenter ?? "")
+                self.navigationController?.popViewController(animated: true)
+            }
             return
         default: return
         }
@@ -159,3 +183,32 @@ extension AllocationTimeTypeController{
     }
 }
 
+extension AllocationTimeTypeController:UISearchBarDelegate
+{
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        onSearch(searchText: searchBar.text!)
+        searchBar.resignFirstResponder()
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        onSearch(searchText: searchBar.text!)
+        //        timer = Timer.scheduledTimer(timeInterval: 03, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar){
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+    }
+    func onSearch(searchText : String){
+        self.costCenterSerachData = searchText.isEmpty ? self.costcenterData : self.costcenterData?.filter({ costSearch -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            guard let costNumber = costSearch.cust_Costcenter, let owner = costSearch.externalName else { return false }
+            return costNumber.range(of: searchText, options: .caseInsensitive) != nil || owner.range(of: searchText, options: .caseInsensitive) != nil
+        })
+    }
+}

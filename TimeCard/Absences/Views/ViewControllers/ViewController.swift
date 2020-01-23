@@ -206,8 +206,10 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             cell.selecedDateValues = { index in
                 if index < 0{
                     self.plannedHour = self.workSheduledData?[0].workingHours ?? ""
+                  //  DataSingleton.shared.plannedHours = Int(self.workSheduledData?[0].workingHours ?? "")
                 }else{
                     self.plannedHour = self.workSheduledData?[index].workingHours ?? ""
+                   //   DataSingleton.shared.plannedHours = Int(self.workSheduledData?[index].workingHours ?? "")
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -228,6 +230,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.recordedHours.text = String(format: "%02d:%02d", hours, abs(min))
             }
             cell.plannedHourLbl.text = "Planned time \(self.plannedHour) hours"
+            cell.datelabel.text = DataSingleton.shared.dateText
            // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
             return cell
         }else{

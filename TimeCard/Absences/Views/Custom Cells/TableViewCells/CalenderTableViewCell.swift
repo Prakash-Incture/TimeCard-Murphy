@@ -36,8 +36,7 @@ class CalenderTableViewCell: UITableViewCell {
             self.calenderView.reloadData()
         }
     }
-    
-    
+    var tagVal:Int = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         self.calenderSetUP()
@@ -72,6 +71,8 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: last_Date!)
         let min_Date = formatter.string(from: first_Date!)
         self.datelabel.text = min_Date + " - " + max_Date
+        DataSingleton.shared.dateText = self.datelabel.text
+
         DataSingleton.shared.selectedWeekDates = [(first_Date ?? Date()), last_Date ?? Date()]
         // Show corresponding allocations
         dateSelected()
@@ -80,9 +81,14 @@ class CalenderTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    @IBAction func leftButtonAction(_ sender: Any) {
+    @IBAction func leftButtonAction(_ sender: UIButton) {
         let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-        let currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
+        var currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
+        if sender.tag == 0{
+            //currentPage = self.calenderView.currentPage.addingTimeInterval(-172800.0)
+            sender.tag = 1
+            tagVal = sender.tag
+        }
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: -1, to: currentPage, options: [])
         calenderView.setCurrentPage(nextPage!, animated: true)
         
@@ -93,13 +99,19 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: maxDate!)
         let min_Date = formatter.string(from: minDate!)
         self.datelabel.text = min_Date + " - " + max_Date
-        
+        DataSingleton.shared.dateText = self.datelabel.text
+
         DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
     
-    @IBAction func rightButtonAction(_ sender: Any) {
+    @IBAction func rightButtonAction(_ sender: UIButton) {
         let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-        let currentPage = self.calenderView.currentPage.addingTimeInterval(172800.0)
+        var currentPage = self.calenderView.currentPage.addingTimeInterval(172800.0)
+        if sender.tag == 0{
+           currentPage = self.calenderView.currentPage.addingTimeInterval(-172800.0)
+           sender.tag = 1
+            tagVal = sender.tag
+        }
         let nextPage = gregorianCalendar?.date(byAdding: NSCalendar.Unit.weekOfYear, value: 1, to: currentPage, options: [])
         calenderView.setCurrentPage(nextPage!, animated: true)
         
@@ -110,7 +122,8 @@ class CalenderTableViewCell: UITableViewCell {
         let max_Date = formatter.string(from: maxDate!)
         let min_Date = formatter.string(from: minDate!)
         self.datelabel.text = min_Date + " - " + max_Date
-        
+        DataSingleton.shared.dateText = self.datelabel.text
+
         DataSingleton.shared.selectedWeekDates = [(minDate ?? Date()), maxDate ?? Date()]
     }
     
@@ -134,7 +147,11 @@ class CalenderTableViewCell: UITableViewCell {
             let min_Date = formatter.string(from: mNDate! )
 
             self.datelabel.text = min_Date + " - " + max_Date
+            if tagVal == 0{
+            DataSingleton.shared.dateText = self.datelabel.text
             DataSingleton.shared.selectedWeekDates = [(mNDate ?? Date()), mXDate ?? Date()]
+            }
+           //
         }
     }
     
@@ -162,14 +179,13 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
         
         DataSingleton.shared.selectedDate = date.getUTCFormatDate() as NSDate
         let index = calendar.currentPage.days(from: calendar.selectedDate!)
-        
         self.selecedDateValues?(index)
         //Get today's beginning & end
         DispatchQueue.main.async {
             self.dateSelected()
         }
     }
-    
+
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
 //        let startDate: Date
 //        let endDate: Date?
