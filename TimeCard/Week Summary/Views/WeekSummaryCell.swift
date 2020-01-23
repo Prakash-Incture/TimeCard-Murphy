@@ -36,6 +36,7 @@ class WeekSummaryCell: UITableViewCell {
                         totalMinWithAbsence = totalMins-Double(absenceHr)
                     }else{
                         totalMinsWorked = totalMinsWorked+(data.duration ?? 0)
+                        totalMinWithAbsence = totalMins-Double(absenceHr)
                     }
                 }
             }
