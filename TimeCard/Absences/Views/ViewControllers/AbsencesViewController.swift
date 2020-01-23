@@ -125,7 +125,7 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
             cell.cellTextField.resignFirstResponder()
             break
         case .requesting:
-            cell.cellTextField.text =  absenceData.requesting ?? "0 Hours"
+            cell.cellTextField.text = absenceData.requesting ?? "0 Hours"
             cell.cellTextField.isUserInteractionEnabled = false
             self.seytPickerViews(textField:cell.cellTextField)
             break
