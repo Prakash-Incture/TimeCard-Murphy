@@ -26,6 +26,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     var userData:UserData?
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var balanceHour = " "
+    var sendBack : (()->())?
     var loadingIndicator: FUILoadingIndicatorView?
     var showLoadingIndicator: Bool? {
         didSet {
@@ -74,7 +75,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         let absDuration = DataSingleton.shared.plannedHours
         self.absenceData.duration = "\((absDuration ?? 0)/60) Hours"
         self.absenceData.durationMin = absDuration
-        
+        self.absenceData.status = "to be submitted"
         let absenceDates = Date.dates(from: self.absenceData.dateStart ?? Date(), to: self.absenceData.dateEnd ?? Date())
         for absenceDate in absenceDates{
             let dateFrom = (absenceDate as Date).getUTCFormatDate()
@@ -87,7 +88,8 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
             }
         }
        // self.postAbsenceData()
-        self.navigationController?.popViewController(animated: true)
+        self.sendBack?()
+        self.navigationController?.popViewController(animated: false)
     }
 }
 extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{

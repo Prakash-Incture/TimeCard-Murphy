@@ -51,7 +51,7 @@ class AllocationDataViewModel{
     }
     
 
-    var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
+var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     
     public func dataFetching(){
         let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
@@ -104,7 +104,8 @@ class AllocationDataViewModel{
             timeTypeId:value.timeTypeId,
             costCenterId: value.costCenterId,
             durationValueInHours: value.durationValueInHours,
-            uniqueId: value.uniqueId
+            timeType: value.timeType,
+            uniqueId: value.uniqueId,status: value.status
             )
         return weekValues
     }
@@ -120,7 +121,7 @@ class AllocationDataViewModel{
             startDate: value.startDate,
             endDate: value.endDate,
             timeTypeId: value.timeTypeId,
-            uniqueId: value.uniqueId
+            timeType: value.timeType, uniqueId: value.uniqueId,status: value.status
         )
         return weekValues
     }

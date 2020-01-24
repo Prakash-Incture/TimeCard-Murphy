@@ -34,7 +34,7 @@ class CalenderTableViewCell: UITableViewCell {
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var datesWithMultipleEvents:NSArray?{
         didSet{
-            self.calenderView.reloadData()
+            //self.calenderView.reloadData()
         }
     }
     var tagVal:Int = 0
@@ -58,7 +58,7 @@ class CalenderTableViewCell: UITableViewCell {
         DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
         
         calenderView.scrollEnabled = false
-        dateSelected()
+       // dateSelected()
     }
     
     func showDate(){
@@ -76,7 +76,7 @@ class CalenderTableViewCell: UITableViewCell {
 
         DataSingleton.shared.selectedWeekDates = [(first_Date ?? Date()), last_Date ?? Date()]
         // Show corresponding allocations
-        dateSelected()
+       // dateSelected()
     }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -157,21 +157,6 @@ class CalenderTableViewCell: UITableViewCell {
            //
         }
     }
-    // Fetch offline data
-    func dateSelected() {
-        
-        let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
-        
-        if let getResult = allocationHourPersistence.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
-            for model in getResult{
-                let test = self.allocationHourPersistence.unarchive(allocationData: model.allocationModel ?? Data())
-                print(test.duration ?? "0:00")
-                print(model.date ?? "")
-            }
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "onTapOfDate"), object:getResult)
-        }
-    }
-    
 
 }
 extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{

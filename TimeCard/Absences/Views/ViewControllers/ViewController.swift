@@ -41,8 +41,9 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     lazy var empTimeAPi = RequestManager<EmpJobModel>()
     lazy var workScheduleAPI = RequestManager<WorkScheduleModel>()
     lazy var empTimeSheetAPi = RequestManager<EmployeeTimeSheetModel>()
+    lazy var empTimeOffSheetAPi = RequestManager<EmployeeTimeOffDataModel>()
     var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
-
+    var timeOffData = EmployeeTimeOffDataModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
@@ -179,6 +180,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                     SDGEProgressView.stopLoader()
                     self.tableView.reloadData()
                 }
+                self.getEmpTimeOffSheetAPICall()
                case .success(let value, let message):
                    print(message as Any)
                   // self.mainupulateData(value: value)
@@ -274,15 +276,45 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                    } catch let myJSONError {
                        print(myJSONError)
                    }
-               DispatchQueue.main.async {
-                 SDGEProgressView.stopLoader()
-               }
-              
+             
+               self.getEmpTimeOffSheetAPICall()
                 break
                    // Get success data here
                }
            })
        }
+    
+    
+    func getEmpTimeOffSheetAPICall(){
+        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
+        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
+        let dataDict = [
+                  "userId" : UserData().userId ?? "",
+                  "Start_Date": startDate,
+                  "End_Date": endDate
+              ]
+        self.empTimeOffSheetAPi.getEmployeeTimeOffSheet(for:dataDict as [String : Any], completion: { [weak self] result in
+               guard let self = self else { return }
+               switch result {
+               case .failure(let message):
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                        SDGEProgressView.stopLoader()
+                    }
+               case .success(let value, let message):
+                   print(message as Any)
+                   self.timeOffData = value ?? EmployeeTimeOffDataModel()
+                DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
+                    self.tableView.reloadData()
+                }
+               case .successData( _): break
+                   // Get success data here
+               }
+           })
+       }
+
+    
     @IBAction func backAction(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -310,13 +342,10 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             let count = item.startDate?.count
             if count == 23{
                 startDate = (item.startDate?.convertToDate(format: .yearMonthDateTimesec, currentDateStringFormat: .yearMonthDateTimesec))!
-
             }else if count == 22{
                 startDate = (item.startDate?.convertToDate(format: .yearMonthDateTimese, currentDateStringFormat: .yearMonthDateTimese))!
-
             }else if count == 19{
                 startDate = (item.startDate?.convertToDate(format: .yearMonthDateTime, currentDateStringFormat: .yearMonthDateTime))!
-
             }
             let startStringDate = startDate.toDateFormat(.dayMonthYear)
             let selecteddate = date.toDateFormat(.dayMonthYear)
@@ -326,15 +355,75 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                 weekSummaryData.duration = (Int(Double(item.quantityInHours ?? "0.0")!) * 60)
                 weekSummaryData.hours = (item.quantityInHours ?? "") + " " + "Hrs"
                 weekSummaryData.date = startStringDate
+                weekSummaryData.timeType = item.timeTypeName ?? ""
+
                 self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
             }
         }
     }
-        self.allocationViewModel?.allcationModelData.weekData?.append(WeekSummary())
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
+        self.mainipulateTimeOffData(date: date)
+    }
+    func mainipulateTimeOffData(date:Date){
+            let data = self.timeOffData
+        if data.EmployeeTime != nil{
+            var startDate : Any?
+            let count = data.EmployeeTime?.EmployeeTime?.startDate?.count
+                if count == 23{
+                    startDate = (data.EmployeeTime?.EmployeeTime?.startDate?.convertToDate(format: .yearMonthDateTimesec, currentDateStringFormat: .yearMonthDateTimesec))!
+                }else if count == 22{
+                    startDate = (data.EmployeeTime?.EmployeeTime?.startDate?.convertToDate(format: .yearMonthDateTimese, currentDateStringFormat: .yearMonthDateTimese))! as Date
+                }else if count == 19{
+                    startDate = (data.EmployeeTime?.EmployeeTime?.startDate?.convertToDate(format: .yearMonthDateTime, currentDateStringFormat: .yearMonthDateTime))! as Date
+                }
+            let startStringDate = (startDate as! Date).toDateFormat(.dayMonthYear)
+                let selecteddate = date.toDateFormat(.dayMonthYear)
+                if selecteddate == startStringDate{
+                    var weekSummaryData = WeekSummary()
+                    weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as! Date?) ?? Date())
+                    weekSummaryData.hours =  (data.EmployeeTime?.EmployeeTime?.deductionQuantity ?? "") + " " + "Day"
+                    weekSummaryData.date = startStringDate
+                    weekSummaryData.isAbsence = true
+                    weekSummaryData.timeType = data.EmployeeTime?.EmployeeTime?.timeType ?? ""
+                    self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
+                }
+        }
+        
+        self.dateSelected()
+    }
+    func dateSelected() {
+        
+        let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
+        
+        if let getResult = allocationHourPersistence.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
+            for model in getResult{
+                let test = self.allocationViewModel?.allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())
+                print(test?.duration ?? "0:00")
+                print(model.date ?? "")
+            }
+           self.allocationViewModel?.allocationHourPersistence = self.allocationHourPersistence
+            self.addingWeekData(weekDays:getResult)
+            DispatchQueue.main.async {
+                   self.allocationViewModel?.allcationModelData.weekData?.append(WeekSummary())
+                         self.tableView.reloadData()
+                     }
         }
     }
+    public func addingWeekData(weekDays:[AllocationOfflineData]){
+           for value in weekDays ?? []{
+               print(value)
+               if value.key == "Allocation"{
+                guard let allocationModel = self.allocationViewModel?.allocationHourPersistence?.unarchive(allocationData: value.allocationModel ?? Data()) else {return}
+
+                self.allocationViewModel?.allcationModelData.weekData?.append((self.allocationViewModel?.weekSummaryModel(value: allocationModel))!)
+               }else{
+                guard let absenceModel = self.allocationViewModel?.allocationHourPersistence?.unarchiveAbsence(absenceData: value.allocationModel ?? Data()) else {return}
+                self.allocationViewModel?.allcationModelData.weekData?.append((self.allocationViewModel?.weekSummaryModel(value: absenceModel, with: value.date ?? Date().getUTCFormatDate()))!)
+               }
+               
+               self.didReceiveResponse()
+           }
+        self.allocationViewModel?.fetchDurationData(weekData: self.allocationViewModel?.allcationModelData.weekData ?? [])
+       }
 }
 
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
@@ -395,13 +484,19 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.newRecordingBtn.isHidden = !isUserAllowToSubmitTimeSheet
                 cell.newRecordingBtn.addTarget(self, action: #selector(newRecordBtnClicked), for: .touchUpInside)
                 return cell
-                
             }else{
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "WeekSummaryCell", for: indexPath) as! WeekSummaryCell
                 let tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
-                cell.titleText.text = "\(tempVal?.day ?? "")\n\(tempVal?.date ?? "")"
-                let highlightColor: UIColor = tempVal?.isAbsence ?? false ? .red : .lightGray
-                cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: highlightColor, secondColor: highlightColor)
+                
+                let attributedString = NSMutableAttributedString(string: "\(tempVal?.hours ?? "" ?? "")\n\(tempVal?.timeType ?? "")")
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 2 // Whatever line spacing you want in points
+                attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
+                cell.titleText.attributedText = attributedString
+                
+                cell.labelData.text = tempVal?.status ?? ""
+              //  let highlightColor: UIColor = tempVal?.isAbsence ?? false ? .red : .lightGray
+              //  cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: highlightColor, secondColor: highlightColor)
                 cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .none
                 return cell

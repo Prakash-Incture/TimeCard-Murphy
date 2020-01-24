@@ -131,23 +131,13 @@ extension WeekSummaryController{
           let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { (alert: UIAlertAction!) -> Void in
           })
           
-          let saveDraft = UIAlertAction(title: "Save Draft", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.navigationController?.popViewController(animated: true)
-
-          })
           let submit = UIAlertAction(title: "Submit", style: .default, handler: { (alert: UIAlertAction!) -> Void in
                     self.postTimeSheetData()
-
           })
-          
           cancel.setValue(UIColor.red, forKey: "titleTextColor")
-          saveDraft.setValue(UIColor.black, forKey: "titleTextColor")
           submit.setValue(UIColor.blue, forKey: "titleTextColor")
-          
           alertController.addAction(cancel)
-          alertController.addAction(saveDraft)
           alertController.addAction(submit)
-          
           self.present(alertController, animated: true, completion: nil)
           
        }

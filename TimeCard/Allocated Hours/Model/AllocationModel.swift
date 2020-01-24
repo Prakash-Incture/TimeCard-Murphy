@@ -19,7 +19,7 @@ struct AllocationModel:Codable {
     var durationMin: Int?
     var selectedDate: Date?
     var uniqueId: Double?
-    
+    var status : String?
 }
 
 class AllocatedSingleTon:NSObject{
@@ -32,8 +32,9 @@ struct WeekSummary:Codable {
     var selectedDate: Date?
     var isAbsence: Bool?
     var startDate,endDate:String?
-    var timeTypeId,costCenterId,durationValueInHours: String?
+    var timeTypeId,costCenterId,durationValueInHours,timeType: String?
     var uniqueId: Double?
+    var status : String?
     
 }
 struct UserData: Encodable {

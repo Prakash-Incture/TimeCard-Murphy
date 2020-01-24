@@ -115,6 +115,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
                 let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
                 if let newHours = self.allocationDataViewModel.allcationModelData.alllocationModel{
                     for var allocationObj in newHours {
+                        allocationObj.status = "to be submitted"
                         allocationObj.uniqueId = Date().timeIntervalSince1970 // Adding unique id
                         allocationHourPersistence?.saveAllocationHour(allocationModel: allocationObj, withDate: dateFrom)
                     }
@@ -229,6 +230,9 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             if tempData?.timeType != nil{
                 absenceVC.absenceData = tempData ?? Absence()
             }
+            absenceVC.sendBack = {
+                self.navigationController?.popViewController(animated: false)
+            }
             self.navigationController?.pushViewController(absenceVC, animated: true)
             self.view.endEditing(true)
             break
@@ -238,7 +242,6 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     @objc func allocatedHoursAction(){
-        
         self.tableView.reloadData()
     }
     @objc func absenceLookUpNavigating(){
