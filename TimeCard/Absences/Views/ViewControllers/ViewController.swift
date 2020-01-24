@@ -500,7 +500,6 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .none
                 return cell
-                
             }
         }
     }
