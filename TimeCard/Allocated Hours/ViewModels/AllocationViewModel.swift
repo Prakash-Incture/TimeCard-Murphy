@@ -55,11 +55,13 @@ public enum AllocationCellIdentifier: String {
 
 public enum CurrentPage: Int {
     case newRecording
-    case weekSummary
+    case weekSummaryOffline
+    case weeksummarySubmitted
     func getCurrentPageHeaders() -> [[CellModel]] {
        switch self {
             case .newRecording: return AllocationHeader.getAbsenceCells()
-            case .weekSummary:  return AllocationHeader.getWeekSummaryCells()
+            case .weekSummaryOffline:  return AllocationHeader.getWeekSummaryCells()
+            case .weeksummarySubmitted: return AllocationHeader.getWeekSummaryCells()
         }
     }
     func titleForHeaderInSection(section: Int) -> String {
@@ -69,8 +71,10 @@ public enum CurrentPage: Int {
                 return "Absence"
             }
             return ""
-         case .weekSummary:
-            return ""
+         case .weekSummaryOffline:
+            return "To be submitted"
+         case .weeksummarySubmitted:
+            return "Submitted"
         }
     }
 }
@@ -105,10 +109,7 @@ static func getAllocationCells() -> [CellModel] {
         ]
            return rowModel
     }
-    
-    
-    
-    
+
     static func getWeekSummaryCells() -> [[CellModel]]{
         var rowModel : [[CellModel]] = [[CellModel]]()
        rowModel = [
@@ -118,6 +119,7 @@ static func getAllocationCells() -> [CellModel] {
             Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.regularTime),
             Header(reuseIdentifier: .WeekSummaryCell, cellIdentifier: AllocationCellIdentifier.status)
             ],
+          [Header(reuseIdentifier: .AllocatedTimeTableCell, cellIdentifier: AllocationCellIdentifier.total)],
           [Header(reuseIdentifier: .AllocatedTimeTableCell, cellIdentifier: AllocationCellIdentifier.total)]
         ]
 

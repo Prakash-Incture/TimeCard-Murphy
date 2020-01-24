@@ -11,11 +11,13 @@ import SAPFiori
 class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     //UI Compnents
     @IBOutlet weak var tableView: UITableView!
-
+    @IBOutlet weak var noDataLbl: UILabel!
+    
     //Variables
-    var currentPage: CurrentPage = CurrentPage.weekSummary
-    var currentHeaderCells: [[CellModel]] = CurrentPage.weekSummary.getCurrentPageHeaders()
+    var currentPage: CurrentPage = CurrentPage.weekSummaryOffline
+    var currentHeaderCells: [[CellModel]] = CurrentPage.weekSummaryOffline.getCurrentPageHeaders()
     var allocationViewModel:AllocationDataViewModel?
+    var allocationOnlineViewModel: AllocationDataViewModel?
     var stringHelper = StringColorChnage()
     var loadingIndicator: FUILoadingIndicatorView?
     var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
@@ -33,6 +35,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
         super.viewDidLoad()
         self.customNavigationType = .navBackWithAction
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
+        self.allocationOnlineViewModel = AllocationDataViewModel(delegate: self)
        // self.getEmpTimeSheetAPICall()
         
     }
@@ -46,7 +49,15 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.allocationViewModel?.fetchWeekData()
+        self.allocationOnlineViewModel?.fetchOnlineWeekData()
+        
+        if self.allocationViewModel?.allcationModelData.weekData?.isEmpty ?? true{
+            self.customNavigationType = .navWithBack
+        }else{
+            self.customNavigationType = .navBackWithAction
+        }
 
+        self.tableView.isHidden = self.allocationViewModel?.allcationModelData.weekData?.isEmpty ?? true && self.allocationOnlineViewModel?.allcationModelData.weekData?.isEmpty ?? true ? true : false
         self.setUpNavigation()
     }
     func setUpNavigation(){
@@ -65,10 +76,16 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
    }
 
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if section == 0{
-    return currentHeaderCells[section].count
-     }
-    return (self.allocationViewModel?.allcationModelData.weekData?.count ?? 0)
+    switch section {
+    case 0:
+        return currentHeaderCells[section].count
+    case 1:
+        return (self.allocationViewModel?.allcationModelData.weekData?.count ?? 0)
+    case 2:
+        return (self.allocationOnlineViewModel?.allcationModelData.weekData?.count ?? 0)
+    default:
+        return 0
+    }
     }
    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if indexPath.section == 0{
@@ -91,11 +108,16 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
       }
         else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier:"WeekSummaryCell") as? WeekSummaryCell else { fatalError("Textfield cell not found") }
-             let tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
+        var tempVal: WeekSummary?
+        if indexPath.section == 1{
+            tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
+        }else{
+            tempVal = self.allocationOnlineViewModel?.allcationModelData.weekData?[indexPath.row]
+        }
              cell.titleText.text = "\(tempVal?.day ?? "")\n\(tempVal?.date ?? "")"
             cell.labelData.text = tempVal?.hours ?? ""
         let highlightColor: UIColor = tempVal?.isAbsence ?? false ? .red : .lightGray
-            cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: " Hours", firstColor: highlightColor, secondColor: highlightColor)
+            cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: highlightColor, secondColor: highlightColor)
              return cell
         }
    }
@@ -117,6 +139,18 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
            }
            return nil
        }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1:
+            return CurrentPage.weekSummaryOffline.titleForHeaderInSection(section: section)
+        case 2:
+            return CurrentPage.weeksummarySubmitted.titleForHeaderInSection(section: section)
+        default:
+            return ""
+        }
+        
+    }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0{
             return 40
@@ -198,10 +232,9 @@ extension WeekSummaryController{
         for item in (self.allocationViewModel?.allcationModelData.weekData) ?? [WeekSummary](){
             myGroup.enter()
             if item.isAbsence == false{
-            let externalCode = Int.random(in: 0...100000000)
             let startdate = item.date?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
               let externalTimeDict : [String: Any] = [
-                      "externalCode": "\(externalCode)",
+                "externalCode": "\(item.uniqueId)",
                       "hours": item.durationValueInHours ?? "",
                       "costCenter": item.costCenterId ?? "",
                       "timeType": item.timeTypeId ?? "",
@@ -221,17 +254,17 @@ extension WeekSummaryController{
                     dispatchSemaphore.signal()
                     myGroup.leave()
                   case .successData( _): break
+                    
                       // Get success data here
                   }
               })
         }else{
                 let startdate = item.startDate?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
                  let endDate = item.endDate?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
-                let externalCode = Int.random(in: 0...100000000)
             let employeeDataDict : [String:Any] = [
                          "startDate": startdate?.toDateFormat(.yearMonthDateTime) ?? "",
                          "endDate": endDate?.toDateFormat(.yearMonthDateTime) ?? "",
-                         "externalCode": "\(externalCode)",
+                         "externalCode": "\(item.uniqueId)",
                          "fractionQuantity": item.hours ?? "",
                          "userId": UserData().userId ?? "",
                          "timeType": item.timeTypeId ?? ""

@@ -183,6 +183,11 @@ class AllocationDataViewModel{
             }
         }
     }
+    
+    public func fetchOnlineWeekData(){
+        self.fetchWeekData()
+    }
+    
     func fetchDurationData(weekData:[WeekSummary]){
         duration = 0
         for val in weekData{
