@@ -44,6 +44,8 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     lazy var empTimeOffSheetAPi = RequestManager<EmployeeTimeOffDataModel>()
     var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
     var timeOffData = EmployeeTimeOffDataModel()
+    var weekSummaryWeekData = [WeekSummary]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = homeScreenTitle
@@ -331,9 +333,11 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     @IBAction func viewWeekSummaryAction(_ sender: Any) {
         let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
              let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "WeekSummaryController") as! WeekSummaryController
+        newRecordVC.weekSummaryWeekData = self.weekSummaryWeekData
              self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
     func manipulateTimeSheetData(date:Date){
+        self.weekSummaryWeekData.removeAll()
         self.allocationViewModel?.allcationModelData.weekData?.removeAll()
         let data = self.timeSheetObject.first
         if data?.employeeTimeSheetEntry?.EmployeeTimeSheetEntry != nil{
@@ -349,14 +353,14 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             }
             let startStringDate = startDate.toDateFormat(.dayMonthYear)
             let selecteddate = date.toDateFormat(.dayMonthYear)
+            var weekSummaryData = WeekSummary()
+            weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as Date?) ?? Date())
+            weekSummaryData.duration = (Int(Double(item.quantityInHours ?? "0.0")!) * 60)
+            weekSummaryData.hours = (item.quantityInHours ?? "") + " " + "Hrs"
+            weekSummaryData.date = startStringDate
+            weekSummaryData.timeType = item.timeTypeName ?? ""
+            self.weekSummaryWeekData.append(weekSummaryData)
             if selecteddate == startStringDate{
-                var weekSummaryData = WeekSummary()
-                weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as Date?) ?? Date())
-                weekSummaryData.duration = (Int(Double(item.quantityInHours ?? "0.0")!) * 60)
-                weekSummaryData.hours = (item.quantityInHours ?? "") + " " + "Hrs"
-                weekSummaryData.date = startStringDate
-                weekSummaryData.timeType = item.timeTypeName ?? ""
-
                 self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
             }
         }
@@ -377,13 +381,14 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                 }
             let startStringDate = (startDate as! Date).toDateFormat(.dayMonthYear)
                 let selecteddate = date.toDateFormat(.dayMonthYear)
+            var weekSummaryData = WeekSummary()
+               weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as! Date?) ?? Date())
+               weekSummaryData.hours =  (data.EmployeeTime?.EmployeeTime?.deductionQuantity ?? "") + " " + "Day"
+               weekSummaryData.date = startStringDate
+               weekSummaryData.isAbsence = true
+               weekSummaryData.timeType = data.EmployeeTime?.EmployeeTime?.timeType ?? ""
+            self.weekSummaryWeekData.append(weekSummaryData)
                 if selecteddate == startStringDate{
-                    var weekSummaryData = WeekSummary()
-                    weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as! Date?) ?? Date())
-                    weekSummaryData.hours =  (data.EmployeeTime?.EmployeeTime?.deductionQuantity ?? "") + " " + "Day"
-                    weekSummaryData.date = startStringDate
-                    weekSummaryData.isAbsence = true
-                    weekSummaryData.timeType = data.EmployeeTime?.EmployeeTime?.timeType ?? ""
                     self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
                 }
         }

@@ -21,6 +21,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     var stringHelper = StringColorChnage()
     var loadingIndicator: FUILoadingIndicatorView?
     var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
+    var weekSummaryWeekData = [WeekSummary]()
     var showLoadingIndicator: Bool? {
            didSet {
                if showLoadingIndicator == true {
@@ -36,6 +37,9 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
         self.customNavigationType = .navBackWithAction
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
         self.allocationOnlineViewModel = AllocationDataViewModel(delegate: self)
+        self.allocationOnlineViewModel?.allcationModelData.weekData = []
+        self.allocationOnlineViewModel?.allcationModelData.weekData = self.weekSummaryWeekData
+
        // self.getEmpTimeSheetAPICall()
         
     }
@@ -49,7 +53,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.allocationViewModel?.fetchWeekData()
-        self.allocationOnlineViewModel?.fetchOnlineWeekData()
+        //self.allocationOnlineViewModel?.fetchOnlineWeekData()
         
         if self.allocationViewModel?.allcationModelData.weekData?.isEmpty ?? true{
             self.customNavigationType = .navWithBack
@@ -143,19 +147,23 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 1:
-            return CurrentPage.weekSummaryOffline.titleForHeaderInSection(section: section)
+            return (self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) > 0 ? CurrentPage.weekSummaryOffline.titleForHeaderInSection(section: section) : ""
         case 2:
-            return CurrentPage.weeksummarySubmitted.titleForHeaderInSection(section: section)
+            return (self.allocationOnlineViewModel?.allcationModelData.weekData?.count ?? 0) > 0 ? CurrentPage.weeksummarySubmitted.titleForHeaderInSection(section: section) : ""
         default:
             return ""
         }
-        
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{
-            return 40
-        }
-        return 30
+        
+        switch section {
+          case 1:
+            return (self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) > 0 ? 40.0 : 0.0
+            case 2:
+            return (self.allocationOnlineViewModel?.allcationModelData.weekData?.count ?? 0) > 0 ? 40.0 : 0.0
+          default:
+            return 30.0
+          }
     }
  }
 extension WeekSummaryController{
