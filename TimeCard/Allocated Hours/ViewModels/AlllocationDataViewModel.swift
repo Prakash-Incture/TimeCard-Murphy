@@ -174,6 +174,13 @@ class AllocationDataViewModel{
                 }
                 self.delegate?.didReceiveResponse()
             }
+            if self.allcationModelData.weekData != nil{
+            for (index,item) in (self.allcationModelData.weekData?.enumerated())!{
+                if item.timeTypeId == nil{
+                    self.allcationModelData.weekData?.remove(at: index)
+                }
+            }
+            }
         }
     }
     func fetchDurationData(weekData:[WeekSummary]){

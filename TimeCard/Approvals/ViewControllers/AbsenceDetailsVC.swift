@@ -71,16 +71,22 @@ class AbsenceDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
         self.present(actionSheet, animated: true, completion: nil)
     }
     func callApprovalRejectAPI(id:String){
+        SDGEProgressView.startLoader("")
         self.postApproval.callApproveRejectAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(_):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                                  SDGEProgressView.stopLoader()
+                              }
             case .successData(value: _):
                 self.showLoadingIndicator = false
                 DispatchQueue.main.async {
                     self.showAlert(message: "Successful")
+                     SDGEProgressView.stopLoader()
                 }
+
             case .success(_, _):
                 self.showLoadingIndicator = false
             }
@@ -88,13 +94,21 @@ class AbsenceDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
     }
 
     func callApprovalRequestAPI(id:String){
+        SDGEProgressView.startLoader("")
         self.postApproval.callApproveRequestAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure( _):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
+                }
             case .successData(value:  _):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
+                     self.showAlert(message: "Successful")
+                }
             case .success( _,  _):
                 self.showLoadingIndicator = false
                 DispatchQueue.main.async {
@@ -141,12 +155,16 @@ extension AbsenceDetailsVC: UITableViewDelegate, UITableViewDataSource{
 }
 extension AbsenceDetailsVC{
     func callDetails(id:String){
-        self.showLoadingIndicator = true
+        SDGEProgressView.startLoader("")
+  
         self.getApprovalTimeOff.callApproveTimeOffDetailAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let message):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                                  SDGEProgressView.stopLoader()
+                              }
             case .successData(value: let value):
                 self.showLoadingIndicator = false
             case .success(let value, let message):
@@ -155,6 +173,7 @@ extension AbsenceDetailsVC{
                 self.absenceViewModel.getTemData(data: self.timeOffData)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    SDGEProgressView.stopLoader()
                 }
                 self.showLoadingIndicator = false
             }

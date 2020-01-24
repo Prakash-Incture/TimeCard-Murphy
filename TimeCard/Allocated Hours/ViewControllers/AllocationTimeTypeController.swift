@@ -136,12 +136,15 @@ extension AllocationTimeTypeController{
     func getData(){
         switch self.cellType {
         case .timeType:
-            self.showLoadingIndicator = true
-              self.requestManger.fetchlookUpdata(for:userData ?? UserData(), completion: { [weak self] result in
+            SDGEProgressView.startLoader("")
+            self.requestManger.fetchlookUpdata(for:userData ?? UserData(), completion: { [weak self] result in
                   guard let self = self else { return }
                   switch result {
                   case .failure(let message):
                       self.showLoadingIndicator = false
+                      DispatchQueue.main.async {
+                        SDGEProgressView.stopLoader()
+                      }
                     print(message)
                   case .success(let value, let message):
                       print(message as Any)
@@ -150,6 +153,7 @@ extension AllocationTimeTypeController{
 
                       DispatchQueue.main.async {
                             self.tableView.reloadData()
+                        SDGEProgressView.stopLoader()
                       }
                       self.showLoadingIndicator = false
                   case .successData( _): break
@@ -159,17 +163,21 @@ extension AllocationTimeTypeController{
             
             break
         case .costCenter:
-            self.showLoadingIndicator = true
+            SDGEProgressView.startLoader("")
                self.costCenter.costCenterAPIcall(for: userData ?? UserData(), completion: { [weak self] result in
                    guard let self = self else { return }
                    switch result {
                    case .failure(let message):
+                    DispatchQueue.main.async {
+                        SDGEProgressView.stopLoader()
+                    }
                        self.showLoadingIndicator = false
                    case .success(let value, let message):
                        print(message as Any)
                        self.costcenterData = value?.cust_WBS_Element_Test?.cust_WBS_Element_Test ?? [CostCenterDataModel]()
                        DispatchQueue.main.async {
                         self.tableView.reloadData()
+                        SDGEProgressView.stopLoader()
                        }
                     self.showLoadingIndicator = false
                    case .successData( _): break

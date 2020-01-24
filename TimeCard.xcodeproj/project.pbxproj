@@ -42,6 +42,8 @@
 		5E73748423D97B260056D278 /* SAPFioriFlows.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747923D97B260056D278 /* SAPFioriFlows.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5E73748523D97B260056D278 /* SAPOfflineOData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747A23D97B260056D278 /* SAPOfflineOData.framework */; };
 		5E73748623D97B260056D278 /* SAPOfflineOData.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5E73747A23D97B260056D278 /* SAPOfflineOData.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5E73748A23D9C5CA0056D278 /* SDGEProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5E73748823D9C5CA0056D278 /* SDGEProgressView.xib */; };
+		5E73748B23D9C5CA0056D278 /* SDGEProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E73748923D9C5CA0056D278 /* SDGEProgressView.swift */; };
 		5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */; };
 		5E93929823BDC11F00EB02AB /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929723BDC11F00EB02AB /* ListViewController.swift */; };
 		5E93929B23C2FFE000EB02AB /* AbsenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */; };
@@ -173,6 +175,8 @@
 		5E73747823D97B260056D278 /* SAPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPFoundation.framework; path = "../TimeCard 2/SAPFoundation.framework"; sourceTree = "<group>"; };
 		5E73747923D97B260056D278 /* SAPFioriFlows.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPFioriFlows.framework; path = "../TimeCard 2/SAPFioriFlows.framework"; sourceTree = "<group>"; };
 		5E73747A23D97B260056D278 /* SAPOfflineOData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SAPOfflineOData.framework; path = "../TimeCard 2/SAPOfflineOData.framework"; sourceTree = "<group>"; };
+		5E73748823D9C5CA0056D278 /* SDGEProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SDGEProgressView.xib; sourceTree = "<group>"; };
+		5E73748923D9C5CA0056D278 /* SDGEProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDGEProgressView.swift; sourceTree = "<group>"; };
 		5E93929523BDBEC900EB02AB /* AbsencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsencesViewController.swift; sourceTree = "<group>"; };
 		5E93929723BDC11F00EB02AB /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		5E93929A23C2FFE000EB02AB /* AbsenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbsenceViewModel.swift; sourceTree = "<group>"; };
@@ -418,6 +422,7 @@
 		5E15814C23BB1F3400754F69 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5E73748723D9C5A10056D278 /* ProgressView */,
 				5E15815623BB2CC500754F69 /* Constants.swift */,
 				5E15815A23BB2E2000754F69 /* UIViewController+Extension.swift */,
 			);
@@ -438,6 +443,15 @@
 				5E53911923D03DD500E5EE09 /* AbsenceObjectModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5E73748723D9C5A10056D278 /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				5E73748923D9C5CA0056D278 /* SDGEProgressView.swift */,
+				5E73748823D9C5CA0056D278 /* SDGEProgressView.xib */,
+			);
+			path = ProgressView;
 			sourceTree = "<group>";
 		};
 		5E93929923BF1D6300EB02AB /* Absences */ = {
@@ -804,6 +818,7 @@
 				CD79A76A23BDCEB600CA5ED7 /* Headercell.xib in Resources */,
 				5E15812123BB1EAE00754F69 /* LaunchScreen.storyboard in Resources */,
 				CD79A76723BDCEB600CA5ED7 /* GenericTableviewDropdownCell.xib in Resources */,
+				5E73748A23D9C5CA0056D278 /* SDGEProgressView.xib in Resources */,
 				A13BB4DC23C88AD50013312C /* KeyValueCell.xib in Resources */,
 				CD79A77123BDF17600CA5ED7 /* AllocatedTimeTableCell.xib in Resources */,
 				5E15811E23BB1EAE00754F69 /* Assets.xcassets in Resources */,
@@ -964,6 +979,7 @@
 				CDA0903723C6CD7F00FE3E8E /* ServiceEndpoints.swift in Sources */,
 				CD79A75F23BDCE9700CA5ED7 /* AlllocationDataViewModel.swift in Sources */,
 				5E15815D23BB3A4B00754F69 /* NewRecordViewController.swift in Sources */,
+				5E73748B23D9C5CA0056D278 /* SDGEProgressView.swift in Sources */,
 				5E93929623BDBEC900EB02AB /* AbsencesViewController.swift in Sources */,
 				CD1F6F0F23C8642F001A20D4 /* AllocatedHoursCoreData.xcdatamodeld in Sources */,
 				CDD5809E23C85EC500CE4A90 /* AllocatedHoursCoreData.swift in Sources */,

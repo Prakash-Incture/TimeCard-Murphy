@@ -95,8 +95,7 @@ extension ApproveListViewModel{
     
     // Get assertion token
     func callAPIForGettingAssertionToken() {
-        self.delegate?.showLoadingIndicator = true
-        
+        SDGEProgressView.startLoader("")
         let idpBody: [String: String] = ["client_id": ApproveConstants.clientId, "user_id": ApproveConstants.userId, "token_url": ApproveConstants.tokenUrl, "private_key": ApproveConstants.privatekay]
         let idpBodyStr = QHTTPFormURLEncoded.urlEncoded(formDataSet: idpBody)
 
@@ -106,6 +105,7 @@ extension ApproveListViewModel{
             case .failure(let message):
                 self.delegate?.failedWithReason(message: message)
                 self.delegate?.showLoadingIndicator = false
+              
             case .successData(value: let value):
                 let dataStr = String(data: value, encoding: .utf8)!
                 UserDefaults.standard.set(dataStr, forKey: ApproveConstants.assertionToken)
@@ -121,7 +121,6 @@ extension ApproveListViewModel{
     
     // Get access token
         func callAPIForGettingAccessToken() {
-            self.delegate?.showLoadingIndicator = true
             
             let idpBody: [String: String] = ["client_id": ApproveConstants.clientId, "grant_type": ApproveConstants.grantType, "company_id": ApproveConstants.companyId, "assertion": UserDefaults.standard.object(forKey: ApproveConstants.assertionToken) as? String ?? ""]
             let idpBodyStr = QHTTPFormURLEncoded.urlEncoded(formDataSet: idpBody)
@@ -132,6 +131,7 @@ extension ApproveListViewModel{
                 case .failure(let message):
                     self.delegate?.failedWithReason(message: message)
                     self.delegate?.showLoadingIndicator = false
+
                 case .successData(value: let value):
                     do {
                         if let jsonObj = try JSONSerialization.jsonObject(with: value, options : .allowFragments) as? Dictionary<String, Any>
@@ -144,7 +144,6 @@ extension ApproveListViewModel{
                     } catch let error as NSError {
                         print(error)
                     }
-                    self.delegate?.showLoadingIndicator = false
                     self.callAPIForGettingTimeSheetData()
                 case .success( _, let message):
                     print(message as Any)
@@ -155,7 +154,6 @@ extension ApproveListViewModel{
     
     // Get TimeSheet datas
         func callAPIForGettingTimeSheetData() {
-            self.delegate?.showLoadingIndicator = true
             
             self.getAssertionToken.fetchTimeSheetData(for:idpPayload ?? GetIDPPayload(), params: "", completion: { [weak self] result in
                 guard let self = self else { return }
@@ -163,6 +161,9 @@ extension ApproveListViewModel{
                 case .failure(let message):
                     self.delegate?.failedWithReason(message: message)
                     self.delegate?.showLoadingIndicator = false
+                    DispatchQueue.main.async {
+                                       SDGEProgressView.stopLoader()
+                                   }
                 case .successData(value: let value):
 
                     do {
@@ -190,7 +191,6 @@ extension ApproveListViewModel{
     
     // Get TimeOff datas
             func callAPIForGettingTimeOffData() {
-                self.delegate?.showLoadingIndicator = true
                 
                 self.getAssertionToken.fetchTimeOffData(for:idpPayload ?? GetIDPPayload(), params: "", completion: { [weak self] result in
                     guard let self = self else { return }
@@ -198,6 +198,9 @@ extension ApproveListViewModel{
                     case .failure(let message):
                         self.delegate?.failedWithReason(message: message)
                         self.delegate?.showLoadingIndicator = false
+                        DispatchQueue.main.async {
+                                           SDGEProgressView.stopLoader()
+                                       }
                     case .successData(value: let value):
 
                         do {
@@ -216,6 +219,8 @@ extension ApproveListViewModel{
                                 }else{
                                     DispatchQueue.main.async {
                                         self.updateUI?()
+                                        SDGEProgressView.stopLoader()
+
                                     }
                                 }
                             }
@@ -314,6 +319,9 @@ extension ApproveListViewModel{
         myGroup.notify(queue: dispatchQueue) {
                     DispatchQueue.main.async {
                         self.updateUI?()
+                        DispatchQueue.main.async {
+                                           SDGEProgressView.stopLoader()
+                                       }
                     }
              }
         

@@ -66,7 +66,6 @@ class ApprovalListController: BaseViewController, SAPFioriLoadingIndicator {
     }
     private func setupViewModel() {
         approveListViewModel.tableView = self.tableView
-        self.showLoadingIndicator = true
         approveListViewModel.callAPIForGettingAssertionToken()
     }
     override func selectedFilter(sender: UIButton) {

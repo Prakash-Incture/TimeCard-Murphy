@@ -18,6 +18,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     var allocationViewModel:AllocationDataViewModel?
     var stringHelper = StringColorChnage()
     var loadingIndicator: FUILoadingIndicatorView?
+    var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
     var showLoadingIndicator: Bool? {
            didSet {
                if showLoadingIndicator == true {
@@ -27,13 +28,12 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
                }
            }
        }
-    lazy var empTimeSheetAPi = RequestManager<EmployeeTimeSheetModel>()
     lazy var empTimeOffSheetAPi = RequestManager<EmployeeTimeOffDataModel>()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.customNavigationType = .navBackWithAction
         self.allocationViewModel = AllocationDataViewModel(delegate: self)
-        self.getEmpTimeSheetAPICall()
+       // self.getEmpTimeSheetAPICall()
         
     }
     override func selectedAction(sender: UIButton) {
@@ -164,31 +164,6 @@ extension WeekSummaryController:GenericViewModelProtocol{
     }
 }
 extension WeekSummaryController{
-    func getEmpTimeSheetAPICall(){
-           self.showLoadingIndicator = true
-        let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
-        let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
-        let dataDict = [
-            "userId" : UserData().userId ?? "",
-            "Start_Date": startDate,
-            "End_Date": endDate
-        ]
-        self.empTimeSheetAPi.getEmployeeTimeSheet(for:dataDict as [String : Any], completion: { [weak self] result in
-               guard let self = self else { return }
-               switch result {
-               case .failure(let message):
-                   self.showLoadingIndicator = false
-                self.getEmpTimeOffSheetAPICall()
-               case .success(let value, let message):
-                   print(message as Any)
-                   self.showLoadingIndicator = false
-                  // self.mainupulateData(value: value)
-                   self.getEmpTimeOffSheetAPICall()
-               case .successData( _): break
-                   // Get success data here
-               }
-           })
-       }
     func getEmpTimeOffSheetAPICall(){
            self.showLoadingIndicator = true
         let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
@@ -211,18 +186,11 @@ extension WeekSummaryController{
                }
            })
        }
-    func mainupulateData(value:EmployeeTimeSheetModel?){
-        self.allocationViewModel?.allcationModelData.weekData?.removeAll()
-        var data = WeekSummary()
-        data.isAbsence = false
-        data.day = ""
-        data.date = ""
-        data.hours = ""
-        self.allocationViewModel?.allcationModelData.weekData?.append(data)
-    }
     
     func postTimeSheetData(){
-        self.showLoadingIndicator = true
+        DispatchQueue.main.async {
+            SDGEProgressView.startLoader("")
+        }
         let dispatchQueue = DispatchQueue(label: "taskQueue")
                       let myGroup = DispatchGroup()
                       let dispatchSemaphore = DispatchSemaphore(value: 0)
@@ -289,13 +257,10 @@ extension WeekSummaryController{
         }
         myGroup.notify(queue: dispatchQueue) {
                     DispatchQueue.main.async {
-                        self.showLoadingIndicator = false
+                            SDGEProgressView.stopLoader()
                         self.showAlert(message: "Successful")
                     }
              }
 
-    }
-    func postAbsenceData(){
-    
     }
 }

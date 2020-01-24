@@ -78,13 +78,22 @@ class TimesheetDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
     }
     
     func callApprovalRejectAPI(id:String){
+        SDGEProgressView.startLoader("")
         self.postApproval.callApproveRejectAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let message):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                SDGEProgressView.stopLoader()
+
+                }
             case .successData(value: let value):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    self.showAlert(message: "Successful")
+                               SDGEProgressView.stopLoader()
+                               }
             case .success(let value, let message):
                 print(message as Any)
                 self.showLoadingIndicator = false
@@ -98,8 +107,15 @@ class TimesheetDetailsVC: BaseViewController,SAPFioriLoadingIndicator {
             switch result {
             case .failure(let message):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
+                }
             case .successData(value: let value):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                     self.showAlert(message: "Successful")
+                    SDGEProgressView.stopLoader()
+                }
             case .success(let value, let message):
                 print(message as Any)
                 self.showLoadingIndicator = false
@@ -183,7 +199,7 @@ extension TimesheetDetailsVC: UITableViewDelegate, UITableViewDataSource{
 }
 extension TimesheetDetailsVC{
     func callDetails(id:String){
-        self.showLoadingIndicator = true
+        SDGEProgressView.startLoader("")
         self.timeSheetApprovalDetails.callApproveTimeSheetDetailAPI(id: id, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -191,6 +207,7 @@ extension TimesheetDetailsVC{
                 self.showLoadingIndicator = false
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    SDGEProgressView.stopLoader()
                 }
             case .successData(value:  _):
                 self.showLoadingIndicator = false
@@ -199,6 +216,7 @@ extension TimesheetDetailsVC{
                 self.timeData = value?.d?.results?.first
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    SDGEProgressView.stopLoader()
                 }
                 self.showLoadingIndicator = false
             }

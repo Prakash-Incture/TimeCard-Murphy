@@ -25,7 +25,7 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     var hour:String = ""
     var userData:UserData?
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
-    var balanceHour = ""
+    var balanceHour = " "
     var loadingIndicator: FUILoadingIndicatorView?
     var showLoadingIndicator: Bool? {
         didSet {
@@ -256,22 +256,27 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
 }
 extension AbsencesViewController{
     func empTimeOffBalanceAPICalling(id:String){
-        self.showLoadingIndicator = true
         let dataDict = [
             "userId": UserData().userId ?? "",
-            "timeAccountType":"TA_OffS_Vacation"
+            "timeAccountType":id
         ]
+        SDGEProgressView.startLoader("")
+
         self.requestMangerTimeOffBalance.fetchEmpTimeBalance(for:dataDict, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let message):
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
+                }
             case .success(let value, let message):
                 print(message as Any)
                 self.balanceHour = ((value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.balance ?? "") + " " + (value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.timeUnit ?? ""))
                 self.showLoadingIndicator = false
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    SDGEProgressView.stopLoader()
                 }
             case .successData(_): break
                 // Get success data here

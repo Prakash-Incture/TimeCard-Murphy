@@ -75,18 +75,22 @@ extension ListViewController : UITableViewDataSource,UITableViewDelegate{
 
 extension ListViewController{
     func timeandAbsenseLookUpCalling(){
-         self.showLoadingIndicator = true
+        SDGEProgressView.startLoader("")
          self.requestManger.fetchlookUpdata(for:userData ?? UserData(), completion: { [weak self] result in
              guard let self = self else { return }
              switch result {
              case .failure(let message):
                 print("\(message)")
                 self.showLoadingIndicator = false
+                DispatchQueue.main.async {
+                    SDGEProgressView.stopLoader()
+                }
                 break
              case .success(let value, let message):
                 self.absenseData = value?.availableTimeType?.availableTimeType?.filter({$0.timeTypeNav?.timeType?.category == "ABSENCE"})
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    SDGEProgressView.stopLoader()
                 }
                  print(message as Any)
                  self.showLoadingIndicator = false
