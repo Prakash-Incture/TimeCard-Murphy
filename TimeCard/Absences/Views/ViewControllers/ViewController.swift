@@ -53,14 +53,18 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.loadOfflineStores()
         self.holidayCalenderApicalling()
 //        self.allocationViewModel?.fetchDayData()
-       // self.customNavigationType = .navPlain
+        self.customNavigationType = .navWithBack
       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.allocationViewModel?.delegate = self
         self.configurTableView()
-        self.allocationViewModel?.fetchDayData()
+        self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+            // self.allocationViewModel?.fetchDayData()
+    }
+    override func selectedBack(sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func setupViewModel() {
@@ -166,7 +170,6 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         DispatchQueue.main.async {
         SDGEProgressView.startLoader("")
         }
-        
         let startDate = DataSingleton.shared.selectedWeekDates?.first?.toDateFormat(.yearMonthDateTime)
         let endDate = DataSingleton.shared.selectedWeekDates?[1].toDateFormat(.yearMonthDateTime)
         let dataDict = [
@@ -273,8 +276,6 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                         }
                     }
                 }
-                
-
                    } catch let myJSONError {
                        print(myJSONError)
                    }
@@ -300,15 +301,16 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                switch result {
                case .failure(let message):
                 DispatchQueue.main.async {
-                    self.tableView.reloadData()
                         SDGEProgressView.stopLoader()
+                    self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+
                     }
                case .success(let value, let message):
                    print(message as Any)
                    self.timeOffData = value ?? EmployeeTimeOffDataModel()
                 DispatchQueue.main.async {
                     SDGEProgressView.stopLoader()
-                    self.tableView.reloadData()
+                    self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
                 }
                case .successData( _): break
                    // Get success data here
@@ -338,6 +340,9 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     }
     func manipulateTimeSheetData(date:Date){
         self.weekSummaryWeekData.removeAll()
+        if self.allocationViewModel?.allcationModelData.weekData == nil{
+            self.allocationViewModel?.allcationModelData.weekData = []
+        }
         self.allocationViewModel?.allcationModelData.weekData?.removeAll()
         let data = self.timeSheetObject.first
         if data?.employeeTimeSheetEntry?.EmployeeTimeSheetEntry != nil{
@@ -397,8 +402,8 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     }
     func dateSelected() {
         
-        let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
-        
+        let dateFrom = (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate()
+
         if let getResult = allocationHourPersistence.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@", dateFrom as NSDate)) as? [AllocationOfflineData]{
             for model in getResult{
                 let test = self.allocationViewModel?.allocationHourPersistence?.unarchive(allocationData: model.allocationModel ?? Data())

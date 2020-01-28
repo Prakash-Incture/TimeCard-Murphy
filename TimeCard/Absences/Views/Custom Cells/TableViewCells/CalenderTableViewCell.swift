@@ -84,9 +84,9 @@ class CalenderTableViewCell: UITableViewCell {
     }
     @IBAction func leftButtonAction(_ sender: UIButton) {
         let gregorianCalendar = NSCalendar.init(identifier: .gregorian)
-        let currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
+        var currentPage = calenderView.currentPage.addingTimeInterval(172800.0)
         if sender.tag == 0{
-            //currentPage = self.calenderView.currentPage.addingTimeInterval(-172800.0)
+            currentPage = self.calenderView.currentPage.addingTimeInterval(-172800.0)
             sender.tag = 1
             tagVal = sender.tag
         }

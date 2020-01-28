@@ -205,6 +205,25 @@ var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreDat
         }
         return 0
     }
+    
+//    func convertWeekSummaryToAbsence(weekSummary: WeekSummary) -> Absence {
+//        var absenceModel = Absence()
+//        absenceModel.costCenterId = weekSummary.costCenterId
+//        absenceModel.dateEnd = weekSummary.
+//        absenceModel.dateStart
+//        absenceModel.duration
+//        absenceModel.durationMin
+//        absenceModel.durationValueInHours
+//        absenceModel.endDate
+//        absenceModel.isAbsence
+//        absenceModel.requesting
+//        absenceModel.selectedDate
+//        absenceModel.startDate
+//        absenceModel.status
+//        absenceModel.timeType
+//        absenceModel.timeTypeId
+//        absenceModel.uniqueId
+//    }
 }
 //Api calling Methods
 extension AllocationDataViewModel{

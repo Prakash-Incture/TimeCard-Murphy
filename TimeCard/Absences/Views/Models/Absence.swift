@@ -16,4 +16,6 @@ struct Absence:Codable{
     var isAbsence: Bool?
     var uniqueId: Double?
     var status: String?
+    var selectedDate: Date?
+    
 }
