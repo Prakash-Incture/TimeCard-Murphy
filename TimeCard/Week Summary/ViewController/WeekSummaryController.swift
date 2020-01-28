@@ -157,6 +157,28 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
         }
         return 30
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let weekModel: WeekSummary?
+        if indexPath.section != 0{
+            weekModel = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
+            navigateToEdit(weekModel: weekModel ?? WeekSummary())
+        }
+    }
+    
+    func navigateToEdit(weekModel: WeekSummary) {
+        if weekModel.isAbsence ?? false{
+//            let tempData = weekModel
+            guard let absenceVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "AbsencesViewController") as? AbsencesViewController else { return }
+//            if tempData?.timeType != nil{
+//                absenceVC.absenceData = tempData ?? Absence()
+//            }
+//            absenceVC.sendBack = {
+//                self.navigationController?.popViewController(animated: false)
+//            }
+            self.navigationController?.pushViewController(absenceVC, animated: true)
+            self.view.endEditing(true)
+        }
+    }
  }
 extension WeekSummaryController{
     @objc func onTapofAction(sender:UIButton) {
