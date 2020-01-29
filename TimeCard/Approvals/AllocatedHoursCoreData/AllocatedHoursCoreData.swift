@@ -100,6 +100,41 @@ class AllocationHoursCoreData: CoreDataProtocol{
             return [AllocationOfflineData]()
         }
     }
+    
+    func updateDataBase(managedObject: NSManagedObject, with data: Any?) {
+        var archivedData: Data?
+        if let absenceObj = data as? Absence{
+           archivedData = AllocationHoursCoreData.archiveAbsence(absenceModel: absenceObj)
+        }else if let allocationObj = data as? AllocationModel{
+            archivedData = AllocationHoursCoreData.archive(allocationModel: allocationObj)
+        }
+            managedObject.setValue(archivedData, forKey: "allocationModel")
+            self.saveChanges()
+    }
+    
+    func updatePreviousDataWithUniqueId(fetchRequest: NSFetchRequest<NSFetchRequestResult>, predicate: NSPredicate?, uniqueId: Double, updatedObj: Any) {
+        fetchRequest.predicate = predicate
+        
+        if let result = try? self.viewContext.fetch(fetchRequest) as? [AllocationOfflineData], !result.isEmpty {
+            for object in result {
+                
+                guard let dataObj = object.allocationModel else {return}
+                if object.key == "Allocation"{
+                    let allocationObj = self.unarchive(allocationData: dataObj)
+                    if allocationObj.uniqueId == uniqueId{
+                        self.updateDataBase(managedObject: object as NSManagedObject, with: updatedObj as Any)
+                        return
+                    }
+                }else{
+                    let absenceObj = self.unarchiveAbsence(absenceData: dataObj)
+                    if absenceObj.uniqueId == uniqueId{
+                        self.updateDataBase(managedObject: object as NSManagedObject, with: updatedObj as Any)
+                        return
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension AllocationHoursCoreData{
