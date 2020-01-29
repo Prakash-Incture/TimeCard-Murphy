@@ -168,10 +168,13 @@ struct WorkScheduleDetailDataModel:Codable{
     }
 }
 struct EmployeeTimeOffDataModel:Codable {
-    var EmployeeTime : EmployeeTimeOffModel?
+    var employeetime : EmployeeTimeOffModel?
 }
 struct EmployeeTimeOffModel:Codable {
-    var EmployeeTime : EmployeeTimeOffDetailModel?
+    var Division : EmployeeTimeOffData?
+}
+struct EmployeeTimeOffData:Codable{
+    var EmployeeTime :[EmployeeTimeOffDetailModel]?
 }
 struct EmployeeTimeOffDetailModel:Codable {
     var endDate : String?
@@ -182,8 +185,14 @@ struct EmployeeTimeOffDetailModel:Codable {
     var timeType : String?
     var flexibleRequesting : String?
     var approvalStatus : String?
+    var category : String?
     var deductionQuantity : String?
-    var timeTypeNav : TimeOffTimeType?
+    var workflowRequestId : String?
+    var quantityInHours : String?
+    var externalName_en_US : String?
+    var TimeType_externalCode : String?
+    var timeAccountType : String?
+ //   var timeTypeNav : TimeOffTimeType?
 }
 struct TimeOffTimeType:Codable {
     var TimeType : TimeOffTimeTypeModel?
