@@ -52,6 +52,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.allocationViewModel?.allcationModelData.weekData?.removeAll()
         self.allocationViewModel?.fetchWeekData()
         //self.allocationOnlineViewModel?.fetchOnlineWeekData()
         
@@ -169,23 +170,15 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
         let weekModel: WeekSummary?
         if indexPath.section != 0{
             weekModel = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
-//            navigateToEdit(weekModel: weekModel ?? WeekSummary())
+            navigateToEdit(weekModel: weekModel ?? WeekSummary())
         }
     }
     
     func navigateToEdit(weekModel: WeekSummary) {
-        if weekModel.isAbsence ?? false{
-            let tempData = weekModel
-            guard let absenceVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "AbsencesViewController") as? AbsencesViewController else { return }
-//            var absenceModel = Absence()
-//
-//            if tempData?.timeType != nil{
-//                absenceVC.absenceData = tempData ?? Absence()
-//            }
-            absenceVC.sendBack = {
-                self.navigationController?.popViewController(animated: false)
-            }
-            self.navigationController?.pushViewController(absenceVC, animated: true)
+        if !(weekModel.isAbsence ?? false){
+            guard let newRecVC = UIStoryboard(name: "AllocationHours", bundle: Bundle.main).instantiateViewController(withIdentifier: "NewRecordingViewController") as? NewRecordingViewController else { return }
+            newRecVC.allocationModel = self.allocationViewModel?.weekSummaryToAllocation(weekSummary: weekModel)
+            self.navigationController?.pushViewController(newRecVC, animated: true)
             self.view.endEditing(true)
         }
     }

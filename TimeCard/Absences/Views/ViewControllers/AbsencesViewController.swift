@@ -94,14 +94,13 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
             // Update absence model in db
             updateOfflineModel(updatedData: self.absenceData)
         }
-
        
     }
     
     func updateOfflineModel(updatedData: Absence) {
         let dataObj = updatedData
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
-        let predicate = NSPredicate(format: "date == %@", (dataObj.selectedDate as NSDate?)!)
+        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate as NSDate?)!, "Absence")
         self.allocationHourPersistence.updatePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: updatedData.uniqueId!, updatedObj: updatedData)
         // self.postAbsenceData()
         self.sendBack?()
@@ -432,8 +431,4 @@ extension AbsencesViewController {
         self.allocationHourPersistence.load { [weak self] in
         }
     }
-}
-
-extension Date{
-    
 }

@@ -104,7 +104,8 @@ extension GenericTableviewDropdownCell:UpdateData{
             self.parent?.navigationController?.pushViewController(detailsVC, animated: true)
             self.cellTextField.resignFirstResponder()
         case .duration:
-            self.showPickerview(textField: self.cellTextField)
+                self.showPickerview(textField: self.cellTextField)
+            
         default: break
         }
         
@@ -114,11 +115,13 @@ extension GenericTableviewDropdownCell:UpdateData{
         self.allocationViewModel?.weekData = self.weekData
         
         for (index,value) in (self.allocationViewModel?.allcationModelData.alllocationModel?.enumerated())!{
-            if value.timeType == "" || value.duration == "" || value.costCneter == ""{
+//            if value.timeType == "" || value.duration == "" || value.costCneter == ""{
                 self.allocationViewModel?.allcationModelData.alllocationModel?.remove(at: index)
+               self.allocationViewModel?.allocationData = self.allocationData
                 self.allocationViewModel?.allcationModelData.alllocationModel?.append(self.allocationData!)
-            }
+//            }
         }
+        
         
 //        for (index, value) in ((self.allocationViewModel?.allcationModelData.weekData?.enumerated())!) {
 //            if value.dateW == nil || value.dayW == nil || value.hoursW == nil{
@@ -208,7 +211,6 @@ extension GenericTableviewDropdownCell:UIPickerViewDelegate,UIPickerViewDataSour
            picker.delegate = self
            cellTextField.inputView = picker
            cellTextField.inputAccessoryView = toolBar
-           
        }
        
        @objc func donedatePicker(){

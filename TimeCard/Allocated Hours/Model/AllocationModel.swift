@@ -32,10 +32,11 @@ struct WeekSummary:Codable {
     var selectedDate: Date?
     var isAbsence: Bool?
     var startDate,endDate:String?
-    var timeTypeId,costCenterId,durationValueInHours,timeType: String?
+    var timeTypeId,costCenterId,durationValueInHours,timeType,costCenter: String?
     var uniqueId: Double?
     var status : String?
-    
+    var dateStart: Date?
+    var dateEnd: Date?
 }
 struct UserData: Encodable {
     var userId:String?

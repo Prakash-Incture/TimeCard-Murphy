@@ -21,11 +21,12 @@ class AllocationDataViewModel{
             delegate?.didReceiveResponse()
         }
     }
-    var allcationModelData = AllocaitonData(){
-        didSet{
-            delegate?.didReceiveResponse()
-        }
-    }
+    var allcationModelData = AllocaitonData()
+//    {
+//        didSet{
+//            delegate?.didReceiveResponse()
+//        }
+//    }
     var weekData: WeekSummary?
     var absenceData:Absence?
     var timeTypeLookUpdata:TimeAndAbsenceLookUp?
@@ -105,7 +106,9 @@ var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreDat
             costCenterId: value.costCenterId,
             durationValueInHours: value.durationValueInHours,
             timeType: value.timeType,
-            uniqueId: value.uniqueId,status: value.status
+            costCenter: value.costCneter,
+            uniqueId: value.uniqueId,
+            status: value.status
             )
         return weekValues
     }
@@ -121,7 +124,11 @@ var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreDat
             startDate: value.startDate,
             endDate: value.endDate,
             timeTypeId: value.timeTypeId,
-            timeType: value.timeType, uniqueId: value.uniqueId,status: value.status
+            timeType: value.timeType,
+            uniqueId: value.uniqueId,
+            status: value.status,
+            dateStart: value.dateStart,
+            dateEnd: value.dateEnd
         )
         return weekValues
     }
@@ -206,24 +213,44 @@ var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreDat
         return 0
     }
     
-//    func convertWeekSummaryToAbsence(weekSummary: WeekSummary) -> Absence {
-//        var absenceModel = Absence()
-//        absenceModel.costCenterId = weekSummary.costCenterId
-//        absenceModel.dateEnd = weekSummary.
-//        absenceModel.dateStart
-//        absenceModel.duration
-//        absenceModel.durationMin
-//        absenceModel.durationValueInHours
-//        absenceModel.endDate
-//        absenceModel.isAbsence
-//        absenceModel.requesting
-//        absenceModel.selectedDate
-//        absenceModel.startDate
-//        absenceModel.status
-//        absenceModel.timeType
-//        absenceModel.timeTypeId
-//        absenceModel.uniqueId
-//    }
+    func weekSummaryToAllocation(weekSummary: WeekSummary) -> AllocationModel {
+        var allocationModel = AllocationModel()
+        allocationModel.timeType = weekSummary.timeType
+        allocationModel.timeTypeId = weekSummary.timeTypeId
+        allocationModel.duration = weekSummary.durationValueInHours
+        allocationModel.costCneter = weekSummary.costCenter
+        allocationModel.costCenterId = weekSummary.costCenterId
+        allocationModel.durationValueInHours = weekSummary.durationValueInHours
+        allocationModel.durationMin = weekSummary.duration
+        allocationModel.selectedDate = weekSummary.selectedDate
+        allocationModel.uniqueId = weekSummary.uniqueId
+        allocationModel.status = weekSummary.status
+        
+        return allocationModel
+    }
+    
+    func weekSummaryToAbsence(weekSummary: WeekSummary) -> Absence {
+        var absenceModel = Absence()
+        absenceModel.timeType = weekSummary.timeType
+        absenceModel.startDate = weekSummary.startDate
+        absenceModel.availableLeaves = ""
+        absenceModel.endDate = weekSummary.endDate
+        absenceModel.requesting = weekSummary.durationValueInHours
+        absenceModel.timeTypeId = weekSummary.timeTypeId
+        absenceModel.costCenterId = weekSummary.costCenterId
+        absenceModel.durationValueInHours = weekSummary.durationValueInHours
+        absenceModel.dateStart = weekSummary.dateStart
+        absenceModel.dateEnd = weekSummary.dateEnd
+        absenceModel.duration = weekSummary.durationValueInHours
+        absenceModel.durationMin = weekSummary.duration
+        absenceModel.isAbsence = weekSummary.isAbsence
+        absenceModel.uniqueId = weekSummary.uniqueId
+        absenceModel.status = weekSummary.status
+        absenceModel.selectedDate = weekSummary.selectedDate
+        
+        return absenceModel
+    }
+    
 }
 //Api calling Methods
 extension AllocationDataViewModel{

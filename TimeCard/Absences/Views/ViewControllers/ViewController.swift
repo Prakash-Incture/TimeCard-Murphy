@@ -329,7 +329,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
         let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "NewRecordingViewController") as! NewRecordingViewController
          newRecordVC.allocationDataViewModel = self.allocationViewModel
-        newRecordVC.allocationHourPersistence = self.allocationHourPersistence
+    //    newRecordVC.allocationHourPersistence = self.allocationHourPersistence
         self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
     @IBAction func viewWeekSummaryAction(_ sender: Any) {
