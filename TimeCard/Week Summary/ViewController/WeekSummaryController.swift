@@ -180,6 +180,18 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
             newRecVC.allocationModel = self.allocationViewModel?.weekSummaryToAllocation(weekSummary: weekModel)
             self.navigationController?.pushViewController(newRecVC, animated: true)
             self.view.endEditing(true)
+        }else{
+            let tempData = self.allocationViewModel?.weekSummaryToAbsence(weekSummary: weekModel)
+            guard let absenceVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "AbsencesViewController") as? AbsencesViewController else { return }
+            absenceVC.allocationDataViewModel = self.allocationViewModel
+            if tempData?.timeType != nil{
+                absenceVC.absenceData = tempData ?? Absence()
+            }
+            absenceVC.sendBack = {
+                self.navigationController?.popViewController(animated: false)
+            }
+            self.navigationController?.pushViewController(absenceVC, animated: true)
+            self.view.endEditing(true)
         }
     }
  }

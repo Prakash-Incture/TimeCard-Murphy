@@ -227,7 +227,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
         return 50
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
+     /*   switch indexPath.section {
         case 1:
             let tempData = self.allocationDataViewModel?.allcationModelData.absence?[indexPath.row]
             guard let absenceVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "AbsencesViewController") as? AbsencesViewController else { return }
@@ -243,7 +243,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             break
         default:
             break
-        }
+        }*/
     }
     
     @objc func allocatedHoursAction(){
