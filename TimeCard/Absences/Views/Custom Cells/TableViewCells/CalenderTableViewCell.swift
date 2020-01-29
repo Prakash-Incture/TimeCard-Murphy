@@ -52,13 +52,12 @@ class CalenderTableViewCell: UITableViewCell {
         calenderView.dataSource = self
         calenderView.scrollEnabled = false
         calenderView.addGestureRecognizer(panGesture)
+        calenderView.clipsToBounds = true
         
         calenderView.select(Date().getUTCFormatDate())
         self.loadOfflineStores()
         DataSingleton.shared.selectedDate = calenderView.selectedDate as NSDate?
-        
-        calenderView.scrollEnabled = false
-       // dateSelected()
+               // dateSelected()
     }
     
     func showDate(){
@@ -193,21 +192,23 @@ extension CalenderTableViewCell:FSCalendarDelegate,FSCalendarDataSource{
         }
         return 0
     }
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
         let key = self.dateFormatter.string(from: date as Date? ?? Date())
         if (self.datesWithMultipleEvents?.contains(key))! {
-            return [UIColor.red, appearance.eventDefaultColor, UIColor.black]
+            appearance.eventSelectionColor = .red
+            return [UIColor.red, UIColor.red, UIColor.black]
         }
         return nil
     }
 }
+
 extension Date {
     var startOfWeek: Date? {
         let gregorian = Calendar(identifier: .gregorian)
         guard let sunday = gregorian.date(from: gregorian.dateComponents([.weekOfYear, .weekOfYear], from: self)) else { return nil }
         return gregorian.date(byAdding: .day, value: 1, to: sunday)
     }
-    
 }
 
 extension CalenderTableViewCell {

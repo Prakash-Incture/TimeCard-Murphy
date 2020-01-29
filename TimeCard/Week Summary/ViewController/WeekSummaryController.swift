@@ -168,7 +168,7 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let weekModel: WeekSummary?
-        if indexPath.section != 0{
+        if indexPath.section != 0 && indexPath.section != 2{
             weekModel = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
             navigateToEdit(weekModel: weekModel ?? WeekSummary())
         }

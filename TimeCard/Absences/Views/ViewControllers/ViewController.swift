@@ -307,12 +307,55 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                     }
                case .success(let value, let message):
                    print(message as Any)
-                   self.timeOffData = value ?? EmployeeTimeOffDataModel()
-                DispatchQueue.main.async {
-                    SDGEProgressView.stopLoader()
-                    self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
-                }
-               case .successData( _): break
+                   if value != nil{
+                    self.timeOffData = value ?? EmployeeTimeOffDataModel()
+                    DispatchQueue.main.async {
+                          SDGEProgressView.stopLoader()
+                          self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+                      }
+                   }
+               case .successData(let value):
+                do {
+                 let jsonObject = try JSONSerialization.jsonObject(with: value, options: .allowFragments)
+                 let data = jsonObject as? [String:Any]
+                 let employeeTimeData = data?["employeetime"] as? [String:Any]
+                 let empData  = employeeTimeData?["Division"] as? [String:Any]
+                 let employeeTime = empData?["EmployeeTime"]
+                  
+                    self.timeOffData.employeetime = EmployeeTimeOffModel()
+                    self.timeOffData.employeetime?.Division = EmployeeTimeOffData()
+                    self.timeOffData.employeetime?.Division?.EmployeeTime = []
+
+           if employeeTime is Dictionary<AnyHashable,Any>{
+                        let empDict = employeeTime as? [String:Any]
+                        var empOffObj = EmployeeTimeOffDetailModel()
+                        empOffObj.approvalStatus = empDict?["approvalStatus"] as? String
+                        empOffObj.category = empDict?["category"] as? String
+                        empOffObj.endDate = empDict?["endDate"] as? String
+                        empOffObj.createdDateTime = empDict?["createdDateTime"] as? String
+                        empOffObj.displayQuantity = empDict?["displayQuantity"] as? String
+                        empOffObj.externalName_en_US = empDict?["externalName_en_US"] as? String
+                        empOffObj.flexibleRequesting = empDict?["flexibleRequesting"] as? String
+                        empOffObj.quantityInDays = empDict?["quantityInDays"] as? String
+                        empOffObj.quantityInHours = empDict?["quantityInHours"] as? String
+                        empOffObj.startDate = empDict?["startDate"] as? String
+                        empOffObj.timeAccountType = empDict?["timeAccountType"] as? String
+                        empOffObj.deductionQuantity = empDict?["deductionQuantity"] as? String
+                        empOffObj.timeType = empDict?["timeType"] as? String
+                        empOffObj.TimeType_externalCode = empDict?["TimeType_externalCode"] as? String
+                        empOffObj.workflowRequestId = empDict?["workflowRequestId"] as? String
+                        self.timeOffData.employeetime?.Division?.EmployeeTime?.append(empOffObj)
+                        DispatchQueue.main.async {
+                            SDGEProgressView.stopLoader()
+                            self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+                        }
+
+                    }
+                } catch let myJSONError {
+                        print(myJSONError)
+                    }
+                
+                break
                    // Get success data here
                }
            })
@@ -374,28 +417,33 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
     }
     func mainipulateTimeOffData(date:Date){
             let data = self.timeOffData
-        if data.EmployeeTime != nil{
-            var startDate : Any?
-            let count = data.EmployeeTime?.EmployeeTime?.startDate?.count
-                if count == 23{
-                    startDate = (data.EmployeeTime?.EmployeeTime?.startDate?.convertToDate(format: .yearMonthDateTimesec, currentDateStringFormat: .yearMonthDateTimesec))!
-                }else if count == 22{
-                    startDate = (data.EmployeeTime?.EmployeeTime?.startDate?.convertToDate(format: .yearMonthDateTimese, currentDateStringFormat: .yearMonthDateTimese))! as Date
-                }else if count == 19{
-                    startDate = (data.EmployeeTime?.EmployeeTime?.startDate?.convertToDate(format: .yearMonthDateTime, currentDateStringFormat: .yearMonthDateTime))! as Date
-                }
-            let startStringDate = (startDate as! Date).toDateFormat(.dayMonthYear)
+        if data.employeetime != nil{
+            
+            
+            for item in (data.employeetime?.Division?.EmployeeTime)!{
+                var startDate : Any?
+                let count = item.startDate?.count
+                                if count == 23{
+                                    startDate = (item.startDate?.convertToDate(format: .yearMonthDateTimesec, currentDateStringFormat: .yearMonthDateTimesec))!
+                                }else if count == 22{
+                                    startDate = (item.startDate?.convertToDate(format: .yearMonthDateTimese, currentDateStringFormat: .yearMonthDateTimese))! as Date
+                                }else if count == 19{
+                                    startDate = (item.startDate?.convertToDate(format: .yearMonthDateTime, currentDateStringFormat: .yearMonthDateTime))! as Date
+                                }
+                let startStringDate = (startDate as! Date).toDateFormat(.dayMonthYear)
                 let selecteddate = date.toDateFormat(.dayMonthYear)
-            var weekSummaryData = WeekSummary()
-               weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as! Date?) ?? Date())
-               weekSummaryData.hours =  (data.EmployeeTime?.EmployeeTime?.deductionQuantity ?? "") + " " + "Day"
-               weekSummaryData.date = startStringDate
-               weekSummaryData.isAbsence = true
-               weekSummaryData.timeType = data.EmployeeTime?.EmployeeTime?.timeType ?? ""
-            self.weekSummaryWeekData.append(weekSummaryData)
-                if selecteddate == startStringDate{
-                    self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
-                }
+                var weekSummaryData = WeekSummary()
+                weekSummaryData.day = self.allocationViewModel?.getdayWeekDay(date:(startDate as! Date?) ?? Date())
+                     weekSummaryData.duration = (Int(Double(item.quantityInHours ?? "0.0")!) * 60)
+                     weekSummaryData.hours = (item.quantityInHours ?? "") + " " + "Hrs"
+                     weekSummaryData.date = startStringDate
+                     weekSummaryData.timeType = item.externalName_en_US ?? ""
+                     self.weekSummaryWeekData.append(weekSummaryData)
+                     if selecteddate == startStringDate{
+                        self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
+                     }
+                
+            }
         }
         
         self.dateSelected()
@@ -489,7 +537,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
            // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
             return cell
         }else{
-            if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row{
+            if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row || self.allocationViewModel?.allcationModelData.weekData?.count == 0{
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
                 cell.newRecordingBtn.isHidden = !isUserAllowToSubmitTimeSheet
                 cell.newRecordingBtn.addTarget(self, action: #selector(newRecordBtnClicked), for: .touchUpInside)
@@ -498,7 +546,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "WeekSummaryCell", for: indexPath) as! WeekSummaryCell
                 let tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
                 
-                let attributedString = NSMutableAttributedString(string: "\(tempVal?.hours ?? "" ?? "")\n\(tempVal?.timeType ?? "")")
+                let attributedString = NSMutableAttributedString(string: "\(tempVal?.hours ?? "" )\n\(tempVal?.timeType ?? "")")
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.lineSpacing = 2 // Whatever line spacing you want in points
                 attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
@@ -534,7 +582,6 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             // Delete object from local array
-            
             let dataObj = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
             let predicate = NSPredicate(format: "date == %@", (dataObj?.selectedDate as NSDate?)!)
@@ -558,9 +605,11 @@ extension ViewController:GenericViewModelProtocol{
             self.tableView.reloadData()
         }
     }
+    
     func removeObserver(){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "onTapOfDate"), object: nil)
     }
+    
 }
 extension ViewController {
     func loadOfflineStores() {
