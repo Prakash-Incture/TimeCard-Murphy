@@ -80,7 +80,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DwV-5e-byA" customClass="FSCalendar">
-                        <rect key="frame" x="16" y="37" width="288" height="200"/>
+                        <rect key="frame" x="0.0" y="37" width="320" height="200"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <color key="tintColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -94,7 +94,7 @@
                                 <real key="value" value="40"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="titleTextSize">
-                                <real key="value" value="13"/>
+                                <real key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
                                 <color key="value" red="0.0039215686269999999" green="0.14901960780000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -105,20 +105,33 @@
                             <userDefinedRuntimeAttribute type="color" keyPath="todaySelectionColor">
                                 <color key="value" red="0.0039215686269999999" green="0.14901960780000001" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="headerMinimumDissolvedAlpha">
-                                <real key="value" value="0.5"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
                                 <integer key="value" value="0"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
                                 <color key="value" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
-                                <real key="value" value="30"/>
-                            </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="eventSelectionColor">
                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="subtitleTextSize">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rowHeight">
+                                <real key="value" value="250"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="weekdayTextSize">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="headerTitleTextSize">
+                                <real key="value" value="30"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                <real key="value" value="50"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsBoundingRectWhenChangingMonths" value="YES"/>
+                            <userDefinedRuntimeAttribute type="color" keyPath="eventDefaultColor">
+                                <color key="value" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -164,13 +177,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Cly-Hc-21M" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8kk-fR-DTN"/>
-                    <constraint firstAttribute="trailing" secondItem="DwV-5e-byA" secondAttribute="trailing" constant="16" id="CCQ-KI-v6O"/>
+                    <constraint firstAttribute="trailing" secondItem="DwV-5e-byA" secondAttribute="trailing" id="CCQ-KI-v6O"/>
                     <constraint firstAttribute="trailing" secondItem="7lo-zX-Z6g" secondAttribute="trailing" constant="10" id="WWH-53-0dK"/>
                     <constraint firstItem="7lo-zX-Z6g" firstAttribute="top" secondItem="DwV-5e-byA" secondAttribute="bottom" constant="-105" id="b5E-cq-fy9"/>
                     <constraint firstItem="7lo-zX-Z6g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="dNL-wB-OYq"/>
                     <constraint firstAttribute="bottom" secondItem="7lo-zX-Z6g" secondAttribute="bottom" constant="10" id="dlN-TP-nwr"/>
                     <constraint firstAttribute="trailing" secondItem="Cly-Hc-21M" secondAttribute="trailing" id="gP6-uF-6kt"/>
-                    <constraint firstItem="DwV-5e-byA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="rpn-Rr-BEn"/>
+                    <constraint firstItem="DwV-5e-byA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rpn-Rr-BEn"/>
                     <constraint firstItem="Cly-Hc-21M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xUq-vp-oNE"/>
                     <constraint firstItem="DwV-5e-byA" firstAttribute="top" secondItem="Cly-Hc-21M" secondAttribute="bottom" id="y1q-mp-5XG"/>
                 </constraints>

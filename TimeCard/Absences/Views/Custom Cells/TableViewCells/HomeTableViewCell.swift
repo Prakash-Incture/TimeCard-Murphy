@@ -13,7 +13,6 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var newRecordingBtn: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
-        newRecordingBtn.tintColor = Color.theme.value
         // Initialization code
     }
 

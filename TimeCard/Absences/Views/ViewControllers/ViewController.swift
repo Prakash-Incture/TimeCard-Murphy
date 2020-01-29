@@ -489,7 +489,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
            // cell.datesWithMultipleEvents = self.allocationViewModel?.holidaycalnder
             return cell
         }else{
-            if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row{
+            if  self.allocationViewModel?.allcationModelData.weekData?.count == nil || ((self.allocationViewModel?.allcationModelData.weekData?.count ?? 0) - 1) == indexPath.row || self.allocationViewModel?.allcationModelData.weekData?.count == 0{
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
                 cell.newRecordingBtn.isHidden = !isUserAllowToSubmitTimeSheet
                 cell.newRecordingBtn.addTarget(self, action: #selector(newRecordBtnClicked), for: .touchUpInside)
@@ -498,7 +498,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 let cell = self.tableView.dequeueReusableCell(withIdentifier: "WeekSummaryCell", for: indexPath) as! WeekSummaryCell
                 let tempVal = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
                 
-                let attributedString = NSMutableAttributedString(string: "\(tempVal?.hours ?? "" ?? "")\n\(tempVal?.timeType ?? "")")
+                let attributedString = NSMutableAttributedString(string: "\(tempVal?.hours ?? "" )\n\(tempVal?.timeType ?? "")")
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.lineSpacing = 2 // Whatever line spacing you want in points
                 attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attributedString.length))
@@ -534,7 +534,6 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             // Delete object from local array
-            
             let dataObj = self.allocationViewModel?.allcationModelData.weekData?[indexPath.row]
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
             let predicate = NSPredicate(format: "date == %@", (dataObj?.selectedDate as NSDate?)!)
@@ -558,9 +557,11 @@ extension ViewController:GenericViewModelProtocol{
             self.tableView.reloadData()
         }
     }
+    
     func removeObserver(){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "onTapOfDate"), object: nil)
     }
+    
 }
 extension ViewController {
     func loadOfflineStores() {
