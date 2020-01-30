@@ -20,7 +20,7 @@ class AllocatedTimeTableCell: UITableViewCell {
     }
     var currentPage:CurrentPage?
     var allocationViewModel:AllocationDataViewModel?
-
+    var updateData : (([AllocationModel])->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -80,7 +80,8 @@ extension AllocatedTimeTableCell:UITableViewDataSource,UITableViewDelegate{
            return 40
        }
     @objc func allocatedHoursAction(){
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAllocatedDataToArray"), object:self.allocationDataArray)
+        self.updateData?(self.allocationDataArray ?? [])
+       // NotificationCenter.default.post(name: Notification.Name(rawValue: "addAllocatedDataToArray"), object:self.allocationDataArray)
         return
     }
 }

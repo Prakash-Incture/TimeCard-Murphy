@@ -186,13 +186,35 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
                 return cell
             case .AllocatedTimeTableCell:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? AllocatedTimeTableCell else { fatalError("Textfield cell not found") }
-                if let updateModel = self.allocationModel {
+                if let updateModel = self.allocationModel, updateModel.uniqueId != nil {
                     self.allocationDataViewModel?.allcationModelData.alllocationModel?.removeAll()
                     self.allocationDataViewModel?.allcationModelData.alllocationModel = [updateModel]
                 }
                 cell.allocationDataArray = self.allocationDataViewModel?.allcationModelData.alllocationModel ?? []
                 cell.allocationViewModel = self.allocationDataViewModel
                 cell.parent = self
+                cell.updateData = { data in
+                    
+                    var objectData:[AllocationModel] = data
+                    if self.allocationDataViewModel?.allocationData?.timeType != "",self.allocationDataViewModel?.allocationData?.timeType != ""{
+                                 //  objectData.append(self.allocationData!)
+                                   for (index,value) in objectData.enumerated(){
+                                       if value.timeType == "" || value.duration == ""{
+                                           objectData.remove(at: index)
+                                       }
+                                   }
+                        self.allocationDataViewModel?.allcationModelData.alllocationModel = objectData
+                                   let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
+                        self.allocationDataViewModel?.allcationModelData.alllocationModel?.append(tempData)
+                                   DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+
+                                   }
+                               }else{
+                                   self.parent?.showAlert(message: "Please fill all the details")
+                               }
+
+                }
                 return cell
             case .WeekSummaryCell:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? WeekSummaryCell else { fatalError("Textfield cell not found") }

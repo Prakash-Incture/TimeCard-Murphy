@@ -45,27 +45,27 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
         super.awakeFromNib()
         // Initialization code
         self.cellTextField.delegate = self
-        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAllocatedDataToArray"), object: nil, queue: nil) { notification in
-            var objectData:[AllocationModel] = notification.object as? [AllocationModel] ?? []
-            if self.allocationData?.timeType != "",self.allocationData?.timeType != ""{
-              //  objectData.append(self.allocationData!)
-                for (index,value) in objectData.enumerated(){
-                    if value.timeType == "" || value.duration == ""{
-                        objectData.remove(at: index)
-                    }
-                }
-                self.allocationViewModel?.allcationModelData.alllocationModel = objectData
-                let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
-                self.allocationViewModel?.allcationModelData.alllocationModel?.append(tempData)
-                DispatchQueue.main.async {
-                    self.allocationViewModel?.delegate?.didReceiveResponse()
-                }
-                self.removeObserver()
-                return
-            }else{
-                self.parent?.showAlert(message: "Please fill all the details")
-            }
-        }
+//        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAllocatedDataToArray"), object: nil, queue: nil) { notification in
+//            var objectData:[AllocationModel] = notification.object as? [AllocationModel] ?? []
+//            if self.allocationData?.timeType != "",self.allocationData?.timeType != ""{
+//              //  objectData.append(self.allocationData!)
+//                for (index,value) in objectData.enumerated(){
+//                    if value.timeType == "" || value.duration == ""{
+//                        objectData.remove(at: index)
+//                    }
+//                }
+//                self.allocationViewModel?.allcationModelData.alllocationModel = objectData
+//                let tempData = AllocationModel(timeType: "", duration: "", costCneter: "")
+//                self.allocationViewModel?.allcationModelData.alllocationModel?.append(tempData)
+//                DispatchQueue.main.async {
+//                    self.allocationViewModel?.delegate?.didReceiveResponse()
+//                }
+//                self.removeObserver()
+//                return
+//            }else{
+//                self.parent?.showAlert(message: "Please fill all the details")
+//            }
+//        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
