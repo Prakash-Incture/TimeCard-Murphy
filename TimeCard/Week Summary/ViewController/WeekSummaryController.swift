@@ -23,6 +23,7 @@ class WeekSummaryController: BaseViewController,SAPFioriLoadingIndicator {
     var timeSheetObject = [EmployeeTimeSheetDetailDataModel]()
     var weekSummaryWeekData = [WeekSummary]()
     var status = ""
+    var weekSummaryValues = EmployeeTimeSheetDetailDataModel()
     var showLoadingIndicator: Bool? {
            didSet {
                if showLoadingIndicator == true {
@@ -101,6 +102,7 @@ extension WeekSummaryController:UITableViewDelegate,UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellModel.reuseIdentifier.rawValue) as? WeekSummaryCell else { fatalError("Textfield cell not found") }
             cell.setModel(cellModel)
             cell.status = self.status
+            cell.weekData = self.weekSummaryValues
             cell.allocationData = self.allocationViewModel?.allcationModelData
             cell.selectionStyle = .none
             return cell

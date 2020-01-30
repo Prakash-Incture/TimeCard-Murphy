@@ -21,6 +21,7 @@ class WeekSummaryCell: UITableViewCell {
     var totalMinsWorked: Int = 0
     var totalMinWithAbsence = 0.0
     var status = ""
+    var weekData = EmployeeTimeSheetDetailDataModel()
     var allocationData:AllocaitonData?{
         didSet{
             guard let type = cellType else { return }
@@ -44,7 +45,7 @@ class WeekSummaryCell: UITableViewCell {
             switch type {
             case .total:
                 self.titleText.font = self.titleText.font.withSize(20)
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getTotalMins() , secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.weekData.recordedHoursAndMinutes ?? "0.0" , secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
                 self.labelData.font = self.titleText.font.withSize(20)
                 
             case .paidAbsences:
@@ -52,7 +53,7 @@ class WeekSummaryCell: UITableViewCell {
             case .ot:
                 self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getOTMins(), secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .regularTime:
-                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getRegularTime(), secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
+                self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.weekData.plannedHoursAndMinutes ?? "0.0", secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .status:
                 self.labelData.text = status
                 var highlightColor = UIColor()

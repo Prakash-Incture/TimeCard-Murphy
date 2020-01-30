@@ -415,10 +415,10 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
 
                                  }
                         
-//                          DispatchQueue.main.async {
-//                                      SDGEProgressView.stopLoader()
-//                                      self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
-//                          }
+                          DispatchQueue.main.async {
+                                      SDGEProgressView.stopLoader()
+                                      self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+                          }
                     }
   
                 } catch let myJSONError {
@@ -449,6 +449,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
              let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "WeekSummaryController") as! WeekSummaryController
         newRecordVC.weekSummaryWeekData = self.weekSummaryWeekData
+        newRecordVC.weekSummaryValues = self.timeSheetObject.first ?? EmployeeTimeSheetDetailDataModel()
         newRecordVC.status = self.timeSheetObject.first?.approvalStatusNav?.MDFEnumValue?.en_US ?? ""
             self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
