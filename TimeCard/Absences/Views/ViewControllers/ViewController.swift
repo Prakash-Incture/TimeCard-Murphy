@@ -302,7 +302,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                case .failure(let message):
                 DispatchQueue.main.async {
                         SDGEProgressView.stopLoader()
-                    self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+                   // self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
 
                     }
                case .success(let value, let message):
@@ -319,38 +319,108 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                  let jsonObject = try JSONSerialization.jsonObject(with: value, options: .allowFragments)
                  let data = jsonObject as? [String:Any]
                  let employeeTimeData = data?["employeetime"] as? [String:Any]
-                 let empData  = employeeTimeData?["Division"] as? [String:Any]
-                 let employeeTime = empData?["EmployeeTime"]
-                  
-                    self.timeOffData.employeetime = EmployeeTimeOffModel()
-                    self.timeOffData.employeetime?.Division = EmployeeTimeOffData()
-                    self.timeOffData.employeetime?.Division?.EmployeeTime = []
+                    
+                    if employeeTimeData?["Division"] is Array<Any>{
+                        
+                        let empData  = employeeTimeData?["Division"] as? [[String:Any]]
+                        self.timeOffData.employeetime = EmployeeTimeOffModel()
+                        self.timeOffData.employeetime?.Division = EmployeeTimeOffData()
+                        self.timeOffData.employeetime?.Division?.EmployeeTime = []
+                        for item in empData ?? []{
+                            let employeeTime = item["EmployeeTime"]
 
-           if employeeTime is Dictionary<AnyHashable,Any>{
-                        let empDict = employeeTime as? [String:Any]
-                        var empOffObj = EmployeeTimeOffDetailModel()
-                        empOffObj.approvalStatus = empDict?["approvalStatus"] as? String
-                        empOffObj.category = empDict?["category"] as? String
-                        empOffObj.endDate = empDict?["endDate"] as? String
-                        empOffObj.createdDateTime = empDict?["createdDateTime"] as? String
-                        empOffObj.displayQuantity = empDict?["displayQuantity"] as? String
-                        empOffObj.externalName_en_US = empDict?["externalName_en_US"] as? String
-                        empOffObj.flexibleRequesting = empDict?["flexibleRequesting"] as? String
-                        empOffObj.quantityInDays = empDict?["quantityInDays"] as? String
-                        empOffObj.quantityInHours = empDict?["quantityInHours"] as? String
-                        empOffObj.startDate = empDict?["startDate"] as? String
-                        empOffObj.timeAccountType = empDict?["timeAccountType"] as? String
-                        empOffObj.deductionQuantity = empDict?["deductionQuantity"] as? String
-                        empOffObj.timeType = empDict?["timeType"] as? String
-                        empOffObj.TimeType_externalCode = empDict?["TimeType_externalCode"] as? String
-                        empOffObj.workflowRequestId = empDict?["workflowRequestId"] as? String
-                        self.timeOffData.employeetime?.Division?.EmployeeTime?.append(empOffObj)
-                        DispatchQueue.main.async {
-                            SDGEProgressView.stopLoader()
-                            self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+                            if employeeTime is Dictionary<AnyHashable,Any>{
+                                         let empDict = employeeTime as? [String:Any]
+                                         var empOffObj = EmployeeTimeOffDetailModel()
+                                         empOffObj.approvalStatus = empDict?["approvalStatus"] as? String
+                                         empOffObj.category = empDict?["category"] as? String
+                                         empOffObj.endDate = empDict?["endDate"] as? String
+                                         empOffObj.createdDateTime = empDict?["createdDateTime"] as? String
+                                         empOffObj.displayQuantity = empDict?["displayQuantity"] as? String
+                                         empOffObj.externalName_en_US = empDict?["externalName_en_US"] as? String
+                                         empOffObj.flexibleRequesting = empDict?["flexibleRequesting"] as? String
+                                         empOffObj.quantityInDays = empDict?["quantityInDays"] as? String
+                                         empOffObj.quantityInHours = empDict?["quantityInHours"] as? String
+                                         empOffObj.startDate = empDict?["startDate"] as? String
+                                         empOffObj.timeAccountType = empDict?["timeAccountType"] as? String
+                                         empOffObj.deductionQuantity = empDict?["deductionQuantity"] as? String
+                                         empOffObj.timeType = empDict?["timeType"] as? String
+                                         empOffObj.TimeType_externalCode = empDict?["TimeType_externalCode"] as? String
+                                         empOffObj.workflowRequestId = empDict?["workflowRequestId"] as? String
+                                         empOffObj.approvalStatus = empDict?["approvalStatus"] as? String
+                            self.timeOffData.employeetime?.Division?.EmployeeTime?.append(empOffObj)
+                                
+                                
+                            }else if employeeTime is Array<Any>{
+                                let empDict = employeeTime as? [[String:Any]]
+                                for item in empDict ?? []{
+                                    var empOffObj = EmployeeTimeOffDetailModel()
+                                    empOffObj.approvalStatus = item["approvalStatus"] as? String
+                                                                           empOffObj.category = item["category"] as? String
+                                    empOffObj.endDate = item["endDate"] as? String
+                                    empOffObj.createdDateTime = item["createdDateTime"] as? String
+                                    empOffObj.displayQuantity = item["displayQuantity"] as? String
+                                    empOffObj.externalName_en_US = item["externalName_en_US"] as? String
+                                    empOffObj.flexibleRequesting = item["flexibleRequesting"] as? String
+                                    empOffObj.quantityInDays = item["quantityInDays"] as? String
+                                    empOffObj.quantityInHours = item["quantityInHours"] as? String
+                                    empOffObj.startDate = item["startDate"] as? String
+                                    empOffObj.timeAccountType = item["timeAccountType"] as? String
+                                    empOffObj.deductionQuantity = item["deductionQuantity"] as? String
+                                    empOffObj.timeType = item["timeType"] as? String
+                                    empOffObj.TimeType_externalCode = item["TimeType_externalCode"] as? String
+                                    empOffObj.workflowRequestId = item["workflowRequestId"] as? String
+                                    empOffObj.approvalStatus = item["approvalStatus"] as? String
+                                self.timeOffData.employeetime?.Division?.EmployeeTime?.append(empOffObj)
+                                    
+                                    
+                                    
+                                }
+
+                            }
                         }
+                        
+//                          DispatchQueue.main.async {
+//                                      SDGEProgressView.stopLoader()
+//                                      self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+//                          }
+                    }else{
+                              let empData  = employeeTimeData?["Division"] as? [String:Any]
+                              let employeeTime = empData?["EmployeeTime"]
+                               
+                                 self.timeOffData.employeetime = EmployeeTimeOffModel()
+                                 self.timeOffData.employeetime?.Division = EmployeeTimeOffData()
+                                 self.timeOffData.employeetime?.Division?.EmployeeTime = []
 
+                        if employeeTime is Dictionary<AnyHashable,Any>{
+                                     let empDict = employeeTime as? [String:Any]
+                                     var empOffObj = EmployeeTimeOffDetailModel()
+                                     empOffObj.approvalStatus = empDict?["approvalStatus"] as? String
+                                     empOffObj.category = empDict?["category"] as? String
+                                     empOffObj.endDate = empDict?["endDate"] as? String
+                                     empOffObj.createdDateTime = empDict?["createdDateTime"] as? String
+                                     empOffObj.displayQuantity = empDict?["displayQuantity"] as? String
+                                     empOffObj.externalName_en_US = empDict?["externalName_en_US"] as? String
+                                     empOffObj.flexibleRequesting = empDict?["flexibleRequesting"] as? String
+                                     empOffObj.quantityInDays = empDict?["quantityInDays"] as? String
+                                     empOffObj.quantityInHours = empDict?["quantityInHours"] as? String
+                                     empOffObj.startDate = empDict?["startDate"] as? String
+                                     empOffObj.timeAccountType = empDict?["timeAccountType"] as? String
+                                     empOffObj.deductionQuantity = empDict?["deductionQuantity"] as? String
+                                     empOffObj.timeType = empDict?["timeType"] as? String
+                                     empOffObj.TimeType_externalCode = empDict?["TimeType_externalCode"] as? String
+                                     empOffObj.workflowRequestId = empDict?["workflowRequestId"] as? String
+                                     empOffObj.approvalStatus = empDict?["approvalStatus"] as? String
+                                self.timeOffData.employeetime?.Division?.EmployeeTime?.append(empOffObj)
+
+                                 }
+                        
+//                          DispatchQueue.main.async {
+//                                      SDGEProgressView.stopLoader()
+//                                      self.manipulateTimeSheetData(date: (DataSingleton.shared.selectedDate as Date? ?? Date()).getUTCFormatDate())
+//                          }
                     }
+  
                 } catch let myJSONError {
                         print(myJSONError)
                     }
@@ -438,6 +508,7 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
                      weekSummaryData.hours = (item.quantityInHours ?? "") + " " + "Hrs"
                      weekSummaryData.date = startStringDate
                      weekSummaryData.timeType = item.externalName_en_US ?? ""
+                    weekSummaryData.status = item.approvalStatus ?? ""
                      self.weekSummaryWeekData.append(weekSummaryData)
                      if selecteddate == startStringDate{
                         self.allocationViewModel?.allcationModelData.weekData?.append(weekSummaryData)
@@ -553,6 +624,17 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
                 cell.titleText.attributedText = attributedString
                 
                 cell.labelData.text = tempVal?.status ?? ""
+                var highlightColor = UIColor()
+                if tempVal?.status?.uppercased() == "CANCELED"{
+                    highlightColor = .systemRed
+                }else if tempVal?.status?.uppercased() == "PENDING"{
+                    highlightColor = .systemYellow
+                }else if tempVal?.status?.uppercased() == "APPROVED"{
+                    highlightColor = .systemGreen
+                }else{
+                    highlightColor = .black
+                }
+                cell.labelData.textColor = highlightColor
               //  let highlightColor: UIColor = tempVal?.isAbsence ?? false ? .red : .lightGray
               //  cell.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: tempVal?.hours ?? "", secondString: "", firstColor: highlightColor, secondColor: highlightColor)
                 cell.accessoryType = .disclosureIndicator
