@@ -41,7 +41,8 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
     
     var startDate = Date()
     var endDate = Date()
-    
+    var stringHelper = StringColorChnage()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Absences"
@@ -132,33 +133,38 @@ extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "NewRecordTableViewCell", for: indexPath) as! NewRecordTableViewCell
         let cellModel = currentHeaderCells[indexPath.row]
-        cell.contentLbl.text = cellModel.absenceModelIdentifier.rawValue
+        
         cell.selectionStyle = .none
         cell.cellTextField.isUserInteractionEnabled = true
         cell.accessoryType = .disclosureIndicator
         switch cellModel.absenceModelIdentifier {
         case .timeType:
+            cell.contentLbl.attributedText = stringHelper.conevrtToAttributedString(firstString: cellModel.absenceModelIdentifier.rawValue, secondString: "*", firstColor: .black, secondColor: .red)
             cell.cellTextField.text =  absenceData.timeType
             cell.cellTextField.addTarget(self, action: #selector(absenceLookUpNavigating), for: .editingDidBegin)
             cell.cellTextField.resignFirstResponder()
             break
         case .availableBalance:
+            cell.contentLbl.attributedText = stringHelper.conevrtToAttributedString(firstString: cellModel.absenceModelIdentifier.rawValue, secondString: "", firstColor: .black, secondColor: .red)
             cell.accessoryType = .none
             cell.cellTextField.isUserInteractionEnabled = false
             cell.cellTextField.text = self.balanceHour
             break
         case .startDate:
+            cell.contentLbl.attributedText = stringHelper.conevrtToAttributedString(firstString: cellModel.absenceModelIdentifier.rawValue, secondString: "*", firstColor: .black, secondColor: .red)
             cell.cellTextField.text =  absenceData.startDate
             self.setDatePickerView(textField: cell.cellTextField, tag: 1)
             cell.cellTextField.resignFirstResponder()
             
             break
         case .endDate:
+            cell.contentLbl.attributedText = stringHelper.conevrtToAttributedString(firstString: cellModel.absenceModelIdentifier.rawValue, secondString: "*", firstColor: .black, secondColor: .red)
             cell.cellTextField.text =  absenceData.endDate
             self.setDatePickerView(textField: cell.cellTextField, tag: 2)
             cell.cellTextField.resignFirstResponder()
             break
         case .requesting:
+            cell.contentLbl.attributedText = stringHelper.conevrtToAttributedString(firstString: cellModel.absenceModelIdentifier.rawValue, secondString: "", firstColor: .black, secondColor: .red)
             cell.cellTextField.text = absenceData.requesting ?? "0 Hours"
             cell.cellTextField.isUserInteractionEnabled = false
             self.seytPickerViews(textField:cell.cellTextField)
