@@ -130,7 +130,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     func updateOfflineModel(updatedData: AllocationModel) {
         let dataObj = updatedData
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
-        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate as NSDate?)!, "Allocation")
+        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate?.getUTCFormatDate() as NSDate?)!, "Allocation")
         self.allocationHourPersistence.updatePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: updatedData.uniqueId!, updatedObj: updatedData)
         self.navigationController?.popViewController(animated: false)
     }
@@ -138,7 +138,6 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     func getAbsenceOfflineData() {
         
         let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
-        //"(date == %@) AND (key == %@)", dateFrom as NSDate, "Absence"
         guard let getResult = allocationHourPersistence.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@ AND key == %@", dateFrom as NSDate, "Absence")) as? [AllocationOfflineData] else {
             return
         }

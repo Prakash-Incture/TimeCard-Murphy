@@ -115,11 +115,11 @@ var allocationHourPersistence: AllocationHoursCoreData? = AllocationHoursCoreDat
     // Absence
     func weekSummaryModel(value: Absence, with selectedDate: Date) -> WeekSummary{
         let weekValues = WeekSummary(
-            day:self.getdayWeekDay(date:(selectedDate as Date?) ?? Date()),
-            date: self.dateFormatter.string(from:(selectedDate as Date?) ?? Date()),
+            day:self.getdayWeekDay(date:(value.selectedDate as Date?) ?? Date()),
+            date: self.dateFormatter.string(from:(value.selectedDate as Date?) ?? Date()),
             hours: value.duration,
             duration: value.durationMin,
-            selectedDate: selectedDate,
+            selectedDate: value.selectedDate,
             isAbsence: true,
             startDate: value.startDate,
             endDate: value.endDate,
