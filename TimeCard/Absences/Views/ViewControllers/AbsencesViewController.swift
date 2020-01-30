@@ -46,7 +46,9 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         super.viewDidLoad()
         self.title = "Absences"
         self.customNavigationType = .navWithBack
-        absenceData.availableLeaves = UserDefaults.standard.value(forKey: "Emp_Leave_Balnce") as? String
+        if (self.currentHeaderCells.count ) != 4{
+            self.currentHeaderCells.remove(at: 1)
+        }
         self.loadOfflineStores()
         setupTableViewConfigur()
         self.userData = UserData()
@@ -188,7 +190,7 @@ extension AbsencesViewController:UpdateData,UIPickerViewDataSource,UIPickerViewD
         listVC.delegate = self
         listVC.sendData = { data in
             self.absenceData.timeType = data.externalName_en_US ?? ""
-            self.absenceData.timeTypeId = data.externalCode ?? ""
+            self.absenceData.timeTypeId = data.timeAccountPostingRules?.TimeAccountPostingRule?.timeAccountType ?? ""
             self.empTimeOffBalanceAPICalling(id: self.absenceData.timeTypeId!)
             self.tableView.reloadData()
 //            if (self.currentHeaderCells.count ) != 4{
@@ -285,12 +287,24 @@ extension AbsencesViewController{
             case .failure(let message):
                 self.showLoadingIndicator = false
                 DispatchQueue.main.async {
+                    if (self.currentHeaderCells.count ) != 4{
+                    self.currentHeaderCells.remove(at: 1)
+                    self.tableView.reloadData()
+                    }
                     SDGEProgressView.stopLoader()
                 }
             case .success(let value, let message):
                 print(message as Any)
                 self.balanceHour = ((value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.balance ?? "") + " " + (value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.timeUnit ?? ""))
-                self.showLoadingIndicator = false
+                if value?.EmpTimeAccountBalance?.EmpTimeAccountBalance?.balance == nil{
+                                if (self.currentHeaderCells.count ) != 4{
+                                    self.currentHeaderCells.remove(at: 1)
+                                }
+                }else{
+                    if (self.currentHeaderCells.count ) >= 4{
+                        self.currentHeaderCells = AbsenceCurrentPage.absenceRecording.getCurrentPageHeaders()
+                }
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                     SDGEProgressView.stopLoader()

@@ -191,7 +191,7 @@ extension WeekSummaryController{
           })
           
           let submit = UIAlertAction(title: "Submit", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-                    self.postTimeSheetData()
+                    self.postTimeSheetDataBulk()
           })
           cancel.setValue(UIColor.red, forKey: "titleTextColor")
           submit.setValue(UIColor.blue, forKey: "titleTextColor")
@@ -236,6 +236,80 @@ extension WeekSummaryController{
            })
        }
     
+    func postTimeSheetDataBulk(){
+        DispatchQueue.main.async {
+            SDGEProgressView.startLoader("")
+        }
+
+        var dataArray : [[String:Any]] = [[:]]
+        let timeSheetDataArray = self.allocationViewModel?.allcationModelData.weekData?.filter{ $0.isAbsence == false }
+        let timeOffDataArray = self.allocationViewModel?.allcationModelData.weekData?.filter{ $0.isAbsence == true }
+        if (timeSheetDataArray?.count ?? 0) > 0{
+        for item in timeSheetDataArray ?? [WeekSummary](){
+            let startdate = item.date?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+            let externalTimeDict : [String: Any] = [
+                          "externalCode": "\(item.uniqueId)",
+                                "hours": item.durationValueInHours ?? "",
+                                "costCenter": item.costCenterId ?? "",
+                                "timeType": item.timeTypeId ?? "",
+                                "userId": UserData().userId ?? "",
+                                "startDate": startdate?.toDateFormat(.yearMonthDateTime) ?? ""
+                        ]
+            dataArray.append(externalTimeDict)
+        }
+        let dataDict : [String : Any] = ["ExternalTimeData": dataArray]
+        self.empTimeOffSheetAPi.postTimeSheetEntry(for: dataDict, completion: { [weak self] result in
+                  guard let self = self else { return }
+                  switch result {
+                  case .failure(let message):
+                    break
+                  case .success(let value, let message):
+                      print(message as Any)
+                    break
+                  case .successData( _): break
+                    
+                  }
+              })
+        }
+        
+        if (timeOffDataArray?.count ?? 0) > 0{
+            var dataArray : [[String:Any]] = [[:]]
+                for item in timeOffDataArray ?? [WeekSummary](){
+                    let startdate = item.date?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+                    let endDate = item.endDate?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+                    let externalTimeDict : [String: Any] = [
+                                                "startDate": startdate?.toDateFormat(.yearMonthDateTime) ?? "",
+                                                  "endDate": endDate?.toDateFormat(.yearMonthDateTime) ?? "",
+                                                  "externalCode": "\(item.uniqueId)",
+                                                  "fractionQuantity": item.hours ?? "",
+                                                  "userId": UserData().userId ?? "",
+                                                  "timeType": item.timeTypeId ?? ""
+                                ]
+                    dataArray.append(externalTimeDict)
+                }
+                let dataDict : [String : Any] = ["ExternalTimeData": dataArray]
+                self.empTimeOffSheetAPi.postTimeSheetEntry(for: dataDict, completion: { [weak self] result in
+                          guard let self = self else { return }
+                          switch result {
+                          case .failure(let message):
+                            break
+                          case .success(let value, let message):
+                              print(message as Any)
+                            break
+                          case .successData( _): break
+                            
+                          }
+                      })
+        }
+        DispatchQueue.main.async {
+                SDGEProgressView.stopLoader()
+            self.showAlert(message: "Successful")
+        }
+    }
+
+    
+    
+    
     func postTimeSheetData(){
         DispatchQueue.main.async {
             SDGEProgressView.startLoader("")
@@ -248,6 +322,7 @@ extension WeekSummaryController{
             myGroup.enter()
             if item.isAbsence == false{
             let startdate = item.date?.convertToDate(format: .dayMonthYear, currentDateStringFormat: .dayMonthYear)
+                let dataArray : [[String:Any]] = [[:]]
               let externalTimeDict : [String: Any] = [
                 "externalCode": "\(item.uniqueId)",
                       "hours": item.durationValueInHours ?? "",
@@ -255,7 +330,6 @@ extension WeekSummaryController{
                       "timeType": item.timeTypeId ?? "",
                       "userId": UserData().userId ?? "",
                       "startDate": startdate?.toDateFormat(.yearMonthDateTime) ?? ""
-            
               ]
               let dataDict : [String : Any] = ["ExternalTimeData": externalTimeDict]
               self.empTimeOffSheetAPi.postTimeSheetEntry(for: dataDict, completion: { [weak self] result in

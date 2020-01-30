@@ -45,40 +45,65 @@ struct UserData: Encodable {
     }
 }
 struct TimeAndAbsenceLookUp : Codable {
-    let availableTimeType : AvailableTimeType?
-    enum CodingKeys: String, CodingKey {
-        case availableTimeType = "AvailableTimeType"
-    }
+    var availableTimeType : AvailableTimeType?
 }
 
 struct AvailableTimeType : Codable {
-    let availableTimeType : [AvailableTimeData]?
-    enum CodingKeys: String, CodingKey {
-        case availableTimeType = "AvailableTimeType"
-    }
+    var availableTimeType : [AvailableTimeData]?
 }
 struct AvailableTimeData:Codable {
-    let timeTypeNav:TimeTypeNav?
-    enum CodingKeys: String, CodingKey {
-        case timeTypeNav = "timeTypeNav"
+    var timeTypeNav:TimeTypeNav?
+    var enabledInEssScenario : String?
+}
+
+
+enum MyValues: Codable {
+    case string(String)
+    case innerItem(TimeAccountPostingRules)
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let x = try? container.decode(String.self) {
+            self = .string(x)
+            return
+        }
+        if let x = try? container.decode(TimeAccountPostingRules.self) {
+            self = .innerItem(x)
+            return
+        }
+        throw DecodingError.typeMismatch(MyValues.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for MyValue"))
     }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .string(let x):
+            try container.encode(x)
+        case .innerItem(let x):
+            try container.encode(x)
+        }
+    }
+}
+
+
+
+
+
+struct TimeAccountPostingRules:Codable {
+    var TimeAccountPostingRule : TimeAccountPostingRuleData?
+}
+struct TimeAccountPostingRuleData:Codable {
+    var timeAccountType : String?
+    var TimeType_externalCode : String?
 }
 struct TimeTypeNav : Codable {
-    let timeType : TimeType?
-    enum CodingKeys: String, CodingKey {
-        case timeType = "TimeType"
-    }
+    var timeType : TimeType?
 }
 struct TimeType : Codable {
-    let category : String?
-    let externalName_en_US : String?
-    let externalCode : String?
-    
-    enum CodingKeys: String, CodingKey {
-        case category = "category"
-        case externalName_en_US = "externalName_en_US"
-        case externalCode = "externalCode"
-  }
+    var category : String?
+    var timeAccountPostingRules : TimeAccountPostingRules?
+    var externalName_en_US : String?
+    var externalCode : String?
 }
 class DataSingleton:NSObject{
     static let shared = DataSingleton()
