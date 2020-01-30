@@ -20,7 +20,7 @@ class WeekSummaryCell: UITableViewCell {
     var otHrs: Int = 0
     var totalMinsWorked: Int = 0
     var totalMinWithAbsence = 0.0
-    
+    var status = ""
     var allocationData:AllocaitonData?{
         didSet{
             guard let type = cellType else { return }
@@ -54,9 +54,18 @@ class WeekSummaryCell: UITableViewCell {
             case .regularTime:
                 self.labelData.attributedText = stringHelper.conevrtToAttributedString(firstString: self.getRegularTime(), secondString: " Hrs", firstColor: self.titleText.textColor, secondColor: UIColor.lightGray)
             case .status:
-                self.labelData.text = "To be Submitted"
-                self.labelData.textColor = UIColor.lightGray
-            // self.labelData.textColor = UIColor(red:0.98, green:0.86, blue:0.71, alpha:1.0)
+                self.labelData.text = status
+                var highlightColor = UIColor()
+                             if self.status.uppercased() == "CANCELED"{
+                                 highlightColor = .systemRed
+                             }else if self.status.uppercased() == "PENDING"{
+                                 highlightColor = .systemYellow
+                             }else if self.status.uppercased() == "APPROVED"{
+                                 highlightColor = .systemGreen
+                             }else{
+                                 highlightColor = .black
+                             }
+                self.labelData.textColor = highlightColor
             default: return
             }
         }

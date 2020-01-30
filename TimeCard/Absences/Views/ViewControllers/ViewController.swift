@@ -449,7 +449,8 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         let storyBoard = UIStoryboard(name: "AllocationHours", bundle: nil)
              let newRecordVC = storyBoard.instantiateViewController(withIdentifier: "WeekSummaryController") as! WeekSummaryController
         newRecordVC.weekSummaryWeekData = self.weekSummaryWeekData
-             self.navigationController?.pushViewController(newRecordVC, animated: true)
+        newRecordVC.status = self.timeSheetObject.first?.approvalStatusNav?.MDFEnumValue?.en_US ?? ""
+            self.navigationController?.pushViewController(newRecordVC, animated: true)
     }
     func manipulateTimeSheetData(date:Date){
         self.weekSummaryWeekData.removeAll()
