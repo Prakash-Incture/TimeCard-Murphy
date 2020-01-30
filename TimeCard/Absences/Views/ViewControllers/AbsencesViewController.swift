@@ -80,34 +80,48 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.absenceData.durationMin = absDuration
         self.absenceData.status = "to be submitted"
         if self.absenceData.uniqueId == nil{
-            let absenceDates = Date.dates(from: self.absenceData.dateStart ?? Date(), to: self.absenceData.dateEnd ?? Date())
-            for absenceDate in absenceDates{
-                let dateFrom = (absenceDate as Date).getUTCFormatDate()
-                
-                //        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAbsenceData"), object:self.absenceData)
-                    self.absenceData.uniqueId = Date().timeIntervalSince1970 // Adding unique id
-                self.absenceData.selectedDate = dateFrom
-                    self.allocationHourPersistence.saveAbsenceHour(absenceModel: self.absenceData, withDate: dateFrom)
-                // self.postAbsenceData()
-                self.sendBack?()
-                self.navigationController?.popViewController(animated: false)
-            }
+            self.saveOfflineData()
         }else{
             // Update absence model in db
-            updateOfflineModel(updatedData: self.absenceData)
+//            updateOfflineModel(updatedData: self.absenceData)
+            self.removeOldOfflineAbsences(updatedData: self.absenceData)
+            self.saveOfflineData()
         }
        
     }
     
-    func updateOfflineModel(updatedData: Absence) {
+    func saveOfflineData() {
+        let absenceDates = Date.dates(from: self.absenceData.dateStart ?? Date(), to: self.absenceData.dateEnd ?? Date())
+        for absenceDate in absenceDates{
+            let dateFrom = (absenceDate as Date).getUTCFormatDate()
+            
+                self.absenceData.uniqueId = Date().timeIntervalSince1970 // Adding unique id
+            self.absenceData.selectedDate = dateFrom
+                self.allocationHourPersistence.saveAbsenceHour(absenceModel: self.absenceData, withDate: dateFrom)
+            self.sendBack?()
+            self.navigationController?.popViewController(animated: false)
+        }
+    }
+    
+    func removeOldOfflineAbsences(updatedData: Absence) {
+        // Delete object from local array
         let dataObj = updatedData
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
-        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate as NSDate?)!, "Absence")
-        self.allocationHourPersistence.updatePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: updatedData.uniqueId!, updatedObj: updatedData)
-        // self.postAbsenceData()
-        self.sendBack?()
-        self.navigationController?.popViewController(animated: false)
+        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate?.getUTCFormatDate() as NSDate?)!, "Absence")
+        
+        // Delete request for offline object
+        self.allocationHourPersistence.removePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, isAbsence: true, absenceModel: updatedData)
     }
+    
+//    func updateOfflineModel(updatedData: Absence) {
+//        let dataObj = updatedData
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
+//        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate as NSDate?)!, "Absence")
+//        self.allocationHourPersistence.updatePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: updatedData.uniqueId!, updatedObj: updatedData)
+//        // self.postAbsenceData()
+//        self.sendBack?()
+//        self.navigationController?.popViewController(animated: false)
+//    }
 }
 extension AbsencesViewController : UITableViewDelegate,UITableViewDataSource{
     

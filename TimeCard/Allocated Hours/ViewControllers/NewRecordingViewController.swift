@@ -130,7 +130,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     func updateOfflineModel(updatedData: AllocationModel) {
         let dataObj = updatedData
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
-        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate as NSDate?)!, "Allocation")
+        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate?.getUTCFormatDate() as NSDate?)!, "Allocation")
         self.allocationHourPersistence.updatePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: updatedData.uniqueId!, updatedObj: updatedData)
         self.navigationController?.popViewController(animated: false)
     }
@@ -138,7 +138,6 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     func getAbsenceOfflineData() {
         
         let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
-        //"(date == %@) AND (key == %@)", dateFrom as NSDate, "Absence"
         guard let getResult = allocationHourPersistence.fetchAllFrequesntSeraches(with: NSPredicate(format: "date == %@ AND key == %@", dateFrom as NSDate, "Absence")) as? [AllocationOfflineData] else {
             return
         }
@@ -227,7 +226,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
         return 50
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
+     /*   switch indexPath.section {
         case 1:
             let tempData = self.allocationDataViewModel?.allcationModelData.absence?[indexPath.row]
             guard let absenceVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "AbsencesViewController") as? AbsencesViewController else { return }
@@ -243,7 +242,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             break
         default:
             break
-        }
+        }*/
     }
     
     @objc func allocatedHoursAction(){
