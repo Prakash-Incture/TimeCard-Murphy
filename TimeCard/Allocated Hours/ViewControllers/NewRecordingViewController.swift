@@ -98,7 +98,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     
     override func selectedSave(sender: UIButton) {
         if let newRec = self.allocationDataViewModel?.allcationModelData.alllocationModel?.last{
-            if newRec.costCneter != "" && newRec.duration != "" && newRec.timeType != "" {
+            if newRec.duration != "" && newRec.timeType != "" {
                 if newRec.uniqueId == nil{
                      //Get today's beginning & end
                      let dateFrom = (DataSingleton.shared.selectedDate! as Date).getUTCFormatDate()
@@ -121,7 +121,7 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
             }else{
                 //TODO:
                 // Show error message
-                self.showAlert(message: "Please fill all the details")
+                self.showAlert(message: "Please select Time type & Duration")
             }
         }
         

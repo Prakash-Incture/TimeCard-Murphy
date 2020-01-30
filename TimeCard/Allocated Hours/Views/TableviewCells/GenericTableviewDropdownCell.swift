@@ -24,6 +24,8 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
       var allocationViewModel:AllocationDataViewModel?
     var costcenterData : [CostCenterDataModel]?
     var weekData: WeekSummary?
+    var stringHelper = StringColorChnage()
+
       var allocationData:AllocationModel?{
         didSet{
             guard let type = cellType else { return }
@@ -75,12 +77,19 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
            self.cellModel = cellModel
            guard let cellIdentifier = self.cellModel?.cellIdentifier.rawValue else { return }
            self.cellType = AllocationCellIdentifier(rawValue: cellIdentifier)
-           self.descriptionLabel.text = self.cellType?.getTitleHeader()
+        switch self.cellType {
+        case .timeType:
+            self.descriptionLabel.attributedText = stringHelper.conevrtToAttributedString(firstString: self.cellType?.getTitleHeader() ?? "", secondString: "*", firstColor: .black, secondColor: .red)
+        case .duration:
+            self.descriptionLabel.attributedText = stringHelper.conevrtToAttributedString(firstString: self.cellType?.getTitleHeader() ?? "", secondString: "*", firstColor: .black, secondColor: .red)
+        default:
+            self.descriptionLabel.attributedText = stringHelper.conevrtToAttributedString(firstString: self.cellType?.getTitleHeader() ?? "", secondString: "", firstColor: .black, secondColor: .red)
+        }
            self.cellTextField.placeholder = cellType?.getPlaceHoldertext
            self.cellTextField.isUserInteractionEnabled = cellType?.isUserIntractable ?? true
            self.accessoryType = cellModel.cellIdentifier.shouldShowIndicator ? .disclosureIndicator : .none
            self.cellTextField.textColor = cellModel.cellIdentifier.shouldShowIndicator ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : .darkGray
-           self.descriptionLabel.textColor = cellModel.cellIdentifier.shouldShowIndicator ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : .darkGray
+//           self.descriptionLabel.textColor = cellModel.cellIdentifier.shouldShowIndicator ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : .darkGray
        }
 }
 extension GenericTableviewDropdownCell:UpdateData{
