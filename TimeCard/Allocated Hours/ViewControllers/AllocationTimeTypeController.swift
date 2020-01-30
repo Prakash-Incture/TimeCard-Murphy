@@ -148,16 +148,66 @@ extension AllocationTimeTypeController{
                     print(message)
                   case .success(let value, let message):
                       print(message as Any)
-                      self.timeType = value?.availableTimeType?.availableTimeType
-                      self.timeType = self.timeType?.filter({$0.timeTypeNav?.timeType?.category == "ATTENDANCE"})
+//                      self.timeType = value?.availableTimeType?.availableTimeType
+//                      self.timeType = self.timeType?.filter({$0.timeTypeNav?.timeType?.category == "ATTENDANCE"})
+//
+//                      DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+//                        SDGEProgressView.stopLoader()
+//                      }
+                  case .successData(let value):
+                    
+                    do{
+                         let jsonObject = try JSONSerialization.jsonObject(with: value, options: .allowFragments)
+                         let data = jsonObject as? [String:Any]
+                         let availableTimeType = data?["AvailableTimeType"] as? [String:Any]
+                         let availTimeType = availableTimeType?["AvailableTimeType"] as? [[String:Any]]
+                         var absenceLookUp = TimeAndAbsenceLookUp()
+                         var absenceLookUpData = AvailableTimeType()
+                         var absenceDataValues = [AvailableTimeData]()
+                         
+                         for item in availTimeType ?? []{
+                             var  obj = AvailableTimeData()
+                             obj.enabledInEssScenario = item["enabledInEssScenario"] as? String
+                             var timeTypeNavObj = TimeTypeNav()
+                             var timeTypeObj = TimeType()
+                             
+                             let timedata = item["timeTypeNav"] as? [String:Any]
+                             let timeDataValue = timedata?["TimeType"] as? [String:Any]
+                             timeTypeObj.category = timeDataValue?["category"] as? String
+                             timeTypeObj.externalCode = timeDataValue?["externalCode"] as? String
+                             timeTypeObj.externalName_en_US = timeDataValue?["externalName_en_US"] as? String
+                             if timeDataValue?["timeAccountPostingRules"] is Dictionary<AnyHashable,Any>{
+                                 let data = timeDataValue?["timeAccountPostingRules"] as? [String:Any]
+                                 let timeAccountPostingRulesData = data?["TimeAccountPostingRule"] as? [String:Any]
+                                 var timeAccountPostingRules = TimeAccountPostingRules()
+                                 var timeAccountPostingRuleData = TimeAccountPostingRuleData()
+                                 timeAccountPostingRules.TimeAccountPostingRule = timeAccountPostingRuleData
+                                 timeAccountPostingRuleData.timeAccountType = timeAccountPostingRulesData?["timeAccountType"] as? String
+                                 timeAccountPostingRuleData.TimeType_externalCode = timeAccountPostingRulesData?["TimeType_externalCode"] as? String
+                                 timeAccountPostingRules.TimeAccountPostingRule = timeAccountPostingRuleData
+                                 timeTypeObj.timeAccountPostingRules = timeAccountPostingRules
+                             }
+                             timeTypeNavObj.timeType = timeTypeObj
+                             obj.timeTypeNav = timeTypeNavObj
+                             absenceDataValues.append(obj)
+                         }
+                         absenceLookUpData.availableTimeType = absenceDataValues
+                         absenceLookUp.availableTimeType = absenceLookUpData
+                         self.timeType = absenceLookUp.availableTimeType?.availableTimeType?.filter({(($0.timeTypeNav?.timeType?.category == "ATTENDANCE"))}) ?? []
+                         DispatchQueue.main.async {
+                                 self.tableView.reloadData()
+                                 SDGEProgressView.stopLoader()
+                     }
+                     }catch(let error){
+                         print(error)
+                         DispatchQueue.main.async {
+                             self.tableView.reloadData()
+                             SDGEProgressView.stopLoader()
+                         }
+                     }
 
-                      DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                        SDGEProgressView.stopLoader()
-                      }
-                      self.showLoadingIndicator = false
-                  case .successData( _): break
-                      // get Success data here
+                    break
                   }
               })
             

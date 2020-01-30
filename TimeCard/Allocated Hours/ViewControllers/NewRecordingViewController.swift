@@ -58,7 +58,8 @@ class NewRecordingViewController: BaseViewController, SAPFioriLoadingIndicator{
     
     var allocationHourPersistence = AllocationHoursCoreData(modelName: "AllocatedHoursCoreData")
     var allocationModel: AllocationModel?
-    
+    var stringHelper = StringColorChnage()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -201,7 +202,7 @@ extension NewRecordingViewController:UITableViewDelegate,UITableViewDataSource{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GenericTableviewDropdownCell") as? GenericTableviewDropdownCell else { fatalError("Textfield cell not found") }
             cell.selectionStyle = .none
             if  ((self.allocationDataViewModel?.allcationModelData.absence?.count ?? 0) - 1) == indexPath.row{
-                cell.descriptionLabel.text = "Add Absences"
+                cell.descriptionLabel.attributedText = stringHelper.conevrtToAttributedString(firstString:  "Add Absences", secondString: "", firstColor: .black, secondColor: .red)
                 cell.accessoryType = .disclosureIndicator
                 cell.cellTextField.placeholder = ""
                 cell.cellTextField.addTarget(self, action: #selector(absenceLookUpNavigating), for: .editingDidBegin)
