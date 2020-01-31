@@ -45,9 +45,9 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
         super.awakeFromNib()
         // Initialization code
         self.cellTextField.delegate = self
-//        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAllocatedDataToArray"), object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Notification.Name(rawValue: "addAllocatedDataToArray"), object: nil, queue: nil) { notification in
 //            var objectData:[AllocationModel] = notification.object as? [AllocationModel] ?? []
-//            if self.allocationData?.timeType != "",self.allocationData?.timeType != ""{
+//            if self.allocationData?.timeType != "",self.allocationData?.duration != ""{
 //              //  objectData.append(self.allocationData!)
 //                for (index,value) in objectData.enumerated(){
 //                    if value.timeType == "" || value.duration == ""{
@@ -65,7 +65,7 @@ class GenericTableviewDropdownCell: UITableViewCell,UITextFieldDelegate {
 //            }else{
 //                self.parent?.showAlert(message: "Please fill all the details")
 //            }
-//        }
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -124,11 +124,11 @@ extension GenericTableviewDropdownCell:UpdateData{
         self.allocationViewModel?.weekData = self.weekData
         
         for (index,value) in (self.allocationViewModel?.allcationModelData.alllocationModel?.enumerated())!{
-//            if value.timeType == "" || value.duration == "" || value.costCneter == ""{
+            if value.timeType == "" || value.duration == "" {
                 self.allocationViewModel?.allcationModelData.alllocationModel?.remove(at: index)
                self.allocationViewModel?.allocationData = self.allocationData
                 self.allocationViewModel?.allcationModelData.alllocationModel?.append(self.allocationData!)
-//            }
+            }
         }
         
         

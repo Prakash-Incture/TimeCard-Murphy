@@ -83,7 +83,9 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
            // self.allocationViewModel = AllocationDataViewModel(delegate: self)
             self.allocationViewModel?.allocationHourPersistence = self.allocationHourPersistence
             self.allocationViewModel?.addingWeekData(weekDays:notification)
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
             self.removeObserver()
         }
     }
@@ -533,8 +535,9 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
             }
            self.allocationViewModel?.allocationHourPersistence = self.allocationHourPersistence
             self.addingWeekData(weekDays:getResult)
+            self.allocationViewModel?.allcationModelData.weekData?.append(WeekSummary())
+
             DispatchQueue.main.async {
-                   self.allocationViewModel?.allcationModelData.weekData?.append(WeekSummary())
                          self.tableView.reloadData()
                      }
         }

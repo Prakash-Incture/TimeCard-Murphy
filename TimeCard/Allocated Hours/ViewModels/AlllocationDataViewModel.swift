@@ -22,11 +22,11 @@ class AllocationDataViewModel{
         }
     }
     var allcationModelData = AllocaitonData()
-//    {
-//        didSet{
-//            delegate?.didReceiveResponse()
-//        }
-//    }
+    {
+        didSet{
+            delegate?.didReceiveResponse()
+        }
+    }
     var weekData: WeekSummary?
     var absenceData:Absence?
     var timeTypeLookUpdata:TimeAndAbsenceLookUp?

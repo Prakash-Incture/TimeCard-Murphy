@@ -81,7 +81,7 @@ extension AllocatedTimeTableCell:UITableViewDataSource,UITableViewDelegate{
        }
     @objc func allocatedHoursAction(){
         self.updateData?(self.allocationDataArray ?? [])
-       // NotificationCenter.default.post(name: Notification.Name(rawValue: "addAllocatedDataToArray"), object:self.allocationDataArray)
+//        NotificationCenter.default.post(name: Notification.Name(rawValue: "addAllocatedDataToArray"), object:self.allocationDataArray)
         return
     }
 }
