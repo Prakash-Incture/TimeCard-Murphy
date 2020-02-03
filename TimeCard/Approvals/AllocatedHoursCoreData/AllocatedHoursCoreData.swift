@@ -59,7 +59,7 @@ class AllocationHoursCoreData: CoreDataProtocol{
     }
     
     // Remove offline object using unique id
-    func removePreviousDataWithUniqueId(fetchRequest: NSFetchRequest<NSFetchRequestResult>, predicate: NSPredicate?, uniqueId: Double = 0.0, isAbsence: Bool = false, absenceModel: Absence = Absence()) {
+    func removePreviousDataWithUniqueId(fetchRequest: NSFetchRequest<NSFetchRequestResult>, predicate: NSPredicate?, uniqueId: Double = 0.0, isUpdate: Bool = false, absenceModel: Absence = Absence()) {
         fetchRequest.predicate = predicate
         
         if let result = try? self.viewContext.fetch(fetchRequest) as? [AllocationOfflineData], !result.isEmpty {
@@ -74,10 +74,11 @@ class AllocationHoursCoreData: CoreDataProtocol{
                     }
                 }else{
                     let allocationObj = self.unarchiveAbsence(absenceData: dataObj)
-                    if isAbsence{
-                        if allocationObj.dateStart == absenceModel.dateStart && allocationObj.dateEnd == absenceModel.dateEnd{
-                            self.removeOldData(object: object as NSManagedObject)
+                    if isUpdate{
+                        if allocationObj.uniqueId == uniqueId{
+                            removeAbsenceModels(referenceData: allocationObj, offlineDatas: result)
                         }
+                        
                     }else{
                         if allocationObj.uniqueId == uniqueId{
                             self.removeOldData(object: object as NSManagedObject)
@@ -87,6 +88,18 @@ class AllocationHoursCoreData: CoreDataProtocol{
                 }
             }
         }
+    }
+    
+    func removeAbsenceModels(referenceData: Absence, offlineDatas: [AllocationOfflineData]) {
+        
+        for object in offlineDatas{
+            guard let dataObj = object.allocationModel else {return}
+            let allocationObj = self.unarchiveAbsence(absenceData: dataObj)
+            if allocationObj.dateStart == referenceData.dateStart && allocationObj.dateEnd == referenceData.dateEnd{
+                self.removeOldData(object: object as NSManagedObject)
+            }
+        }
+        return
     }
     
     func fetchAllFrequesntSeraches(with predicate: NSPredicate) -> [NSManagedObject] {

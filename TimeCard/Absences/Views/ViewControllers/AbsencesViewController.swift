@@ -86,13 +86,14 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
             // Update absence model in db
 //            updateOfflineModel(updatedData: self.absenceData)
             self.removeOldOfflineAbsences(updatedData: self.absenceData)
+            // After remove existing data save updated one
             self.saveOfflineData()
         }
        
     }
     
     func saveOfflineData() {
-        let absenceDates = Date.dates(from: self.absenceData.dateStart ?? Date(), to: self.absenceData.dateEnd ?? Date())
+        let absenceDates = Date.dates(from: self.absenceData.dateStart?.getUTCFormatDate() ?? Date(), to: self.absenceData.dateEnd?.getUTCFormatDate() ?? Date())
         for absenceDate in absenceDates{
             let dateFrom = (absenceDate as Date).getUTCFormatDate()
             
@@ -108,10 +109,11 @@ class AbsencesViewController: BaseViewController,SAPFioriLoadingIndicator {
         // Delete object from local array
         let dataObj = updatedData
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "AllocationOfflineData")
-        let predicate = NSPredicate(format: "date == %@ AND key == %@", (dataObj.selectedDate?.getUTCFormatDate() as NSDate?)!, "Absence")
+        let predicate = NSPredicate(format: "key == %@", "Absence")
         
         // Delete request for offline object
-        self.allocationHourPersistence.removePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, isAbsence: true, absenceModel: updatedData)
+        self.allocationHourPersistence.removePreviousDataWithUniqueId(fetchRequest: fetchRequest, predicate: predicate, uniqueId: updatedData.uniqueId ?? 0.0, isUpdate: true, absenceModel: updatedData)
+        
     }
     
 //    func updateOfflineModel(updatedData: Absence) {
