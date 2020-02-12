@@ -54,7 +54,18 @@ class ViewController: BaseViewController,SAPFioriLoadingIndicator {
         self.holidayCalenderApicalling()
 //        self.allocationViewModel?.fetchDayData()
         self.customNavigationType = .navWithBack
-      
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(appTermination(notification:)), name: UIApplication.willTerminateNotification, object: nil)
+    }
+    
+    @objc func appTermination(notification: NSNotification) {
+//        print(UserDefaults.standard.string(forKey: "Terminate") ?? "Error")
+        
+        print("App terminatted successfully")
+        
+//        UserDefaults.standard.set("Terminated", forKey: "Terminate")
+//        UserDefaults.standard.synchronize()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
