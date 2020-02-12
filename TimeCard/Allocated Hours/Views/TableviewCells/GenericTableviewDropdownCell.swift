@@ -103,7 +103,7 @@ extension GenericTableviewDropdownCell:UpdateData{
         self.allocationViewModel?.weekData = self.weekData
         
         for (index,value) in (self.allocationViewModel?.allcationModelData.alllocationModel?.enumerated())!{
-            if value.timeType == "" || value.duration == "" {
+            if value.timeType == "" || value.duration == "" || value.costCneter == ""{
                 self.allocationViewModel?.allcationModelData.alllocationModel?.remove(at: index)
                self.allocationViewModel?.allocationData = self.allocationData
                 self.allocationViewModel?.allcationModelData.alllocationModel?.append(self.allocationData!)
